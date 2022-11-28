@@ -1,4 +1,5 @@
-/* fib module */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  光纤模块 */ 
 export function fib(n)
 {
     if (n <= 0)

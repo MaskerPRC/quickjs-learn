@@ -1,26 +1,5 @@
-/*
- * Regular Expression Engine
- * 
- * Copyright (c) 2017-2018 Fabrice Bellard
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *正则表达式引擎**版权所有(C)2017-2018 Fabrice Bellard**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 #ifndef LIBREGEXP_H
 #define LIBREGEXP_H
 
@@ -28,7 +7,7 @@
 
 #include "libunicode.h"
 
-#define LRE_BOOL  int       /* for documentation purposes */
+#define LRE_BOOL  int       /*  用于文档编制。 */ 
 
 #define LRE_FLAG_GLOBAL     (1 << 0)
 #define LRE_FLAG_IGNORECASE (1 << 1)
@@ -37,7 +16,7 @@
 #define LRE_FLAG_UTF16      (1 << 4)
 #define LRE_FLAG_STICKY     (1 << 5)
 
-#define LRE_FLAG_NAMED_GROUPS (1 << 7) /* named groups are present in the regexp */
+#define LRE_FLAG_NAMED_GROUPS (1 << 7) /*  命名组出现在regexp中。 */ 
 
 uint8_t *lre_compile(int *plen, char *error_msg, int error_msg_size,
                      const char *buf, size_t buf_len, int re_flags,
@@ -51,11 +30,11 @@ int lre_exec(uint8_t **capture,
 int lre_parse_escape(const uint8_t **pp, int allow_utf16);
 LRE_BOOL lre_is_space(int c);
 
-/* must be provided by the user */
+/*  必须由用户提供。 */ 
 LRE_BOOL lre_check_stack_overflow(void *opaque, size_t alloca_size); 
 void *lre_realloc(void *opaque, void *ptr, size_t size);
 
-/* JS identifier test */
+/*  JS识别符测试。 */ 
 extern uint32_t const lre_id_start_table_ascii[4];
 extern uint32_t const lre_id_continue_table_ascii[4];
 
@@ -77,7 +56,7 @@ static inline int lre_js_is_ident_next(int c)
     if ((uint32_t)c < 128) {
         return (lre_id_continue_table_ascii[c >> 5] >> (c & 31)) & 1;
     } else {
-        /* ZWNJ and ZWJ are accepted in identifiers */
+        /*  在标识符中接受ZWNJ和ZWJ。 */ 
 #ifdef CONFIG_ALL_UNICODE
         return lre_is_id_continue(c) || c == 0x200C || c == 0x200D;
 #else
@@ -88,4 +67,4 @@ static inline int lre_js_is_ident_next(int c)
 
 #undef LRE_BOOL
 
-#endif /* LIBREGEXP_H */
+#endif /*  LIBREGEXP_H */ 

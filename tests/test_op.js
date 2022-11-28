@@ -1,3 +1,4 @@
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
 function assert(actual, expected, message) {
     if (arguments.length == 1)
         expected = true;
@@ -15,10 +16,10 @@ function assert(actual, expected, message) {
                 (message ? " (" + message + ")" : ""));
 }
 
-// load more elaborate version of assert if available
+//  加载更精细的Assert版本(如果可用)。
 try { __loadScript("test_assert.js"); } catch(e) {}
 
-/*----------------*/
+/*  。 */ 
 
 function test_op1()
 {
@@ -210,7 +211,7 @@ function test_delete()
     assert((delete a.x), true, "delete");
     assert(("x" in a), false, "delete");
     
-    /* the following are not tested by test262 */
+    /*  以下内容未通过test262测试。 */ 
     assert(delete "abc"[100], true);
 
     err = false;
@@ -301,7 +302,7 @@ function test_class()
     assert(o.z === 20);
     assert(o.h() === 1);
 
-    /* test class name scope */
+    /*  测试类名称范围 */ 
     var E1 = class E { static F() { return E; } };
     assert(E1 === E1.F());
 };

@@ -1,26 +1,5 @@
-/*
- * Linux klist like system
- * 
- * Copyright (c) 2016-2017 Fabrice Bellard
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *类似Linux klist的系统**版权所有(C)2016-2017 Fabrice Bellard**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 #ifndef LIST_H
 #define LIST_H
 
@@ -35,7 +14,7 @@ struct list_head {
 
 #define LIST_HEAD_INIT(el) { &(el), &(el) }
 
-/* return the pointer of type 'type *' containing 'el' as field 'member' */
+/*  返回‘type*’类型的指针，该指针包含‘el’作为字段‘Members’ */ 
 #define list_entry(el, type, member) \
     ((type *)((uint8_t *)(el) - offsetof(type, member)))
 
@@ -45,7 +24,7 @@ static inline void init_list_head(struct list_head *head)
     head->next = head;
 }
 
-/* insert 'el' between 'prev' and 'next' */
+/*  在“prev”和“Next”之间插入“el” */ 
 static inline void __list_add(struct list_head *el, 
                               struct list_head *prev, struct list_head *next)
 {
@@ -55,13 +34,13 @@ static inline void __list_add(struct list_head *el,
     next->prev = el;
 }
 
-/* add 'el' at the head of the list 'head' (= after element head) */
+/*  在列表‘head’的开头加上‘el’(=在元素head之后)。 */ 
 static inline void list_add(struct list_head *el, struct list_head *head)
 {
     __list_add(el, head, head->next);
 }
 
-/* add 'el' at the end of the list 'head' (= before element head) */
+/*  在列表‘Head’的末尾添加‘el’(=在元素Head之前)。 */ 
 static inline void list_add_tail(struct list_head *el, struct list_head *head)
 {
     __list_add(el, head->prev, head);
@@ -74,8 +53,8 @@ static inline void list_del(struct list_head *el)
     next = el->next;
     prev->next = next;
     next->prev = prev;
-    el->prev = NULL; /* fail safe */
-    el->next = NULL; /* fail safe */
+    el->prev = NULL; /*  故障安全。 */ 
+    el->next = NULL; /*  故障安全。 */ 
 }
 
 static inline int list_empty(struct list_head *el)
@@ -97,4 +76,4 @@ static inline int list_empty(struct list_head *el)
     for(el = (head)->prev, el1 = el->prev; el != (head); \
         el = el1, el1 = el->prev)
 
-#endif /* LIST_H */
+#endif /*  列表_H */ 

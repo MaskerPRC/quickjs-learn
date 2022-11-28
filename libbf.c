@@ -1,26 +1,5 @@
-/*
- * Tiny arbitrary precision floating point library
- * 
- * Copyright (c) 2017-2018 Fabrice Bellard
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *微小任意精度浮点库**版权所有(C)2017-2018 Fabrice Bellard**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 #include <stdlib.h>
 #include <stdio.h>
 #include <inttypes.h>
@@ -35,20 +14,20 @@
 #include "cutils.h"
 #include "libbf.h"
 
-/* enable it to check the multiplication result */
-//#define USE_MUL_CHECK
-/* enable it to use FFT/NTT multiplication */
+/*  使其能够检查乘法结果。 */ 
+//  #定义USE_MUL_CHECK。
+/*  使其能够使用FFT/NTT乘法。 */ 
 #define USE_FFT_MUL
 
-//#define inline __attribute__((always_inline))
+//  #定义内联__属性__((Always_Inline))。
 
 #ifdef __AVX2__
-#define FFT_MUL_THRESHOLD 100 /* in limbs of the smallest factor */
+#define FFT_MUL_THRESHOLD 100 /*  在四肢中的最小因素。 */ 
 #else
-#define FFT_MUL_THRESHOLD 100 /* in limbs of the smallest factor */
+#define FFT_MUL_THRESHOLD 100 /*  在四肢中的最小因素。 */ 
 #endif
 
-/* XXX: adjust */
+/*  XXX：调整。 */ 
 #define BASECASE_DIV_THRESHOLD_B 300
 #define BASECASE_DIV_THRESHOLD_Q 300
 
@@ -80,7 +59,7 @@ static no_inline void fft_mul(bf_t *res, limb_t *a_tab, limb_t a_len,
 static void fft_clear_cache(bf_context_t *s);
 #endif
 
-/* could leading zeros */
+/*  可以前导零吗。 */ 
 static inline int clz(limb_t a)
 {
     if (a == 0) {
@@ -151,7 +130,7 @@ void bf_context_end(bf_context_t *s)
     bf_clear_cache(s);
 }
 
-/* 'size' must be > 0 */
+/*  “Size”必须大于0。 */ 
 static void *bf_malloc(bf_context_t *s, size_t size)
 {
     return bf_realloc(s, NULL, size);
@@ -254,7 +233,7 @@ void bf_set(bf_t *r, const bf_t *a)
     memcpy(r->tab, a->tab, a->len * sizeof(limb_t));
 }
 
-/* equivalent to bf_set(r, a); bf_delete(a) */ 
+/*  等价于bf_set(r，a)；bf_Delete(A)。 */  
 void bf_move(bf_t *r, bf_t *a)
 {
     bf_context_t *s = r->ctx;
@@ -272,7 +251,7 @@ static limb_t get_limbz(const bf_t *a, limb_t idx)
         return a->tab[idx];
 }
 
-/* get LIMB_BITS at bit position 'pos' in tab */
+/*  在选项卡中获取位位置‘pos’处的Limb_Bits。 */ 
 static inline limb_t get_bits(const limb_t *tab, limb_t len, slimb_t pos)
 {
     limb_t i, a0, a1;
@@ -317,7 +296,7 @@ static inline limb_t limb_mask(int start, int last)
     return v;
 }
 
-/* return != 0 if one bit between 0 and bit_pos inclusive is not zero. */
+/*  如果0和bit_pos之间的一位不为零，则返回！=0。 */ 
 static inline limb_t scan_bit_nz(const bf_t *r, slimb_t bit_pos)
 {
     slimb_t pos;
@@ -338,7 +317,7 @@ static inline limb_t scan_bit_nz(const bf_t *r, slimb_t bit_pos)
     return 0;
 }
 
-/* return the addend for rounding. Note that prec can be <= 0 for bf_rint() */
+/*  返回四舍五入的加数。请注意，对于bf_rint()，prec可以&lt;=0。 */ 
 static int bf_get_rnd_add(int *pret, const bf_t *r, limb_t l,
                           slimb_t prec, int rnd_mode)
 {
@@ -346,13 +325,13 @@ static int bf_get_rnd_add(int *pret, const bf_t *r, limb_t l,
     limb_t bit1, bit0;
     
     if (rnd_mode == BF_RNDF) {
-        bit0 = 1; /* faithful rounding does not honor the INEXACT flag */
+        bit0 = 1; /*  忠实的四舍五入不尊重不准确的旗帜。 */ 
     } else {
-        /* starting limb for bit 'prec + 1' */
+        /*  钻头‘prec+1’的起始支腿。 */ 
         bit0 = scan_bit_nz(r, l * LIMB_BITS - 1 - bf_max(0, prec + 1));
     }
 
-    /* get the bit at 'prec' */
+    /*  从“prec”得到这一点。 */ 
     bit1 = get_bit(r->tab, l, l * LIMB_BITS - 1 - prec);
     inexact = (bit1 | bit0) != 0;
     
@@ -365,7 +344,7 @@ static int bf_get_rnd_add(int *pret, const bf_t *r, limb_t l,
             if (bit0) {
                 add_one = 1;
             } else {
-                /* round to even */
+                /*  四舍五入为偶数。 */ 
                 add_one =
                     get_bit(r->tab, l, l * LIMB_BITS - 1 - (prec - 1));
             }
@@ -411,7 +390,7 @@ static int bf_set_overflow(bf_t *r, int sign, limb_t prec, bf_flags_t flags)
         (rnd_mode == BF_RNDU && sign == 0)) {
         bf_set_inf(r, sign);
     } else {
-        /* set to maximum finite number */
+        /*  设置为最大有限数量。 */ 
         l = (prec + LIMB_BITS - 1) / LIMB_BITS;
         bf_resize(r, l);
         r->tab[0] = limb_mask((-prec) & (LIMB_BITS - 1),
@@ -425,29 +404,26 @@ static int bf_set_overflow(bf_t *r, int sign, limb_t prec, bf_flags_t flags)
     return BF_ST_OVERFLOW | BF_ST_INEXACT;
 }
 
-/* round to prec1 bits assuming 'r' is non zero and finite. 'r' is
-   assumed to have length 'l'. Note: 'prec1' can be negative or
-   infinite (BF_PREC_INF). */
+/*  假设‘r’非零且有限，则四舍五入为前1位。“R”是假定长度为‘l’。注意：‘pr1’可以是负数，也可以是无限(BF_PREC_INF)。 */ 
 static int __bf_round(bf_t *r, limb_t prec1, bf_flags_t flags, limb_t l)
 {
     limb_t v, a;
     int shift, add_one, ret, rnd_mode;
     slimb_t i, bit_pos, pos, e_min, e_max, e_range, prec;
 
-    /* e_min and e_max are computed to match the IEEE 754 conventions */
+    /*  计算e_min和e_max以匹配IEEE 754约定。 */ 
     e_range = (limb_t)1 << (bf_get_exp_bits(flags) - 1);
     e_min = -e_range + 3;
     e_max = e_range;
     
     if (unlikely(r->expn < e_min) && (flags & BF_FLAG_SUBNORMAL)) {
-        /* restrict the precision in case of potentially subnormal
-           result */
+        /*  在可能出现不正常的情况下限制精度结果。 */ 
         prec = prec1 - (e_min - r->expn);
     } else {
         prec = prec1;
     }
     
-    /* round to prec bits */
+    /*  四舍五入至前置位。 */ 
     rnd_mode = flags & BF_RND_MASK;
     ret = 0;
     add_one = bf_get_rnd_add(&ret, r, l, prec, rnd_mode);
@@ -465,7 +441,7 @@ static int __bf_round(bf_t *r, limb_t prec1, bf_flags_t flags, limb_t l)
     } else if (add_one) {
         limb_t carry;
         
-        /* add one starting at digit 'prec - 1' */
+        /*  从数字‘prec-1’开始加1。 */ 
         bit_pos = l * LIMB_BITS - 1 - (prec - 1);
         pos = bit_pos >> LIMB_LOG2_BITS;
         carry = (limb_t)1 << (bit_pos & (LIMB_BITS - 1));
@@ -478,7 +454,7 @@ static int __bf_round(bf_t *r, limb_t prec1, bf_flags_t flags, limb_t l)
                 break;
         }
         if (carry) {
-            /* shift right by one digit */
+            /*  右移一位数。 */ 
             v = 1;
             for(i = l - 1; i >= pos; i--) {
                 a = r->tab[i];
@@ -489,10 +465,10 @@ static int __bf_round(bf_t *r, limb_t prec1, bf_flags_t flags, limb_t l)
         }
     }
     
-    /* check underflow */
+    /*  检查下溢。 */ 
     if (unlikely(r->expn < e_min)) {
         if (flags & BF_FLAG_SUBNORMAL) {
-            /* if inexact, also set the underflow flag */
+            /*  如果不准确，还要设置下溢标志。 */ 
             if (ret & BF_ST_INEXACT)
                 ret |= BF_ST_UNDERFLOW;
         } else {
@@ -503,11 +479,11 @@ static int __bf_round(bf_t *r, limb_t prec1, bf_flags_t flags, limb_t l)
         }
     }
     
-    /* check overflow */
+    /*  检查溢出。 */ 
     if (unlikely(r->expn > e_max))
         return bf_set_overflow(r, r->sign, prec1, flags);
     
-    /* keep the bits starting at 'prec - 1' */
+    /*  保持位从‘prec-1’开始。 */ 
     bit_pos = l * LIMB_BITS - 1 - (prec - 1);
     i = bit_pos >> LIMB_LOG2_BITS;
     if (i >= 0) {
@@ -517,7 +493,7 @@ static int __bf_round(bf_t *r, limb_t prec1, bf_flags_t flags, limb_t l)
     } else {
         i = 0;
     }
-    /* remove trailing zeros */
+    /*  删除尾随零。 */ 
     while (r->tab[i] == 0)
         i++;
     if (i > 0) {
@@ -528,25 +504,25 @@ static int __bf_round(bf_t *r, limb_t prec1, bf_flags_t flags, limb_t l)
     return ret;
 }
 
-/* 'r' must be a finite number */
+/*  “R”必须是有限数字。 */ 
 int bf_normalize_and_round(bf_t *r, limb_t prec1, bf_flags_t flags)
 {
     limb_t l, v, a;
     int shift, ret;
     slimb_t i;
     
-    //    bf_print_str("bf_renorm", r);
+    //  Bf_print_str(“bf_renorm”，r)；
     l = r->len;
     while (l > 0 && r->tab[l - 1] == 0)
         l--;
     if (l == 0) {
-        /* zero */
+        /*  零。 */ 
         r->expn = BF_EXP_ZERO;
         bf_resize(r, 0);
         ret = 0;
     } else {
         r->expn -= (r->len - l) * LIMB_BITS;
-        /* shift to have the MSB set to '1' */
+        /*  Shift将MSB设置为“1” */ 
         v = r->tab[l - 1];
         shift = clz(v);
         if (shift != 0) {
@@ -560,14 +536,12 @@ int bf_normalize_and_round(bf_t *r, limb_t prec1, bf_flags_t flags)
         }
         ret = __bf_round(r, prec1, flags, l);
     }
-    //    bf_print_str("r_final", r);
+    //  Bf_print_str(“r_final”，r)；
     return ret;
 }
 
-/* return true if rounding can be done at precision 'prec' assuming
-   the exact result r is such that |r-a| <= 2^(EXP(a)-k). */
-/* XXX: check the case where the exponent would be incremented by the
-   rounding */
+/*  如果可以以精度‘prec’进行舍入，则返回TRUE精确的结果r是这样的：|r-a|&lt;=2^(exp(A)-k)。 */ 
+/*  XXX：检查指数将按舍入。 */ 
 int bf_can_round(const bf_t *a, slimb_t prec, bf_rnd_t rnd_mode, slimb_t k)
 {
     BOOL is_rndn;
@@ -587,14 +561,12 @@ int bf_can_round(const bf_t *a, slimb_t prec, bf_rnd_t rnd_mode, slimb_t k)
         return FALSE;
     bit_pos = a->len * LIMB_BITS - 1 - prec;
     n = k - prec;
-    /* bit pattern for RNDN or RNDNA: 0111.. or 1000...
-       for other rounding modes: 000... or 111... 
-    */
+    /*  RNDN或RNDNA的位模式：0111.。或者1000……其他四舍五入模式：000...。或者111...。 */ 
     bit = get_bit(a->tab, a->len, bit_pos);
     bit_pos--;
     n--;
     bit ^= is_rndn;
-    /* XXX: slow, but a few iterations on average */
+    /*  XXX：速度较慢，但平均迭代次数较少。 */ 
     while (n != 0) {
         if (get_bit(a->tab, a->len, bit_pos) != bit)
             return TRUE;
@@ -611,7 +583,7 @@ int bf_round(bf_t *r, limb_t prec, bf_flags_t flags)
     return __bf_round(r, prec, flags, r->len);
 }
 
-/* for debugging */
+/*  用于调试。 */ 
 static __maybe_unused void dump_limbs(const char *str, const limb_t *tab, limb_t n)
 {
     limb_t i;
@@ -622,7 +594,7 @@ static __maybe_unused void dump_limbs(const char *str, const limb_t *tab, limb_t
     }
 }
 
-/* for debugging */
+/*  用于调试。 */ 
 void bf_print_str(const char *str, const bf_t *a)
 {
     slimb_t i;
@@ -647,8 +619,7 @@ void bf_print_str(const char *str, const bf_t *a)
     printf("\n");
 }
 
-/* compare the absolute value of 'a' and 'b'. Return < 0 if a < b, 0
-   if a = b and > 0 otherwise. */
+/*  比较a和b的绝对值。如果a&lt;b，0则返回&lt;0如果a=b，则&gt;0，否则。 */ 
 int bf_cmpu(const bf_t *a, const bf_t *b)
 {
     slimb_t i;
@@ -674,7 +645,7 @@ int bf_cmpu(const bf_t *a, const bf_t *b)
     return 0;
 }
 
-/* Full order: -0 < 0, NaN == NaN and NaN is larger than all other numbers */
+/*  完整顺序：-0&lt;0，NaN==NaN且NaN大于所有其他数字。 */ 
 int bf_cmp_full(const bf_t *a, const bf_t *b)
 {
     int res;
@@ -743,15 +714,7 @@ int bf_cmp_lt(const bf_t *a, const bf_t *b)
     return bf_cmp(a, b, BF_CMP_LT);
 }
 
-/* Compute the number of bits 'n' matching the pattern:
-   a= X1000..0
-   b= X0111..1
-              
-   When computing a-b, the result will have at least n leading zero
-   bits.
-
-   Precondition: a > b and a.expn - b.expn = 0 or 1
-*/
+/*  计算与该模式匹配的位数‘n’：A=x1000..0B=X0111..1在计算a-b时，结果将至少有n个前导零比特。前提条件：a&gt;b和a.expn-b.expn=0或1。 */ 
 static limb_t count_cancelled_bits(const bf_t *a, const bf_t *b)
 {
     slimb_t bit_offset, b_offset, n;
@@ -763,23 +726,23 @@ static limb_t count_cancelled_bits(const bf_t *a, const bf_t *b)
         a->expn - b->expn;
     n = 0;
 
-    /* first search the equals bits */
+    /*  首先搜索等于位。 */ 
     for(;;) {
         v1 = get_limbz(a, bit_offset >> LIMB_LOG2_BITS);
         v2 = get_bits(b->tab, b->len, bit_offset + b_offset);
-        //        printf("v1=" FMT_LIMB " v2=" FMT_LIMB "\n", v1, v2);
+        //  Printf(“v1=”fmt_Limb“v2=”fmt_Limb“\n”，v1，v2)；
         if (v1 != v2)
             break;
         n += LIMB_BITS;
         bit_offset -= LIMB_BITS;
     }
-    /* find the position of the first different bit */
+    /*  找到第一个不同位的位置。 */ 
     p = clz(v1 ^ v2) + 1;
     n += p;
-    /* then search for '0' in a and '1' in b */
+    /*  然后在a中搜索“0”，在b中搜索“1” */ 
     p = LIMB_BITS - p;
     if (p > 0) {
-        /* search in the trailing p bits of v1 and v2 */
+        /*  在v1和v2的尾随p位中搜索。 */ 
         mask = limb_mask(0, p - 1);
         p1 = bf_min(clz(v1 & mask), clz((~v2) & mask)) - (LIMB_BITS - p);
         n += p1;
@@ -790,9 +753,9 @@ static limb_t count_cancelled_bits(const bf_t *a, const bf_t *b)
     for(;;) {
         v1 = get_limbz(a, bit_offset >> LIMB_LOG2_BITS);
         v2 = get_bits(b->tab, b->len, bit_offset + b_offset);
-        //        printf("v1=" FMT_LIMB " v2=" FMT_LIMB "\n", v1, v2);
+        //  Printf(“v1=”fmt_Limb“v2=”fmt_Limb“\n”，v1，v2)；
         if (v1 != 0 || v2 != -1) {
-            /* different: count the matching bits */
+            /*  不同：计算匹配的位数。 */ 
             p1 = bf_min(clz(v1), clz(~v2));
             n += p1;
             break;
@@ -818,28 +781,28 @@ static int bf_add_internal(bf_t *r, const bf_t *a, const bf_t *b, limb_t prec,
         tmp = a;
         a = b;
         b = tmp;
-        a_sign = b_sign; /* b_sign is never used later */
+        a_sign = b_sign; /*  以后再也不使用B_SIGN。 */ 
     }
-    /* abs(a) >= abs(b) */
+    /*  ABS(A)&gt;=abs(B)。 */ 
     if (cmp_res == 0 && is_sub && a->expn < BF_EXP_INF) {
-        /* zero result */
+        /*  零结果。 */ 
         bf_set_zero(r, (flags & BF_RND_MASK) == BF_RNDD);
         ret = 0;
     } else if (a->len == 0 || b->len == 0) {
         ret = 0;
         if (a->expn >= BF_EXP_INF) {
             if (a->expn == BF_EXP_NAN) {
-                /* at least one operand is NaN */
+                /*  至少有一个操作数为NaN。 */ 
                 bf_set_nan(r);
             } else if (b->expn == BF_EXP_INF && is_sub) {
-                /* infinities with different signs */
+                /*  符号不同的无穷大。 */ 
                 bf_set_nan(r);
                 ret = BF_ST_INVALID_OP;
             } else {
                 bf_set_inf(r, a_sign);
             }
         } else {
-            /* at least one zero and not subtract */
+            /*  至少一个零且不减法。 */ 
             bf_set(r, a);
             r->sign = a_sign;
             goto renorm;
@@ -851,8 +814,7 @@ static int bf_add_internal(bf_t *r, const bf_t *a, const bf_t *b, limb_t prec,
         r->sign = a_sign;
         r->expn = a->expn;
         d = a->expn - b->expn;
-        /* must add more precision for the leading cancelled bits in
-           subtraction */
+        /*  必须为中的前导取消位添加更多精度减法。 */ 
         if (is_sub) {
             if (d <= 1)
                 cancelled_bits = count_cancelled_bits(a, b);
@@ -862,7 +824,7 @@ static int bf_add_internal(bf_t *r, const bf_t *a, const bf_t *b, limb_t prec,
             cancelled_bits = 0;
         }
         
-        /* add two extra bits for rounding */
+        /*  增加两个额外的位进行四舍五入。 */ 
         precl = (cancelled_bits + prec + 2 + LIMB_BITS - 1) / LIMB_BITS;
         tot_len = bf_max(a->len, b->len + (d + LIMB_BITS - 1) / LIMB_BITS);
         r_len = bf_min(precl, tot_len);
@@ -870,7 +832,7 @@ static int bf_add_internal(bf_t *r, const bf_t *a, const bf_t *b, limb_t prec,
         a_offset = a->len - r_len;
         b_bit_offset = (b->len - r_len) * LIMB_BITS + d;
 
-        /* compute the bits before for the rounding */
+        /*  计算舍入之前的位数。 */ 
         carry = is_sub;
         z = 0;
         sub_mask = -is_sub;
@@ -895,16 +857,11 @@ static int bf_add_internal(bf_t *r, const bf_t *a, const bf_t *b, limb_t prec,
                 v2 = 0;
             }
             if (!inflag) {
-                /* outside 'a' and 'b': go directly to the next value
-                   inside a or b so that the running time does not
-                   depend on the exponent difference */
+                /*  在‘a’和‘b’之外：直接转到下一个值在a或b内，因此运行时间不会取决于指数差。 */ 
                 i = 0;
                 if (ap < 0)
                     i = bf_min(i, -a_offset);
-                /* b_bit_offset + i * LIMB_BITS + LIMB_BITS >= 1
-                   equivalent to 
-                   i >= ceil(-b_bit_offset + 1 - LIMB_BITS) / LIMB_BITS)
-                */
+                /*  B_Bit_Offset+I*Limb_Bits+Limb_Bits&gt;=1相当于I&gt;=单元(-b_位偏移量+1-肢体位)/肢体位)。 */ 
                 if (bp + LIMB_BITS <= 0)
                     i = bf_min(i, (-b_bit_offset) >> LIMB_LOG2_BITS);
             } else {
@@ -917,7 +874,7 @@ static int bf_add_internal(bf_t *r, const bf_t *a, const bf_t *b, limb_t prec,
             carry = (u < carry) | carry1;
             z |= u;
         }
-        /* and the result */
+        /*  而结果是。 */ 
         for(i = 0; i < r_len; i++) {
             v1 = get_limbz(a, a_offset + i);
             v2 = get_bits(b->tab, b->len, b_bit_offset + i * LIMB_BITS);
@@ -928,10 +885,10 @@ static int bf_add_internal(bf_t *r, const bf_t *a, const bf_t *b, limb_t prec,
             carry = (u < carry) | carry1;
             r->tab[i] = u;
         }
-        /* set the extra bits for the rounding */
+        /*  设置用于舍入的额外位。 */ 
         r->tab[0] |= (z != 0);
 
-        /* carry is only possible in add case */
+        /*  进位仅在加法大小写中可用。 */ 
         if (!is_sub && carry) {
             bf_resize(r, r_len + 1);
             r->tab[r_len] = 1;
@@ -973,7 +930,7 @@ static limb_t mp_add(limb_t *res, const limb_t *op1, const limb_t *op2,
     return k;
 }
 
-/* tabr[] += taba[] * b, return the high word. */
+/*  Tabr[]+=Taba[]*b，返回高位字。 */ 
 static limb_t mp_add_mul1(limb_t *tabr, const limb_t *taba, limb_t n,
                               limb_t b)
 {
@@ -989,8 +946,7 @@ static limb_t mp_add_mul1(limb_t *tabr, const limb_t *taba, limb_t n,
     return l;
 }
 
-/* tabr[] -= taba[] * b. Return the value to substract to the high
-   word. */
+/*  Tabr[]-=Taba[]*b.返回要减去的值到最高单词。 */ 
 static limb_t mp_sub_mul1(limb_t *tabr, const limb_t *taba, limb_t n,
                           limb_t b)
 {
@@ -1006,7 +962,7 @@ static limb_t mp_sub_mul1(limb_t *tabr, const limb_t *taba, limb_t n,
     return l;
 }
 
-/* WARNING: d must be >= 2^(LIMB_BITS-1) */
+/*  警告：D必须&gt;=2^(Limb_Bits-1)。 */ 
 static inline limb_t udiv1norm_init(limb_t d)
 {
     limb_t a0, a1;
@@ -1015,8 +971,7 @@ static inline limb_t udiv1norm_init(limb_t d)
     return (((dlimb_t)a1 << LIMB_BITS) | a0) / d;
 }
 
-/* return the quotient and the remainder in '*pr'of 'a1*2^LIMB_BITS+a0
-   / d' with 0 <= a1 < d. */
+/*  返回商和‘a1*2^Limb_bit+a0的’*pr‘中的余数/d‘，其中0&lt;=a1&lt;d。 */ 
 static inline limb_t udiv1norm(limb_t *pr, limb_t a1, limb_t a0,
                                 limb_t d, limb_t d_inv)
 {
@@ -1026,8 +981,7 @@ static inline limb_t udiv1norm(limb_t *pr, limb_t a1, limb_t a0,
     n_adj = a0 + (n1m & d);
     a = (dlimb_t)d_inv * (a1 - n1m) + n_adj;
     q = (a >> LIMB_BITS) + a1;
-    /* compute a - q * r and update q so that the remainder is\
-       between 0 and d - 1 */
+    /*  计算a-q*r并更新q，使余数为\介于0和d-1之间。 */ 
     a = ((dlimb_t)a1 << LIMB_BITS) | a0;
     a = a - (dlimb_t)q * d - d;
     ah = a >> LIMB_BITS;
@@ -1037,7 +991,7 @@ static inline limb_t udiv1norm(limb_t *pr, limb_t a1, limb_t a0,
     return q;
 }
 
-/* b must be >= 1 << (LIMB_BITS - 1) */
+/*  B必须&gt;=1&lt;&lt;(肢体_位-1)。 */ 
 static limb_t mp_div1norm(limb_t *tabr, const limb_t *taba, limb_t n,
                           limb_t b, limb_t r)
 {
@@ -1060,10 +1014,7 @@ static limb_t mp_div1norm(limb_t *tabr, const limb_t *taba, limb_t n,
     return r;
 }
 
-/* base case division: divides taba[0..na-1] by tabb[0..nb-1]. tabb[nb
-   - 1] must be >= 1 << (LIMB_BITS - 1). na - nb must be >= 0. 'taba'
-   is modified and contains the remainder (nb limbs). tabq[0..na-nb]
-   contains the quotient. taba[na] is modified. */
+/*  基本大小写除法：将Taba[0..na-1]除以Tabb[0..nb-1]。制表符，制表符]必须是&gt;=1&lt;&lt;(Limb_Bits-1)。NA-Nb必须&gt;=0。‘Taba’被修改，并包含剩余部分(nb肢体)。Tabq[0..na-nb]包含商。Taba[NA]被修饰。 */ 
 static void mp_divnorm(limb_t *tabq, 
                        limb_t *taba, limb_t na, 
                        const limb_t *tabb, limb_t nb)
@@ -1083,7 +1034,7 @@ static void mp_divnorm(limb_t *tabq,
     else
         b1_inv = 0;
 
-    /* XXX: could simplify the first iteration */
+    /*  XXX：可以简化第一次迭代。 */ 
     for(i = n; i >= 0; i--) {
         if (unlikely(taba[i + nb] >= b1)) {
             q = -1;
@@ -1103,11 +1054,11 @@ static void mp_divnorm(limb_t *tabq,
         taba[i + nb] = a;
 
         if (c != 0) {
-            /* negative result */
+            /*  负面结果。 */ 
             for(;;) {
                 q--;
                 c = mp_add(taba + i, taba + i, tabb, nb, 0);
-                /* propagate carry and test if positive result */
+                /*  传播进位并测试结果是否为阳性。 */ 
                 if (c != 0) {
                     if (++taba[i + nb] == 0) {
                         break;
@@ -1131,7 +1082,7 @@ int bf_mul(bf_t *r, const bf_t *a, const bf_t *b, limb_t prec,
         b = tmp;
     }
     r_sign = a->sign ^ b->sign;
-    /* here b->len <= a->len */
+    /*  在这里，b-&gt;len&lt; */ 
     if (b->len == 0) {
         if (a->expn == BF_EXP_NAN || b->expn == BF_EXP_NAN) {
             bf_set_nan(r);
@@ -1158,7 +1109,7 @@ int bf_mul(bf_t *r, const bf_t *a, const bf_t *b, limb_t prec,
         b_len = b->len;
         
         if ((flags & BF_RND_MASK) == BF_RNDF) {
-            /* faithful rounding does not require using the full inputs */
+            /*   */ 
             precl = (prec + 2 + LIMB_BITS - 1) / LIMB_BITS;
             a_len = bf_min(a_len, precl);
             b_len = bf_min(b_len, precl);
@@ -1198,7 +1149,7 @@ int bf_mul(bf_t *r, const bf_t *a, const bf_t *b, limb_t prec,
     return ret;
 }
 
-/* multiply 'r' by 2^e */
+/*   */ 
 int bf_mul_2exp(bf_t *r, slimb_t e, limb_t prec, bf_flags_t flags)
 {
     slimb_t e_max;
@@ -1220,11 +1171,11 @@ static void bf_recip_rec(bf_t *a, const bf_t *x, limb_t prec1)
 
     if (prec1 <= LIMB_BITS - 3) {
         limb_t v;
-        /* initial approximation */
+        /*  初始近似。 */ 
         v = x->tab[x->len - 1];
-        /* 2^(L-1) <= v <= 2^L-1 (L=LIMB_BITS) */
+        /*  2^(L-1)&lt;=v&lt;=2^L-1(L=肢体比特)。 */ 
         v = ((dlimb_t)1 << (2 * LIMB_BITS - 2)) / v;
-        /* 2^(L-2) <= v <= 2^(L-1) */
+        /*  2^(L-2)&lt;=v&lt;=2^(L-1)。 */ 
         bf_resize(a, 1);
         a->sign = x->sign;
         a->expn = 2 - x->expn;
@@ -1236,22 +1187,22 @@ static void bf_recip_rec(bf_t *a, const bf_t *x, limb_t prec1)
         }
         a->tab[0] &= limb_mask(LIMB_BITS - prec1, LIMB_BITS - 1);
     } else {
-        /* XXX: prove the added precision */
+        /*  XXX：证明增加的精度。 */ 
         bf_recip_rec(a, x, (prec1 / 2) + 8);
         prec = prec1 + 8;
 
-        /* a = a + a * (1 - x * a) */
+        /*  A=a+a*(1-x*a)。 */ 
         bf_mul(&t0, x, a, prec, BF_RNDF);
         t0.sign ^= 1;
         bf_add_si(&t0, &t0, 1, prec, BF_RNDF);
         bf_mul(&t0, &t0, a, prec, BF_RNDF);
         bf_add(a, a, &t0, prec1, BF_RNDF);
     }
-    //    bf_print_str("r", a);
+    //  Bf_print_str(“r”，a)；
     bf_delete(&t0);
 }
 
-/* Note: only faithful rounding is supported */
+/*  注：仅支持忠实舍入。 */ 
 void bf_recip(bf_t *r, const bf_t *a, limb_t prec)
 {
     assert(r != a);
@@ -1264,12 +1215,12 @@ void bf_recip(bf_t *r, const bf_t *a, limb_t prec)
             bf_set_inf(r, a->sign);
         }
     } else {
-        //        bf_print_str("a", a);
+        //  Bf_print_str(“a”，a)；
         bf_recip_rec(r, a, prec);
     }
 }
 
-/* add zero limbs if necessary to have at least precl limbs */
+/*  如有必要，可添加零个肢体，以使其至少具有前肢。 */ 
 static void bf_add_zero_limbs(bf_t *r, limb_t precl)
 {
     limb_t l = r->len;
@@ -1281,15 +1232,14 @@ static void bf_add_zero_limbs(bf_t *r, limb_t precl)
     }
 }
 
-/* set a bit to 1 at bit position >= (precl * LIMB_BITS - 1) */
+/*  在位位置&gt;=(PRCL*LIMP_BITS-1)将位设置为1。 */ 
 static void bf_or_one(bf_t *r, limb_t precl)
 {
     bf_add_zero_limbs(r, precl);
     r->tab[0] |= 1;
 }
 
-/* Return e such as a=m*2^e with m odd integer. return 0 if a is zero,
-   Infinite or Nan. */
+/*  返回e，如a=m*2^e，m为奇数。如果a为零，则返回0，无限大或南。 */ 
 slimb_t bf_get_exp_min(const bf_t *a)
 {
     slimb_t i;
@@ -1306,8 +1256,7 @@ slimb_t bf_get_exp_min(const bf_t *a)
     return 0;
 }
 
-/* a and b must be finite numbers with a >= 0 and b > 0. 'q' is the
-   integer defined as floor(a/b) and r = a - q * b. */
+/*  A和b必须是a&gt;=0和b&gt;0的有限数。“Q”是定义为下限(a/b)且r=a-q*b的整数。 */ 
 static void bf_tdivremu(bf_t *q, bf_t *r,
                         const bf_t *a, const bf_t *b)
 {
@@ -1315,8 +1264,7 @@ static void bf_tdivremu(bf_t *q, bf_t *r,
         bf_set_ui(q, 0);
         bf_set(r, a);
     } else {
-        /* for large numbers, use the floating point division in
-           faithful mode */
+        /*  对于大数，请使用忠实模式。 */ 
         bf_div(q, a, b, bf_max(a->expn - b->expn + 1, 2), BF_RNDF);
         bf_rint(q, BF_PREC_INF, BF_RNDZ);
         bf_mul(r, q, b, BF_PREC_INF, BF_RNDN);
@@ -1362,7 +1310,7 @@ static int __bf_div(bf_t *r, const bf_t *a, const bf_t *b, limb_t prec,
         return BF_ST_DIVIDE_ZERO;
     }
 
-    /* number of limbs of the quotient (2 extra bits for rounding) */
+    /*  商的支数(2个额外的四舍五入位)。 */ 
     precl = (prec + 2 + LIMB_BITS - 1) / LIMB_BITS;
     nb = b->len;
     n = bf_max(a->len, precl);
@@ -1380,7 +1328,7 @@ static int __bf_div(bf_t *r, const bf_t *a, const bf_t *b, limb_t prec,
         bf_resize(r, n + 1);
         mp_divnorm(r->tab, taba, na, b->tab, nb);
         
-        /* see if non zero remainder */
+        /*  看看非零余数是否。 */ 
         for(i = 0; i < nb; i++) {
             if (taba[i] != 0) {
                 r->tab[0] |= 1;
@@ -1402,8 +1350,7 @@ static int __bf_div(bf_t *r, const bf_t *a, const bf_t *b, limb_t prec,
         bf_t b1_s, *b1 = &b1_s;
         bf_t rem_s, *rem = &rem_s;
         
-        /* convert the mantissa of 'a' and 'b' to integers and generate
-           a quotient with at least prec + 2 bits */
+        /*  将‘a’和‘b’的尾数转换为整数并生成至少具有prec+2位的商。 */ 
         a1->expn = (n + nb) * LIMB_BITS;
         a1->tab = a->tab;
         a1->len = a->len;
@@ -1416,7 +1363,7 @@ static int __bf_div(bf_t *r, const bf_t *a, const bf_t *b, limb_t prec,
 
         bf_init(r->ctx, rem);
         bf_tdivremu(r, rem, a1, b1);
-        /* the remainder is not zero: put it in the rounding bits */
+        /*  余数不是零：放在四舍五入位中。 */ 
         if (rem->len != 0) {
             bf_or_one(r, precl);
         }
@@ -1428,14 +1375,7 @@ static int __bf_div(bf_t *r, const bf_t *a, const bf_t *b, limb_t prec,
     return ret;
 }
 
-/* division and remainder. 
-   
-   rnd_mode is the rounding mode for the quotient. The additional
-   rounding mode BF_RND_EUCLIDIAN is supported.
-
-   'q' is an integer. 'r' is rounded with prec and flags (prec can be
-   BF_PREC_INF).
-*/
+/*  除法和余数。RND_MODE是商的舍入模式。附加的支持四舍五入模式BF_RND_Euclidian。“q”是一个整数。“R”用prec和标志四舍五入(prec可以是BF_PREC_INF)。 */ 
 int bf_divrem(bf_t *q, bf_t *r, const bf_t *a, const bf_t *b,
               limb_t prec, bf_flags_t flags, int rnd_mode)
 {
@@ -1482,7 +1422,7 @@ int bf_divrem(bf_t *q, bf_t *r, const bf_t *a, const bf_t *b,
         is_ceil = a->sign;
         break;
     case BF_RNDNU:
-        /* XXX: unsupported yet */
+        /*  XXX：尚不支持。 */ 
         abort();
     }
 
@@ -1496,7 +1436,7 @@ int bf_divrem(bf_t *q, bf_t *r, const bf_t *a, const bf_t *b,
     b1->len = b->len;
     b1->sign = 0;
 
-    /* XXX: could improve to avoid having a large 'q' */
+    /*  XXX：可以改进以避免出现较大的‘Q’ */ 
     bf_tdivremu(q, r, a1, b1);
 
     if (r->len != 0) {
@@ -1590,7 +1530,7 @@ static limb_t mp_mod1(const limb_t *tab, limb_t n, limb_t m, limb_t r)
 }
 #endif
 
-/* (128.0 / sqrt((i + 64) / 256)) & 0xff */
+/*  (128.0/SQRT((i+64)/256))&0xff。 */ 
 static const uint8_t rsqrt_table[192] = {
   0,254,252,250,248,247,245,243,241,240,238,236,235,233,232,230,
 229,228,226,225,223,222,221,220,218,217,216,215,214,212,211,210,
@@ -1614,7 +1554,7 @@ static void __bf_rsqrt(bf_t *a, const bf_t *x, limb_t prec1)
     if (prec1 <= 7) {
         slimb_t e;
         limb_t v;
-        /* initial approximation using 8 mantissa bits */
+        /*  使用8个尾数位的初始逼近。 */ 
         v = x->tab[x->len - 1];
         e = x->expn;
         if (e & 1) {
@@ -1624,7 +1564,7 @@ static void __bf_rsqrt(bf_t *a, const bf_t *x, limb_t prec1)
         v = rsqrt_table[(v >> (LIMB_BITS - 8)) - 64];
         e = 1 - (e / 2);
         if (v == 0) {
-            v = 128; /* real table value is 256 */
+            v = 128; /*  实际表值为256。 */ 
             e++;
         }
         bf_resize(a, 1);
@@ -1633,12 +1573,12 @@ static void __bf_rsqrt(bf_t *a, const bf_t *x, limb_t prec1)
         a->expn = e;
         a->sign = 0;
     } else {
-        /* XXX: prove rounding */
+        /*  XXX：证明舍入。 */ 
         __bf_rsqrt(a, x, (prec1 / 2) + 2);
 
         prec = prec1 + 3;
 
-        /* x' = x + (x/2) * (1 - a * x^2) */
+        /*  X‘=x+(x/2)*(1-a*x^2)。 */ 
         bf_init(a->ctx, &t0);
 
         bf_mul(&t0, a, a, prec, BF_RNDF);
@@ -1660,11 +1600,11 @@ static int __bf_sqrt(bf_t *x, const bf_t *a, limb_t prec1, bf_flags_t flags)
     limb_t prec;
     int ret;
     
-    /* XXX: prove rounding */
+    /*  XXX：证明舍入。 */ 
     __bf_rsqrt(x, a, (prec1 / 2) + 2);
     prec = prec1 + 3;
 
-    /* x' = a * x + (x/2) * (a - (a * x)^2) */
+    /*  X‘=a*x+(x/2)*(a-(a*x)^2)。 */ 
     
     bf_init(x->ctx, &t0);
     bf_init(x->ctx, &t1);
@@ -1682,7 +1622,7 @@ static int __bf_sqrt(bf_t *x, const bf_t *a, limb_t prec1, bf_flags_t flags)
     return ret;
 }
 
-/* Note: only faithful rounding is supported */
+/*  注：仅支持忠实舍入。 */ 
 void bf_rsqrt(bf_t *r, const bf_t *a, limb_t prec)
 {
     if (a->len == 0) {
@@ -1697,12 +1637,12 @@ void bf_rsqrt(bf_t *r, const bf_t *a, limb_t prec)
     } else if (a->sign) {
         bf_set_nan(r);
     } else {
-        //        bf_print_str("a", a);
+        //  Bf_print_str(“a”，a)；
         __bf_rsqrt(r, a, prec);
     }
 }
 
-/* return floor(sqrt(a)) */
+/*  返回楼层(SQRT(A))。 */ 
 static limb_t bf_isqrt(limb_t a)
 {
     unsigned int l;
@@ -1712,7 +1652,7 @@ static limb_t bf_isqrt(limb_t a)
         return 0;
     l = ceil_log2(a);
     u = (limb_t)1 << ((l + 1) / 2);
-    /* u >= floor(sqrt(a)) */
+    /*  U&gt;=楼层(SQRT(A))。 */ 
     for(;;) {
         s = u;
         u = ((a / s) + s) / 2;
@@ -1722,9 +1662,7 @@ static limb_t bf_isqrt(limb_t a)
     return s;
 }
 
-/* Integer square root with remainder. 'a' must be an integer. r =
-   floor(sqrt(a)) and rem = a - r^2.  BF_ST_INEXACT is set if the result
-   is inexact. 'rem' can be NULL if the remainder is not needed. */
+/*  整数平方根加上余数。“a”必须是整数。R=FLOOR(SQRT(A))和rem=a-r^2。如果结果为是不准确的。如果不需要余数，则“rem”可以为Null。 */ 
 int bf_sqrtrem(bf_t *r, bf_t *rem1, const bf_t *a)
 {
     int ret;
@@ -1752,7 +1690,7 @@ int bf_sqrtrem(bf_t *r, bf_t *rem1, const bf_t *a)
         
         bf_sqrt(r, a, (a->expn + 1) / 2, BF_RNDF);
         bf_rint(r, BF_PREC_INF, BF_RNDZ);
-        /* see if the result is exact by computing the remainder */
+        /*  通过计算余数看看结果是否准确。 */ 
         if (rem1) {
             rem = rem1;
         } else {
@@ -1782,9 +1720,9 @@ int bf_sqrtrem(bf_t *r, bf_t *rem1, const bf_t *a)
         } else {
             res = bf_cmpu(rem, a);
             bf_delete(rem);
-            //            printf("res2=%d\n", res2);
+            //  Printf(“res2=%d\n”，res2)；
             if (res > 0) {
-                /* need to correct the result */
+                /*  需要更正结果。 */ 
                 bf_add_si(r, r, -1, BF_PREC_INF, BF_RNDZ);
             }
             ret = (res != 0 ? BF_ST_INEXACT : 0);
@@ -1823,10 +1761,9 @@ int bf_sqrt(bf_t *r, const bf_t *a, limb_t prec, bf_flags_t flags)
 
             bf_init(r->ctx, a1);
             bf_set(a1, a);
-            /* convert the mantissa to an integer with at most 2 *
-               prec + 4 bits */
+            /*  将尾数转换为最多为2*的整数PREC+4位。 */ 
             prec2 = prec + 2;
-            /* make '-a->expn + d' divisible by two */
+            /*  使‘-a-&gt;EXPN+d’可被2整除。 */ 
             d = prec2 * 2 - (a->expn & 1);
             a1->expn = d;
             res1 = bf_rint(a1, BF_PREC_INF, BF_RNDZ);
@@ -1835,7 +1772,7 @@ int bf_sqrt(bf_t *r, const bf_t *a, limb_t prec, bf_flags_t flags)
             if ((res2 | res1) != 0) {
                 bf_or_one(r, (prec2 + LIMB_BITS - 1) / LIMB_BITS);
             }
-            /* update the exponent */
+            /*  更新指数。 */ 
             r->expn -= (-a->expn + d) >> 1;
             ret = bf_round(r, prec, flags);
         }
@@ -1947,7 +1884,7 @@ int bf_pow_ui_ui(bf_t *r, limb_t a1, limb_t b, limb_t prec, bf_flags_t flags)
     return ret;
 }
 
-/* convert to integer (single rounding) */
+/*  转换为整数(单舍入)。 */ 
 int bf_rint(bf_t *r, limb_t prec, bf_flags_t flags)
 {
     int ret;
@@ -1962,7 +1899,7 @@ int bf_rint(bf_t *r, limb_t prec, bf_flags_t flags)
     return ret;
 }
 
-/* logical operations */
+/*  逻辑运算。 */ 
 #define BF_LOGIC_OR  0
 #define BF_LOGIC_XOR 1
 #define BF_LOGIC_AND 2
@@ -1990,12 +1927,12 @@ static void bf_logic_op(bf_t *r, const bf_t *a1, const bf_t *b1, int op)
     assert(r != a1 && r != b1);
 
     if (a1->expn <= 0)
-        a_sign = 0; /* minus zero is considered as positive */
+        a_sign = 0; /*  负零被认为是正数。 */ 
     else
         a_sign = a1->sign;
 
     if (b1->expn <= 0)
-        b_sign = 0; /* minus zero is considered as positive */
+        b_sign = 0; /*  负零被认为是正数。 */ 
     else
         b_sign = b1->sign;
     
@@ -2017,7 +1954,7 @@ static void bf_logic_op(bf_t *r, const bf_t *a1, const bf_t *b1, int op)
     
     r_sign = bf_logic_op1(a_sign, b_sign, op);
     if (op == BF_LOGIC_AND && r_sign == 0) {
-        /* no need to compute extra zeros for and */
+        /*  不需要为和计算额外的零。 */ 
         if (a_sign == 0 && b_sign == 0)
             l = bf_min(a->expn, b->expn);
         else if (a_sign == 0)
@@ -2027,7 +1964,7 @@ static void bf_logic_op(bf_t *r, const bf_t *a1, const bf_t *b1, int op)
     } else {
         l = bf_max(a->expn, b->expn);
     }
-    /* Note: a or b can be zero */
+    /*  注：a或b可以为零。 */ 
     l = (bf_max(l, 1) + LIMB_BITS - 1) / LIMB_BITS;
     bf_resize(r, l);
     a_bit_offset = a->len * LIMB_BITS - a->expn;
@@ -2051,25 +1988,25 @@ static void bf_logic_op(bf_t *r, const bf_t *a1, const bf_t *b1, int op)
         bf_delete(b);
 }
 
-/* 'a' and 'b' must be integers */
+/*  “a”和“b”必须是整数。 */ 
 void bf_logic_or(bf_t *r, const bf_t *a, const bf_t *b)
 {
     bf_logic_op(r, a, b, BF_LOGIC_OR);
 }
 
-/* 'a' and 'b' must be integers */
+/*  “a”和“b”必须是整数。 */ 
 void bf_logic_xor(bf_t *r, const bf_t *a, const bf_t *b)
 {
     bf_logic_op(r, a, b, BF_LOGIC_XOR);
 }
 
-/* 'a' and 'b' must be integers */
+/*  “a”和“b”必须是整数。 */ 
 void bf_logic_and(bf_t *r, const bf_t *a, const bf_t *b)
 {
     bf_logic_op(r, a, b, BF_LOGIC_AND);
 }
 
-/* conversion between fixed size types */
+/*  固定大小类型之间的转换。 */ 
 
 typedef union {
     double d;
@@ -2084,7 +2021,7 @@ int bf_get_float64(const bf_t *a, double *pres, bf_rnd_t rnd_mode)
     
     ret = 0;
     if (a->expn == BF_EXP_NAN) {
-        u.u = 0x7ff8000000000000; /* quiet nan */
+        u.u = 0x7ff8000000000000; /*  宁南。 */ 
     } else {
         bf_t b_s, *b = &b_s;
         
@@ -2111,7 +2048,7 @@ int bf_get_float64(const bf_t *a, double *pres, bf_rnd_t rnd_mode)
             m = b->tab[0];
 #endif
             if (e <= 0) {
-                /* subnormal */
+                /*  不正常。 */ 
                 m = m >> (12 - e);
                 e = 0;
             } else {
@@ -2145,7 +2082,7 @@ void bf_set_float64(bf_t *a, double d)
         if (m == 0) {
             bf_set_zero(a, sgn);
         } else {
-            /* subnormal number */
+            /*  次正态数。 */ 
             m <<= 12;
             shift = clz64(m);
             m <<= shift;
@@ -2168,8 +2105,7 @@ void bf_set_float64(bf_t *a, double d)
     }
 }
 
-/* The rounding mode is always BF_RNDZ. Return BF_ST_OVERFLOW if there
-   is an overflow and 0 otherwise. */
+/*  舍入模式始终为BF_RNDZ。如果存在则返回BF_ST_OVERFLOW为溢出，否则为0。 */ 
 int bf_get_int32(int *pres, const bf_t *a, int flags)
 {
     uint32_t v;
@@ -2212,8 +2148,7 @@ int bf_get_int32(int *pres, const bf_t *a, int flags)
     return ret;
 }
 
-/* The rounding mode is always BF_RNDZ. Return BF_ST_OVERFLOW if there
-   is an overflow and 0 otherwise. */
+/*  舍入模式始终为BF_RNDZ。如果存在则返回BF_ST_OVERFLOW为溢出，否则为0。 */ 
 int bf_get_int64(int64_t *pres, const bf_t *a, int flags)
 {
     uint64_t v;
@@ -2273,7 +2208,7 @@ int bf_get_int64(int64_t *pres, const bf_t *a, int flags)
     return ret;
 }
 
-/* base conversion from radix */
+/*  从基数转换为基数。 */ 
 
 static const uint8_t digits_per_limb_table[BF_RADIX_MAX - 1] = {
 #if LIMB_BITS == 32
@@ -2307,7 +2242,7 @@ static void bf_integer_from_radix_rec(bf_t *r, const limb_t *tab,
         
         n2 = (((n0 * 2) >> (level + 1)) + 1) / 2;
         n1 = n - n2;
-        //        printf("level=%d n0=%ld n1=%ld n2=%ld\n", level, n0, n1, n2);
+        //  Printf(“Level=%d N0=%ldn1=%ldn2=%ld\n”，Level，N0，n1，n2)；
         B = &pow_tab[level];
         if (B->len == 0) {
             bf_pow_ui_ui(B, radix, n2, BF_PREC_INF, BF_RNDZ);
@@ -2321,7 +2256,7 @@ static void bf_integer_from_radix_rec(bf_t *r, const limb_t *tab,
         bf_add(r, r, T, BF_PREC_INF, BF_RNDZ);
         bf_delete(T);
     }
-    //    bf_print_str("  r=", r);
+    //  Bf_print_str(“r=”，r)；
 }
 
 static void bf_integer_from_radix(bf_t *r, const limb_t *tab,
@@ -2333,7 +2268,7 @@ static void bf_integer_from_radix(bf_t *r, const limb_t *tab,
     bf_t *pow_tab;
     
     radixl = get_limb_radix(radix);
-    pow_tab_len = ceil_log2(n) + 2; /* XXX: check */
+    pow_tab_len = ceil_log2(n) + 2; /*  XXX：检查。 */ 
     pow_tab = bf_malloc(s, sizeof(pow_tab[0]) * pow_tab_len);
     for(i = 0; i < pow_tab_len; i++)
         bf_init(r->ctx, &pow_tab[i]);
@@ -2344,7 +2279,7 @@ static void bf_integer_from_radix(bf_t *r, const limb_t *tab,
     bf_free(s, pow_tab);
 }
 
-/* compute and round T * radix^expn. */
+/*  计算并舍入T*基数^EXPN。 */ 
 int bf_mul_pow_radix(bf_t *r, const bf_t *T, limb_t radix,
                      slimb_t expn, limb_t prec, bf_flags_t flags)
 {
@@ -2368,7 +2303,7 @@ int bf_mul_pow_radix(bf_t *r, const bf_t *T, limb_t radix,
     }
     bf_init(r->ctx, B);
     if (prec == BF_PREC_INF) {
-        /* infinite precision: only used if the result is known to be exact */
+        /*  无限精度：仅在已知结果准确的情况下使用。 */ 
         bf_pow_ui_ui(B, radix, e, BF_PREC_INF, BF_RNDN);
         if (expn_sign) {
             ret = bf_div(r, T, B, T->len * LIMB_BITS, BF_RNDN);
@@ -2379,13 +2314,12 @@ int bf_mul_pow_radix(bf_t *r, const bf_t *T, limb_t radix,
         ziv_extra_bits = 16;
         for(;;) {
             prec1 = prec + ziv_extra_bits;
-            /* XXX: correct overflow/underflow handling */
-            /* XXX: rigorous error analysis needed */
+            /*  XXX：正确的溢出/下溢处理。 */ 
+            /*  XXX：需要严格的错误分析。 */ 
             extra_bits = ceil_log2(e) * 2 + 1;
             ret = bf_pow_ui_ui(B, radix, e, prec1 + extra_bits, BF_RNDN);
             overflow = !bf_is_finite(B);
-            /* XXX: if bf_pow_ui_ui returns an exact result, can stop
-               after the next operation */
+            /*  XXX：如果bf_pow_ui_ui返回确切的结果，则可以停止在下一次操作之后。 */ 
             if (expn_sign)
                 ret |= bf_div(r, T, B, prec1 + extra_bits, BF_RNDN);
             else
@@ -2393,7 +2327,7 @@ int bf_mul_pow_radix(bf_t *r, const bf_t *T, limb_t radix,
             if ((ret & BF_ST_INEXACT) &&
                 !bf_can_round(r, prec, flags & BF_RND_MASK, prec1) &&
                 !overflow) {
-                /* and more precision and retry */
+                /*  以及更高的精确度和重试。 */ 
                 ziv_extra_bits = ziv_extra_bits  + (ziv_extra_bits / 2);
             } else {
                 ret = bf_round(r, prec, flags) | (ret & BF_ST_INEXACT);
@@ -2417,7 +2351,7 @@ static inline int to_digit(int c)
         return 36;
 }
 
-/* add a limb at 'pos' and decrement pos. new space is created if needed */
+/*  在‘pos’处添加肢体，并减少pos。如果需要，将创建新空间。 */ 
 static void bf_add_limb(bf_t *a, slimb_t *ppos, limb_t v)
 {
     slimb_t pos;
@@ -2458,16 +2392,7 @@ static int strcasestart(const char *str, const char *val, const char **ptr)
     return 1;
 }
 
-/* 
-   Return (status, n, exp). 'status' is the floating point status. 'n'
-   is the parsed number. 
-   If prec = BF_PREC_INF:
-      If the number is an integer or if the radix is a power of two,
-      *pexponent = 0. 
-      Otherwise, '*pexponent' is the exponent in radix 'radix'.
-   Otherwise
-      *pexponent = 0
-*/
+/*  RETURN(状态，n，EXP)。‘Status’是浮点状态。“N”是解析后的数字。如果PREC=BF_PREC_INF：如果数字是整数或基数是2的幂，*p指数=0。否则，‘*pindex’是以‘基’为单位的指数。否则*指数=0。 */ 
 int bf_atof2(bf_t *r, slimb_t *pexponent,
              const char *str, const char **pnext, int radix,
              limb_t prec, bf_flags_t flags)
@@ -2480,7 +2405,7 @@ int bf_atof2(bf_t *r, slimb_t *pexponent,
     BOOL has_decpt, is_bin_exp, is_float;
     bf_t a_s, *a;
     
-    /* optional separator between digits */
+    /*  数字之间可选的分隔符。 */ 
     sep = (flags & BF_ATOF_UNDERSCORE_SEP) ? '_' : 256;
     
     *pexponent = 0;
@@ -2526,7 +2451,7 @@ int bf_atof2(bf_t *r, slimb_t *pexponent,
                    radix == 0 && (flags & BF_ATOF_LEGACY_OCTAL)) {
             int i;
             ret_legacy_octal = BF_ATOF_ST_LEGACY_OCTAL;
-            /* the separator is not allowed in legacy octal literals */
+            /*  旧版八进制文字中不允许使用分隔符。 */ 
             sep = 256;
             for (i = 1; (p[i] >= '0' && p[i] <= '7'); i++)
                 continue;
@@ -2535,7 +2460,7 @@ int bf_atof2(bf_t *r, slimb_t *pexponent,
             p += 1;
             radix = 8;
         } else {
-            /* 0 cannot be followed by a separator */
+            /*  0后面不能跟分隔符。 */ 
             if (p[1] == sep) {
                 p++;
                 bf_set_zero(r, 0);
@@ -2546,7 +2471,7 @@ int bf_atof2(bf_t *r, slimb_t *pexponent,
             }
             goto no_prefix;
         }
-        /* there must be a digit after the prefix */
+        /*  前缀后面必须有一个数字。 */ 
         if (to_digit((uint8_t)*p) >= radix) {
             bf_set_nan(r);
             ret = 0;
@@ -2567,7 +2492,7 @@ int bf_atof2(bf_t *r, slimb_t *pexponent,
     if (radix == 0)
         radix = 10;
     if ((radix & (radix - 1)) != 0) {
-        radix_bits = 0; /* base is not a power of two */
+        radix_bits = 0; /*  基不是2的幂。 */ 
         a = &a_s;
         bf_init(r->ctx, a);
     } else {
@@ -2575,8 +2500,8 @@ int bf_atof2(bf_t *r, slimb_t *pexponent,
         a = r;
     }
 
-    /* skip leading zeros */
-    /* XXX: could also skip zeros after the decimal point */
+    /*  跳过前导零。 */ 
+    /*  Xxx：也可以跳过小数点后的零。 */ 
     while (*p == '0' || (*p == sep && to_digit(p[1]) < radix))
         p++;
 
@@ -2638,7 +2563,7 @@ int bf_atof2(bf_t *r, slimb_t *pexponent,
     if (!has_decpt)
         int_len = digit_count;
 
-    /* add the last limb and pad with zeros */
+    /*  添加最后一条肢体，并用零填充。 */ 
     if (shift != digits_per_limb) {
         if (radix_bits == 0) {
             while (shift != 0) {
@@ -2649,14 +2574,13 @@ int bf_atof2(bf_t *r, slimb_t *pexponent,
         bf_add_limb(a, &pos, cur_limb);
     }
             
-    /* reset the next limbs to zero (we prefer to reallocate in the
-       renormalization) */
+    /*  将下一个肢体重置为零(我们更愿意在重整化)。 */ 
     memset(a->tab, 0, (pos + 1) * sizeof(limb_t));
 
     if (p == p_start)
         goto error;
 
-    /* parse the exponent, if any */
+    /*  解析指数(如果有的话)。 */ 
     expn = 0;
     is_bin_exp = FALSE;
     if (!(flags & BF_ATOF_INT_ONLY) && 
@@ -2683,7 +2607,7 @@ int bf_atof2(bf_t *r, slimb_t *pexponent,
             if (c >= 10)
                 break;
             if (unlikely(expn > ((EXP_MAX - 2 - 9) / 10))) {
-                /* exponent overflow */
+                /*  指数溢出。 */ 
                 if (exp_is_neg) {
                     bf_set_zero(r, is_neg);
                     ret = BF_ST_UNDERFLOW | BF_ST_INEXACT;
@@ -2709,7 +2633,7 @@ int bf_atof2(bf_t *r, slimb_t *pexponent,
         }
     }
     if (radix_bits) {
-        /* XXX: may overflow */
+        /*  XXX：可能溢出。 */ 
         if (!is_bin_exp)
             expn *= radix_bits; 
         a->expn = expn + (int_len * radix_bits);
@@ -2718,7 +2642,7 @@ int bf_atof2(bf_t *r, slimb_t *pexponent,
     } else {
         limb_t l;
         pos++;
-        l = a->len - pos; /* number of limbs */
+        l = a->len - pos; /*  四肢数。 */ 
         if (l == 0) {
             bf_set_zero(r, is_neg);
             ret = 0;
@@ -2730,7 +2654,7 @@ int bf_atof2(bf_t *r, slimb_t *pexponent,
             bf_integer_from_radix(T, a->tab + pos, l, radix);
             T->sign = is_neg;
             if (prec == BF_PREC_INF && is_float) {
-                /* return the exponent */
+                /*  返回指数。 */ 
                 *pexponent = expn;
                 bf_set(r, T);
                 ret = 0;
@@ -2768,7 +2692,7 @@ int bf_atof(bf_t *r, const char *str, const char **pnext, int radix,
     return bf_atof2(r, &dummy_exp, str, pnext, radix, prec, flags);
 }
 
-/* base conversion to radix */
+/*  基数转换为基数。 */ 
 
 #if LIMB_BITS == 64
 #define RADIXL_10 UINT64_C(10000000000000000000)
@@ -2928,9 +2852,7 @@ static const limb_t log2_radix[BF_RADIX_MAX - 1] = {
 #endif
 };
 
-/* compute floor(a*b) or ceil(a*b) with b = log2(radix) or
-   b=1/log2(radix). For is_inv = 0, strict accuracy is not guaranteed
-   when radix is not a power of two. */
+/*  计算b=log2(基数)的楼层(a*b)或天花板(a*b)B=1/log2(基数)。对于is_inv=0，不能保证严格的准确性当基数不是2的幂的时候。 */ 
 slimb_t bf_mul_log2_radix(slimb_t a1, unsigned int radix, int is_inv,
                           int is_ceil1)
 {
@@ -2949,7 +2871,7 @@ slimb_t bf_mul_log2_radix(slimb_t a1, unsigned int radix, int is_inv,
     is_ceil ^= is_neg;
     if ((radix & (radix - 1)) == 0) {
         int radix_bits;
-        /* radix is a power of two */
+        /*  基数是2的幂。 */ 
         radix_bits = ceil_log2(radix);
         if (is_inv) {
             if (is_ceil)
@@ -2980,7 +2902,7 @@ slimb_t bf_mul_log2_radix(slimb_t a1, unsigned int radix, int is_inv,
             t = (dlimb_t)b0 * (dlimb_t)a;
             a = t >> (LIMB_BITS - 3);
         }
-        /* a = floor(result) and 'result' cannot be an integer */
+        /*  A=FLOOR(结果)和‘RESULT’不能是整数。 */ 
         a += is_ceil;
     }
     if (is_neg)
@@ -2988,7 +2910,7 @@ slimb_t bf_mul_log2_radix(slimb_t a1, unsigned int radix, int is_inv,
     return a;
 }
 
-/* 'n' is the number of output limbs */
+/*  “N”是输出分支的数量。 */ 
 static void bf_integer_to_radix_rec(bf_t *pow_tab,
                                     limb_t *out, const bf_t *a, limb_t n,
                                     int level, limb_t n0, limb_t radixl,
@@ -3005,7 +2927,7 @@ static void bf_integer_to_radix_rec(bf_t *pow_tab,
         t = ((dlimb_t)get_bits(a->tab, a->len, pos + LIMB_BITS) << LIMB_BITS) |
             get_bits(a->tab, a->len, pos);
         if (likely(radixl == RADIXL_10)) {
-            /* use division by a constant when possible */
+            /*  如果可能，请使用常量除法。 */ 
             out[0] = t % RADIXL_10;
             out[1] = t / RADIXL_10;
         } else {
@@ -3022,20 +2944,19 @@ static void bf_integer_to_radix_rec(bf_t *pow_tab,
         B = &pow_tab[2 * level];
         B_inv = &pow_tab[2 * level + 1];
         if (B->len == 0) {
-            /* compute BASE^n2 */
+            /*  计算基数^n2。 */ 
             bf_pow_ui_ui(B, radixl, n2, BF_PREC_INF, BF_RNDZ);
-            /* we use enough bits for the maximum possible 'n1' value,
-               i.e. n2 + 1 */
+            /*  我们为最大可能的‘n1’值使用足够的位，即n2+1。 */ 
             bf_recip(B_inv, B, (n2 + 1) * radixl_bits + 2);
         }
-        //        printf("%d: n1=% " PRId64 " n2=%" PRId64 "\n", level, n1, n2);
+        //  Printf(“%d：n1=%”PRId64“n2=%”PRId64“\n”，Level，n1，n2)；
         q_prec = n1 * radixl_bits;
         bf_mul(&Q, a, B_inv, q_prec, BF_RNDN);
         bf_rint(&Q, BF_PREC_INF, BF_RNDZ);
         
         bf_mul(&R, &Q, B, BF_PREC_INF, BF_RNDZ);
         bf_sub(&R, a, &R, BF_PREC_INF, BF_RNDZ);
-        /* adjust if necessary */
+        /*  必要时调整。 */ 
         q_add = 0;
         while (R.sign && R.len != 0) {
             bf_add(&R, &R, B, BF_PREC_INF, BF_RNDZ);
@@ -3065,7 +2986,7 @@ static void bf_integer_to_radix(bf_t *r, const bf_t *a, limb_t radixl)
     int i, pow_tab_len;
     
     r_len = r->len;
-    pow_tab_len = (ceil_log2(r_len) + 2) * 2; /* XXX: check */
+    pow_tab_len = (ceil_log2(r_len) + 2) * 2; /*  XXX：检查。 */ 
     pow_tab = bf_malloc(s, sizeof(pow_tab[0]) * pow_tab_len);
     for(i = 0; i < pow_tab_len; i++)
         bf_init(r->ctx, &pow_tab[i]);
@@ -3079,9 +3000,7 @@ static void bf_integer_to_radix(bf_t *r, const bf_t *a, limb_t radixl)
     bf_free(s, pow_tab);
 }
 
-/* a must be >= 0. 'P' is the wanted number of digits in radix
-   'radix'. 'r' is the mantissa represented as an integer. *pE
-   contains the exponent. */
+/*  A必须&gt;=0。“p”是所需的基数位数。‘基数’。‘R’是表示为整数的尾数。*PE包含指数。 */ 
 static void bf_convert_to_radix(bf_t *r, slimb_t *pE,
                                 const bf_t *a, int radix,
                                 limb_t P, bf_rnd_t rnd_mode,
@@ -3092,7 +3011,7 @@ static void bf_convert_to_radix(bf_t *r, slimb_t *pE,
     int e_sign, ret, res;
     
     if (a->len == 0) {
-        /* zero case */
+        /*  零案例。 */ 
         *pE = 0;
         bf_set(r, a);
         return;
@@ -3101,11 +3020,11 @@ static void bf_convert_to_radix(bf_t *r, slimb_t *pE,
     if (is_fixed_exponent) {
         E = *pE;
     } else {
-        /* compute the new exponent */
+        /*  计算新指数。 */ 
         E = 1 + bf_mul_log2_radix(a->expn - 1, radix, TRUE, FALSE);
     }
-    //    bf_print_str("a", a);
-    //    printf("E=%ld P=%ld radix=%d\n", E, P, radix);
+    //  Bf_print_str(“a”，a)；
+    //  Printf(“E=%1d P=%1d基数=%d\n”，E，P，基数)；
     
     for(;;) {
         e = P - E;
@@ -3114,23 +3033,22 @@ static void bf_convert_to_radix(bf_t *r, slimb_t *pE,
             e = -e;
             e_sign = 1;
         }
-        /* Note: precision for log2(radix) is not critical here */
+        /*  注意：在这里，log2(基数)的精度并不重要。 */ 
         prec0 = bf_mul_log2_radix(P, radix, FALSE, TRUE);
         ziv_extra_bits = 16;
         for(;;) {
             prec = prec0 + ziv_extra_bits;
-            /* XXX: rigorous error analysis needed */
+            /*  XXX：需要严格的错误分析。 */ 
             extra_bits = ceil_log2(e) * 2 + 1;
             ret = bf_pow_ui_ui(r, radix, e, prec + extra_bits, BF_RNDN);
             if (!e_sign)
                 ret |= bf_mul(r, r, a, prec + extra_bits, BF_RNDN);
             else
                 ret |= bf_div(r, a, r, prec + extra_bits, BF_RNDN);
-            /* if the result is not exact, check that it can be safely
-               rounded to an integer */
+            /*  如果结果不准确，请检查其是否安全四舍五入为整数。 */ 
             if ((ret & BF_ST_INEXACT) &&
                 !bf_can_round(r, r->expn, rnd_mode, prec)) {
-                /* and more precision and retry */
+                /*  以及更高的精确度和重试。 */ 
                 ziv_extra_bits = ziv_extra_bits  + (ziv_extra_bits / 2);
                 continue;
             } else {
@@ -3140,15 +3058,15 @@ static void bf_convert_to_radix(bf_t *r, slimb_t *pE,
         }
         if (is_fixed_exponent)
             break;
-        /* check that the result is < B^P */
-        /* XXX: do an fast approximate test first ? */
+        /*  检查结果是否为&lt;B^P。 */ 
+        /*  XXX：先做一个快速近似测试？ */ 
         bf_init(r->ctx, B);
         bf_pow_ui_ui(B, radix, P, BF_PREC_INF, BF_RNDZ);
         res = bf_cmpu(r, B);
         bf_delete(B);
         if (res < 0)
             break;
-        /* try a larger exponent */
+        /*  尝试更大的指数。 */ 
         E++;
     }
     *pE = E;
@@ -3159,7 +3077,7 @@ static void limb_to_a(char *buf, limb_t n, unsigned int radix, int len)
     int digit, i;
 
     if (radix == 10) {
-        /* specific case with constant divisor */
+        /*  具有常数因子的特殊情况。 */ 
         for(i = len - 1; i >= 0; i--) {
             digit = (limb_t)n % 10;
             n = (limb_t)n / 10;
@@ -3178,7 +3096,7 @@ static void limb_to_a(char *buf, limb_t n, unsigned int radix, int len)
     }
 }
 
-/* for power of 2 radixes */
+/*  对于2个基数的幂。 */ 
 static void limb_to_a2(char *buf, limb_t n, unsigned int radix_bits, int len)
 {
     int digit, i;
@@ -3196,9 +3114,7 @@ static void limb_to_a2(char *buf, limb_t n, unsigned int radix_bits, int len)
     }
 }
 
-/* 'a' must be an integer. A dot is added before the 'dot_pos'
-   digit. dot_pos = n_digits does not display the dot. 0 <= dot_pos <=
-   n_digits. n_digits >= 1. */
+/*  “a”必须是整数。圆点是一个 */ 
 static void output_digits(DynBuf *s, const bf_t *a1, int radix, limb_t n_digits,
                           limb_t dot_pos)
 {
@@ -3267,15 +3183,15 @@ static void *bf_dbuf_realloc(void *opaque, void *ptr, size_t size)
     return bf_realloc(s, ptr, size);
 }
 
-/* return the length in bytes. A trailing '\0' is added */
+/*  以字节为单位返回长度。添加了尾随的‘\0’ */ 
 size_t bf_ftoa(char **pbuf, const bf_t *a2, int radix, limb_t prec,
                bf_flags_t flags)
 {
     DynBuf s_s, *s = &s_s;
     int radix_bits;
     
-    //    bf_print_str("ftoa", a2);
-    //    printf("radix=%d\n", radix);
+    //  Bf_print_str(“ftoa”，a2)；
+    //  Printf(“基数=%d\n”，基数)；
     dbuf_init2(s, a2->ctx, bf_dbuf_realloc);
     if (a2->expn == BF_EXP_NAN) {
         dbuf_putstr(s, "NaN");
@@ -3293,7 +3209,7 @@ size_t bf_ftoa(char **pbuf, const bf_t *a2, int radix, limb_t prec,
             bf_t a1_s, *a1;
             bf_t a_s, *a = &a_s;
 
-            /* make a positive number */
+            /*  做一个正数。 */ 
             a->tab = a2->tab;
             a->len = a2->len;
             a->expn = a2->expn;
@@ -3309,7 +3225,7 @@ size_t bf_ftoa(char **pbuf, const bf_t *a2, int radix, limb_t prec,
             bf_init(a2->ctx, a1);
             if (fmt == BF_FTOA_FORMAT_FRAC) {
                 size_t pos, start;
-                /* one more digit for the rounding */
+                /*  再四舍五入一位数。 */ 
                 n = 1 + bf_mul_log2_radix(bf_max(a->expn, 0), radix, TRUE, TRUE);
                 n_digits = n + prec;
                 n1 = n;
@@ -3317,7 +3233,7 @@ size_t bf_ftoa(char **pbuf, const bf_t *a2, int radix, limb_t prec,
                                     flags & BF_RND_MASK, TRUE);
                 start = s->size;
                 output_digits(s, a1, radix, n_digits, n);
-                /* remove leading zeros because we allocated one more digit */
+                /*  删除前导零，因为我们多分配了一个数字。 */ 
                 pos = start;
                 while ((pos + 1) < s->size && s->buf[pos] == '0' &&
                        s->buf[pos + 1] != '.')
@@ -3335,19 +3251,16 @@ size_t bf_ftoa(char **pbuf, const bf_t *a2, int radix, limb_t prec,
                     
                     if (prec == BF_PREC_INF) {
                         assert(radix_bits != 0);
-                        /* XXX: could use the exact number of bits */
+                        /*  XXX：可以使用准确的位数。 */ 
                         prec = a->len * LIMB_BITS;
                     }
                     n_digits = 1 + bf_mul_log2_radix(prec, radix, TRUE, TRUE);
-                    /* max number of digits for non exponential
-                       notation. The rational is to have the same rule
-                       as JS i.e. n_max = 21 for 64 bit float in base 10. */
+                    /*  非指数的最大位数记数法。理性的做法是制定同样的规则作为JS，即对于以10为基数的64位浮点数，n_max=21。 */ 
                     n_max = n_digits + 4;
                     if (fmt == BF_FTOA_FORMAT_FREE_MIN) {
                         bf_t b_s, *b = &b_s;
                         
-                        /* find the minimum number of digits by
-                           dichotomy. */
+                        /*  通过以下方式查找最小位数一分为二。 */ 
                         n_digits_max = n_digits;
                         n_digits_min = 1;
                         bf_init(a2->ctx, b);
@@ -3355,7 +3268,7 @@ size_t bf_ftoa(char **pbuf, const bf_t *a2, int radix, limb_t prec,
                             n_digits = (n_digits_min + n_digits_max) / 2;
                             bf_convert_to_radix(a1, &n, a, radix, n_digits,
                                                 flags & BF_RND_MASK, FALSE);
-                            /* convert back to a number and compare */
+                            /*  转换回数字并进行比较。 */ 
                             bf_mul_pow_radix(b, a1, radix, n - n_digits,
                                              prec,
                                              (flags & ~BF_RND_MASK) |
@@ -3375,7 +3288,7 @@ size_t bf_ftoa(char **pbuf, const bf_t *a2, int radix, limb_t prec,
                 if (a1->expn == BF_EXP_ZERO &&
                     fmt != BF_FTOA_FORMAT_FIXED &&
                     !(flags & BF_FTOA_FORCE_EXP)) {
-                    /* just output zero */
+                    /*  只需输出零。 */ 
                     dbuf_putstr(s, "0");
                 } else {
                     if (flags & BF_FTOA_ADD_PREFIX) {
@@ -3391,7 +3304,7 @@ size_t bf_ftoa(char **pbuf, const bf_t *a2, int radix, limb_t prec,
                     if ((flags & BF_FTOA_FORCE_EXP) ||
                         n <= -6 || n > n_max) {
                         const char *fmt;
-                        /* exponential notation */
+                        /*  指数记数法。 */ 
                         output_digits(s, a1, radix, n_digits, 1);
                         if (radix_bits != 0 && radix <= 16) {
                             if (flags & BF_FTOA_JS_QUIRKS)
@@ -3408,7 +3321,7 @@ size_t bf_ftoa(char **pbuf, const bf_t *a2, int radix, limb_t prec,
                                         radix <= 10 ? 'e' : '@', n - 1);
                         }
                     } else if (n <= 0) {
-                        /* 0.x */
+                        /*  0.x。 */ 
                         dbuf_putstr(s, "0.");
                         for(i = 0; i < -n; i++) {
                             dbuf_putc(s, '0');
@@ -3416,7 +3329,7 @@ size_t bf_ftoa(char **pbuf, const bf_t *a2, int radix, limb_t prec,
                         output_digits(s, a1, radix, n_digits, n_digits);
                     } else {
                         if (n_digits <= n) {
-                            /* no dot */
+                            /*  没有圆点。 */ 
                             output_digits(s, a1, radix, n_digits, n_digits);
                             for(i = 0; i < (n - n_digits); i++)
                                 dbuf_putc(s, '0');
@@ -3434,10 +3347,10 @@ size_t bf_ftoa(char **pbuf, const bf_t *a2, int radix, limb_t prec,
     return s->size - 1;
 }
 
-/***************************************************************/
-/* transcendental functions */
+/*  *************************************************************。 */ 
+/*  超越函数。 */ 
 
-/* Note: the algorithm is from MPFR */
+/*  注：算法来自MPFR。 */ 
 static void bf_const_log2_rec(bf_t *T, bf_t *P, bf_t *Q, limb_t n1,
                               limb_t n2, BOOL need_P)
 {
@@ -3476,7 +3389,7 @@ static void bf_const_log2_rec(bf_t *T, bf_t *P, bf_t *Q, limb_t n1,
     }
 }
 
-/* compute log(2) with faithful rounding at precision 'prec' */
+/*  计算LOG(2)，精确地进行精确的舍入。 */ 
 static void bf_const_log2_internal(bf_t *T, limb_t prec)
 {
     limb_t w, N;
@@ -3493,7 +3406,7 @@ static void bf_const_log2_internal(bf_t *T, limb_t prec)
     bf_delete(Q);
 }
 
-/* PI constant */
+/*  PI常量。 */ 
 
 #define CHUD_A 13591409
 #define CHUD_B 545140134
@@ -3538,9 +3451,9 @@ static void chud_bs(bf_t *P, bf_t *Q, bf_t *G, int64_t a, int64_t b, int need_g,
         chud_bs(P, Q, G, a, c, 1, prec);
         chud_bs(&P2, &Q2, &G2, c, b, need_g, prec);
         
-        /* Q = Q1 * Q2 */
-        /* G = G1 * G2 */
-        /* P = P1 * Q2 + P2 * G1 */
+        /*  Q=Q1*Q2。 */ 
+        /*  G=G1*G2。 */ 
+        /*  P=P1*Q2+P2*G1。 */ 
         bf_mul(&P2, &P2, G, prec, BF_RNDN);
         if (!need_g)
             bf_set_ui(G, 0);
@@ -3556,17 +3469,16 @@ static void chud_bs(bf_t *P, bf_t *Q, bf_t *G, int64_t a, int64_t b, int need_g,
     }
 }
 
-/* compute Pi with faithful rounding at precision 'prec' using the
-   Chudnovsky formula */
+/*  计算PI与忠实的四舍五入精度‘prec’使用丘德诺夫斯基公式。 */ 
 static void bf_const_pi_internal(bf_t *Q, limb_t prec)
 {
     bf_context_t *s = Q->ctx;
     int64_t n, prec1;
     bf_t P, G;
 
-    /* number of serie terms */
+    /*  系列术语数。 */ 
     n = prec / CHUD_BITS_PER_TERM + 1;
-    /* XXX: precision analysis */
+    /*  XXX：精确度分析。 */ 
     prec1 = prec + 32;
 
     bf_init(s, &P);
@@ -3605,7 +3517,7 @@ static int bf_const_get(bf_t *T, limb_t prec, bf_flags_t flags,
         }
         bf_set(T, &c->val);
         if (!bf_can_round(T, prec, flags & BF_RND_MASK, prec1)) {
-            /* and more precision and retry */
+            /*  以及更高的精确度和重试。 */ 
             ziv_extra_bits = ziv_extra_bits  + (ziv_extra_bits / 2);
         } else {
             break;
@@ -3641,9 +3553,7 @@ void bf_clear_cache(bf_context_t *s)
     bf_const_free(&s->pi_cache);
 }
 
-/* ZivFunc should compute the result 'r' with faithful rounding at
-   precision 'prec'. For efficiency purposes, the final bf_round()
-   does not need to be done in the function. */
+/*  ZivFunc应该使用忠实的四舍五入来计算结果‘r’精确度‘PREC’。为了提高效率，最终的bf_round()不需要在函数中完成。 */ 
 typedef int ZivFunc(bf_t *r, const bf_t *a, limb_t prec, void *opaque);
 
 static int bf_ziv_rounding(bf_t *r, const bf_t *a,
@@ -3655,7 +3565,7 @@ static int bf_ziv_rounding(bf_t *r, const bf_t *a,
     
     rnd_mode = flags & BF_RND_MASK;
     if (rnd_mode == BF_RNDF) {
-        /* no need to iterate */
+        /*  不需要迭代。 */ 
         f(r, a, prec, opaque);
         ret = 0;
     } else {
@@ -3664,12 +3574,10 @@ static int bf_ziv_rounding(bf_t *r, const bf_t *a,
             prec1 = prec + ziv_extra_bits;
             ret = f(r, a, prec1, opaque);
             if (ret & (BF_ST_OVERFLOW | BF_ST_UNDERFLOW)) {
-                /* should never happen because it indicates the
-                   rounding cannot be done correctly, but we do not
-                   catch all the cases */
+                /*  永远不会发生，因为它表明舍入不能正确完成，但我们不能抓住所有的案例。 */ 
                 return ret;
             }
-            /* if the result is exact, we can stop */
+            /*  如果结果准确，我们就可以停下来。 */ 
             if (!(ret & BF_ST_INEXACT)) {
                 ret = 0;
                 break;
@@ -3684,8 +3592,7 @@ static int bf_ziv_rounding(bf_t *r, const bf_t *a,
     return bf_round(r, prec, flags) | ret;
 }
 
-/* Compute the exponential using faithful rounding at precision 'prec'.
-   Note: the algorithm is from MPFR */
+/*  计算指数使用忠实的四舍五入的精度‘prec’。注：算法来自MPFR。 */ 
 static int bf_exp_internal(bf_t *r, const bf_t *a, limb_t prec, void *opaque)
 {
     bf_context_t *s = r->ctx;
@@ -3694,12 +3601,10 @@ static int bf_exp_internal(bf_t *r, const bf_t *a, limb_t prec, void *opaque)
     
     assert(r != a);
 
-    /* argument reduction:
-       T = a - n*log(2) with 0 <= T < log(2) and n integer.
-    */
+    /*  减少争论：T=a-n*log(2)，其中0&lt;=T&lt;log(2)且n为整数。 */ 
     bf_init(s, T);
     if (a->expn <= -1) {
-        /* 0 <= abs(a) <= 0.5 */
+        /*  0&lt;=abs(A)&lt;=0.5。 */ 
         if (a->sign)
             n = -1;
         else
@@ -3712,23 +3617,20 @@ static int bf_exp_internal(bf_t *r, const bf_t *a, limb_t prec, void *opaque)
 
     K = bf_isqrt((prec + 1) / 2);
     l = (prec - 1) / K + 1;
-    /* XXX: precision analysis ? */
+    /*  XXX：精确分析？ */ 
     prec1 = prec + (K + 2 * l + 18) + K + 8;
     if (a->expn > 0)
         prec1 += a->expn;
-    //    printf("n=%ld K=%ld prec1=%ld\n", n, K, prec1);
+    //  Print tf(“n=%ldK=%ldpr1=%ld\n”，n，K，pro1)；
 
     bf_const_log2(T, prec1, BF_RNDF);
     bf_mul_si(T, T, n, prec1, BF_RNDN);
     bf_sub(T, a, T, prec1, BF_RNDN);
 
-    /* reduce the range of T */
+    /*  缩小T的范围。 */ 
     bf_mul_2exp(T, -K, BF_PREC_INF, BF_RNDZ);
     
-    /* Taylor expansion around zero :
-     1 + x + x^2/2 + ... + x^n/n! 
-     = (1 + x * (1 + x/2 * (1 + ... (x/n))))
-    */
+    /*  泰勒展开在零附近：1+x+x^2/2+...+x^n/n！=(1+x*(1+x/2*(1+...。(X/N)。 */ 
     {
         bf_t U_s, *U = &U_s;
         
@@ -3744,12 +3646,12 @@ static int bf_exp_internal(bf_t *r, const bf_t *a, limb_t prec, void *opaque)
     }
     bf_delete(T);
     
-    /* undo the range reduction */
+    /*  撤消范围缩小。 */ 
     for(i = 0; i < K; i++) {
         bf_mul(r, r, r, prec1, BF_RNDN);
     }
 
-    /* undo the argument reduction */
+    /*  撤消参数约简。 */ 
     bf_mul_2exp(r, n, BF_PREC_INF, BF_RNDZ);
 
     return BF_ST_INEXACT;
@@ -3773,7 +3675,7 @@ int bf_exp(bf_t *r, const bf_t *a, limb_t prec, bf_flags_t flags)
         return 0;
     }
 
-    /* crude overflow and underflow tests */
+    /*  原油溢流和下溢试验。 */ 
     if (a->expn > 0) {
         bf_t T_s, *T = &T_s;
         bf_t log2_s, *log2 = &log2_s;
@@ -3787,23 +3689,23 @@ int bf_exp(bf_t *r, const bf_t *a, limb_t prec, bf_flags_t flags)
         bf_init(s, log2);
         bf_const_log2(log2, LIMB_BITS, BF_RNDU);
         bf_mul_ui(T, log2, e_max, LIMB_BITS, BF_RNDU);
-        /* a > e_max * log(2) implies exp(a) > e_max */
+        /*  A&gt;e_max*log(2)表示exp(A)&gt;e_max。 */ 
         if (bf_cmp_lt(T, a) > 0) {
-            /* overflow */
+            /*  溢出。 */ 
             bf_delete(T);
             bf_delete(log2);
             return bf_set_overflow(r, 0, prec, flags);
         }
-        /* a < e_min * log(2) implies exp(a) < e_min */
+        /*  &lt;e_min*log(2)表示exp(A)&lt;e_min。 */ 
         bf_mul_si(T, log2, e_min, LIMB_BITS, BF_RNDD);
         if (bf_cmp_lt(a, T)) {
             int rnd_mode = flags & BF_RND_MASK;
 
-            /* underflow */
+            /*  下溢。 */ 
             bf_delete(T);
             bf_delete(log2);
             if (rnd_mode == BF_RNDU) {
-                /* set the smallest value */
+                /*  设置最小值。 */ 
                 bf_set_ui(r, 1);
                 r->expn = e_min;
             } else {
@@ -3829,14 +3731,14 @@ static int bf_log_internal(bf_t *r, const bf_t *a, limb_t prec, void *opaque)
     assert(r != a);
 
     bf_init(s, T);
-    /* argument reduction 1 */
-    /* T=a*2^n with 2/3 <= T <= 4/3 */
+    /*  参数缩减1。 */ 
+    /*  T=a*2^n，2/3&lt;=T&lt;=4/3。 */ 
     {
         bf_t U_s, *U = &U_s;
         bf_set(T, a);
         n = T->expn;
         T->expn = 0;
-        /* U= ~ 2/3 */
+        /*  U=~2/3。 */ 
         bf_init(s, U);
         bf_set_ui(U, 0xaaaaaaaa); 
         U->expn = 0;
@@ -3846,27 +3748,26 @@ static int bf_log_internal(bf_t *r, const bf_t *a, limb_t prec, void *opaque)
         }
         bf_delete(U);
     }
-    //    printf("n=%ld\n", n);
-    //    bf_print_str("T", T);
+    //  Printf(“n=%ld\n”，n)；
+    //  Bf_print_str(“T”，T)；
 
-    /* XXX: precision analysis */
-    /* number of iterations for argument reduction 2 */
+    /*  XXX：精确度分析。 */ 
+    /*  参数约简的迭代次数2。 */ 
     K = bf_isqrt((prec + 1) / 2); 
-    /* order of Taylor expansion */
+    /*  泰勒展开的级数。 */ 
     l = prec / (2 * K) + 1; 
-    /* precision of the intermediate computations */
+    /*  中间计算的精度。 */ 
     prec1 = prec + K + 2 * l + 32;
 
     bf_init(s, U);
     bf_init(s, V);
     
-    /* Note: cancellation occurs here, so we use more precision (XXX:
-       reduce the precision by computing the exact cancellation) */
+    /*  注：此处发生取消，因此我们使用更高的精度(XXX：通过计算精确抵消来降低精度)。 */ 
     bf_add_si(T, T, -1, BF_PREC_INF, BF_RNDN); 
 
-    /* argument reduction 2 */
+    /*  论据缩减2。 */ 
     for(i = 0; i < K; i++) {
-        /* T = T / (1 + sqrt(1 + T)) */
+        /*  T=T/(1+SQRT(1+T))。 */ 
         bf_add_si(U, T, 1, prec1, BF_RNDN);
         bf_sqrt(V, U, prec1, BF_RNDF);
         bf_add_si(U, V, 1, prec1, BF_RNDN);
@@ -3879,11 +3780,7 @@ static int bf_log_internal(bf_t *r, const bf_t *a, limb_t prec, void *opaque)
         bf_init(s, Y);
         bf_init(s, Y2);
 
-        /* compute ln(1+x) = ln((1+y)/(1-y)) with y=x/(2+x)
-           = y + y^3/3 + ... + y^(2*l + 1) / (2*l+1) 
-           with Y=Y^2
-           = y*(1+Y/3+Y^2/5+...) = y*(1+Y*(1/3+Y*(1/5 + ...)))
-        */
+        /*  用y=x/(2+x)计算ln(1+x)=ln((1+y)/(1-y))=y+y^3/3+...+y^(2*l+1)/(2*l+1)Y=Y^2=y*(1+Y/3+Y^2/5+...)=y*(1+Y*(1/3+Y*(1/5+...)。 */ 
         bf_add_si(Y, T, 2, prec1, BF_RNDN);
         bf_div(Y, T, Y, prec1, BF_RNDN);
 
@@ -3904,11 +3801,10 @@ static int bf_log_internal(bf_t *r, const bf_t *a, limb_t prec, void *opaque)
     bf_delete(V);
     bf_delete(U);
 
-    /* multiplication by 2 for the Taylor expansion and undo the
-       argument reduction 2*/
+    /*  将泰勒展开乘以2，然后撤消论据缩减2。 */ 
     bf_mul_2exp(r, K + 1, BF_PREC_INF, BF_RNDZ);
     
-    /* undo the argument reduction 1 */
+    /*  撤消参数约简1。 */ 
     bf_const_log2(T, prec1, BF_RNDF);
     bf_mul_si(T, T, n, prec1, BF_RNDN);
     bf_add(r, r, T, prec1, BF_RNDN);
@@ -3956,8 +3852,8 @@ int bf_log(bf_t *r, const bf_t *a, limb_t prec, bf_flags_t flags)
     return bf_ziv_rounding(r, a, prec, flags, bf_log_internal, NULL);
 }
 
-/* x and y finite and x > 0 */
-/* XXX: overflow/underflow handling */
+/*  X和y有限且x&gt;0。 */ 
+/*  XXX：溢出/下溢处理。 */ 
 static int bf_pow_generic(bf_t *r, const bf_t *x, limb_t prec, void *opaque)
 {
     bf_context_t *s = r->ctx;
@@ -3966,7 +3862,7 @@ static int bf_pow_generic(bf_t *r, const bf_t *x, limb_t prec, void *opaque)
     limb_t prec1;
 
     bf_init(s, T);
-    /* XXX: proof for the added precision */
+    /*  XXX：增加精度的证明。 */ 
     prec1 = prec + 32;
     bf_log(T, x, prec1, BF_RNDF);
     bf_mul(T, T, y, prec1, BF_RNDF);
@@ -3975,8 +3871,8 @@ static int bf_pow_generic(bf_t *r, const bf_t *x, limb_t prec, void *opaque)
     return BF_ST_INEXACT;
 }
 
-/* x and y finite, x > 0, y integer and y fits on one limb */
-/* XXX: overflow/underflow handling */ 
+/*  X和y有限，x&gt;0，y整数，y适合一条腿。 */ 
+/*  XXX：溢出/下溢处理。 */  
 static int bf_pow_int(bf_t *r, const bf_t *x, limb_t prec, void *opaque)
 {
     bf_context_t *s = r->ctx;
@@ -3989,7 +3885,7 @@ static int bf_pow_int(bf_t *r, const bf_t *x, limb_t prec, void *opaque)
     bf_get_limb(&y1, y, 0);
     if (y1 < 0)
         y1 = -y1;
-    /* XXX: proof for the added precision */
+    /*  XXX：增加精度的证明。 */ 
     prec1 = prec + ceil_log2(y1) * 2 + 8;
     ret = bf_pow_ui(r, x, y1 < 0 ? -y1 : y1, prec1, BF_RNDN);
     if (y->sign) {
@@ -4001,9 +3897,7 @@ static int bf_pow_int(bf_t *r, const bf_t *x, limb_t prec, void *opaque)
     return ret;
 }
 
-/* x must be a finite non zero float. Return TRUE if there is a
-   floating point number r such as x=r^(2^n) and return this floating
-   point number 'r'. Otherwise return FALSE and r is undefined. */
+/*  X必须是有限的非零浮点数。如果存在浮点数r，如x=r^(2^n)，并返回此浮点数点编号‘r’。否则，返回FALSE，并且r未定义。 */ 
 static BOOL check_exact_power2n(bf_t *r, const bf_t *x, slimb_t n)
 {
     bf_context_t *s = r->ctx;
@@ -4011,9 +3905,9 @@ static BOOL check_exact_power2n(bf_t *r, const bf_t *x, slimb_t n)
     slimb_t e, i, er;
     limb_t v;
     
-    /* x = m*2^e with m odd integer */
+    /*  X=m*2^e，m个奇数。 */ 
     e = bf_get_exp_min(x);
-    /* fast check on the exponent */
+    /*  快速检查指数。 */ 
     if (n > (LIMB_BITS - 1)) {
         if (e != 0)
             return FALSE;
@@ -4023,7 +3917,7 @@ static BOOL check_exact_power2n(bf_t *r, const bf_t *x, slimb_t n)
             return FALSE;
         er = e >> n;
     }
-    /* every perfect odd square = 1 modulo 8 */
+    /*  每个完全奇数平方=1模8。 */ 
     v = get_bits(x->tab, x->len, x->len * LIMB_BITS - x->expn + e);
     if ((v & 7) != 1)
         return FALSE;
@@ -4041,7 +3935,7 @@ static BOOL check_exact_power2n(bf_t *r, const bf_t *x, slimb_t n)
     return TRUE;
 }
 
-/* prec = BF_PREC_INF is accepted for x and y integers and y >= 0 */
+/*  对于x和y整数和y&gt;=0，接受PREC=BF_PREC_INF。 */ 
 int bf_pow(bf_t *r, const bf_t *x, const bf_t *y, limb_t prec, bf_flags_t flags)
 {
     bf_context_t *s = r->ctx;
@@ -4053,7 +3947,7 @@ int bf_pow(bf_t *r, const bf_t *x, const bf_t *y, limb_t prec, bf_flags_t flags)
     
     if (x->len == 0 || y->len == 0) {
         if (y->expn == BF_EXP_ZERO) {
-            /* pow(x, 0) = 1 */
+            /*  POW(x，0)=1。 */ 
             bf_set_ui(r, 1);
         } else if (x->expn == BF_EXP_NAN) {
             bf_set_nan(r);
@@ -4066,8 +3960,8 @@ int bf_pow(bf_t *r, const bf_t *x, const bf_t *y, limb_t prec, bf_flags_t flags)
                 bf_set_nan(r);
             } else if (cmp_x_abs_1 == 0 &&
                        (!x->sign || y->expn != BF_EXP_NAN)) {
-                /* pow(1, y) = 1 even if y = NaN */
-                /* pow(-1, +/-inf) = 1 */
+                /*  POW(1，y)=1，即使y=NaN。 */ 
+                /*  POW(-1，+/-inf)=1。 */ 
             } else if (y->expn == BF_EXP_NAN) {
                 bf_set_nan(r);
             } else if (y->expn == BF_EXP_INF) {
@@ -4082,7 +3976,7 @@ int bf_pow(bf_t *r, const bf_t *x, const bf_t *y, limb_t prec, bf_flags_t flags)
                 if (y->sign == (x->expn == BF_EXP_ZERO)) {
                     bf_set_inf(r, y_is_odd & x->sign);
                     if (y->sign) {
-                        /* pow(0, y) with y < 0 */
+                        /*  Y&lt;0的POW(0，y)。 */ 
                         return BF_ST_DIVIDE_ZERO;
                     }
                 } else {
@@ -4105,8 +3999,7 @@ int bf_pow(bf_t *r, const bf_t *x, const bf_t *y, limb_t prec, bf_flags_t flags)
         }
         y_is_odd = (y_emin == 0);
         r_sign = y_is_odd;
-        /* change the directed rounding mode if the sign of the result
-           is changed */
+        /*  如果结果的符号为已更改。 */ 
         if (r_sign && (rnd_mode == BF_RNDD || rnd_mode == BF_RNDU))
             flags ^= 1;
         bf_neg(T);
@@ -4116,24 +4009,24 @@ int bf_pow(bf_t *r, const bf_t *x, const bf_t *y, limb_t prec, bf_flags_t flags)
 
     bf_set_ui(r, 1);
     if (bf_cmp_eq(T, r)) {
-        /* abs(x) = 1: nothing more to do */
+        /*  ABS(X)=1：无事可做。 */ 
         ret = 0;
     } else if (y_is_int) {
         slimb_t T_bits, e;
     int_pow:
         T_bits = T->expn - bf_get_exp_min(T);
         if (T_bits == 1) {
-            /* pow(2^b, y) = 2^(b*y) */
+            /*  POW(2^b，y)=2^(b*y)。 */ 
             bf_mul_si(T, y, T->expn - 1, LIMB_BITS, BF_RNDZ);
             bf_get_limb(&e, T, 0);
             bf_set_ui(r, 1);
             ret = bf_mul_2exp(r, e, prec, flags);
         } else if (prec == BF_PREC_INF) {
             slimb_t y1;
-            /* specific case for infinite precision (integer case) */
+            /*  无限精度的特殊情况(整数情况)。 */ 
             bf_get_limb(&y1, y, 0);
             assert(!y->sign);
-            /* x must be an integer, so abs(x) >= 2 */
+            /*  X必须是整数，因此abs(X)&gt;=2。 */ 
             if (y1 >= ((slimb_t)1 << BF_EXP_BITS_MAX)) {
                 bf_delete(T);
                 return bf_set_overflow(r, 0, BF_PREC_INF, flags);
@@ -4141,17 +4034,14 @@ int bf_pow(bf_t *r, const bf_t *x, const bf_t *y, limb_t prec, bf_flags_t flags)
             ret = bf_pow_ui(r, T, y1, BF_PREC_INF, BF_RNDZ);
         } else {
             if (y->expn <= 31) {
-                /* small enough power: use exponentiation in all cases */
+                /*  足够小的功率：在所有情况下都使用幂运算。 */ 
             } else if (y->sign) {
-                /* cannot be exact */
+                /*  不能准确。 */ 
                 goto general_case;
             } else {
                 if (rnd_mode == BF_RNDF)
-                    goto general_case; /* no need to track exact results */
-                /* see if the result has a chance to be exact:
-                   if x=a*2^b (a odd), x^y=a^y*2^(b*y)
-                   x^y needs a precision of at least floor_log2(a)*y bits
-                */
+                    goto general_case; /*  不需要跟踪准确的结果。 */ 
+                /*  看看结果是否有机会准确：如果x=a*2^b(奇数)，则x^y=a^y*2^(b*y)X^y需要至少Floor_log2(A)*y位的精度。 */ 
                 bf_mul_si(r, y, T_bits - 1, LIMB_BITS, BF_RNDZ);
                 bf_get_limb(&e, r, 0);
                 if (prec < e)
@@ -4163,7 +4053,7 @@ int bf_pow(bf_t *r, const bf_t *x, const bf_t *y, limb_t prec, bf_flags_t flags)
         if (rnd_mode != BF_RNDF) {
             bf_t *y1;
             if (y_emin < 0 && check_exact_power2n(r, T, -y_emin)) {
-                /* the problem is reduced to a power to an integer */
+                /*  这个问题归结为一个整数的幂。 */ 
 #if 0
                 printf("\nn=%ld\n", -y_emin);
                 bf_print_str("T", T);
@@ -4187,7 +4077,7 @@ int bf_pow(bf_t *r, const bf_t *x, const bf_t *y, limb_t prec, bf_flags_t flags)
     return ret;
 }
 
-/* compute sqrt(-2*x-x^2) to get |sin(x)| from cos(x) - 1. */
+/*  计算SQRT(-2*x-x^2)，从cos(X)-1得到|sin(X)|。 */ 
 static void bf_sqrt_sin(bf_t *r, const bf_t *x, limb_t prec1)
 {
     bf_context_t *s = r->ctx;
@@ -4238,14 +4128,14 @@ int bf_sincos(bf_t *s, bf_t *c, const bf_t *a, limb_t prec)
     bf_init(s1, U);
     bf_init(s1, r);
     
-    /* XXX: precision analysis */
+    /*  XXX：精确度分析。 */ 
     K = bf_isqrt(prec / 2);
     l = prec / (2 * K) + 1;
     prec1 = prec + 2 * K + l + 8;
     
-    /* after the modulo reduction, -pi/4 <= T <= pi/4 */
+    /*  模减后，-pi/4&lt;=T&lt;=pi/4。 */ 
     if (a->expn <= -1) {
-        /* abs(a) <= 0.25: no modulo reduction needed */
+        /*  ABS(A)&lt;=0.25：无需模数降阶。 */ 
         bf_set(T, a);
         mod = 0;
     } else {
@@ -4256,11 +4146,11 @@ int bf_sincos(bf_t *s, bf_t *c, const bf_t *a, limb_t prec)
             bf_const_pi(U, prec2, BF_RNDF);
             bf_mul_2exp(U, -1, BF_PREC_INF, BF_RNDZ);
             bf_remquo(&mod, T, a, U, prec2, BF_RNDN);
-            //            printf("T.expn=%ld prec2=%ld\n", T->expn, prec2);
+            //  Print tf(“T.exn=%ldPRE2=%ld\n”，T-&gt;EXPN，PREP2)；
             if (mod == 0 || (T->expn != BF_EXP_ZERO &&
                              (T->expn + prec2) >= (prec1 - 1)))
                 break;
-            /* increase the number of bits until the precision is good enough */
+            /*  增加位数，直到精度足够好。 */ 
             cancel = bf_max(-T->expn, (cancel + 1) * 3 / 2);
         }
         mod &= 3;
@@ -4268,13 +4158,11 @@ int bf_sincos(bf_t *s, bf_t *c, const bf_t *a, limb_t prec)
     
     is_neg = T->sign;
         
-    /* compute cosm1(x) = cos(x) - 1 */
+    /*  计算Cosm1(X)=cos(X)-1。 */ 
     bf_mul(T, T, T, prec1, BF_RNDN);
     bf_mul_2exp(T, -2 * K, BF_PREC_INF, BF_RNDZ);
     
-    /* Taylor expansion:
-       -x^2/2 + x^4/4! - x^6/6! + ...
-    */
+    /*  泰勒展开：-x^2/2+x^4/4！-x^6/6！+...。 */ 
     bf_set_ui(r, 1);
     for(i = l ; i >= 1; i--) {
         bf_set_ui(U, 2 * i - 1);
@@ -4287,9 +4175,7 @@ int bf_sincos(bf_t *s, bf_t *c, const bf_t *a, limb_t prec)
     }
     bf_delete(U);
 
-    /* undo argument reduction:
-       cosm1(2*x)= 2*(2*cosm1(x)+cosm1(x)^2)
-    */
+    /*  撤消参数缩减：Cosm1(2*x)=2*(2*Cosm1(X)+Cosm1(X)^2)。 */ 
     for(i = 0; i < K; i++) {
         bf_mul(T, r, r, prec1, BF_RNDN);
         bf_mul_2exp(r, 1, BF_PREC_INF, BF_RNDZ);
@@ -4359,7 +4245,7 @@ static int bf_tan_internal(bf_t *r, const bf_t *a, limb_t prec, void *opaque)
         }
     }
 
-    /* XXX: precision analysis */
+    /*  XXX：精确度分析。 */ 
     prec1 = prec + 8;
     bf_init(s, T);
     bf_sincos(r, T, a, prec1);
@@ -4373,8 +4259,7 @@ int bf_tan(bf_t *r, const bf_t *a, limb_t prec, bf_flags_t flags)
     return bf_ziv_rounding(r, a, prec, flags, bf_tan_internal, NULL);
 }
 
-/* if add_pi2 is true, add pi/2 to the result (used for acos(x) to
-   avoid cancellation) */
+/*  如果Add_Pi2为True，则将pi/2添加到结果(用于acos(X)到避免取消)。 */ 
 static int bf_atan_internal(bf_t *r, const bf_t *a, limb_t prec,
                             void *opaque)
 {
@@ -4397,12 +4282,12 @@ static int bf_atan_internal(bf_t *r, const bf_t *a, limb_t prec,
             else
                 i = 0;
             i += add_pi2;
-            /* return i*(pi/2) with -1 <= i <= 2 */
+            /*  返回i*(pi/2)，其中-1&lt;=i&lt;=2。 */ 
             if (i == 0) {
                 bf_set_zero(r, add_pi2 ? 0 : a->sign);
                 return 0;
             } else {
-                /* PI or PI/2 */
+                /*  PI或PI/2。 */ 
                 bf_const_pi(r, prec, BF_RNDF);
                 if (i != 2)
                     bf_mul_2exp(r, -1, BF_PREC_INF, BF_RNDZ);
@@ -4416,7 +4301,7 @@ static int bf_atan_internal(bf_t *r, const bf_t *a, limb_t prec,
     bf_set_ui(T, 1);
     cmp_1 = bf_cmpu(a, T);
     if (cmp_1 == 0 && !add_pi2) {
-        /* short cut: abs(a) == 1 -> +/-pi/4 */
+        /*  捷径：ABS(A)==1-&gt;+/-pi/4。 */ 
         bf_const_pi(r, prec, BF_RNDF);
         bf_mul_2exp(r, -2, BF_PREC_INF, BF_RNDZ);
         r->sign = a->sign;
@@ -4424,11 +4309,11 @@ static int bf_atan_internal(bf_t *r, const bf_t *a, limb_t prec,
         return BF_ST_INEXACT;
     }
 
-    /* XXX: precision analysis */
+    /*  XXX：精确度分析。 */ 
     K = bf_isqrt((prec + 1) / 2);
     l = prec / (2 * K) + 1;
     prec1 = prec + K + 2 * l + 32;
-    //    printf("prec=%ld K=%ld l=%ld prec1=%ld\n", prec, K, l, prec1);
+    //  Print tf(“prec=%ldK=%ldl=%ldpr1=%ld\n”，prec，K，l，pr1)；
     
     if (cmp_1 > 0) {
         bf_set_ui(T, 1);
@@ -4437,15 +4322,15 @@ static int bf_atan_internal(bf_t *r, const bf_t *a, limb_t prec,
         bf_set(T, a);
     }
 
-    /* abs(T) <= 1 */
+    /*  ABS(T)&lt;=1。 */ 
 
-    /* argument reduction */
+    /*  论据归约。 */ 
 
     bf_init(s, U);
     bf_init(s, V);
     bf_init(s, X2);
     for(i = 0; i < K; i++) {
-        /* T = T / (1 + sqrt(1 + T^2)) */
+        /*  T=T/(1+SQRT(1+T^2))。 */ 
         bf_mul(U, T, T, prec1, BF_RNDN);
         bf_add_si(U, U, 1, prec1, BF_RNDN);
         bf_sqrt(V, U, prec1, BF_RNDN);
@@ -4453,9 +4338,7 @@ static int bf_atan_internal(bf_t *r, const bf_t *a, limb_t prec,
         bf_div(T, T, V, prec1, BF_RNDN);
     }
 
-    /* Taylor series: 
-       x - x^3/3 + ... + (-1)^ l * y^(2*l + 1) / (2*l+1) 
-    */
+    /*  泰勒级数：X-x^3/3+...+(-1)^l*y^(2*l+1)/(2*l+1)。 */ 
     bf_mul(X2, T, T, prec1, BF_RNDN);
     bf_set_ui(r, 0);
     for(i = l; i >= 1; i--) {
@@ -4470,7 +4353,7 @@ static int bf_atan_internal(bf_t *r, const bf_t *a, limb_t prec,
     bf_add_si(r, r, 1, prec1, BF_RNDN);
     bf_mul(r, r, T, prec1, BF_RNDN);
 
-    /* undo the argument reduction */
+    /*  撤消参数约简。 */ 
     bf_mul_2exp(r, K, BF_PREC_INF, BF_RNDZ);
     
     bf_delete(U);
@@ -4479,11 +4362,11 @@ static int bf_atan_internal(bf_t *r, const bf_t *a, limb_t prec,
 
     i = add_pi2;
     if (cmp_1 > 0) {
-        /* undo the inversion : r = sign(a)*PI/2 - r */
+        /*  撤消反转：R=Sign(A)*PI/2-r。 */ 
         bf_neg(r);
         i += 1 - 2 * a->sign;
     }
-    /* add i*(pi/2) with -1 <= i <= 2 */
+    /*  将i*(pi/2)与-1&lt;=i&lt;=2相加。 */ 
     if (i != 0) {
         bf_const_pi(T, prec1, BF_RNDF);
         if (i != 2)
@@ -4514,7 +4397,7 @@ static int bf_atan2_internal(bf_t *r, const bf_t *y, limb_t prec, void *opaque)
         return 0;
     }
 
-    /* compute atan(y/x) assumming inf/inf = 1 and 0/0 = 0 */
+    /*  假设inf/inf=1和0/0=0，则计算atan(y/x)。 */ 
     bf_init(s, T);
     prec1 = prec + 32;
     if (y->expn == BF_EXP_INF && x->expn == BF_EXP_INF) {
@@ -4528,7 +4411,7 @@ static int bf_atan2_internal(bf_t *r, const bf_t *y, limb_t prec, void *opaque)
     ret = bf_atan(r, T, prec1, BF_RNDF);
 
     if (x->sign) {
-        /* if x < 0 (it includes -0), return sign(y)*pi + atan(y/x) */
+        /*  如果x&lt;0(包括-0)，则返回符号(Y)* */ 
         bf_const_pi(T, prec1, BF_RNDF);
         T->sign = y->sign;
         bf_add(r, r, T, prec1, BF_RNDN);
@@ -4584,12 +4467,10 @@ static int bf_asin_internal(bf_t *r, const bf_t *a, limb_t prec, void *opaque)
         return 0;
     }
     
-    /* asin(x) = atan(x/sqrt(1-x^2)) 
-       acos(x) = pi/2 - asin(x) */
+    /*   */ 
     prec1 = prec + 8;
-    /* increase the precision in x^2 to compensate the cancellation in
-       (1-x^2) if x is close to 1 */
-    /* XXX: use less precision when possible */
+    /*   */ 
+    /*  XXX：尽可能使用较低的精度。 */ 
     if (a->expn >= 0)
         prec2 = BF_PREC_INF;
     else
@@ -4618,10 +4499,10 @@ int bf_acos(bf_t *r, const bf_t *a, limb_t prec, bf_flags_t flags)
 }
 
 #ifdef USE_FFT_MUL
-/***************************************************************/
-/* Integer multiplication with FFT */
+/*  *************************************************************。 */ 
+/*  用FFT进行整数乘法。 */ 
 
-/* or LIMB_BITS at bit position 'pos' in tab */
+/*  或Tab中位位置‘pos’处的Limb_Bits。 */ 
 static inline void put_bits(limb_t *tab, limb_t len, slimb_t pos, limb_t val)
 {
     limb_t i;
@@ -4643,7 +4524,7 @@ static inline void put_bits(limb_t *tab, limb_t len, slimb_t pos, limb_t val)
 
 typedef double NTTLimb;
 
-/* we must have: modulo >= 1 << NTT_MOD_LOG2_MIN */
+/*  我们必须满足：模&gt;=1&lt;&lt;NTT_MOD_Log2_MIN。 */ 
 #define NTT_MOD_LOG2_MIN 50
 #define NTT_MOD_LOG2_MAX 51
 #define NB_MODS 5
@@ -4694,7 +4575,7 @@ static const limb_t ntt_mods_cr[NB_MODS * (NB_MODS - 1) / 2] = {
 
 #elif LIMB_BITS == 32
 
-/* we must have: modulo >= 1 << NTT_MOD_LOG2_MIN */
+/*  我们必须满足：模&gt;=1&lt;&lt;NTT_MOD_Log2_MIN。 */ 
 #define NTT_MOD_LOG2_MIN 29
 #define NTT_MOD_LOG2_MAX 30
 #define NB_MODS 5
@@ -4716,9 +4597,9 @@ static const limb_t ntt_mods_cr[NB_MODS * (NB_MODS - 1) / 2] = {
  0x000000002e760905,
 };
 
-#endif /* LIMB_BITS */
+#endif /*  肢体比特。 */ 
 
-#endif /* !AVX2 */
+#endif /*  ！AVX2。 */ 
 
 #if defined(__AVX2__)
 #define NTT_TRIG_K_MAX 18
@@ -4729,13 +4610,13 @@ static const limb_t ntt_mods_cr[NB_MODS * (NB_MODS - 1) / 2] = {
 typedef struct BFNTTState {
     bf_context_t *ctx;
     
-    /* used for mul_mod_fast() */
+    /*  用于mul_mod_fast()。 */ 
     limb_t ntt_mods_div[NB_MODS];
 
     limb_t ntt_proot_pow[NB_MODS][2][NTT_PROOT_2EXP + 1];
     limb_t ntt_proot_pow_inv[NB_MODS][2][NTT_PROOT_2EXP + 1];
     NTTLimb *ntt_trig[NB_MODS][2][NTT_TRIG_K_MAX + 1];
-    /* 1/2^n mod m */
+    /*  %1/2^n模数m。 */ 
     limb_t ntt_len_inv[NB_MODS][NTT_PROOT_2EXP + 1][2];
 #if defined(__AVX2__)
     __m256d ntt_mods_cr_vec[NB_MODS * (NB_MODS - 1) / 2];
@@ -4748,7 +4629,7 @@ typedef struct BFNTTState {
 
 static NTTLimb *get_trig(BFNTTState *s, int k, int inverse, int m_idx);
 
-/* add modulo with up to (LIMB_BITS-1) bit modulo */
+/*  与最多(Limb_Bits-1)位模数相加模数。 */ 
 static inline limb_t add_mod(limb_t a, limb_t b, limb_t m)
 {
     limb_t r;
@@ -4758,7 +4639,7 @@ static inline limb_t add_mod(limb_t a, limb_t b, limb_t m)
     return r;
 }
 
-/* sub modulo with up to LIMB_BITS bit modulo */
+/*  最高可达Limb_Bits位模数的子模数。 */ 
 static inline limb_t sub_mod(limb_t a, limb_t b, limb_t m)
 {
     limb_t r;
@@ -4768,9 +4649,7 @@ static inline limb_t sub_mod(limb_t a, limb_t b, limb_t m)
     return r;
 }
 
-/* return (r0+r1*B) mod m 
-   precondition: 0 <= r0+r1*B < 2^(64+NTT_MOD_LOG2_MIN) 
-*/
+/*  返回(R0+R1*B)模数m前提条件：0&lt;=R0+R1*B&lt;2^(64+NTT_MOD_LOG2_MIN)。 */ 
 static inline limb_t mod_fast(dlimb_t r, 
                                 limb_t m, limb_t m_inv)
 {
@@ -4789,8 +4668,7 @@ static inline limb_t mod_fast(dlimb_t r,
     return r0;
 }
 
-/* faster version using precomputed modulo inverse. 
-   precondition: 0 <= a * b < 2^(64+NTT_MOD_LOG2_MIN) */
+/*  使用预计算模逆的更快版本。前提条件：0&lt;=a*b&lt;2^(64+NTT_MOD_LOG2_MIN)。 */ 
 static inline limb_t mul_mod_fast(limb_t a, limb_t b, 
                                     limb_t m, limb_t m_inv)
 {
@@ -4808,8 +4686,7 @@ static inline limb_t init_mul_mod_fast(limb_t m)
     return t / m;
 }
 
-/* Faster version used when the multiplier is constant. 0 <= a < 2^64,
-   0 <= b < m. */
+/*  当乘数为常量时使用更快的版本。0&lt;=a&lt;2^64，0&lt;=b&lt;m。 */ 
 static inline limb_t mul_mod_fast2(limb_t a, limb_t b, 
                                      limb_t m, limb_t b_inv)
 {
@@ -4822,9 +4699,7 @@ static inline limb_t mul_mod_fast2(limb_t a, limb_t b,
     return r;
 }
 
-/* Faster version used when the multiplier is constant. 0 <= a < 2^64,
-   0 <= b < m. Let r = a * b mod m. The return value is 'r' or 'r +
-   m'. */
+/*  当乘数为常量时使用更快的版本。0&lt;=a&lt;2^64，0&lt;=b&lt;m。设r=a*b mod m。返回值为‘r’或‘r+M‘。 */ 
 static inline limb_t mul_mod_fast3(limb_t a, limb_t b, 
                                      limb_t m, limb_t b_inv)
 {
@@ -4865,28 +4740,28 @@ static inline NTTLimb int_to_ntt_limb2(limb_t a, limb_t m)
     return (slimb_t)a;
 }
 
-/* return r + m if r < 0 otherwise r. */
+/*  如果r&lt;0，则返回r+m，否则返回r。 */ 
 static inline __m256d ntt_mod1(__m256d r, __m256d m)
 {
     return _mm256_blendv_pd(r, r + m, r);
 }
 
-/* input: abs(r) < 2 * m. Output: abs(r) < m */
+/*  输入：ABS(R)&lt;2*m输出：ABS(R)&lt;m。 */ 
 static inline __m256d ntt_mod(__m256d r, __m256d mf, __m256d m2f)
 {
     return _mm256_blendv_pd(r, r + m2f, r) - mf;
 }
 
-/* input: abs(a*b) < 2 * m^2, output: abs(r) < m */
+/*  输入：ABS(a*b)&lt;2*m^2，输出：ABS(R)&lt;m。 */ 
 static inline __m256d ntt_mul_mod(__m256d a, __m256d b, __m256d mf,
                                   __m256d m_inv)
 {
     __m256d r, q, ab1, ab0, qm0, qm1;
     ab1 = a * b;
-    q = _mm256_round_pd(ab1 * m_inv, 0); /* round to nearest */
+    q = _mm256_round_pd(ab1 * m_inv, 0); /*  四舍五入到最接近。 */ 
     qm1 = q * mf;
-    qm0 = _mm256_fmsub_pd(q, mf, qm1); /* low part */
-    ab0 = _mm256_fmsub_pd(a, b, ab1); /* low part */
+    qm0 = _mm256_fmsub_pd(q, mf, qm1); /*  低位部分。 */ 
+    ab0 = _mm256_fmsub_pd(a, b, ab1); /*  低位部分。 */ 
     r = (ab1 - qm1) + (ab0 - qm0);
     return r;
 }
@@ -5139,7 +5014,7 @@ static no_inline void ntt_fft(BFNTTState *s, NTTLimb *out_buf, NTTLimb *in_buf,
         tab_in = tab_out;
         tab_out = tmp;
     }
-    /* no twiddle in last step */
+    /*  在最后一步中没有玩耍。 */ 
     tab_out = out_buf; 
     for(k = 0; k < stride_in; k++) {
         a0 = tab_in[k];
@@ -5164,8 +5039,7 @@ static void ntt_vec_mul(BFNTTState *s,
     n = (limb_t)1 << fft_len_log2;
     for(i = 0; i < n; i++) {
         a = tab1[i];
-        /* need to reduce the range so that the product is <
-           2^(LIMB_BITS+NTT_MOD_LOG2_MIN) */
+        /*  需要缩小范围，以使产品&lt;2^(Limb_Bits+NTT_MOD_Log2_Min)。 */ 
         if (a >= m)
             a -= m;
         a = mul_mod_fast(a, tab2[i], m, m_inv);
@@ -5187,7 +5061,7 @@ static no_inline void mul_trig(NTTLimb *buf,
     }
 }
 
-#endif /* !AVX2 */
+#endif /*  ！AVX2。 */ 
 
 static no_inline NTTLimb *get_trig(BFNTTState *s,
                                    int k, int inverse1, int m_idx1)
@@ -5256,7 +5130,7 @@ void fft_clear_cache(bf_context_t *s1)
 
 #define STRIP_LEN 16
 
-/* dst = buf1, src = buf2 */
+/*  Dst=buf1，src=buf2。 */ 
 static void ntt_fft_partial(BFNTTState *s, NTTLimb *buf1,
                             int k1, int k2, limb_t n1, limb_t n2, int inverse,
                             limb_t m_idx)
@@ -5303,7 +5177,7 @@ static void ntt_fft_partial(BFNTTState *s, NTTLimb *buf1,
 }
 
 
-/* dst = buf1, src = buf2, tmp = buf3 */
+/*  Dst=buf1，src=buf2，tMP=buf3。 */ 
 static void ntt_conv(BFNTTState *s, NTTLimb *buf1, NTTLimb *buf2,
                      int k, int k_tot, limb_t m_idx)
 {
@@ -5313,7 +5187,7 @@ static void ntt_conv(BFNTTState *s, NTTLimb *buf1, NTTLimb *buf2,
     if (k <= NTT_TRIG_K_MAX) {
         k1 = k;
     } else {
-        /* recursive split of the FFT */
+        /*  FFT的递归分裂。 */ 
         k1 = bf_min(k / 2, NTT_TRIG_K_MAX);
     }
     k2 = k - k1;
@@ -5373,7 +5247,7 @@ static no_inline void limb_to_ntt(BFNTTState *s,
                     a1 &= base_mask1;
                     a2 = 0;
                 }
-                //            printf("a=0x%016lx%016lx%016lx\n", a2, a1, a0);
+                //  Printf(“a=0x%016lx%016lx%016lx\n”，a2，a1，a0)；
                 a = (a0 >> (LIMB_BITS - NTT_MOD_LOG2_MAX + NTT_MOD_LOG2_MIN)) |
                     ((dlimb_t)a1 << (NTT_MOD_LOG2_MAX - NTT_MOD_LOG2_MIN)) |
                     ((dlimb_t)a2 << (LIMB_BITS + NTT_MOD_LOG2_MAX - NTT_MOD_LOG2_MIN));
@@ -5428,7 +5302,7 @@ static no_inline void ntt_to_limb(BFNTTState *s, limb_t *tabr, limb_t r_len,
     for(j = 0; j < NB_MODS; j++) 
         carry[j] = 0;
     for(j = 0; j < NB_MODS; j++) 
-        u[j] = 0; /* avoid warnings */
+        u[j] = 0; /*  避免警告。 */ 
     memset(tabr, 0, sizeof(limb_t) * r_len);
     fft_len = (limb_t)1 << fft_len_log2;
     len = bf_min(fft_len, (r_len * LIMB_BITS + dpl - 1) / dpl);
@@ -5438,7 +5312,7 @@ static no_inline void ntt_to_limb(BFNTTState *s, limb_t *tabr, limb_t r_len,
         for(j = 0; j < nb_mods; j++)
             y[j].v = *(__m256d *)&buf[i + fft_len * j];
 
-        /* Chinese remainder to get mixed radix representation */
+        /*  中国余数将获得混合基数表示。 */ 
         l = 0;
         for(j = 0; j < nb_mods - 1; j++) {
             y[j].v = ntt_mod1(y[j].v, mf[j]);
@@ -5451,7 +5325,7 @@ static no_inline void ntt_to_limb(BFNTTState *s, limb_t *tabr, limb_t r_len,
         y[j].v = ntt_mod1(y[j].v, mf[j]);
         
         for(p = 0; p < VEC_LEN; p++) {
-            /* back to normal representation */
+            /*  恢复正常表示。 */ 
             u[0] = (int64_t)y[nb_mods - 1].d[p];
             l = 1;
             for(j = nb_mods - 2; j >= 1; j--) {
@@ -5464,9 +5338,9 @@ static no_inline void ntt_to_limb(BFNTTState *s, limb_t *tabr, limb_t r_len,
                 u[l] = r;
                 l++;
             }
-            /* XXX: for nb_mods = 5, l should be 4 */
+            /*  Xxx：对于nb_mods=5，l应为4。 */ 
             
-            /* last step adds the carry */
+            /*  最后一步添加进位。 */ 
             r = (int64_t)y[0].d[p];
             for(k = 0; k < l; k++) {
                 t = (dlimb_t)u[k] * mods[j] + r + carry[k];
@@ -5483,14 +5357,14 @@ static no_inline void ntt_to_limb(BFNTTState *s, limb_t *tabr, limb_t r_len,
             printf("\n");
 #endif
             
-            /* write the digits */
+            /*  写下数字。 */ 
             pos = i * dpl;
             for(j = 0; j < n_limb1; j++) {
                 put_bits(tabr, r_len, pos, u[j]);
                 pos += LIMB_BITS;
             }
             put_bits(tabr, r_len, pos, u[n_limb1] & base_mask1);
-            /* shift by dpl digits and set the carry */
+            /*  按DPL位数移位并设置进位。 */ 
             if (shift == 0) {
                 for(j = n_limb1 + 1; j < nb_mods; j++)
                     carry[j - (n_limb1 + 1)] = u[j];
@@ -5530,7 +5404,7 @@ static no_inline void ntt_to_limb(BFNTTState *s, limb_t *tabr, limb_t r_len,
     for(j = 0; j < NB_MODS; j++) 
         carry[j] = 0;
     for(j = 0; j < NB_MODS; j++) 
-        u[j] = 0; /* avoid warnings */
+        u[j] = 0; /*  避免警告。 */ 
     memset(tabr, 0, sizeof(limb_t) * r_len);
     fft_len = (limb_t)1 << fft_len_log2;
     len = bf_min(fft_len, (r_len * LIMB_BITS + dpl - 1) / dpl);
@@ -5539,21 +5413,20 @@ static no_inline void ntt_to_limb(BFNTTState *s, limb_t *tabr, limb_t r_len,
             y[j] = ntt_limb_to_int(buf[i + fft_len * j], mods[j]);
         }
 
-        /* Chinese remainder to get mixed radix representation */
+        /*  中国余数将获得混合基数表示。 */ 
         l = 0;
         for(j = 0; j < nb_mods - 1; j++) {
             for(k = j + 1; k < nb_mods; k++) {
                 limb_t m;
                 m = mods[k];
-                /* Note: there is no overflow in the sub_mod() because
-                   the modulos are sorted by increasing order */
+                /*  注意：submod()中没有溢出，因为模数按升序排序。 */ 
                 y[k] = mul_mod_fast2(y[k] - y[j] + m, 
                                      mods_cr[l], m, mods_cr_inv[l]);
                 l++;
             }
         }
         
-        /* back to normal representation */
+        /*  恢复正常表示。 */ 
         u[0] = y[nb_mods - 1];
         l = 1;
         for(j = nb_mods - 2; j >= 1; j--) {
@@ -5567,7 +5440,7 @@ static no_inline void ntt_to_limb(BFNTTState *s, limb_t *tabr, limb_t r_len,
             l++;
         }
         
-        /* last step adds the carry */
+        /*  最后一步添加进位。 */ 
         r = y[0];
         for(k = 0; k < l; k++) {
             t = (dlimb_t)u[k] * mods[j] + r + carry[k];
@@ -5584,14 +5457,14 @@ static no_inline void ntt_to_limb(BFNTTState *s, limb_t *tabr, limb_t r_len,
         printf("\n");
 #endif
         
-        /* write the digits */
+        /*  写下数字。 */ 
         pos = i * dpl;
         for(j = 0; j < n_limb1; j++) {
             put_bits(tabr, r_len, pos, u[j]);
             pos += LIMB_BITS;
         }
         put_bits(tabr, r_len, pos, u[n_limb1] & base_mask1);
-        /* shift by dpl digits and set the carry */
+        /*  按DPL位数移位并设置进位。 */ 
         if (shift == 0) {
             for(j = n_limb1 + 1; j < nb_mods; j++)
                 carry[j - (n_limb1 + 1)] = u[j];
@@ -5633,7 +5506,7 @@ static int ntt_static_init(bf_context_t *s1)
         s->ntt_mods_vec[j] = _mm256_set1_pd(m);
         s->ntt_mods_inv_vec[j] = _mm256_set1_pd(1.0 / (double)m);
 #endif
-        c_inv2 = (m + 1) / 2; /* 1/2 */
+        c_inv2 = (m + 1) / 2; /*  1/2。 */ 
         c_inv = 1;
         for(i = 0; i <= NTT_PROOT_2EXP; i++) {
             s->ntt_len_inv[j][i][0] = c_inv;
@@ -5689,7 +5562,7 @@ int bf_get_fft_size(int *pdpl, int *pnb_mods, limb_t len)
             n_bits = fft_len_log2 + 2 * dpl;
             if (n_bits <= int_bits) {
                 cost = ((limb_t)(fft_len_log2 + 1) << fft_len_log2) * nb_mods;
-                //                printf("n=%d dpl=%d: cost=%" PRId64 "\n", nb_mods, dpl, (int64_t)cost);
+                //  Printf(“n=%d DPL=%d：Cost=%”PRId64“\n”，nb_mods，DPL，(Int64_T)Cost)；
                 if (cost < min_cost) {
                     min_cost = cost;
                     dpl_found = dpl;
@@ -5706,7 +5579,7 @@ int bf_get_fft_size(int *pdpl, int *pnb_mods, limb_t len)
     }
     if (!dpl_found)
         abort();
-    /* limit dpl if possible to reduce fixed cost of limb/NTT conversion */
+    /*  如果可能，限制DPL以降低肢体/NTT转换的固定成本。 */ 
     if (dpl_found > (LIMB_BITS + NTT_MOD_LOG2_MIN) &&
         ((limb_t)(LIMB_BITS + NTT_MOD_LOG2_MIN) << fft_len_log2_found) >=
         len * LIMB_BITS) {
@@ -5732,11 +5605,11 @@ static no_inline void fft_mul(bf_t *res, limb_t *a_tab, limb_t a_len,
     ntt_static_init(s1);
     s = s1->ntt_state;
     
-    /* find the optimal number of digits per limb (dpl) */
+    /*  查找每个肢体的最佳位数(DPL)。 */ 
     len = a_len + b_len;
     fft_len_log2 = bf_get_fft_size(&dpl, &nb_mods, len);
     fft_len = (uint64_t)1 << fft_len_log2;
-    //    printf("len=%" PRId64 " fft_len_log2=%d dpl=%d\n", len, fft_len_log2, dpl);
+    //  Printf(“len=%”PRId64“fft_len_log2=%d dpl=%d\n”，len，fft_len_log2，dpl)；
 #if defined(USE_MUL_CHECK)
     ha = mp_mod1(a_tab, a_len, BF_CHKSUM_MOD, 0);
     hb = mp_mod1(b_tab, b_len, BF_CHKSUM_MOD, 0);
@@ -5745,7 +5618,7 @@ static no_inline void fft_mul(bf_t *res, limb_t *a_tab, limb_t a_len,
         bf_resize(res, 0);
     } else if (mul_flags & FFT_MUL_R_OVERLAP_B) {
         limb_t *tmp_tab, tmp_len;
-        /* it is better to free 'b' first */
+        /*  最好先释放‘b’ */ 
         tmp_tab = a_tab;
         a_tab = b_tab;
         b_tab = tmp_tab;
@@ -5765,7 +5638,7 @@ static no_inline void fft_mul(bf_t *res, limb_t *a_tab, limb_t a_len,
         buf2 = ntt_malloc(s, sizeof(NTTLimb) * fft_len * nb_mods);
         limb_to_ntt(s, buf2, fft_len, b_tab, b_len, dpl,
                     NB_MODS - nb_mods, nb_mods);
-        bf_resize(res, 0); /* in case res == b */
+        bf_resize(res, 0); /*  在RES==b的情况下。 */ 
     } else {
         buf2 = ntt_malloc(s, sizeof(NTTLimb) * fft_len);
     }
@@ -5780,7 +5653,7 @@ static no_inline void fft_mul(bf_t *res, limb_t *a_tab, limb_t a_len,
         ntt_conv(s, buf1 + fft_len * j, ptr,
                  fft_len_log2, fft_len_log2, j + NB_MODS - nb_mods);
     }
-    bf_resize(res, 0); /* in case res == b and reduced mem */
+    bf_resize(res, 0); /*  在Res==b和减少的MEM的情况下。 */ 
     ntt_free(s, buf2);
     bf_resize(res, len);
     ntt_to_limb(s, res->tab, len, buf1, fft_len_log2, dpl, nb_mods);
@@ -5791,17 +5664,17 @@ static no_inline void fft_mul(bf_t *res, limb_t *a_tab, limb_t a_len,
     if (hr != h_ref) {
         printf("ntt_mul_error: len=%" PRId_LIMB " fft_len_log2=%d dpl=%d nb_mods=%d\n",
                len, fft_len_log2, dpl, nb_mods);
-        //        printf("ha=0x" FMT_LIMB" hb=0x" FMT_LIMB " hr=0x" FMT_LIMB " expected=0x" FMT_LIMB "\n", ha, hb, hr, h_ref);
+        //  Printf(“ha=0x”FMT_Limb“HB=0x”FMT_Limb“hr=0x”FMT_Limb“Expect=0x”FMT_Limb“\n”，ha，hb，hr，h_ref)；
         exit(1);
     }
 #endif    
 }
 
-#else /* USE_FFT_MUL */
+#else /*  USE_FFT_MUL。 */ 
 
 int bf_get_fft_size(int *pdpl, int *pnb_mods, limb_t len)
 {
     return 0;
 }
 
-#endif /* !USE_FFT_MUL */
+#endif /*  ！USE_FFT_MUL */ 

@@ -1,3 +1,4 @@
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
 "use strict";
 
 function assert(actual, expected, message) {
@@ -17,10 +18,10 @@ function assert(actual, expected, message) {
                 (message ? " (" + message + ")" : ""));
 }
 
-// load more elaborate version of assert if available
+//  加载更精细的Assert版本(如果可用)。
 try { __loadScript("test_assert.js"); } catch(e) {}
 
-/*----------------*/
+/*  。 */ 
 
 function my_func(a, b)
 {
@@ -89,7 +90,7 @@ function test()
     b = Object.create(a);
     assert(Object.getPrototypeOf(b), a, "create");
     c = {u:2};
-    /* XXX: refcount bug in 'b' instead of 'a' */
+    /*  Xxx：‘b’而不是‘a’中的Recount错误。 */ 
     Object.setPrototypeOf(a, c);
     assert(Object.getPrototypeOf(a), c, "setPrototypeOf");
 
@@ -124,7 +125,7 @@ function test_enum()
          "4294967294": 1,
          "1": 2};
     tab = Object.keys(a);
-//    console.log("tab=" + tab.toString());
+//  Console.log(“tag=”+tab.toString())；
     assert(tab, ["1","4294967294","x","18014398509481984","9007199254740992","9007199254740991","4294967296","4294967295","y"], "keys");
 }
 
@@ -315,7 +316,7 @@ function test_number()
 function test_eval2()
 {
     var g_call_count = 0;
-    /* force non strict mode for f1 and f2 */
+    /*  强制使用f1和f2的非严格模式。 */ 
     var f1 = new Function("eval", "eval(1, 2)");
     var f2 = new Function("eval", "eval(...[1, 2])");
     function g(a, b) {
@@ -427,7 +428,7 @@ function test_json()
     assert(a.z, null);
     assert(JSON.stringify(a), s);
 
-    /* indentation test */
+    /*  压痕试验。 */ 
     assert(JSON.stringify([[{x:1,y:{},z:[]},2,3]],undefined,1),
 `[
  [
@@ -580,9 +581,9 @@ function test_weak_map()
         a.delete(tab[i][0]);
     }
     for(i = n2; i < n; i++) {
-        tab[i][0] = null; /* should remove the object from the WeakMap too */
+        tab[i][0] = null; /*  也应该从WeakMap中删除该对象。 */ 
     }
-    /* the WeakMap should be empty here */
+    /*  WeakMap此处应为空 */ 
 }
 
 function test_generator()

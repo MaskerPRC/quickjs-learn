@@ -1,4 +1,5 @@
-/* example of JS module */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  JS模块示例 */ 
 
 import { fib } from "./fib_module.js";
 

@@ -1,27 +1,5 @@
-/*
- * QuickJS opcode definitions
- * 
- * Copyright (c) 2017-2018 Fabrice Bellard
- * Copyright (c) 2017-2018 Charlie Gordon
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *QuickJS操作码定义**版权所有(C)2017-2018 Fabrice Bellard*版权所有(C)2017-2018查理·戈登**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 
 #ifdef FMT
 FMT(none)
@@ -54,7 +32,7 @@ FMT(atom_label_u8)
 FMT(atom_label_u16)
 FMT(label_u16)
 #undef FMT
-#endif /* FMT */
+#endif /*  FMT。 */ 
 
 #ifdef DEF
 
@@ -62,73 +40,72 @@ FMT(label_u16)
 #define def(id, size, n_pop, n_push, f) DEF(id, size, n_pop, n_push, f)
 #endif
 
-DEF(invalid, 1, 0, 0, none) /* never emitted */
+DEF(invalid, 1, 0, 0, none) /*  从未排放过。 */ 
 
-/* push values */
+/*  推送值。 */ 
 DEF(       push_i32, 5, 0, 1, i32)
 DEF(     push_const, 5, 0, 1, const)
-DEF(       fclosure, 5, 0, 1, const) /* must follow push_const */
+DEF(       fclosure, 5, 0, 1, const) /*  必须遵循PUSH_CONST。 */ 
 DEF(push_atom_value, 5, 0, 1, atom)
 DEF( private_symbol, 5, 0, 1, atom)
 DEF(      undefined, 1, 0, 1, none)
 DEF(           null, 1, 0, 1, none)
-DEF(      push_this, 1, 0, 1, none) /* only used at the start of a function */
+DEF(      push_this, 1, 0, 1, none) /*  仅在函数开始时使用。 */ 
 DEF(     push_false, 1, 0, 1, none)
 DEF(      push_true, 1, 0, 1, none)
 DEF(         object, 1, 0, 1, none)
-DEF( special_object, 2, 0, 1, u8) /* only used at the start of a function */
-DEF(           rest, 3, 0, 1, u16) /* only used at the start of a function */
+DEF( special_object, 2, 0, 1, u8) /*  仅在函数开始时使用。 */ 
+DEF(           rest, 3, 0, 1, u16) /*  仅在函数开始时使用。 */ 
 
-DEF(           drop, 1, 1, 0, none) /* a -> */
-DEF(            nip, 1, 2, 1, none) /* a b -> b */
-DEF(           nip1, 1, 3, 2, none) /* a b c -> b c */
-DEF(            dup, 1, 1, 2, none) /* a -> a a */
-DEF(           dup1, 1, 2, 3, none) /* a b -> a a b */
-DEF(           dup2, 1, 2, 4, none) /* a b -> a b a b */
-DEF(           dup3, 1, 3, 6, none) /* a b c -> a b c a b c */
-DEF(        insert2, 1, 2, 3, none) /* obj a -> a obj a (dup_x1) */
-DEF(        insert3, 1, 3, 4, none) /* obj prop a -> a obj prop a (dup_x2) */
-DEF(        insert4, 1, 4, 5, none) /* this obj prop a -> a this obj prop a */
-DEF(          perm3, 1, 3, 3, none) /* obj a b -> a obj b */
-DEF(          perm4, 1, 4, 4, none) /* obj prop a b -> a obj prop b */
-DEF(          perm5, 1, 5, 5, none) /* this obj prop a b -> a this obj prop b */
-DEF(           swap, 1, 2, 2, none) /* a b -> b a */
-DEF(          swap2, 1, 4, 4, none) /* a b c d -> c d a b */
-DEF(          rot3l, 1, 3, 3, none) /* x a b -> a b x */
-DEF(          rot3r, 1, 3, 3, none) /* a b x -> x a b */
-DEF(          rot4l, 1, 4, 4, none) /* x a b c -> a b c x */
-DEF(          rot5l, 1, 5, 5, none) /* x a b c d -> a b c d x */
+DEF(           drop, 1, 1, 0, none) /*  A-&gt;。 */ 
+DEF(            nip, 1, 2, 1, none) /*  A b-&gt;b。 */ 
+DEF(           nip1, 1, 3, 2, none) /*  A b c-&gt;b c。 */ 
+DEF(            dup, 1, 1, 2, none) /*  A-&gt;a a。 */ 
+DEF(           dup1, 1, 2, 3, none) /*  A b-&gt;a a b。 */ 
+DEF(           dup2, 1, 2, 4, none) /*  A b-&gt;a b a b b。 */ 
+DEF(           dup3, 1, 3, 6, none) /*  A b c-&gt;a b c a b c。 */ 
+DEF(        insert2, 1, 2, 3, none) /*  对象a-&gt;对象a(Dup_X1)。 */ 
+DEF(        insert3, 1, 3, 4, none) /*  对象道具a-&gt;对象道具a(Dup_X2)。 */ 
+DEF(        insert4, 1, 4, 5, none) /*  这个对象道具-&gt;这个对象道具a。 */ 
+DEF(          perm3, 1, 3, 3, none) /*  Obj a b-&gt;a obj b。 */ 
+DEF(          perm4, 1, 4, 4, none) /*  Obj道具a b-&gt;obj道具b。 */ 
+DEF(          perm5, 1, 5, 5, none) /*  这个道具b-&gt;a这个道具b。 */ 
+DEF(           swap, 1, 2, 2, none) /*  A b-&gt;b a。 */ 
+DEF(          swap2, 1, 4, 4, none) /*  A b c d-&gt;c d a b。 */ 
+DEF(          rot3l, 1, 3, 3, none) /*  X a b-&gt;a b x。 */ 
+DEF(          rot3r, 1, 3, 3, none) /*  X-&gt;xa b。 */ 
+DEF(          rot4l, 1, 4, 4, none) /*  X a b c-&gt;a b c x。 */ 
+DEF(          rot5l, 1, 5, 5, none) /*  X a b c d-&gt;a b c d x。 */ 
 
-DEF(call_constructor, 3, 2, 1, npop) /* func new.target args -> ret. arguments are not counted in n_pop */
-DEF(           call, 3, 1, 1, npop) /* arguments are not counted in n_pop */
-DEF(      tail_call, 3, 1, 0, npop) /* arguments are not counted in n_pop */
-DEF(    call_method, 3, 2, 1, npop) /* arguments are not counted in n_pop */
-DEF(tail_call_method, 3, 2, 0, npop) /* arguments are not counted in n_pop */
-DEF(     array_from, 3, 0, 1, npop) /* arguments are not counted in n_pop */
+DEF(call_constructor, 3, 2, 1, npop) /*  Func new.Target args-&gt;ret。参数不在n_op中计算。 */ 
+DEF(           call, 3, 1, 1, npop) /*  参数不在n_op中计算。 */ 
+DEF(      tail_call, 3, 1, 0, npop) /*  参数不在n_op中计算。 */ 
+DEF(    call_method, 3, 2, 1, npop) /*  参数不在n_op中计算。 */ 
+DEF(tail_call_method, 3, 2, 0, npop) /*  参数不在n_op中计算。 */ 
+DEF(     array_from, 3, 0, 1, npop) /*  参数不在n_op中计算。 */ 
 DEF(          apply, 3, 3, 1, u16)
 DEF(         return, 1, 1, 0, none)
 DEF(   return_undef, 1, 0, 0, none)
 DEF(check_ctor_return, 1, 1, 2, none)
 DEF(     check_ctor, 1, 0, 0, none)
-DEF(    check_brand, 1, 2, 2, none) /* this_obj func -> this_obj func */
-DEF(      add_brand, 1, 2, 0, none) /* this_obj home_obj -> */
+DEF(    check_brand, 1, 2, 2, none) /*  This_obj函数-&gt;This_obj函数。 */ 
+DEF(      add_brand, 1, 2, 0, none) /*  This_obj Home_obj-&gt;。 */ 
 DEF(   return_async, 1, 1, 0, none)
 DEF(          throw, 1, 1, 0, none)
 DEF(      throw_var, 6, 0, 0, atom_u8)
-DEF(           eval, 5, 1, 1, npop_u16) /* func args... -> ret_val */
-DEF(     apply_eval, 3, 2, 1, u16) /* func array -> ret_eval */
-DEF(         regexp, 1, 2, 1, none) /* create a RegExp object from the pattern and a
-                                       bytecode string */
+DEF(           eval, 5, 1, 1, npop_u16) /*  他妈的.。-&gt;RET_VAL。 */ 
+DEF(     apply_eval, 3, 2, 1, u16) /*  函数数组-&gt;RET_EVAL。 */ 
+DEF(         regexp, 1, 2, 1, none) /*  从该模式和一个字节码字符串。 */ 
 DEF( get_super_ctor, 1, 1, 1, none)
 DEF(      get_super, 1, 1, 1, none)
-DEF(         import, 1, 1, 1, none) /* dynamic module import */
+DEF(         import, 1, 1, 1, none) /*  动态模块导入。 */ 
 
-DEF(      check_var, 5, 0, 1, atom) /* check if a variable exists */
-DEF(  get_var_undef, 5, 0, 1, atom) /* push undefined if the variable does not exist */
-DEF(        get_var, 5, 0, 1, atom) /* throw an exception if the variable does not exist */
-DEF(        put_var, 5, 1, 0, atom) /* must come after get_var */
-DEF(   put_var_init, 5, 1, 0, atom) /* must come after put_var. Used to initialize a global lexical variable */
-DEF( put_var_strict, 5, 2, 0, atom) /* for strict mode variable write */
+DEF(      check_var, 5, 0, 1, atom) /*  检查变量是否存在。 */ 
+DEF(  get_var_undef, 5, 0, 1, atom) /*  如果变量不存在，则推送未定义。 */ 
+DEF(        get_var, 5, 0, 1, atom) /*  如果变量不存在，则引发异常。 */ 
+DEF(        put_var, 5, 1, 0, atom) /*  必须在get_var之后。 */ 
+DEF(   put_var_init, 5, 1, 0, atom) /*  必须在Put_var之后。用于初始化全局词法变量。 */ 
+DEF( put_var_strict, 5, 2, 0, atom) /*  对于严格模式变量写入。 */ 
 
 DEF(  get_ref_value, 1, 2, 3, none)
 DEF(  put_ref_value, 1, 3, 0, none)
@@ -139,61 +116,61 @@ DEF(    define_func, 6, 1, 0, atom_u8)
 DEF(      get_field, 5, 1, 1, atom)
 DEF(     get_field2, 5, 1, 2, atom)
 DEF(      put_field, 5, 2, 0, atom)
-DEF( get_private_field, 1, 2, 1, none) /* obj prop -> value */
-DEF( put_private_field, 1, 3, 0, none) /* obj value prop -> */
-DEF(define_private_field, 1, 3, 1, none) /* obj prop value -> obj */
+DEF( get_private_field, 1, 2, 1, none) /*  OBJ属性-&gt;值。 */ 
+DEF( put_private_field, 1, 3, 0, none) /*  OBJ价值属性-&gt;。 */ 
+DEF(define_private_field, 1, 3, 1, none) /*  对象属性值-&gt;对象。 */ 
 DEF(   get_array_el, 1, 2, 1, none)
-DEF(  get_array_el2, 1, 2, 2, none) /* obj prop -> obj value */
+DEF(  get_array_el2, 1, 2, 2, none) /*  对象属性-&gt;对象值。 */ 
 DEF(   put_array_el, 1, 3, 0, none)
-DEF(get_super_value, 1, 3, 1, none) /* this obj prop -> value */
-DEF(put_super_value, 1, 4, 0, none) /* this obj prop value -> */
+DEF(get_super_value, 1, 3, 1, none) /*  此对象属性-&gt;值。 */ 
+DEF(put_super_value, 1, 4, 0, none) /*  此对象属性值-&gt;。 */ 
 DEF(   define_field, 5, 2, 1, atom)
 DEF(       set_name, 5, 1, 1, atom)
 DEF(set_name_computed, 1, 2, 2, none)
 DEF(      set_proto, 1, 2, 1, none)
 DEF(set_home_object, 1, 2, 2, none)
 DEF(define_array_el, 1, 3, 2, none)
-DEF(         append, 1, 3, 2, none) /* append enumerated object, update length */
+DEF(         append, 1, 3, 2, none) /*  追加枚举对象，更新长度。 */ 
 DEF(copy_data_properties, 2, 3, 3, u8)
 DEF(  define_method, 6, 2, 1, atom_u8)
-DEF(define_method_computed, 2, 3, 1, u8) /* must come after define_method */
-DEF(   define_class, 6, 2, 2, atom_u8) /* parent ctor -> ctor proto */
-DEF(   define_class_computed, 6, 3, 3, atom_u8) /* field_name parent ctor -> field_name ctor proto (class with computed name) */
+DEF(define_method_computed, 2, 3, 1, u8) /*  必须在定义方法之后。 */ 
+DEF(   define_class, 6, 2, 2, atom_u8) /*  父组件-&gt;组件原件。 */ 
+DEF(   define_class_computed, 6, 3, 3, atom_u8) /*  FIELD_NAME父类-&gt;FIELD_NAME类原件(具有计算名称的类)。 */ 
 
 DEF(        get_loc, 3, 0, 1, loc)
-DEF(        put_loc, 3, 1, 0, loc) /* must come after get_loc */
-DEF(        set_loc, 3, 1, 1, loc) /* must come after put_loc */
+DEF(        put_loc, 3, 1, 0, loc) /*  必须在get_loc之后。 */ 
+DEF(        set_loc, 3, 1, 1, loc) /*  必须在PUT_LOC之后。 */ 
 DEF(        get_arg, 3, 0, 1, arg)
-DEF(        put_arg, 3, 1, 0, arg) /* must come after get_arg */
-DEF(        set_arg, 3, 1, 1, arg) /* must come after put_arg */
+DEF(        put_arg, 3, 1, 0, arg) /*  必须在get_arg之后。 */ 
+DEF(        set_arg, 3, 1, 1, arg) /*  必须在PUT_ARG之后。 */ 
 DEF(    get_var_ref, 3, 0, 1, var_ref) 
-DEF(    put_var_ref, 3, 1, 0, var_ref) /* must come after get_var_ref */
-DEF(    set_var_ref, 3, 1, 1, var_ref) /* must come after put_var_ref */
+DEF(    put_var_ref, 3, 1, 0, var_ref) /*  必须在get_var_ref之后。 */ 
+DEF(    set_var_ref, 3, 1, 1, var_ref) /*  必须在put_var_ref之后。 */ 
 DEF(set_loc_uninitialized, 3, 0, 0, loc)
 DEF(  get_loc_check, 3, 0, 1, loc)
-DEF(  put_loc_check, 3, 1, 0, loc) /* must come after get_loc_check */
+DEF(  put_loc_check, 3, 1, 0, loc) /*  必须在GET_LOC_CHECK之后。 */ 
 DEF(  put_loc_check_init, 3, 1, 0, loc)
 DEF(get_var_ref_check, 3, 0, 1, var_ref) 
-DEF(put_var_ref_check, 3, 1, 0, var_ref) /* must come after get_var_ref_check */
+DEF(put_var_ref_check, 3, 1, 0, var_ref) /*  必须在get_var_ref_check之后。 */ 
 DEF(put_var_ref_check_init, 3, 1, 0, var_ref)
 DEF(      close_loc, 3, 0, 0, loc)
 DEF(       if_false, 5, 1, 0, label)
-DEF(        if_true, 5, 1, 0, label) /* must come after if_false */
-DEF(           goto, 5, 0, 0, label) /* must come after if_true */
+DEF(        if_true, 5, 1, 0, label) /*  必须在If_False之后。 */ 
+DEF(           goto, 5, 0, 0, label) /*  必须在If_True之后。 */ 
 DEF(          catch, 5, 0, 1, label)
-DEF(          gosub, 5, 0, 0, label) /* used to execute the finally block */
-DEF(            ret, 1, 1, 0, none) /* used to return from the finally block */
+DEF(          gosub, 5, 0, 0, label) /*  用于执行Finally块。 */ 
+DEF(            ret, 1, 1, 0, none) /*  用于从Finally块返回。 */ 
 
 DEF(      to_object, 1, 1, 1, none)
-//DEF(      to_string, 1, 1, 1, none)
+//  Def(TO_STRING，1，1，1，无)。
 DEF(     to_propkey, 1, 1, 1, none)
 DEF(    to_propkey2, 1, 2, 2, none)
 
-DEF(   with_get_var, 10, 1, 0, atom_label_u8)     /* must be in the same order as scope_xxx */
-DEF(   with_put_var, 10, 2, 1, atom_label_u8)     /* must be in the same order as scope_xxx */
-DEF(with_delete_var, 10, 1, 0, atom_label_u8)     /* must be in the same order as scope_xxx */
-DEF(  with_make_ref, 10, 1, 0, atom_label_u8)     /* must be in the same order as scope_xxx */
-DEF(   with_get_ref, 10, 1, 0, atom_label_u8)     /* must be in the same order as scope_xxx */
+DEF(   with_get_var, 10, 1, 0, atom_label_u8)     /*  必须与Scope_xxx的顺序相同。 */ 
+DEF(   with_put_var, 10, 2, 1, atom_label_u8)     /*  必须与Scope_xxx的顺序相同。 */ 
+DEF(with_delete_var, 10, 1, 0, atom_label_u8)     /*  必须与Scope_xxx的顺序相同。 */ 
+DEF(  with_make_ref, 10, 1, 0, atom_label_u8)     /*  必须与Scope_xxx的顺序相同。 */ 
+DEF(   with_get_ref, 10, 1, 0, atom_label_u8)     /*  必须与Scope_xxx的顺序相同。 */ 
 DEF(with_get_ref_undef, 10, 1, 0, atom_label_u8)
 
 DEF(   make_loc_ref, 7, 0, 2, atom_u16)
@@ -219,7 +196,7 @@ DEF(     yield_star, 1, 2, 2, none)
 DEF(async_yield_star, 1, 1, 2, none)
 DEF(          await, 1, 1, 1, none)
 
-/* arithmetic/logic operations */
+/*  算术/逻辑运算。 */ 
 DEF(            neg, 1, 1, 1, none)
 DEF(           plus, 1, 1, 1, none)
 DEF(            dec, 1, 1, 1, none)
@@ -263,33 +240,33 @@ DEF(       math_div, 1, 2, 1, none)
 DEF(       math_mod, 1, 2, 1, none)
 DEF(       math_pow, 1, 2, 1, none)
 #endif
-/* must be the last non short and non temporary opcode */
+/*  必须是最后一个非短和非临时操作码。 */ 
 DEF(            nop, 1, 0, 0, none) 
 
-/* temporary opcodes: never emitted in the final bytecode */
+/*  临时操作码：从未在最终字节码中发出。 */ 
 
-def(set_arg_valid_upto, 3, 0, 0, arg) /* emitted in phase 1, removed in phase 2 */
+def(set_arg_valid_upto, 3, 0, 0, arg) /*  在阶段1中排放，在阶段2中移除。 */ 
 
-def(close_var_object, 1, 0, 0, none) /* emitted in phase 1, removed in phase 2 */
-def(    enter_scope, 3, 0, 0, u16)  /* emitted in phase 1, removed in phase 2 */
-def(    leave_scope, 3, 0, 0, u16)  /* emitted in phase 1, removed in phase 2 */
+def(close_var_object, 1, 0, 0, none) /*  在阶段1中排放，在阶段2中移除。 */ 
+def(    enter_scope, 3, 0, 0, u16)  /*  在阶段1中排放，在阶段2中移除。 */ 
+def(    leave_scope, 3, 0, 0, u16)  /*  在阶段1中排放，在阶段2中移除。 */ 
 
-def(          label, 5, 0, 0, label) /* emitted in phase 1, removed in phase 3 */
+def(          label, 5, 0, 0, label) /*  在阶段1中排放，在阶段3中移除。 */ 
 
-def(scope_get_var_undef, 7, 0, 1, atom_u16) /* emitted in phase 1, removed in phase 2 */
-def(  scope_get_var, 7, 0, 1, atom_u16) /* emitted in phase 1, removed in phase 2 */
-def(  scope_put_var, 7, 1, 0, atom_u16) /* emitted in phase 1, removed in phase 2 */
-def(scope_delete_var, 7, 0, 1, atom_u16) /* emitted in phase 1, removed in phase 2 */
-def( scope_make_ref, 11, 0, 2, atom_label_u16) /* emitted in phase 1, removed in phase 2 */
-def(  scope_get_ref, 7, 0, 2, atom_u16) /* emitted in phase 1, removed in phase 2 */
-def(scope_put_var_init, 7, 0, 2, atom_u16) /* emitted in phase 1, removed in phase 2 */
-def(scope_get_private_field, 7, 1, 1, atom_u16) /* obj -> value, emitted in phase 1, removed in phase 2 */
-def(scope_get_private_field2, 7, 1, 2, atom_u16) /* obj -> obj value, emitted in phase 1, removed in phase 2 */
-def(scope_put_private_field, 7, 1, 1, atom_u16) /* obj value ->, emitted in phase 1, removed in phase 2 */
+def(scope_get_var_undef, 7, 0, 1, atom_u16) /*  在阶段1中排放，在阶段2中移除。 */ 
+def(  scope_get_var, 7, 0, 1, atom_u16) /*  在阶段1中排放，在阶段2中移除。 */ 
+def(  scope_put_var, 7, 1, 0, atom_u16) /*  在阶段1中排放，在阶段2中移除。 */ 
+def(scope_delete_var, 7, 0, 1, atom_u16) /*  在阶段1中排放，在阶段2中移除。 */ 
+def( scope_make_ref, 11, 0, 2, atom_label_u16) /*  在阶段1中排放，在阶段2中移除。 */ 
+def(  scope_get_ref, 7, 0, 2, atom_u16) /*  在阶段1中排放，在阶段2中移除。 */ 
+def(scope_put_var_init, 7, 0, 2, atom_u16) /*  在阶段1中排放，在阶段2中移除。 */ 
+def(scope_get_private_field, 7, 1, 1, atom_u16) /*  OBJ-&gt;值，在阶段1中发出，在阶段2中删除。 */ 
+def(scope_get_private_field2, 7, 1, 2, atom_u16) /*  Obj-&gt;obj值，在第一阶段发出，在第二阶段移除。 */ 
+def(scope_put_private_field, 7, 1, 1, atom_u16) /*  OBJ值-&gt;，在阶段1中发射，在阶段2中删除。 */ 
 
-def( set_class_name, 5, 1, 1, u32) /* emitted in phase 1, removed in phase 2 */
+def( set_class_name, 5, 1, 1, u32) /*  在阶段1中排放，在阶段2中移除。 */ 
     
-def(       line_num, 5, 0, 0, u32) /* emitted in phase 1, removed in phase 3 */
+def(       line_num, 5, 0, 0, u32) /*  在阶段1中排放，在阶段3中移除。 */ 
 
 #if SHORT_OPCODES
 DEF(    push_minus1, 1, 0, 1, none_int)
@@ -304,7 +281,7 @@ DEF(         push_7, 1, 0, 1, none_int)
 DEF(        push_i8, 2, 0, 1, i8)
 DEF(       push_i16, 3, 0, 1, i16)
 DEF(    push_const8, 2, 0, 1, const8)
-DEF(      fclosure8, 2, 0, 1, const8) /* must follow push_const8 */
+DEF(      fclosure8, 2, 0, 1, const8) /*  必须遵循PUSH_CONT8。 */ 
 DEF(push_empty_string, 1, 0, 1, none)
 
 DEF(       get_loc8, 2, 0, 1, loc8)
@@ -351,8 +328,8 @@ DEF(   set_var_ref3, 1, 1, 1, none_var_ref)
 DEF(     get_length, 1, 1, 1, none)
 
 DEF(      if_false8, 2, 1, 0, label8)
-DEF(       if_true8, 2, 1, 0, label8) /* must come after if_false8 */
-DEF(          goto8, 2, 0, 0, label8) /* must come after if_true8 */
+DEF(       if_true8, 2, 1, 0, label8) /*  必须在If_False8之后。 */ 
+DEF(          goto8, 2, 0, 0, label8) /*  必须在if_true8之后。 */ 
 DEF(         goto16, 3, 0, 0, label16)
 
 DEF(          call0, 1, 1, 1, npopx)
@@ -367,4 +344,4 @@ DEF(    is_function, 1, 1, 1, none)
 
 #undef DEF
 #undef def
-#endif  /* DEF */
+#endif  /*  DEF */ 

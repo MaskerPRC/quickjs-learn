@@ -1,26 +1,5 @@
-/*
- * Unicode utilities
- * 
- * Copyright (c) 2017-2018 Fabrice Bellard
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *Unicode实用程序**版权所有(C)2017-2018 Fabrice Bellard**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -48,11 +27,7 @@ enum {
     RUN_TYPE_U_EXT3,
 };
 
-/* conv_type:
-   0 = to upper 
-   1 = to lower
-   2 = case folding (= to lower with modifications) 
-*/
+/*  转换类型(_T)：0=至上1=降低2=折叠表壳(=修改后放低)。 */ 
 int lre_case_conv(uint32_t *res, uint32_t c, int conv_type)
 {
     if (c < 128) {
@@ -168,7 +143,7 @@ static uint32_t get_le24(const uint8_t *ptr)
 
 #define UNICODE_INDEX_BLOCK_LEN 32
 
-/* return -1 if not in table, otherwise the offset in the block */
+/*  如果不在表中，则返回-1，否则返回块中的偏移量。 */ 
 static int get_index_pos(uint32_t *pcode, uint32_t c,
                          const uint8_t *index_table, int index_table_len)
 {
@@ -186,7 +161,7 @@ static int get_index_pos(uint32_t *pcode, uint32_t c,
     code = get_le24(index_table + idx_max * 3);
     if (c >= code)
         return -1;
-    /* invariant: tab[idx_min] <= c < tab2[idx_max] */
+    /*  不变量：制表符[idx_min]&lt;=c&lt;tab2[idx_max]。 */ 
     while ((idx_max - idx_min) > 1) {
         idx = (idx_max + idx_min) / 2;
         v = get_le24(index_table + idx * 3);
@@ -211,7 +186,7 @@ static BOOL lre_is_in_table(uint32_t c, const uint8_t *table,
     
     pos = get_index_pos(&code, c, index_table, index_table_len);
     if (pos < 0)
-        return FALSE; /* outside the table */
+        return FALSE; /*  在餐桌外。 */ 
     p = table + pos;
     bit = 0;
     for(;;) {
@@ -269,7 +244,7 @@ BOOL lre_is_case_ignorable(uint32_t c)
                            sizeof(unicode_prop_Case_Ignorable_index) / 3);
 }
 
-/* character range */
+/*  字符范围。 */ 
 
 static __maybe_unused void cr_dump(CharRange *cr)
 {
@@ -322,7 +297,7 @@ int cr_copy(CharRange *cr, const CharRange *cr1)
     return 0;
 }
 
-/* merge consecutive intervals and remove empty intervals */
+/*  合并连续间隔并删除空间隔。 */ 
 static void cr_compress(CharRange *cr)
 {
     int i, j, k, len;
@@ -335,13 +310,13 @@ static void cr_compress(CharRange *cr)
     k = 0;
     while ((i + 1) < len) {
         if (pt[i] == pt[i + 1]) {
-            /* empty interval */
+            /*  空区间。 */ 
             i += 2;
         } else {
             j = i;
             while ((j + 3) < len && pt[j + 1] == pt[j + 2])
                 j += 2;
-            /* just copy */
+            /*  复制就行了。 */ 
             pt[k] = pt[i];
             pt[k + 1] = pt[j + 1];
             k += 2;
@@ -351,7 +326,7 @@ static void cr_compress(CharRange *cr)
     cr->len = k;
 }
 
-/* union or intersection */
+/*  并集或交集。 */ 
 int cr_op(CharRange *cr, const uint32_t *a_pt, int a_len,
           const uint32_t *b_pt, int b_len, int op)
 {
@@ -361,7 +336,7 @@ int cr_op(CharRange *cr, const uint32_t *a_pt, int a_len,
     a_idx = 0;
     b_idx = 0;
     for(;;) {
-        /* get one more point from a or b in increasing order */
+        /*  按升序从a或b多得一分。 */ 
         if (a_idx < a_len && b_idx < b_len) {
             if (a_pt[a_idx] < b_pt[b_idx]) {
                 goto a_add;
@@ -381,7 +356,7 @@ int cr_op(CharRange *cr, const uint32_t *a_pt, int a_len,
         } else {
             break;
         }
-        /* add the point if the in/out status changes */
+        /*  如果输入/输出状态更改，则添加该点。 */ 
         switch(op) {
         case CR_OP_UNION:
             is_in = (a_idx & 1) | (b_idx & 1);
@@ -450,29 +425,29 @@ BOOL lre_is_id_continue(uint32_t c)
 #define UNICODE_DECOMP_LEN_MAX 18
 
 typedef enum {
-    DECOMP_TYPE_C1, /* 16 bit char */
-    DECOMP_TYPE_L1, /* 16 bit char table */
+    DECOMP_TYPE_C1, /*  16位字符。 */ 
+    DECOMP_TYPE_L1, /*  16位字符表。 */ 
     DECOMP_TYPE_L2,
     DECOMP_TYPE_L3,
     DECOMP_TYPE_L4,
-    DECOMP_TYPE_L5, /* XXX: not used */
-    DECOMP_TYPE_L6, /* XXX: could remove */
-    DECOMP_TYPE_L7, /* XXX: could remove */
-    DECOMP_TYPE_LL1, /* 18 bit char table */
+    DECOMP_TYPE_L5, /*  XXX：未使用。 */ 
+    DECOMP_TYPE_L6, /*  XXX：可以删除。 */ 
+    DECOMP_TYPE_L7, /*  XXX：可以删除。 */ 
+    DECOMP_TYPE_LL1, /*  18位字符表。 */ 
     DECOMP_TYPE_LL2,
-    DECOMP_TYPE_S1, /* 8 bit char table */
+    DECOMP_TYPE_S1, /*  8位字符表。 */ 
     DECOMP_TYPE_S2,
     DECOMP_TYPE_S3,
     DECOMP_TYPE_S4,
     DECOMP_TYPE_S5,
-    DECOMP_TYPE_I1, /* increment 16 bit char value */
+    DECOMP_TYPE_I1, /*  递增16位字符值。 */ 
     DECOMP_TYPE_I2_0,
     DECOMP_TYPE_I2_1,
     DECOMP_TYPE_I3_1,
     DECOMP_TYPE_I3_2,
     DECOMP_TYPE_I4_1,
     DECOMP_TYPE_I4_2,
-    DECOMP_TYPE_B1, /* 16 bit base + 8 bit offset */
+    DECOMP_TYPE_B1, /*  16位基准+8位偏移量。 */ 
     DECOMP_TYPE_B2,
     DECOMP_TYPE_B3,
     DECOMP_TYPE_B4,
@@ -651,8 +626,7 @@ static int unicode_decomp_entry(uint32_t *res, uint32_t c,
 }
 
 
-/* return the length of the decomposition (length <=
-   UNICODE_DECOMP_LEN_MAX) or 0 if no decomposition */
+/*  返回分解的长度(长度&lt;=UNICODE_DEMPLAIP_LEN_MAX)或0(如果没有分解。 */ 
 static int unicode_decomp_char(uint32_t *res, uint32_t c, BOOL is_compat1)
 {
     uint32_t v, type, is_compat, code, len;
@@ -665,7 +639,7 @@ static int unicode_decomp_char(uint32_t *res, uint32_t c, BOOL is_compat1)
         v = unicode_decomp_table1[idx];
         code = v >> (32 - 18);
         len = (v >> (32 - 18 - 7)) & 0x7f;
-        //        printf("idx=%d code=%05x len=%d\n", idx, code, len);
+        //  Print tf(“idx=%d code=%05x len=%d\n”，idx，code，len)；
         if (c < code) {
             idx_max = idx - 1;
         } else if (c >= code + len) {
@@ -681,7 +655,7 @@ static int unicode_decomp_char(uint32_t *res, uint32_t c, BOOL is_compat1)
     return 0;
 }
 
-/* return 0 if no pair found */
+/*  如果未找到对，则返回0。 */ 
 static int unicode_compose_pair(uint32_t c0, uint32_t c1)
 {
     uint32_t code, len, type, v, idx1, d_idx, d_offset, ch;
@@ -694,7 +668,7 @@ static int unicode_compose_pair(uint32_t c0, uint32_t c1)
         idx = (idx_max + idx_min) / 2;
         idx1 = unicode_comp_table[idx];
 
-        /* idx1 represent an entry of the decomposition table */
+        /*  IDX1表示分解表的条目。 */ 
         d_idx = idx1 >> 6;
         d_offset = idx1 & 0x3f;
         v = unicode_decomp_table1[d_idx];
@@ -717,7 +691,7 @@ static int unicode_compose_pair(uint32_t c0, uint32_t c1)
     return 0;
 }
 
-/* return the combining class of character c (between 0 and 255) */
+/*  返回字符c的组合类(介于0到255之间)。 */ 
 static int unicode_get_cc(uint32_t c)
 {
     uint32_t code, n, type, cc, c1, b;
@@ -815,7 +789,7 @@ static void to_nfd_rec(DynBuf *dbuf,
     for(i = 0; i < src_len; i++) {
         c = src[i];
         if (c >= 0xac00 && c < 0xd7a4) {
-            /* Hangul decomposition */
+            /*  朝鲜文分解。 */ 
             c -= 0xac00;
             dbuf_put_u32(dbuf, 0x1100 + c / 588);
             dbuf_put_u32(dbuf, 0x1161 + (c % 588) / 28);
@@ -833,10 +807,10 @@ static void to_nfd_rec(DynBuf *dbuf,
     }
 }
 
-/* return 0 if not found */
+/*  如果未找到，则返回0。 */ 
 static int compose_pair(uint32_t c0, uint32_t c1)
 {
-    /* Hangul composition */
+    /*  朝鲜文构图。 */ 
     if (c0 >= 0x1100 && c0 < 0x1100 + 19 &&
         c1 >= 0x1161 && c1 < 0x1161 + 21) {
         return 0xac00 + (c0 - 0x1100) * 588 + (c1 - 0x1161) * 28;
@@ -863,7 +837,7 @@ int unicode_normalize(uint32_t **pdst, const uint32_t *src, int src_len,
     if (dbuf_realloc(dbuf, sizeof(int) * src_len))
         goto fail;
 
-    /* common case: latin1 is unaffected by NFC */
+    /*  常见情况：Latin1不受NFC影响。 */ 
     if (n_type == UNICODE_NFC) {
         for(i = 0; i < src_len; i++) {
             if (src[i] >= 0x100)
@@ -888,7 +862,7 @@ int unicode_normalize(uint32_t **pdst, const uint32_t *src, int src_len,
     sort_cc(buf, buf_len);
     
     if (buf_len <= 1 || (n_type & 1) != 0) {
-        /* NFD / NFKD */
+        /*  NFD/NFKD。 */ 
         *pdst = (uint32_t *)buf;
         return buf_len;
     }
@@ -896,8 +870,7 @@ int unicode_normalize(uint32_t **pdst, const uint32_t *src, int src_len,
     i = 1;
     out_len = 1;
     while (i < buf_len) {
-        /* find the starter character and test if it is blocked from
-           the character at 'i' */
+        /*  找到起始角色并测试它是否被阻止“I”中的角色。 */ 
         last_cc = unicode_get_cc(buf[i]);
         starter_pos = out_len - 1;
         while (starter_pos >= 0) {
@@ -922,7 +895,7 @@ int unicode_normalize(uint32_t **pdst, const uint32_t *src, int src_len,
     return out_len;
 }
 
-/* char ranges for various unicode properties */
+/*  各种Unicode属性的字符范围。 */ 
 
 static int unicode_find_name(const char *name_table, const char *name)
 {
@@ -951,8 +924,7 @@ static int unicode_find_name(const char *name_table, const char *name)
     return -1;
 }
 
-/* 'cr' must be initialized and empty. Return 0 if OK, -1 if error, -2
-   if not found */
+/*  “cr”必须初始化并且为空。如果正常则返回0，如果错误则返回-1，如果错误则返回-2如果未找到。 */ 
 int unicode_script(CharRange *cr,
                    const char *script_name, BOOL is_ext)
 {
@@ -966,7 +938,7 @@ int unicode_script(CharRange *cr,
     script_idx = unicode_find_name(unicode_script_name_table, script_name);
     if (script_idx < 0)
         return -2;
-    /* Note: we remove the "Unknown" Script */
+    /*  注意：我们删除了“未知”脚本。 */ 
     script_idx += UNICODE_SCRIPT_Unknown + 1;
         
     is_common = (script_idx == UNICODE_SCRIPT_Common ||
@@ -1010,7 +982,7 @@ int unicode_script(CharRange *cr,
     }
 
     if (is_ext) {
-        /* add the script extensions */
+        /*  添加脚本扩展名。 */ 
         p = unicode_script_ext_table;
         p_end = unicode_script_ext_table + countof(unicode_script_ext_table);
         c = 0;
@@ -1048,7 +1020,7 @@ int unicode_script(CharRange *cr,
             c = c1;
         }
         if (is_common) {
-            /* remove all the characters with script extensions */
+            /*  删除所有带有脚本扩展名的字符。 */ 
             if (cr_invert(cr2))
                 goto fail;
             if (cr_op(cr, cr1->points, cr1->len, cr2->points, cr2->len,
@@ -1103,7 +1075,7 @@ static int unicode_general_category1(CharRange *cr, uint32_t gc_mask)
         c0 = c;
         c += n + 1;
         if (v == 31) {
-            /* run of Lu / Ll */
+            /*  LU/L1运行。 */ 
             b = gc_mask & (M(Lu) | M(Ll));
             if (b != 0) {
                 if (b == (M(Lu) | M(Ll))) {
@@ -1168,11 +1140,7 @@ static int unicode_prop1(CharRange *cr, int prop_idx)
 #define CASE_L (1 << 1)
 #define CASE_F (1 << 2)
 
-/* use the case conversion table to generate range of characters.
-   CASE_U: set char if modified by uppercasing,
-   CASE_L: set char if modified by lowercasing,
-   CASE_F: set char if modified by case folding,
- */
+/*  使用大小写转换表生成字符范围。CASE_U：大写修改时设置字符，CASE_L：小写修改时设置字符，CASE_F：折叠案例修改时设置字符， */ 
 static int unicode_case1(CharRange *cr, int case_mask)
 {
 #define MR(x) (1 << RUN_TYPE_ ## x)
@@ -1200,7 +1168,7 @@ static int unicode_case1(CharRange *cr, int case_mask)
         code = v >> (32 - 17);
         len = (v >> (32 - 17 - 7)) & 0x7f;
         if ((mask >> type) & 1) {
-            //            printf("%d: type=%d %04x %04x\n", idx, type, code, code + len - 1);
+            //  Printf(“%d：type=%d%04x%04x\n”，idx，type，code，code+len-1)；
             switch(type) {
             case RUN_TYPE_UL:
                 if ((case_mask & CASE_U) && (case_mask & (CASE_L | CASE_F)))
@@ -1325,18 +1293,17 @@ static int unicode_prop_ops(CharRange *cr, ...)
 }
 
 static const uint32_t unicode_gc_mask_table[] = {
-    M(Lu) | M(Ll) | M(Lt), /* LC */
-    M(Lu) | M(Ll) | M(Lt) | M(Lm) | M(Lo), /* L */
-    M(Mn) | M(Mc) | M(Me), /* M */
-    M(Nd) | M(Nl) | M(No), /* N */
-    M(Sm) | M(Sc) | M(Sk) | M(So), /* S */
-    M(Pc) | M(Pd) | M(Ps) | M(Pe) | M(Pi) | M(Pf) | M(Po), /* P */
-    M(Zs) | M(Zl) | M(Zp), /* Z */
-    M(Cc) | M(Cf) | M(Cs) | M(Co) | M(Cn), /* C */
+    M(Lu) | M(Ll) | M(Lt), /*  LC。 */ 
+    M(Lu) | M(Ll) | M(Lt) | M(Lm) | M(Lo), /*  我。 */ 
+    M(Mn) | M(Mc) | M(Me), /*  M。 */ 
+    M(Nd) | M(Nl) | M(No), /*  n。 */ 
+    M(Sm) | M(Sc) | M(Sk) | M(So), /*  %s。 */ 
+    M(Pc) | M(Pd) | M(Ps) | M(Pe) | M(Pi) | M(Pf) | M(Po), /*  P。 */ 
+    M(Zs) | M(Zl) | M(Zp), /*  Z。 */ 
+    M(Cc) | M(Cf) | M(Cs) | M(Co) | M(Cn), /*  C。 */ 
 };
 
-/* 'cr' must be initialized and empty. Return 0 if OK, -1 if error, -2
-   if not found */
+/*  “cr”必须初始化并且为空。如果正常则返回0，如果错误则返回-1，如果错误则返回-2如果未找到。 */ 
 int unicode_general_category(CharRange *cr, const char *gc_name)
 {
     int gc_idx;
@@ -1354,8 +1321,7 @@ int unicode_general_category(CharRange *cr, const char *gc_name)
 }
 
 
-/* 'cr' must be initialized and empty. Return 0 if OK, -1 if error, -2
-   if not found */
+/*  “cr”必须初始化并且为空。如果正常则返回0，如果错误则返回-1，如果错误则返回-2如果未找到。 */ 
 int unicode_prop(CharRange *cr, const char *prop_name)
 {
     int prop_idx, ret;
@@ -1534,7 +1500,7 @@ int unicode_prop(CharRange *cr, const char *prop_name)
                                POP_END);
         break;
 #else
-        /* we use the existing tables */
+        /*  我们使用现有的表。 */ 
     case UNICODE_PROP_ID_Continue:
         ret = unicode_prop_ops(cr,
                                POP_PROP, UNICODE_PROP_ID_Start,
@@ -1552,4 +1518,4 @@ int unicode_prop(CharRange *cr, const char *prop_name)
     return ret;
 }
 
-#endif /* CONFIG_ALL_UNICODE */
+#endif /*  CONFIG_ALL_Unicode */ 

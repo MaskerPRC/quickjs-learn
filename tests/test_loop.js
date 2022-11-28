@@ -1,3 +1,4 @@
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
 function assert(actual, expected, message) {
     if (arguments.length == 1)
         expected = true;
@@ -15,10 +16,10 @@ function assert(actual, expected, message) {
                 (message ? " (" + message + ")" : ""));
 }
 
-// load more elaborate version of assert if available
+//  加载更精细的Assert版本(如果可用)。
 try { __loadScript("test_assert.js"); } catch(e) {}
 
-/*----------------*/
+/*  。 */ 
 
 function test_while()
 {
@@ -84,7 +85,7 @@ function test_for_in()
     }
     assert(tab.toString(), "x,y", "for_in");
 
-    /* prototype chain test */
+    /*  原型链测试。 */ 
     a = {x:2, y: 2, "1": 3};
     b = {"4" : 3 };
     Object.setPrototypeOf(a, b);
@@ -94,8 +95,7 @@ function test_for_in()
     }
     assert(tab.toString(), "1,x,y,4", "for_in");
 
-    /* non enumerable properties hide enumerables ones in the
-       prototype chain */
+    /*  不可枚举的属性隐藏原型链。 */ 
     a = {y: 2, "1": 3};
     Object.defineProperty(a, "x", { value: 1 });
     b = {"x" : 3 };
@@ -106,7 +106,7 @@ function test_for_in()
     }
     assert(tab.toString(), "1,y", "for_in");
 
-    /* array optimization */
+    /*  阵列优化。 */ 
     a = [];
     for(i = 0; i < 10; i++)
         a.push(i);
@@ -116,7 +116,7 @@ function test_for_in()
     }
     assert(tab.toString(), "0,1,2,3,4,5,6,7,8,9", "for_in");
 
-    /* iterate with a field */
+    /*  使用字段迭代。 */ 
     a={x:0};
     tab = [];
     for(a.x in {x:1, y: 2}) {
@@ -124,7 +124,7 @@ function test_for_in()
     }
     assert(tab.toString(), "x,y", "for_in");
 
-    /* iterate with a variable field */
+    /*  使用变量字段迭代。 */ 
     a=[0];
     tab = [];
     for(a[0] in {x:1, y: 2}) {
@@ -132,14 +132,14 @@ function test_for_in()
     }
     assert(tab.toString(), "x,y", "for_in");
 
-    /* variable definition in the for in */
+    /*  For In中的变量定义。 */ 
     tab = [];
     for(var j in {x:1, y: 2}) {
         tab.push(j);
     }
     assert(tab.toString(), "x,y", "for_in");
 
-    /* variable assigment in the for in */
+    /*  For In中的变量赋值 */ 
     tab = [];
     for(var k = 2 in {x:1, y: 2}) {
         tab.push(k);

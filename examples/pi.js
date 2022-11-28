@@ -1,18 +1,17 @@
-/*
- * PI computation in Javascript using the QuickJS bignum extensions
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *在使用QuickJS bignum扩展的Java脚本中进行PI计算。 */ 
 "use strict";
 "use bigint";
 
-/* compute PI with a precision of 'prec' bits */
+/*  以‘prec’位的精度计算PI。 */ 
 function calc_pi(prec) {
     const CHUD_A = 13591409;
     const CHUD_B = 545140134;
     const CHUD_C = 640320;
-    const CHUD_C3 = 10939058860032000; /* C^3/24 */
-    const CHUD_BITS_PER_TERM = 47.11041313821584202247; /* log2(C/12)*3 */
+    const CHUD_C3 = 10939058860032000; /*  C^3/24。 */ 
+    const CHUD_BITS_PER_TERM = 47.11041313821584202247; /*  Log2(C/12)*3。 */ 
     
-    /* return [P, Q, G] */
+    /*  返回[P，Q，G]。 */ 
     function chud_bs(a, b, need_G) {
         var c, P, Q, G, P1, Q1, G1, P2, Q2, G2;
         if (a == (b - 1)) {
@@ -37,7 +36,7 @@ function calc_pi(prec) {
     }
 
     var n, P, Q, G;
-    /* number of serie terms */
+    /*  系列术语数。 */ 
     n = Math.ceil(BigFloatEnv.prec / CHUD_BITS_PER_TERM) + 10;
     [P, Q, G] = chud_bs(0, n, false);
     Q = Q / (P + Q * CHUD_A);
@@ -57,8 +56,7 @@ function calc_pi(prec) {
         n_digits = 1000;
     }
     n_bits = Math.ceil(n_digits * Math.log2(10));
-    /* we add more bits to reduce the probability of bad rounding for
-       the last digits */
+    /*  我们添加了更多的位，以降低错误舍入的概率最后一位数字 */ 
     BigFloatEnv.setPrec( () => {
         r = calc_pi();
         print(r.toFixed(n_digits, BigFloatEnv.RNDZ));

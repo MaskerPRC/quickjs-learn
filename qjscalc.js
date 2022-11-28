@@ -1,33 +1,12 @@
-/*
- * QuickJS Javascript Calculator
- * 
- * Copyright (c) 2017-2018 Fabrice Bellard
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *QuickJS Java脚本计算器**版权所有(C)2017-2018 Fabrice Bellard**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 "use strict";
 "use math";
 
 var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunction, Series, Matrix;
 
 (function(global) {
-    /* the types index are used to dispatch the operator functions */
+    /*  类型索引用于分派运算符函数。 */ 
     var OT_INT = 0;
     var OT_FRACTION = 10;
     var OT_FLOAT64 = 19;
@@ -43,7 +22,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
     global.Integer = global.BigInt;
     global.algebraicMode = true;
     
-    /* add non enumerable properties */
+    /*  添加不可枚举的属性。 */ 
     function add_props(obj, props) {
         var i, val, prop, tab, desc;
         tab = Reflect.ownKeys(props);
@@ -57,14 +36,14 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
                     desc.configurable = false;
                 }
             } else {
-                /* getter/setter */
+                /*  吸气剂/凝固剂。 */ 
                 desc.configurable = false;
             }
             Object.defineProperty(obj, prop, desc);
         }
     }
     
-    /* Integer */
+    /*  整型。 */ 
 
     function generic_pow(a, b) {
         var r, is_neg, i;
@@ -121,12 +100,12 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
                 if (r == (n - 1))
                     continue loop;
             }
-            return false; /* n is composite */
+            return false; /*  N是复合体。 */ 
         }
-        return true; /* n is probably prime with probability (1-0.5^t) */
+        return true; /*  N可能是概率为(1-0.5^t)的素数。 */ 
     }
 
-    function fact_rec(a, b) {  /* assumes a <= b */
+    function fact_rec(a, b) {  /*  假设a&lt;=b。 */ 
         var i, r;
         if ((b - a) <= 5) {
             r = a;
@@ -134,8 +113,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
                 r *= i;
             return r;
         } else {
-            /* to avoid a quadratic running time it is better to
-               multiply numbers of similar size */
+            /*  为了避免二次运行时间，最好是将大小相似的数字相乘。 */ 
             i = (a + b) >> 1;
             return fact_rec(a, i) * fact_rec(i + 1, b);
         }
@@ -172,7 +150,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
         fact(n) {
             return n <= 0 ? 1 : fact_rec(1, n);
         },
-        /* binomial coefficient */
+        /*  二项式系数。 */ 
         comb(n, k) {
             if (k < 0 || k > n)
                 return 0;
@@ -182,7 +160,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
                 return 1;
             return Integer.tdiv(fact_rec(n - k + 1, n), fact_rec(1, k));
         },
-        /* inverse of x modulo y */
+        /*  X模y的逆。 */ 
         invmod(x, y) {
             var q, u, v, a, c, t;
             u = x;
@@ -198,12 +176,12 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
                 c = a - q * c;
                 a = t;
             }
-            /* v = gcd(x, y) */
+            /*  V=gcd(x，y)。 */ 
             if (v != 1)
                 throw RangeError("not invertible");
             return a % y;
         },
-        /* return a ^ b modulo m */
+        /*  返回以m为模的a^b。 */ 
         pmod(a, b, m) {
             var r;
             if (b == 0)
@@ -225,8 +203,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
             return r;
         },
 
-        /* return true if n is prime (or probably prime with
-           probability 1-0.5^t) */
+        /*  如果n为素数(或可能为素数)，则返回TRUE概率1-0.5^t)。 */ 
         isPrime(n, t) {
             var i, d, n1;
             if (!Integer.isInteger(n))
@@ -234,7 +211,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
             if (n <= 1)
                 return false;
             n1 = small_primes.length;
-            /* XXX: need Integer.sqrt() */
+            /*  XXX：需要Integer.sqrt()。 */ 
             for(i = 0; i < n1; i++) {
                 d = small_primes[i];
                 if (d == n)
@@ -286,7 +263,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
                     r.push(n);
                     break;
                 }
-                /* we are sure there is at least one divisor, so one test */
+                /*  我们确信至少有一个除数，所以有一个测试。 */ 
                 for(;;) {
                     if ((n % d) == 0)
                         break;
@@ -336,7 +313,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
         },
     });
 
-    /* Fraction */
+    /*  分数。 */ 
 
     Fraction = function Fraction(a, b)
     {
@@ -361,7 +338,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
                 b = Integer.tdiv(b, d);
             }
             
-            /* the fractions are normalized with den > 0 */
+            /*  分数被归一化，DEN&gt;0。 */ 
             if (b < 0) {
                 a = -a;
                 b = -b;
@@ -375,7 +352,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
 
     add_props(Fraction, {
         [Symbol.operatorOrder]: OT_FRACTION,
-        /* (internal use) simplify 'a' to an integer when possible */
+        /*  (内部使用)尽可能将‘a’简化为整数。 */ 
         toFraction(a, b) {
             var r = Fraction(a, b);
             if (algebraicMode && r.den == 1)
@@ -418,7 +395,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
         [Symbol.operatorCmpEQ](a, b) {
             a = Fraction(a);
             b = Fraction(b);
-            /* we assume the fractions are normalized */
+            /*  我们假设分数是归一化的。 */ 
             return (a.num == b.num && a.den == b.den);
         },
         [Symbol.operatorCmpLT](a, b) {
@@ -481,11 +458,11 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
         },
     });
 
-    /* Number (Float64) */
+    /*  编号(Float64)。 */ 
 
     add_props(Number, {
         [Symbol.operatorOrder]: OT_FLOAT64,
-        /* operators are needed for fractions */
+        /*  分数需要运算符。 */ 
         [Symbol.operatorAdd](a, b) {
             return Number(a) + Number(b);
         },
@@ -534,13 +511,13 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
         },
     });
     
-    /* Float */
+    /*  浮标。 */ 
 
     global.Float = global.BigFloat;
 
     var const_tab = [];
     
-    /* we cache the constants for small precisions */
+    /*  我们为小精度缓存常量。 */ 
     function get_const(n) {
         var t, c, p;
         t = const_tab[n];
@@ -551,10 +528,10 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
             switch(n) {
             case 0: c = Float.exp(1); break;
             case 1: c = Float.log(10); break;
-//            case 2: c = Float.log(2); break;
+//  案例2：C=Float.log(2)；Break；
             case 3: c = 1/Float.log(2); break;
             case 4: c = 1/Float.log(10); break;
-//            case 5: c = Float.atan(1) * 4; break;
+//  案例5：C=Float.atan(1)*4；Break；
             case 6: c = Float.sqrt(0.5); break;
             case 7: c = Float.sqrt(2); break;
             }
@@ -592,20 +569,20 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
             }
             return Fraction(num1, den1);
         },
-        /* similar constants as Math.x */
+        /*  与Math.x类似的常量。 */ 
         get E() { return get_const(0); },
         get LN10() { return get_const(1); },
-//        get LN2() { return get_const(2); },
+//  Get Ln2(){Return Get_Const(2)；}，
         get LOG2E() { return get_const(3); },
         get LOG10E() { return get_const(4); },
-//        get PI() { return get_const(5); },
+//  Get PI(){Return Get_Const(5)；}，
         get SQRT1_2() { return get_const(6); },
         get SQRT2() { return get_const(7); },
     });
 
     add_props(Float, {
         [Symbol.operatorOrder]: OT_FLOAT,
-        /* operators are needed for fractions */
+        /*  分数需要运算符。 */ 
         [Symbol.operatorAdd](a, b) {
             return Float(a) + Float(b);
         },
@@ -654,7 +631,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
         },
     });
        
-    /* Complex */
+    /*  复合体。 */ 
     
     Complex = function Complex(re, im)
     {
@@ -674,7 +651,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
 
     add_props(Complex, {
         [Symbol.operatorOrder]: OT_COMPLEX,
-        /* simplify to real number when possible */
+        /*  尽可能简化为实数。 */ 
         toComplex(re, im) {
             if (algebraicMode && im == 0)
                 return re;
@@ -761,7 +738,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
         },
     });
 
-    /* Mod */
+    /*  国防部。 */ 
 
     Mod = function Mod(a, m) {
         var obj, t;
@@ -855,7 +832,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
         }
     });
             
-    /* Polynomial */
+    /*  多项式。 */ 
 
     Polynomial = function Polynomial(a)
     {
@@ -885,7 +862,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
                  (c instanceof Complex && c.re == 0));
     }
 
-    /* string for c*X^i */
+    /*  C*X^i的字符串。 */ 
     function monomial_toString(c, i)
     {
         var str1;
@@ -912,18 +889,17 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
         return str1;
     }
 
-    /* find one complex root of 'p' starting from z at precision eps using
-       at most max_it iterations. Return null if could not find root. */
+    /*  使用以下命令以EPS的精度找到从z开始的‘p’的一个复根最大迭代次数为max_it。如果找不到根，则返回NULL。 */ 
     function poly_root_laguerre1(p, z, max_it)
     {
         var p1, p2, i, z0, z1, z2, d, t0, t1, d1, d2, e, el, zl;
 
         d = p.deg();
         if (d == 1) {
-            /* monomial case */
+            /*  单项情形。 */ 
             return -p[0] / p[1];
         }
-        /* trivial zero */
+        /*  平凡的零。 */ 
         if (p[0] == 0)
             return 0.0;
         
@@ -934,11 +910,11 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
         for(i = 0; i < max_it; i++) {
             z0 = p.apply(z);
             if (z0 == 0)
-                return z; /* simple exit case */
+                return z; /*  简单出口案例。 */ 
 
-            /* Ward stopping criteria */
+            /*  病房停车标准。 */ 
             e = abs(z - zl);
-//            print("e", i, e);
+//  Print(“e”，i，e)；
             if (i >= 2 && e >= el) {
                 if (abs(zl) < 1e-4) {
                     if (e < 1e-7)
@@ -981,7 +957,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
         eps = 2.0 ^ (-BigFloatEnv.prec);
         roots = [];
         for(i = 0; i < d; i++) {
-            /* XXX: should select another start point if error */
+            /*  XXX：如果出错，应选择另一个起始点。 */ 
             for(j = 0; j < 3; j++) {
                 z = poly_root_laguerre1(p, start_points[j], 100);
                 if (z !== null)
@@ -1199,7 +1175,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
                 a = b;
                 b = t[1];
             }
-            /* convert to monic form */
+            /*  转换为一元格式。 */ 
             return a / a[a.length - 1];
         },
         invmod(x, y) {
@@ -1217,7 +1193,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
                 c = a - q * c;
                 a = t;
             }
-            /* v = gcd(x, y) */
+            /*  V=gcd(x，y)。 */ 
             if (v.deg() > 0)
                 throw RangeError("not invertible");
             return Polynomial.divrem(a, y)[1];
@@ -1227,7 +1203,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
         }
     });
 
-    /* Polynomial Modulo Q */
+    /*  多项式模Q。 */ 
 
     PolyMod = function PolyMod(a, m) {
         var obj, t;
@@ -1321,7 +1297,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
         }
     });
 
-    /* Rational function */
+    /*  有理函数。 */ 
     
     RationalFunction = function RationalFunction(a, b)
     {
@@ -1334,7 +1310,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
         t = Polynomial.divrem(a, b);
         r = t[1];
         if (r.deg() < 0)
-            return t[0]; /* no need for a fraction */
+            return t[0]; /*  不需要分数。 */ 
         d = Polynomial.gcd(b, r);
         if (d.deg() > 0) {
             a = Polynomial.divrem(a, d)[0];
@@ -1380,9 +1356,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
 
     add_props(RationalFunction, {
         [Symbol.operatorOrder]: OT_RFUNC,
-        /* This function always return a RationalFunction object even
-           if it could simplified to a polynomial, so it is not
-           equivalent to RationalFunction(a) */
+        /*  此函数始终返回RationalFunction对象如果它可以简化为多项式，那么它就不是等价于RationalFunction(A)。 */ 
         toRationalFunction(a) {
             var obj;
             if (a instanceof RationalFunction) {
@@ -1418,14 +1392,14 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
         [Symbol.operatorCmpEQ](a, b) {
             a = RationalFunction.toRationalFunction(a);
             b = RationalFunction.toRationalFunction(b);
-            /* we assume the fractions are normalized */
+            /*  我们假设分数是归一化的。 */ 
             return (a.num == b.num && a.den == b.den);
         },
     });
               
-    /* Power series */
+    /*  幂函数级数。 */ 
 
-    /* 'a' is an array */
+    /*  “a”是一个数组。 */ 
     function get_emin(a) {
         var i, n;
         n = a.length;
@@ -1436,7 +1410,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
         return n;
     };
     
-    /* n is the maximum number of terms if 'a' is not a serie */
+    /*  N是‘a’不是序列时的最大词条数。 */ 
     Series = function Series(a, n) {
         var emin, r, i;
         
@@ -1444,7 +1418,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
             return a;
         } else if (a.constructor[Symbol.operatorOrder] <= OT_POLY) {
             if (n <= 0) {
-                /* XXX: should still use the polynomial degree */
+                /*  XXX：仍应使用多项式次数。 */ 
                 return Series.zero(0, 0);
             } else {
                 a = Polynomial(a);
@@ -1500,7 +1474,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
             }
             return r;
         },
-        /* remove leading zero terms */
+        /*  删除前导零字词。 */ 
         trim() {
             var i, j, n, r, v1 = this;
             n = v1.length;
@@ -1603,7 +1577,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
             if (a.emin != 0)
                 throw Range("log argument must have a non zero constant term");
             r = integ(deriv(a) / a);
-            /* add the constant term */
+            /*  添加常数项。 */ 
             r += global.log(a[0]);
             return r;
         },
@@ -1611,14 +1585,14 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
 
     add_props(Series, {
         [Symbol.operatorOrder]: OT_SERIES,
-        /* new series of length n and first exponent emin */
+        /*  一种新的长度为n的一阶指数级数。 */ 
         zero(n, emin) {
             var r, i, obj;
 
             r = [];
             for(i = 0; i < n; i++)
                 r[i] = 0;
-            /* we return an array and store emin in its prototype */
+            /*  我们返回一个数组并将Emin存储在其原型中。 */ 
             obj = Object.create(Series.prototype);
             obj.emin = emin;
             Object.setPrototypeOf(r, obj);
@@ -1638,11 +1612,11 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
                     return v1;
                 v2_emin = 0;
             } else if (v2 instanceof RationalFunction) {
-                /* compute the emin of the rational fonction */
+                /*  计算有理函数的Emin。 */ 
                 i = get_emin(v2.num) - get_emin(v2.den);
                 if (d <= i)
                     return v1;
-                /* compute the serie with the required terms */
+                /*  用所需项计算级数。 */ 
                 v2 = Series(v2, d - i);
                 v2_emin = v2.emin;
             } else {
@@ -1652,7 +1626,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
             emin = Math.min(v1.emin, v2_emin);
             n = d - emin;
             r = Series.zero(n, emin);
-            /* XXX: slow */
+            /*  XXX：速度慢。 */ 
             for(i = emin; i < d; i++) {
                 j = i - v1.emin;
                 if (j >= 0 && j < v1.length)
@@ -1743,7 +1717,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
         },
     });
     
-    /* Array (Matrix) */
+    /*  阵列(矩阵)。 */ 
 
     Matrix = function Matrix(h, w) {
         var i, j, r, rl;
@@ -1892,7 +1866,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
                 if (j == n)
                     throw RangeError("matrix is not invertible");
                 if (j != i) {
-                    /* swap lines in src and dst */
+                    /*  在src和dst中交换行。 */ 
                     v = src[j];
                     src[j] = src[i];
                     src[i] = v;
@@ -1939,7 +1913,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
                 if (j == h)
                     continue;
                 if (j != l) {
-                    /* swap lines */
+                    /*  互换线路。 */ 
                     for(k = 0; k < w; k++) {
                         v = src[j][k];
                         src[j][k] = src[l][k];
@@ -1983,7 +1957,7 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
                     continue;
                 im_cols[i] = true;
                 if (j != l) {
-                    /* swap lines */
+                    /*  互换线路。 */ 
                     for(k = 0; k < w; k++) {
                         v = src[j][k];
                         src[j][k] = src[l][k];
@@ -2005,17 +1979,17 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
                     }
                 }
                 l++;
-                //        log_str("m=" + cval_toString(v1) + "\n");
+                //  Log_str(“m=”+cval_toString(V1)+“\n”)；
             }
-            //    log_str("im cols="+im_cols+"\n");
+            //  Log_str(“im oles=”+im_cols+“\n”)；
 
-            /* build the kernel vectors */
+            /*  构建核矢量。 */ 
             ker_dim = w - l;
             r = Matrix(w, ker_dim);
             k = 0;
             for(i = 0; i < w; i++) {
                 if (!im_cols[i]) {
-                    /* select this column from the matrix */
+                    /*  从矩阵中选择此列。 */ 
                     l = 0;
                     m = 0;
                     for(j = 0; j < w; j++) {
@@ -2041,14 +2015,14 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
             n = a.length;
             if (n != b.length)
                 throw TypeError("incompatible array length");
-            /* XXX: could do complex product */
+            /*  XXX：可以做复杂的产品。 */ 
             r = 0;
             for(i = 0; i < n; i++) {
                 r += a[i] * b[i];
             }
             return r;
         },
-        /* cross product */
+        /*  叉积。 */ 
         cp(v1, v2) {
             var r;
             if (v1.length != 3 || v2.length != 3)
@@ -2213,14 +2187,14 @@ var Integer, Float, Fraction, Complex, Mod, Polynomial, PolyMod, RationalFunctio
 
 })(this);
 
-/* global definitions */
+/*  全局定义。 */ 
 var I = Complex(0, 1);
 var X = Polynomial([0, 1]);
 var O = Series.O;
 
 Object.defineProperty(this, "PI", { get: function () { return Float.PI } });
 
-/* put frequently used functions in the global context */
+/*  将常用功能放在全局环境中 */ 
 var gcd = Integer.gcd;
 var fact = Integer.fact;
 var comb = Integer.comb;

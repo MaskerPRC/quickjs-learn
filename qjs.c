@@ -1,27 +1,5 @@
-/*
- * QuickJS stand alone interpreter
- * 
- * Copyright (c) 2017-2018 Fabrice Bellard
- * Copyright (c) 2017-2018 Charlie Gordon
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *QuickJS独立翻译器**版权所有(C)2017-2018 Fabrice Bellard*版权所有(C)2017-2018查理·戈登**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -59,8 +37,7 @@ static int eval_buf(JSContext *ctx, const void *buf, int buf_len,
     int ret;
 
     if ((eval_flags & JS_EVAL_TYPE_MASK) == JS_EVAL_TYPE_MODULE) {
-        /* for the modules, we compile then run to be able to set
-           import.meta */
+        /*  对于模块，我们先编译，然后运行，以便能够设置Import.meta。 */ 
         val = JS_Eval(ctx, buf, buf_len, filename,
                       eval_flags | JS_EVAL_FLAG_COMPILE_ONLY);
         if (!JS_IsException(val)) {
@@ -121,7 +98,7 @@ static inline unsigned long long js_trace_malloc_ptr_offset(uint8_t *ptr,
     return ptr - dp->base;
 }
 
-/* default memory allocation functions with memory limitation */
+/*  具有内存限制的默认内存分配函数。 */ 
 static inline size_t js_trace_malloc_usable_size(void *ptr)
 {
 #if defined(__APPLE__)
@@ -133,7 +110,7 @@ static inline size_t js_trace_malloc_usable_size(void *ptr)
 #elif defined(__linux__)
     return malloc_usable_size(ptr);
 #else
-    /* change this to `return 0;` if compilation fails */
+    /*  如果编译失败，则将其更改为`Return 0；`。 */ 
     return malloc_usable_size(ptr);
 #endif
 }
@@ -147,7 +124,7 @@ static void __attribute__((format(printf, 2, 3)))
     va_start(ap, fmt);
     while ((c = *fmt++) != '\0') {
         if (c == '%') {
-            /* only handle %p and %zd */
+            /*  仅句柄%p和%zd。 */ 
             if (*fmt == 'p') {
                 uint8_t *ptr = va_arg(ap, void *);
                 if (ptr == NULL) {
@@ -181,7 +158,7 @@ static void *js_trace_malloc(JSMallocState *s, size_t size)
 {
     void *ptr;
 
-    /* Do not allocate zero bytes: behavior is platform dependent */
+    /*  不分配零字节：行为取决于平台。 */ 
     assert(size != 0);
 
     if (unlikely(s->malloc_size + size > s->malloc_limit))
@@ -249,7 +226,7 @@ static const JSMallocFunctions trace_mf = {
 #elif defined(__linux__)
     (size_t (*)(const void *))malloc_usable_size,
 #else
-    /* change this to `NULL,` if compilation fails */
+    /*  如果编译失败，则将其更改为`NULL，`。 */ 
     malloc_usable_size,
 #endif
 };
@@ -297,7 +274,7 @@ int main(int argc, char **argv)
 #endif
 
 #ifdef CONFIG_BIGNUM
-    /* load jscalc runtime if invoked as 'qjscalc' */
+    /*  如果作为‘qjscalc’调用，则加载jscalc运行时。 */ 
     {
         const char *p, *exename;
         exename = argv[0];
@@ -308,20 +285,19 @@ int main(int argc, char **argv)
     }
 #endif
     
-    /* cannot use getopt because we want to pass the command line to
-       the script */
+    /*  无法使用getopt，因为我们希望将命令行传递给剧本。 */ 
     optind = 1;
     while (optind < argc && *argv[optind] == '-') {
         char *arg = argv[optind] + 1;
         const char *longopt = "";
-        /* a single - is not an option, it also stops argument scanning */
+        /*  单-不是一个选项，它还会停止参数扫描。 */ 
         if (!*arg)
             break;
         optind++;
         if (*arg == '-') {
             longopt = arg + 1;
             arg += strlen(arg);
-            /* -- stops argument scanning */
+            /*  --停止参数扫描。 */ 
             if (!*longopt)
                 break;
         }
@@ -404,7 +380,7 @@ int main(int argc, char **argv)
         exit(2);
     }
 
-    /* loader for ES6 modules */
+    /*  ES6模块的加载器。 */ 
     JS_SetModuleLoaderFunc(rt, NULL, js_module_loader, NULL);
                            
     if (!empty_run) {
@@ -415,11 +391,11 @@ int main(int argc, char **argv)
 #endif
         js_std_add_helpers(ctx, argc - optind, argv + optind);
 
-        /* system modules */
+        /*  系统模块。 */ 
         js_init_module_std(ctx, "std");
         js_init_module_os(ctx, "os");
 
-        /* make 'std' and 'os' visible to non module code */
+        /*  使‘std’和‘os’对非模块代码可见。 */ 
         if (load_std) {
             const char *str = "import * as std from 'std';\n"
                 "import * as os from 'os';\n"
@@ -433,7 +409,7 @@ int main(int argc, char **argv)
                 goto fail;
         } else
         if (optind >= argc) {
-            /* interactive mode */
+            /*  交互模式 */ 
             interactive = 1;
         } else {
             const char *filename;

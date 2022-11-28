@@ -1,27 +1,5 @@
-/*
- * QuickJS Javascript Engine
- *
- * Copyright (c) 2017-2019 Fabrice Bellard
- * Copyright (c) 2017-2019 Charlie Gordon
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *QuickJS Java脚本引擎**版权所有(C)2017-2019 Fabrice Bellard*版权所有(C)2017-2019查理·戈登**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 #ifndef QUICKJS_H
 #define QUICKJS_H
 
@@ -66,17 +44,17 @@ typedef uint32_t JSAtom;
 #endif
 
 enum {
-    /* all tags with a reference count are negative */
-    JS_TAG_FIRST       = -10, /* first negative tag */
+    /*  具有引用计数的所有标签均为负数。 */ 
+    JS_TAG_FIRST       = -10, /*  第一个负标签。 */ 
     JS_TAG_BIG_INT     = -10,
     JS_TAG_BIG_FLOAT   = -9,
     JS_TAG_SYMBOL      = -8,
     JS_TAG_STRING      = -7,
-    JS_TAG_SHAPE       = -6, /* used internally during GC */
-    JS_TAG_ASYNC_FUNCTION = -5, /* used internally during GC */
-    JS_TAG_VAR_REF     = -4, /* used internally during GC */
-    JS_TAG_MODULE      = -3, /* used internally */
-    JS_TAG_FUNCTION_BYTECODE = -2, /* used internally */
+    JS_TAG_SHAPE       = -6, /*  在GC期间内部使用。 */ 
+    JS_TAG_ASYNC_FUNCTION = -5, /*  在GC期间内部使用。 */ 
+    JS_TAG_VAR_REF     = -4, /*  在GC期间内部使用。 */ 
+    JS_TAG_MODULE      = -3, /*  内部使用。 */ 
+    JS_TAG_FUNCTION_BYTECODE = -2, /*  内部使用。 */ 
     JS_TAG_OBJECT      = -1,
 
     JS_TAG_INT         = 0,
@@ -87,7 +65,7 @@ enum {
     JS_TAG_CATCH_OFFSET = 5,
     JS_TAG_EXCEPTION   = 6,
     JS_TAG_FLOAT64     = 7,
-    /* any larger tag is FLOAT64 if JS_NAN_BOXING */
+    /*  任何较大的标记都是FLOAT64，如果是JS_NAN_BOXING。 */ 
 };
 
 typedef struct JSRefCountHeader {
@@ -97,16 +75,12 @@ typedef struct JSRefCountHeader {
 #define JS_FLOAT64_NAN NAN
 
 #ifdef CONFIG_CHECK_JSVALUE
-/* JSValue consistency : it is not possible to run the code in this
-   mode, but it is useful to detect simple reference counting
-   errors. It would be interesting to modify a static C analyzer to
-   handle specific annotations (clang has such annotations but only
-   for objective C) */
+/*  JSValue一致性：不可能在这种情况下运行代码模式，但它对检测简单引用计数很有用错误。将静态C分析器修改为处理特定的批注(Clang有这样的批注，但只有目标C)。 */ 
 typedef struct __JSValue *JSValue;
 typedef const struct __JSValue *JSValueConst;
 
 #define JS_VALUE_GET_TAG(v) (int)((uintptr_t)(v) & 0xf)
-/* same as JS_VALUE_GET_TAG, but return JS_TAG_FLOAT64 with NaN boxing */
+/*  与JS_VALUE_GET_TAG相同，但使用NAN装箱返回JS_TAG_FLOAT64。 */ 
 #define JS_VALUE_GET_NORM_TAG(v) JS_VALUE_GET_TAG(v)
 #define JS_VALUE_GET_INT(v) (int)((intptr_t)(v) >> 4)
 #define JS_VALUE_GET_BOOL(v) JS_VALUE_GET_INT(v)
@@ -139,7 +113,7 @@ typedef uint64_t JSValue;
 #define JS_MKVAL(tag, val) (((uint64_t)(tag) << 32) | (uint32_t)(val))
 #define JS_MKPTR(tag, ptr) (((uint64_t)(tag) << 32) | (uintptr_t)(ptr))
 
-#define JS_FLOAT64_TAG_ADDEND (0x7ff80000 - JS_TAG_FIRST + 1) /* quiet NaN encoding */
+#define JS_FLOAT64_TAG_ADDEND (0x7ff80000 - JS_TAG_FIRST + 1) /*  静默NaN编码。 */ 
 
 static inline double JS_VALUE_GET_FLOAT64(JSValue v)
 {
@@ -162,7 +136,7 @@ static inline JSValue __JS_NewFloat64(JSContext *ctx, double d)
     } u;
     JSValue v;
     u.d = d;
-    /* normalize NaN */
+    /*  规格化NaN。 */ 
     if (js_unlikely((u.u64 & 0x7fffffffffffffff) > 0x7ff0000000000000))
         v = JS_NAN;
     else
@@ -172,7 +146,7 @@ static inline JSValue __JS_NewFloat64(JSContext *ctx, double d)
 
 #define JS_TAG_IS_FLOAT64(tag) ((unsigned)((tag) - JS_TAG_FIRST) >= (JS_TAG_FLOAT64 - JS_TAG_FIRST))
 
-/* same as JS_VALUE_GET_TAG, but return JS_TAG_FLOAT64 with NaN boxing */
+/*  与JS_VALUE_GET_TAG相同，但使用NAN装箱返回JS_TAG_FLOAT64。 */ 
 static inline int JS_VALUE_GET_NORM_TAG(JSValue v)
 {
     uint32_t tag;
@@ -183,7 +157,7 @@ static inline int JS_VALUE_GET_NORM_TAG(JSValue v)
         return tag;
 }
 
-#else /* !JS_NAN_BOXING */
+#else /*  ！js_nan_boting。 */ 
 
 typedef union JSValueUnion {
     int32_t int32;
@@ -199,7 +173,7 @@ typedef struct JSValue {
 #define JSValueConst JSValue
 
 #define JS_VALUE_GET_TAG(v) ((int32_t)(v).tag)
-/* same as JS_VALUE_GET_TAG, but return JS_TAG_FLOAT64 with NaN boxing */
+/*  与JS_VALUE_GET_TAG相同，但使用NAN装箱返回JS_TAG_FLOAT64。 */ 
 #define JS_VALUE_GET_NORM_TAG(v) JS_VALUE_GET_TAG(v)
 #define JS_VALUE_GET_INT(v) ((v).u.int32)
 #define JS_VALUE_GET_BOOL(v) ((v).u.int32)
@@ -226,7 +200,7 @@ static inline JSValue __JS_NewFloat64(JSContext *ctx, double d)
     return v;
 }
 
-#endif /* !JS_NAN_BOXING */
+#endif /*  ！js_nan_boting。 */ 
 
 #define JS_VALUE_IS_BOTH_INT(v1, v2) ((JS_VALUE_GET_TAG(v1) | JS_VALUE_GET_TAG(v2)) == 0)
 #define JS_VALUE_IS_BOTH_FLOAT(v1, v2) (JS_TAG_IS_FLOAT64(JS_VALUE_GET_TAG(v1)) && JS_TAG_IS_FLOAT64(JS_VALUE_GET_TAG(v2)))
@@ -235,7 +209,7 @@ static inline JSValue __JS_NewFloat64(JSContext *ctx, double d)
 #define JS_VALUE_GET_STRING(v) ((JSString *)JS_VALUE_GET_PTR(v))
 #define JS_VALUE_HAS_REF_COUNT(v) ((unsigned)JS_VALUE_GET_TAG(v) >= (unsigned)JS_TAG_FIRST)
 
-/* special values */
+/*  特殊价值。 */ 
 #define JS_NULL      JS_MKVAL(JS_TAG_NULL, 0)
 #define JS_UNDEFINED JS_MKVAL(JS_TAG_UNDEFINED, 0)
 #define JS_FALSE     JS_MKVAL(JS_TAG_BOOL, 0)
@@ -243,19 +217,19 @@ static inline JSValue __JS_NewFloat64(JSContext *ctx, double d)
 #define JS_EXCEPTION JS_MKVAL(JS_TAG_EXCEPTION, 0)
 #define JS_UNINITIALIZED JS_MKVAL(JS_TAG_UNINITIALIZED, 0)
 
-/* flags for object properties */
+/*  对象属性的标志。 */ 
 #define JS_PROP_CONFIGURABLE  (1 << 0)
 #define JS_PROP_WRITABLE      (1 << 1)
 #define JS_PROP_ENUMERABLE    (1 << 2)
 #define JS_PROP_C_W_E         (JS_PROP_CONFIGURABLE | JS_PROP_WRITABLE | JS_PROP_ENUMERABLE)
-#define JS_PROP_LENGTH        (1 << 3) /* used internally in Arrays */
-#define JS_PROP_TMASK         (3 << 4) /* mask for NORMAL, GETSET, VARREF, AUTOINIT */
+#define JS_PROP_LENGTH        (1 << 3) /*  在阵列中内部使用。 */ 
+#define JS_PROP_TMASK         (3 << 4) /*  NORMAL、GETSET、VARREF、AUTOINIT掩码。 */ 
 #define JS_PROP_NORMAL         (0 << 4)
 #define JS_PROP_GETSET         (1 << 4)
-#define JS_PROP_VARREF         (2 << 4) /* used internally */
-#define JS_PROP_AUTOINIT       (3 << 4) /* used internally */
+#define JS_PROP_VARREF         (2 << 4) /*  内部使用。 */ 
+#define JS_PROP_AUTOINIT       (3 << 4) /*  内部使用。 */ 
 
-/* flags for JS_DefineProperty */
+/*  JS_DefineProperty的标志。 */ 
 #define JS_PROP_HAS_SHIFT        8
 #define JS_PROP_HAS_CONFIGURABLE (1 << 8)
 #define JS_PROP_HAS_WRITABLE     (1 << 9)
@@ -264,30 +238,26 @@ static inline JSValue __JS_NewFloat64(JSContext *ctx, double d)
 #define JS_PROP_HAS_SET          (1 << 12)
 #define JS_PROP_HAS_VALUE        (1 << 13)
 
-/* throw an exception if false would be returned
-   (JS_DefineProperty/JS_SetProperty) */
+/*  如果将返回False，则引发异常(JS_DefineProperty/JS_SetProperty)。 */ 
 #define JS_PROP_THROW            (1 << 14)
-/* throw an exception if false would be returned in strict mode
-   (JS_SetProperty) */
+/*  如果在严格模式下返回False，则引发异常(JS_SetProperty)。 */ 
 #define JS_PROP_THROW_STRICT     (1 << 15)
 
-#define JS_PROP_NO_ADD           (1 << 16) /* internal use */
-#define JS_PROP_NO_EXOTIC        (1 << 17) /* internal use */
+#define JS_PROP_NO_ADD           (1 << 16) /*  内部使用。 */ 
+#define JS_PROP_NO_EXOTIC        (1 << 17) /*  内部使用。 */ 
 
 #define JS_DEFAULT_STACK_SIZE (256 * 1024)
 
-/* JS_Eval() flags */
-#define JS_EVAL_TYPE_GLOBAL   (0 << 0) /* global code (default) */
-#define JS_EVAL_TYPE_MODULE   (1 << 0) /* module code */
-#define JS_EVAL_TYPE_DIRECT   (2 << 0) /* direct call (internal use) */
-#define JS_EVAL_TYPE_INDIRECT (3 << 0) /* indirect call (internal use) */
+/*  JS_Eval()标志。 */ 
+#define JS_EVAL_TYPE_GLOBAL   (0 << 0) /*  全局代码(默认)。 */ 
+#define JS_EVAL_TYPE_MODULE   (1 << 0) /*  模块代码。 */ 
+#define JS_EVAL_TYPE_DIRECT   (2 << 0) /*  直接呼叫(内部使用)。 */ 
+#define JS_EVAL_TYPE_INDIRECT (3 << 0) /*  间接调用(内部使用)。 */ 
 #define JS_EVAL_TYPE_MASK     (3 << 0)
 
-#define JS_EVAL_FLAG_STRICT   (1 << 3) /* force 'strict' mode */
-#define JS_EVAL_FLAG_STRIP    (1 << 4) /* force 'strip' mode */
-/* compile but do not run. The result is an object with a
-   JS_TAG_FUNCTION_BYTECODE or JS_TAG_MODULE tag. It can be executed
-   with JS_EvalFunction(). */
+#define JS_EVAL_FLAG_STRICT   (1 << 3) /*  强制“严格”模式。 */ 
+#define JS_EVAL_FLAG_STRIP    (1 << 4) /*  强制“剥离”模式。 */ 
+/*  编译但不运行。结果是一个具有JS_Tag_Function_ByteCode或JS_Tag_MODULE标签。它可以被执行使用JS_EvalFunction()。 */ 
 #define JS_EVAL_FLAG_COMPILE_ONLY (1 << 5)
 
 typedef JSValue JSCFunction(JSContext *ctx, JSValueConst this_val, int argc, JSValueConst *argv);
@@ -298,7 +268,7 @@ typedef struct JSMallocState {
     size_t malloc_count;
     size_t malloc_size;
     size_t malloc_limit;
-    void *opaque; /* user opaque */
+    void *opaque; /*  用户不透明。 */ 
 } JSMallocState;
 
 typedef struct JSMallocFunctions {
@@ -309,7 +279,7 @@ typedef struct JSMallocFunctions {
 } JSMallocFunctions;
 
 JSRuntime *JS_NewRuntime(void);
-/* info lifetime must exceed that of rt */
+/*  信息生存期必须超过RT。 */ 
 void JS_SetRuntimeInfo(JSRuntime *rt, const char *info);
 void JS_SetMemoryLimit(JSRuntime *rt, size_t limit);
 void JS_SetGCThreshold(JSRuntime *rt, size_t gc_threshold);
@@ -330,8 +300,7 @@ void JS_SetMaxStackSize(JSContext *ctx, size_t stack_size);
 void JS_SetClassProto(JSContext *ctx, JSClassID class_id, JSValue obj);
 JSValue JS_GetClassProto(JSContext *ctx, JSClassID class_id);
 
-/* the following functions are used to select the intrinsic object to
-   save memory */
+/*  以下函数用于选择要节省内存。 */ 
 JSContext *JS_NewContextRaw(JSRuntime *rt);
 void JS_AddIntrinsicBaseObjects(JSContext *ctx);
 void JS_AddIntrinsicDate(JSContext *ctx);
@@ -381,7 +350,7 @@ typedef struct JSMemoryUsage {
 void JS_ComputeMemoryUsage(JSRuntime *rt, JSMemoryUsage *s);
 void JS_DumpMemoryUsage(FILE *fp, const JSMemoryUsage *s, JSRuntime *rt);
 
-/* atom support */
+/*  原子支撑体。 */ 
 JSAtom JS_NewAtomLen(JSContext *ctx, const char *str, size_t len);
 JSAtom JS_NewAtom(JSContext *ctx, const char *str);
 JSAtom JS_NewAtomUInt32(JSContext *ctx, uint32_t n);
@@ -393,7 +362,7 @@ JSValue JS_AtomToString(JSContext *ctx, JSAtom atom);
 const char *JS_AtomToCString(JSContext *ctx, JSAtom atom);
 JSAtom JS_ValueToAtom(JSContext *ctx, JSValueConst val);
 
-/* object class support */
+/*  对象类支持。 */ 
 
 typedef struct JSPropertyEnum {
     JS_BOOL is_enumerable;
@@ -408,31 +377,26 @@ typedef struct JSPropertyDescriptor {
 } JSPropertyDescriptor;
 
 typedef struct JSClassExoticMethods {
-    /* Return -1 if exception (can only happen in case of Proxy object),
-       FALSE if the property does not exists, TRUE if it exists. If 1 is
-       returned, the property descriptor 'desc' is filled if != NULL. */
+    /*  如果异常，则返回-1(只能在代理对象的情况下发生)，如果该属性不存在，则为False；如果该属性存在，则为True。如果%1是返回时，如果！=NULL，则填充属性描述符‘desc’。 */ 
     int (*get_own_property)(JSContext *ctx, JSPropertyDescriptor *desc,
                              JSValueConst obj, JSAtom prop);
-    /* '*ptab' should hold the '*plen' property keys. Return 0 if OK,
-       -1 if exception. The 'is_enumerable' field is ignored.
-    */
+    /*  ‘*ptb’应该持有‘*plen’属性键。如果OK，则返回0，如果有例外情况。将忽略‘is_Eumpable’字段。 */ 
     int (*get_own_property_names)(JSContext *ctx, JSPropertyEnum **ptab,
                                   uint32_t *plen,
                                   JSValueConst obj);
-    /* return < 0 if exception, or TRUE/FALSE */
+    /*  如果异常，则返回&lt;0，或者返回TRUE/FALSE。 */ 
     int (*delete_property)(JSContext *ctx, JSValueConst obj, JSAtom prop);
-    /* return < 0 if exception or TRUE/FALSE */
+    /*  如果异常或TRUE/FALSE，则返回&lt;0。 */ 
     int (*define_own_property)(JSContext *ctx, JSValueConst this_obj,
                                JSAtom prop, JSValueConst val,
                                JSValueConst getter, JSValueConst setter,
                                int flags);
-    /* The following methods can be emulated with the previous ones,
-       so they are usually not needed */
-    /* return < 0 if exception or TRUE/FALSE */
+    /*  以下方法可以与前面的方法进行模拟，所以他们通常不需要。 */ 
+    /*  如果异常或TRUE/FALSE，则返回&lt;0。 */ 
     int (*has_property)(JSContext *ctx, JSValueConst obj, JSAtom atom);
     JSValue (*get_property)(JSContext *ctx, JSValueConst obj, JSAtom atom,
                             JSValueConst receiver);
-    /* return < 0 if exception or TRUE/FALSE */
+    /*  如果异常或TRUE/FALSE，则返回&lt;0。 */ 
     int (*set_property)(JSContext *ctx, JSValueConst obj, JSAtom atom,
                         JSValueConst value, JSValueConst receiver, int flags);
 } JSClassExoticMethods;
@@ -448,8 +412,7 @@ typedef struct JSClassDef {
     JSClassFinalizer *finalizer;
     JSClassGCMark *gc_mark;
     JSClassCall *call;
-    /* XXX: suppress this indirection ? It is here only to save memory
-       because only a few classes need these methods */
+    /*  XXX：抑制这种间接性？它在这里只是为了节省内存因为只有少数类需要这些方法。 */ 
     JSClassExoticMethods *exotic;
 } JSClassDef;
 
@@ -457,7 +420,7 @@ JSClassID JS_NewClassID(JSClassID *pclass_id);
 int JS_NewClass(JSRuntime *rt, JSClassID class_id, const JSClassDef *class_def);
 int JS_IsRegisteredClass(JSRuntime *rt, JSClassID class_id);
 
-/* value handling */
+/*  值处理。 */ 
 
 static js_force_inline JSValue JS_NewBool(JSContext *ctx, JS_BOOL val)
 {
@@ -489,8 +452,7 @@ static js_force_inline JSValue JS_NewFloat64(JSContext *ctx, double d)
     u.d = d;
     val = (int32_t)d;
     t.d = val;
-    /* -0 cannot be represented as integer, so we compare the bit
-        representation */
+    /*  -0不能表示为整数，所以我们比较位表示法。 */ 
     if (u.u == t.u) {
         v = JS_MKVAL(JS_TAG_INT, val);
     } else {
@@ -612,7 +574,7 @@ static inline JSValue JS_DupValueRT(JSRuntime *rt, JSValueConst v)
     return JS_VALUE_CAST v;
 }
 
-int JS_ToBool(JSContext *ctx, JSValueConst val); /* return -1 for JS_EXCEPTION */
+int JS_ToBool(JSContext *ctx, JSValueConst val); /*  JS_EXCEPTION返回-1。 */ 
 int JS_ToInt32(JSContext *ctx, int32_t *pres, JSValueConst val);
 static int inline JS_ToUint32(JSContext *ctx, uint32_t *pres, JSValueConst val)
 {
@@ -687,9 +649,9 @@ JSValueConst JS_GetPrototype(JSContext *ctx, JSValueConst val);
 #define JS_GPN_STRING_MASK  (1 << 0)
 #define JS_GPN_SYMBOL_MASK  (1 << 1)
 #define JS_GPN_PRIVATE_MASK (1 << 2)
-/* only include the enumerable properties */
+/*  仅包括可枚举的属性。 */ 
 #define JS_GPN_ENUM_ONLY    (1 << 4)
-/* set theJSPropertyEnum.is_enumerable field */
+/*  设置JSPropertyEnum.is_Eumable字段。 */ 
 #define JS_GPN_SET_ENUM     (1 << 5)
 
 int JS_GetOwnPropertyNames(JSContext *ctx, JSPropertyEnum **ptab,
@@ -740,32 +702,30 @@ uint8_t *JS_GetArrayBuffer(JSContext *ctx, size_t *psize, JSValueConst obj);
 
 JSValue JS_NewPromiseCapability(JSContext *ctx, JSValue *resolving_funcs);
 
-/* return != 0 if the JS code needs to be interrupted */
+/*  如果需要中断JS代码，则返回！=0。 */ 
 typedef int JSInterruptHandler(JSRuntime *rt, void *opaque);
 void JS_SetInterruptHandler(JSRuntime *rt, JSInterruptHandler *cb, void *opaque);
-/* if can_block is TRUE, Atomics.wait() can be used */
+/*  如果CAN_BLOCK为真，则可以使用ATOICS.WAIT()。 */ 
 void JS_SetCanBlock(JSRuntime *rt, JS_BOOL can_block);
 
 typedef struct JSModuleDef JSModuleDef;
 
-/* return the module specifier (allocated with js_malloc()) or NULL if
-   exception */
+/*  返回模块说明符(使用js_Malloc()分配)或NULL(如果例外情况。 */ 
 typedef char *JSModuleNormalizeFunc(JSContext *ctx,
                                     const char *module_base_name,
                                     const char *module_name, void *opaque);
 typedef JSModuleDef *JSModuleLoaderFunc(JSContext *ctx,
                                         const char *module_name, void *opaque);
 
-/* module_normalize = NULL is allowed and invokes the default module
-   filename normalizer */
+/*  允许MODULE_NORAMIZE=NULL并调用默认模块文件名规范器。 */ 
 void JS_SetModuleLoaderFunc(JSRuntime *rt,
                             JSModuleNormalizeFunc *module_normalize,
                             JSModuleLoaderFunc *module_loader, void *opaque);
-/* return the import.meta object of a module */
+/*  返回模块的port.meta对象。 */ 
 JSValue JS_GetImportMeta(JSContext *ctx, JSModuleDef *m);
 JSAtom JS_GetModuleName(JSContext *ctx, JSModuleDef *m);
 
-/* JS Job support */
+/*  JS工作支持。 */ 
 
 typedef JSValue JSJobFunc(JSContext *ctx, int argc, JSValueConst *argv);
 int JS_EnqueueJob(JSContext *ctx, JSJobFunc *job_func, int argc, JSValueConst *argv);
@@ -773,21 +733,20 @@ int JS_EnqueueJob(JSContext *ctx, JSJobFunc *job_func, int argc, JSValueConst *a
 JS_BOOL JS_IsJobPending(JSRuntime *rt);
 int JS_ExecutePendingJob(JSRuntime *rt, JSContext **pctx);
 
-/* Object Writer/Reader (currently only used to handle precompiled code) */
-#define JS_WRITE_OBJ_BYTECODE (1 << 0) /* allow function/module */
-#define JS_WRITE_OBJ_BSWAP    (1 << 1) /* byte swapped output */
+/*  对象编写器/读取器(当前仅用于处理预编译代码)。 */ 
+#define JS_WRITE_OBJ_BYTECODE (1 << 0) /*  允许函数/模块。 */ 
+#define JS_WRITE_OBJ_BSWAP    (1 << 1) /*  字节交换输出。 */ 
 uint8_t *JS_WriteObject(JSContext *ctx, size_t *psize, JSValueConst obj,
                         int flags);
-#define JS_READ_OBJ_BYTECODE  (1 << 0) /* allow function/module */
-#define JS_READ_OBJ_ROM_DATA  (1 << 1) /* avoid duplicating 'buf' data */
+#define JS_READ_OBJ_BYTECODE  (1 << 0) /*  允许函数/模块。 */ 
+#define JS_READ_OBJ_ROM_DATA  (1 << 1) /*  避免复制‘buf’数据。 */ 
 JSValue JS_ReadObject(JSContext *ctx, const uint8_t *buf, size_t buf_len,
                       int flags);
-/* load the dependencies of the module 'obj'. Useful when JS_ReadObject()
-   returns a module. */
+/*  加载模块‘obj’的依赖项。当JS_ReadObject()返回模块。 */ 
 int JS_ResolveModule(JSContext *ctx, JSValueConst obj);
 
-/* C function definition */
-typedef enum JSCFunctionEnum {  /* XXX: should rename for namespace isolation */
+/*  C语言函数定义。 */ 
+typedef enum JSCFunctionEnum {  /*  XXX：应重命名以实现命名空间隔离。 */ 
     JS_CFUNC_generic,
     JS_CFUNC_generic_magic,
     JS_CFUNC_constructor,
@@ -839,7 +798,7 @@ static inline JSValue JS_NewCFunctionMagic(JSContext *ctx, JSCFunctionMagic *fun
     return JS_NewCFunction2(ctx, (JSCFunction *)func, name, length, cproto, magic);
 }
 
-/* C property definition */
+/*  C属性定义。 */ 
 
 typedef struct JSCFunctionListEntry {
     const char *name;
@@ -848,8 +807,8 @@ typedef struct JSCFunctionListEntry {
     int16_t magic;
     union {
         struct {
-            uint8_t length; /* XXX: should move outside union */
-            uint8_t cproto; /* XXX: should move outside union */
+            uint8_t length; /*  XXX：应该搬到工会之外。 */ 
+            uint8_t cproto; /*  XXX：应该搬到工会之外。 */ 
             JSCFunctionType cfunc;
         } func;
         struct {
@@ -901,17 +860,17 @@ void JS_SetPropertyFunctionList(JSContext *ctx, JSValueConst obj,
                                 const JSCFunctionListEntry *tab,
                                 int len);
 
-/* C module definition */
+/*  C模块定义。 */ 
 
 typedef int JSModuleInitFunc(JSContext *ctx, JSModuleDef *m);
 
 JSModuleDef *JS_NewCModule(JSContext *ctx, const char *name_str,
                            JSModuleInitFunc *func);
-/* can only be called before the module is instantiated */
+/*  只能在实例化模块之前调用。 */ 
 int JS_AddModuleExport(JSContext *ctx, JSModuleDef *m, const char *name_str);
 int JS_AddModuleExportList(JSContext *ctx, JSModuleDef *m,
                            const JSCFunctionListEntry *tab, int len);
-/* can only be called after the module is instantiated */
+/*  只能在实例化模块后调用。 */ 
 int JS_SetModuleExport(JSContext *ctx, JSModuleDef *m, const char *export_name,
                        JSValue val);
 int JS_SetModuleExportList(JSContext *ctx, JSModuleDef *m,
@@ -921,7 +880,7 @@ int JS_SetModuleExportList(JSContext *ctx, JSModuleDef *m,
 #undef js_force_inline
 
 #ifdef __cplusplus
-} /* extern "C" { */
+} /*  外部“C”{。 */ 
 #endif
 
-#endif /* QUICKJS_H */
+#endif /*  QUICKJS_H */ 

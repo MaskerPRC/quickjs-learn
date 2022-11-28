@@ -1,27 +1,5 @@
-/*
- * Javascript Compressor
- * 
- * Copyright (c) 2008-2018 Fabrice Bellard
- * Copyright (c) 2017-2018 Charlie Gordon
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *Java脚本压缩器**版权所有(C)2008-2018 Fabrice Bellard*版权所有(C)2017-2018查理·戈登**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 #include <stdlib.h>
 #include <stdio.h>
 #include <getopt.h>
@@ -38,8 +16,8 @@ typedef struct JSToken {
     char *str;
     int len;
     int size;
-    int line_num;  /* line number for start of token */
-    int lines;     /* number of embedded linefeeds in token */
+    int line_num;  /*  令牌开始的行号。 */ 
+    int lines;     /*  令牌中嵌入的换行数。 */ 
 } JSToken;
 
 enum {
@@ -161,11 +139,8 @@ int skip_blanks(void)
 void parse_directive(void)
 {
     int ifdef, mask = skip_mask;
-    /* simplistic preprocessor:
-       #define / #undef / #ifdef / #ifndef / #else / #endif
-       no symbol substitution.
-     */
-    skip_mask = 0;  /* disable skipping to parse preprocessor line */
+    /*  简单化的预处理器：#定义/#undef/#ifdef/#ifndef/#Else/#endif没有符号替换。 */ 
+    skip_mask = 0;  /*  禁用跳过以解析预处理器行。 */ 
     nextch();
     if (skip_blanks() != TOK_IDENT)
         error("expected preprocessing directive after #");
@@ -201,7 +176,7 @@ void parse_directive(void)
     skip_mask = mask;
 }
 
-/* return -1 if invalid char */
+/*  如果无效字符，则返回-1。 */ 
 static int hex_to_num(int ch)
 {
     if (ch >= 'a' && ch <= 'f')
@@ -254,7 +229,7 @@ again:
         tok_add_ch(&tokc, ch);
         nextch();
         if (ch == 'x' || ch == 'X') {
-            /* hexa */
+            /*  六角形。 */ 
             tok_add_ch(&tokc, ch);
             nextch();
             while ((ch >= 'a' && ch <= 'f') ||
@@ -273,7 +248,7 @@ again:
         tok_add_ch(&tokc, ch);
         nextch();
     has_digit:
-        /* decimal */
+        /*  十进制。 */ 
         while (ch >= '0' && ch <= '9') {
             tok_add_ch(&tokc, ch);
             nextch();
@@ -388,7 +363,7 @@ again:
                         error("unexpected char after '\\'");
                     }
                 } else {
-                    /* XXX: should refuse embedded newlines */
+                    /*  XXX：应该拒绝嵌入的换行符。 */ 
                     tok_add_ch(&tokc, ch);
                     nextch();
                 }
@@ -440,10 +415,10 @@ again:
         parse_directive();
         goto again;
     case '\n':
-        /* adjust line number */
+        /*  调整行号。 */ 
         tokc.line_num--;
         tokc.lines++;
-        /* fall thru */
+        /*  失败。 */ 
     default:
         tokc.tok = ch;
         nextch();
@@ -455,7 +430,7 @@ again:
 
 void print_tok(FILE *f, JSToken *tt)
 {
-    /* keep output lines in sync with input lines */
+    /*  使输出行与输入行保持同步。 */ 
     while (output_line_num < tt->line_num) {
         putc('\n', f);
         output_line_num++;
@@ -473,7 +448,7 @@ void print_tok(FILE *f, JSToken *tt)
             char *p;
             a = strtoul(tt->str, &p, 0);
             if (*p == '\0' && a <= 0x7fffffff) {
-                /* must be an integer */
+                /*  必须是整数。 */ 
                 fprintf(f, "%d", (int)a);
             } else {
                 fprintf(f, "%s", tt->str);
@@ -518,7 +493,7 @@ void print_tok(FILE *f, JSToken *tt)
                     fprintf(f, "\\\\");
                     break;
                 default:
-                    /* XXX: no utf-8 support! */
+                    /*  XXX：不支持UTF-8！ */ 
                     if (c >= 32 && c <= 255) {
                         fprintf(f, "%c", c);
                     } else if (c <= 255) 
@@ -540,7 +515,7 @@ void print_tok(FILE *f, JSToken *tt)
     output_line_num += tt->lines;
 }
 
-/* check if token pasting could occur */                    
+/*  检查是否可以粘贴令牌。 */                     
 static BOOL compat_token(int c1, int c2)
 {
     if ((c1 == TOK_IDENT || c1 == TOK_NUM) &&
@@ -595,7 +570,7 @@ void js_compress(const char *filename, const char *outfilename,
             }
             if (tokc.tok == TOK_COM) {
                 print_tok(outfile, &tokc);
-                //fprintf(outfile, "\n");
+                //  Fprint tf(outfile，“\n”)；
                 ltok = tokc.tok;
                 seen_space = 0;
                 next();
@@ -613,7 +588,7 @@ void js_compress(const char *filename, const char *outfilename,
                 tokc.tok == '\f' ||
                 tokc.tok == TOK_LCOM ||
                 tokc.tok == TOK_COM) {
-                /* don't print spaces or comments */
+                /*  不打印空格或批注。 */ 
                 seen_space = 1;
             } else if (tokc.tok == TOK_STR3) {
                 print_tok(outfile, &tokc);
@@ -621,7 +596,7 @@ void js_compress(const char *filename, const char *outfilename,
                 seen_space = 0;
             } else if (tokc.tok == TOK_STR1 || tokc.tok == TOK_STR2) {
                 int count, i;
-                /* find the optimal quote char */
+                /*  查找最佳报价费用。 */ 
                 count = 0;
                 for(i = 0; i < tokc.len; i++) {
                     if (tokc.str[i] == '\'')
@@ -647,7 +622,7 @@ void js_compress(const char *filename, const char *outfilename,
             next();
         }
     } else {
-        /* just handle preprocessing */
+        /*  只需处理预处理即可。 */ 
         while (tokc.tok != TOK_EOF) {
             print_tok(outfile, &tokc);
             next();
@@ -695,7 +670,7 @@ int lz_compress(uint8_t **pdst, const uint8_t *src, int src_len)
     int i, dist, len, len1, dist1;
     uint8_t *dst, *q;
     
-    /* build the hash table */
+    /*  构建哈希表。 */ 
     
     hash_table = malloc(sizeof(hash_table[0]) * HASH_SIZE);
     for(i = 0; i < HASH_SIZE; i++)
@@ -714,20 +689,20 @@ int lz_compress(uint8_t **pdst, const uint8_t *src, int src_len)
     }
     free(hash_table);
 
-    dst = malloc(src_len + 4); /* never larger than the source */
+    dst = malloc(src_len + 4); /*  永远不会大于源头。 */ 
     q = dst;
     *q++ = src_len >> 24;
     *q++ = src_len >> 16;
     *q++ = src_len >> 8;
     *q++ = src_len >> 0;
-    /* compress */
+    /*  压缩。 */ 
     i = 0;
     while (i < src_len) {
         if (src[i] >= 128)
             return -1;
         len = find_longest_match(&dist, src, src_len, hash_next, i);
         if (len >= MATCH_LEN_MIN) {
-            /* heuristic: see if better length just after */
+            /*  启发式：看看之后的长度是否更好。 */ 
             len1 = find_longest_match(&dist1, src, src_len, hash_next, i + 1);
             if (len1 > len)
                 goto no_match;
@@ -883,7 +858,7 @@ int main(int argc, char **argv)
 
     if (compress) {
 #if defined(__ANDROID__)
-        /* XXX: use another directory ? */
+        /*  XXX：使用其他目录？ */ 
         snprintf(tmpfilename, sizeof(tmpfilename), "out.%d", getpid());
 #else
         snprintf(tmpfilename, sizeof(tmpfilename), "/tmp/out.%d", getpid());

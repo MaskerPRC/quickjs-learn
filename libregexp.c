@@ -1,26 +1,5 @@
-/*
- * Regular Expression Engine
- * 
- * Copyright (c) 2017-2018 Fabrice Bellard
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *正则表达式引擎**版权所有(C)2017-2018 Fabrice Bellard**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -31,17 +10,7 @@
 #include "cutils.h"
 #include "libregexp.h"
 
-/*
-  TODO:
-
-  - Add full unicode canonicalize rules for character ranges (not
-    really useful but needed for exact "ignorecase" compatibility).
-
-  - Add a lock step execution mode (=linear time execution guaranteed)
-    when the regular expression is "simple" i.e. no backreference nor
-    complicated lookahead. The opcodes are designed for this execution
-    model.
-*/
+/*  待办事项：-为字符范围(非)添加完整的Unicode规范化规则真的很有用，但需要精确的“忽略”兼容性)。-添加锁定步骤执行模式(=线性时间执行保证)当正则表达式是“简单的”时，即既没有反向引用也没有复杂的前瞻。操作码是为该执行而设计的模特。 */ 
 
 #if defined(TEST)
 #define DUMP_REOP
@@ -57,7 +26,7 @@ typedef enum {
 #define CAPTURE_COUNT_MAX 255
 #define STACK_SIZE_MAX 255
 
-/* unicode code points */
+/*  Unicode代码点。 */ 
 #define CP_LS   0x2028
 #define CP_PS   0x2029
 
@@ -73,8 +42,8 @@ typedef struct {
     BOOL ignore_case;
     BOOL dotall;
     int capture_count;
-    int total_capture_count; /* -1 = not computed yet */
-    int has_named_captures; /* -1 = don't know, 0 = no, 1 = yes */
+    int total_capture_count; /*  -1=尚未计算。 */ 
+    int has_named_captures; /*  -1=不知道，0=否，1=是。 */ 
     void *mem_opaque;
     DynBuf group_names;
     union {
@@ -110,7 +79,7 @@ static inline int is_digit(int c) {
     return c >= '0' && c <= '9';
 }
 
-/* insert 'len' bytes at position 'pos' */
+/*  在位置‘pos’处插入‘len’个字节。 */ 
 static void dbuf_insert(DynBuf *s, int pos, int len)
 {
     dbuf_realloc(s, s->size + len);
@@ -118,7 +87,7 @@ static void dbuf_insert(DynBuf *s, int pos, int len)
     s->size += len;
 }
 
-/* canonicalize with the specific JS regexp rules */
+/*  使用特定的JS regexp规则进行规范化。 */ 
 static uint32_t lre_canonicalize(uint32_t c, BOOL is_utf16)
 {
     uint32_t res[LRE_CC_RES_LEN_MAX];
@@ -136,7 +105,7 @@ static uint32_t lre_canonicalize(uint32_t c, BOOL is_utf16)
             if (c >= 'a' && c <= 'z')
                 c = c - 'a' + 'A';
         } else {
-            /* legacy regexp: to upper case if single char >= 128 */
+            /*  传统regexp：如果单个字符&gt;=128，则转换为大写。 */ 
             len = lre_case_conv(res, c, FALSE);
             if (len == 1 && res[0] >= 128)
                 c = res[0];
@@ -150,7 +119,7 @@ static const uint16_t char_range_d[] = {
     0x0030, 0x0039 + 1,
 };
 
-/* code point ranges for Zs,Zl or Zp property */
+/*  Zs、Zl或Zp属性的码位范围。 */ 
 static const uint16_t char_range_s[] = {
     10,
     0x0009, 0x000D + 1,
@@ -158,13 +127,13 @@ static const uint16_t char_range_s[] = {
     0x00A0, 0x00A0 + 1,
     0x1680, 0x1680 + 1,
     0x2000, 0x200A + 1,
-    /* 2028;LINE SEPARATOR;Zl;0;WS;;;;;N;;;;; */
-    /* 2029;PARAGRAPH SEPARATOR;Zp;0;B;;;;;N;;;;; */
+    /*  2028；行分隔符；Zl；0；WS；N； */ 
+    /*  2029；段落分隔符；ZP；0；B；N； */ 
     0x2028, 0x2029 + 1,
     0x202F, 0x202F + 1,
     0x205F, 0x205F + 1,
     0x3000, 0x3000 + 1,
-    /* FEFF;ZERO WIDTH NO-BREAK SPACE;Cf;0;BN;;;;;N;BYTE ORDER MARK;;;; */
+    /*  零宽度不间断空格；CF；0；BN；N；字节顺序标记； */ 
     0xFEFF, 0xFEFF + 1,
 };
 
@@ -184,12 +153,12 @@ BOOL lre_is_space(int c)
 }
 
 uint32_t const lre_id_start_table_ascii[4] = {
-    /* $ A-Z _ a-z */
+    /*  $A-Z_a-z。 */ 
     0x00000000, 0x00000010, 0x87FFFFFE, 0x07FFFFFE
 };
 
 uint32_t const lre_id_continue_table_ascii[4] = {
-    /* $ 0-9 A-Z _ a-z */
+    /*  $0-9 A-Z_a-Z。 */ 
     0x00000000, 0x03FF0010, 0x87FFFFFE, 0x07FFFFFE
 };
 
@@ -255,13 +224,12 @@ static int cr_canonicalize(CharRange *cr)
     ret = cr_op(&a, cr->points, cr->len, pt, 2, CR_OP_INTER);
     if (ret)
         goto fail;
-    /* convert to upper case */
-    /* XXX: the generic unicode case would be much more complicated
-       and not really useful */
+    /*  转换为大写。 */ 
+    /*  XXX：通用的Unicode用例要复杂得多而且也不是很有用。 */ 
     for(i = 0; i < a.len; i++) {
         a.points[i] += 'A' - 'a';
     }
-    /* Note: for simplicity we keep the lower case ranges */
+    /*  注：为简单起见，我们保留小写范围。 */ 
     ret = cr_union1(cr, a.points, a.len);
  fail:
     cr_free(&a);
@@ -394,7 +362,7 @@ static void re_emit_op(REParseState *s, int op)
     dbuf_putc(&s->byte_code, op);
 }
 
-/* return the offset of the u32 value */
+/*  返回u32值的偏移量。 */ 
 static int re_emit_op_u32(REParseState *s, int op, uint32_t val)
 {
     int pos;
@@ -440,7 +408,7 @@ static int FMT_HACK re_parse_error(REParseState *s, const char *fmt, ...)
 }
 #undef FMT_HACK
 
-/* Return -1 in case of overflow */
+/*  如果溢出，则返回-1。 */ 
 static int parse_digits(const uint8_t **pp)
 {
     const uint8_t *p;
@@ -473,16 +441,7 @@ static int re_parse_expect(REParseState *s, const uint8_t **pp, int c)
     return 0;
 }
 
-/* Parse an escape sequence, *pp points after the '\':
-   allow_utf16 value:
-   0 : no UTF-16 escapes allowed
-   1 : UTF-16 escapes allowed
-   2 : UTF-16 escapes allowed and escapes of surrogate pairs are
-   converted to a unicode character (unicode regexp case).
-
-   Return the unicode char and update *pp if recognized,
-   return -1 if malformed escape,
-   return -2 otherwise. */
+/*  分析转义序列，*pp指向‘\’之后：Allow_utf16值：0：不允许UTF-16转义1：允许UTF-16转义2：允许UTF-16转义和代理对转义转换为Unicode字符(Unicode regexp大小写)。如果识别，则返回Unicode字符并更新*pp，如果格式错误，则返回-1，否则返回-2。 */ 
 int lre_parse_escape(const uint8_t **pp, int allow_utf16)
 {
     const uint8_t *p;
@@ -546,8 +505,7 @@ int lre_parse_escape(const uint8_t **pp, int allow_utf16)
                 }
                 if (c >= 0xd800 && c < 0xdc00 &&
                     allow_utf16 == 2 && p[0] == '\\' && p[1] == 'u') {
-                    /* convert an escaped surrogate pair into a
-                       unicode char */
+                    /*  将转义的代理项对转换为Unicode字符。 */ 
                     c1 = 0;
                     for(i = 0; i < 4; i++) {
                         h = from_hex(p[2 + i]);
@@ -566,11 +524,11 @@ int lre_parse_escape(const uint8_t **pp, int allow_utf16)
     case '0':case '1':case '2':case '3':case '4':case '5':case '6':case '7':
         c -= '0';
         if (allow_utf16 == 2) {
-            /* only accept \0 not followed by digit */
+            /*  只接受\0，后面不跟数字。 */ 
             if (c != 0 || is_digit(*p))
                 return -1;
         } else {
-            /* parse a legacy octal sequence */
+            /*  解析旧版八进制序列。 */ 
             uint32_t v;
             v = *p - '0';
             if (v > 7)
@@ -594,7 +552,7 @@ int lre_parse_escape(const uint8_t **pp, int allow_utf16)
 }
 
 #ifdef CONFIG_ALL_UNICODE
-/* XXX: we use the same chars for name and value */
+/*  XXX：我们对名称和值使用相同的字符。 */ 
 static BOOL is_unicode_char(int c)
 {
     return ((c >= '0' && c <= '9') ||
@@ -636,7 +594,7 @@ static int parse_unicode_property(REParseState *s, CharRange *cr,
     if (*p != '}')
         return re_parse_error(s, "expecting '}'");
     p++;
-    //    printf("name=%s value=%s\n", name, value);
+    //  Printf(“名称=%s值=%s\n”，名称，值)；
 
     if (!strcmp(name, "Script") || !strcmp(name, "sc")) {
         script_ext = FALSE;
@@ -696,11 +654,9 @@ static int parse_unicode_property(REParseState *s, CharRange *cr,
  out_of_memory:
     return re_parse_error(s, "out of memory");
 }
-#endif /* CONFIG_ALL_UNICODE */
+#endif /*  CONFIG_ALL_Unicode。 */ 
 
-/* return -1 if error otherwise the character or a class range
-   (CLASS_RANGE_BASE). In case of class range, 'cr' is
-   initialized. Otherwise, it is ignored. */
+/*  如果出错，则返回-1，否则返回字符或类范围(CLASS_RANGE_BASE)。对于类范围，‘cr’为已初始化。否则，它将被忽略。 */ 
 static int get_class_atom(REParseState *s, CharRange *cr,
                           const uint8_t **pp, BOOL inclass)
 {
@@ -745,13 +701,13 @@ static int get_class_atom(REParseState *s, CharRange *cr,
             if ((c >= 'a' && c <= 'z') ||
                 (c >= 'A' && c <= 'Z') ||
                 (((c >= '0' && c <= '9') || c == '_') &&
-                 inclass && !s->is_utf16)) {   /* Annex B.1.4 */
+                 inclass && !s->is_utf16)) {   /*  附件B.1.4。 */ 
                 c &= 0x1f;
                 p++;
             } else if (s->is_utf16) {
                 goto invalid_escape;
             } else {
-                /* otherwise return '\' and 'c' */
+                /*  否则返回‘\’和‘c’ */ 
                 p--;
                 c = '\\';
             }
@@ -765,7 +721,7 @@ static int get_class_atom(REParseState *s, CharRange *cr,
                 c = CLASS_RANGE_BASE;
                 break;
             }
-            /* fall thru */
+            /*  失败。 */ 
 #endif
         default:
             p--;
@@ -774,13 +730,13 @@ static int get_class_atom(REParseState *s, CharRange *cr,
                 c = ret;
             } else {
                 if (ret == -2 && *p != '\0' && strchr("^$\\.*+?()[]{}|/", *p)) {
-                    /* always valid to escape these characters */
+                    /*  对这些字符进行转义始终有效。 */ 
                     goto normal_char;
                 } else if (s->is_utf16) {
                 invalid_escape:
                     return re_parse_error(s, "invalid escape sequence in regular expression");
                 } else {
-                    /* just ignore the '\' */
+                    /*  只需忽略‘\’ */ 
                     goto normal_char;
                 }
             }
@@ -792,14 +748,14 @@ static int get_class_atom(REParseState *s, CharRange *cr,
         unexpected_end:
             return re_parse_error(s, "unexpected end");
         }
-        /* fall thru */
+        /*  失败。 */ 
     default:
     normal_char:
-        /* normal char */
+        /*  正常充电。 */ 
         if (c >= 128) {
             c = unicode_from_utf8(p, UTF8_CHAR_LEN_MAX, &p);
             if ((unsigned)c > 0xffff && !s->is_utf16) {
-                /* XXX: should handle non BMP-1 code points */
+                /*  XXX：应处理非BMP-1代码点。 */ 
                 return re_parse_error(s, "malformed unicode char");
             }
         } else {
@@ -820,16 +776,14 @@ static int re_emit_range(REParseState *s, const CharRange *cr)
     if (len >= 65535)
         return re_parse_error(s, "too many ranges");
     if (len == 0) {
-        /* not sure it can really happen. Emit a match that is always
-           false */
+        /*  我不确定这是否真的会发生。发出的匹配总是错误。 */ 
         re_emit_op_u32(s, REOP_char32, -1);
     } else {
         high = cr->points[cr->len - 1];
         if (high == UINT32_MAX)
             high = cr->points[cr->len - 2];
         if (high <= 0xffff) {
-            /* can use 16 bit ranges with the conversion that 0xffff =
-               infinity */
+            /*  可以使用16位范围并转换为0xffff=无穷大。 */ 
             re_emit_op_u16(s, REOP_range, len);
             for(i = 0; i < cr->len; i += 2) {
                 dbuf_put_u16(&s->byte_code, cr->points[i]);
@@ -859,7 +813,7 @@ static int re_parse_char_class(REParseState *s, const uint8_t **pp)
     
     cr_init(cr, s->mem_opaque, lre_realloc);
     p = *pp;
-    p++;    /* skip '[' */
+    p++;    /*  跳过‘[’ */ 
     invert = FALSE;
     if (*p == '^') {
         p++;
@@ -878,7 +832,7 @@ static int re_parse_char_class(REParseState *s, const uint8_t **pp)
                     cr_free(cr1);
                     goto invalid_class_range;
                 }
-                /* Annex B: match '-' character */
+                /*  附件B：匹配‘-’字符。 */ 
                 goto class_atom;
             }
             c2 = get_class_atom(s, cr1, &p0, TRUE);
@@ -889,7 +843,7 @@ static int re_parse_char_class(REParseState *s, const uint8_t **pp)
                 if (s->is_utf16) {
                     goto invalid_class_range;
                 }
-                /* Annex B: match '-' character */
+                /*  附件B：匹配‘-’字符。 */ 
                 goto class_atom;
             }
             p = p0;
@@ -925,7 +879,7 @@ static int re_parse_char_class(REParseState *s, const uint8_t **pp)
     if (re_emit_range(s, cr))
         goto fail;
     cr_free(cr);
-    p++;    /* skip ']' */
+    p++;    /*  跳过‘]’ */ 
     *pp = p;
     return 0;
  memory_error:
@@ -935,11 +889,7 @@ static int re_parse_char_class(REParseState *s, const uint8_t **pp)
     return -1;
 }
 
-/* Return:
-   1 if the opcodes in bc_buf[] always advance the character pointer.
-   0 if the character pointer may not be advanced.
-   -1 if the code may depend on side effects of its previous execution (backreference)
-*/
+/*  返回：如果BC_buf[]中的操作码总是前进字符指针，则为1。如果字符指针不能前进，则为0。代码是否可能依赖于其先前执行的副作用(反向引用)。 */ 
 static int re_check_advance(const uint8_t *bc_buf, int bc_buf_len)
 {
     int pos, opcode, ret, len, i;
@@ -947,7 +897,7 @@ static int re_check_advance(const uint8_t *bc_buf, int bc_buf_len)
     BOOL has_back_reference;
     uint8_t capture_bitmap[CAPTURE_COUNT_MAX];
     
-    ret = -2; /* not known yet */
+    ret = -2; /*  尚不清楚。 */ 
     pos = 0;
     has_back_reference = FALSE;
     memset(capture_bitmap, 0, sizeof(capture_bitmap));
@@ -980,7 +930,7 @@ static int re_check_advance(const uint8_t *bc_buf, int bc_buf_len)
         case REOP_word_boundary:
         case REOP_not_word_boundary:
         case REOP_prev:
-            /* no effect */
+            /*  没有效果。 */ 
             break;
         case REOP_save_start:
         case REOP_save_end:
@@ -1002,7 +952,7 @@ static int re_check_advance(const uint8_t *bc_buf, int bc_buf_len)
             has_back_reference = TRUE;
             break;
         default:
-            /* safe behvior: we cannot predict the outcome */
+            /*  安全行为：我们无法预测结果。 */ 
             if (ret == -2)
                 ret = 0;
             break;
@@ -1010,8 +960,7 @@ static int re_check_advance(const uint8_t *bc_buf, int bc_buf_len)
         pos += len;
     }
     if (has_back_reference) {
-        /* check if there is back reference which references a capture
-           made in the some code */
+        /*  检查是否存在引用捕获的反向引用在一些代码中生成。 */ 
         for(i = 0; i < CAPTURE_COUNT_MAX; i++) {
             if (capture_bitmap[i] == 3)
                 return -1;
@@ -1022,8 +971,7 @@ static int re_check_advance(const uint8_t *bc_buf, int bc_buf_len)
     return ret;
 }
 
-/* return -1 if a simple quantifier cannot be used. Otherwise return
-   the number of characters in the atom. */
+/*  如果不能使用简单的量词，则返回-1。否则会退回原子中的字符数。 */ 
 static int re_is_simple_quantifier(const uint8_t *bc_buf, int bc_buf_len)
 {
     int pos, opcode, len, count;
@@ -1063,7 +1011,7 @@ static int re_is_simple_quantifier(const uint8_t *bc_buf, int bc_buf_len)
     return count;
 }
 
-/* '*pp' is the first char after '<' */
+/*  “*pp”是“&lt;”之后的第一个字符。 */ 
 static int re_parse_group_name(char *buf, int buf_size,
                                const uint8_t **pp, BOOL is_utf16)
 {
@@ -1112,9 +1060,7 @@ static int re_parse_group_name(char *buf, int buf_size,
     return 0;
 }
 
-/* if capture_name = NULL: return the number of captures + 1.
-   Otherwise, return the capture index corresponding to capture_name
-   or -1 if none */
+/*  如果CAPTURE_NAME=NULL：返回捕获次数+1。否则，返回Capture_Name对应的捕获索引如果没有，则为-1。 */ 
 static int re_parse_captures(REParseState *s, int *phas_named_captures,
                              const char *capture_name)
 {
@@ -1130,7 +1076,7 @@ static int re_parse_captures(REParseState *s, int *phas_named_captures,
             if (p[1] == '?') {
                 if (p[2] == '<' && p[3] != '=' && p[3] != '!') {
                     *phas_named_captures = 1;
-                    /* potential named capture */
+                    /*  潜在的命名捕获。 */ 
                     if (capture_name) {
                         p += 3;
                         if (re_parse_group_name(name, sizeof(name), &p,
@@ -1231,14 +1177,13 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
             re_emit_op(s, REOP_prev);
         break;
     case '{':
-        /* As an extension (see ES6 annex B), we accept '{' not
-           followed by digits as a normal atom */
+        /*  作为扩展(见ES6附件B)，我们接受‘{’后跟数字，表示正常原子。 */ 
         if (!is_digit(p[1])) {
             if (s->is_utf16)
                 goto invalid_quant_count;
             goto parse_class_atom;
         }
-        /* fall tru */
+        /*  落锤式桁架。 */ 
     case '*':
     case '+':
     case '?':
@@ -1266,10 +1211,9 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
                 is_neg = (p[3] == '!');
                 is_backward_lookahead = TRUE;
                 p += 4;
-                /* lookahead */
+                /*  前瞻。 */ 
             lookahead:
-                /* Annex B allows lookahead to be used as an atom for
-                   the quantifiers */
+                /*  附件B允许将先行作为原子用于量词。 */ 
                 if (!s->is_utf16 && !is_backward_lookahead)  {
                     last_atom_start = s->byte_code.size;
                     last_capture_count = s->capture_count;
@@ -1282,7 +1226,7 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
                 if (re_parse_expect(s, &p, ')'))
                     return -1;
                 re_emit_op(s, REOP_match);
-                /* jump after the 'match' after the lookahead is successful */
+                /*  在前视成功后跳转到“匹配”之后。 */ 
                 put_u32(s->byte_code.buf + pos, s->byte_code.size - (pos + 4));
             } else if (p[2] == '<') {
                 p += 3;
@@ -1293,7 +1237,7 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
                 if (find_group_name(s, s->u.tmp_buf) > 0) {
                     return re_parse_error(s, "duplicate group name");
                 }
-                /* group name with a trailing zero */
+                /*  尾随零的组名。 */ 
                 dbuf_put(&s->group_names, (uint8_t *)s->u.tmp_buf,
                          strlen(s->u.tmp_buf) + 1);
                 s->has_named_captures = 1;
@@ -1304,7 +1248,7 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
         } else {
             int capture_index;
             p++;
-            /* capture without group name */
+            /*  不带组名的捕获。 */ 
             dbuf_putc(&s->group_names, 0);
         parse_capture:
             if (s->capture_count >= CAPTURE_COUNT_MAX)
@@ -1341,9 +1285,7 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
                 
                 p1 = p;
                 if (p1[2] != '<') {
-                    /* annex B: we tolerate invalid group names in non
-                       unicode mode if there is no named capture
-                       definition */
+                    /*  附件B：我们容忍在非如果没有命名捕获，则为Unicode模式定义。 */ 
                     if (s->is_utf16 || re_has_named_captures(s))
                         return re_parse_error(s, "expecting group name");
                     else
@@ -1359,8 +1301,7 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
                 }
                 c = find_group_name(s, s->u.tmp_buf);
                 if (c < 0) {
-                    /* no capture name parsed before, try to look
-                       after (inefficient, but hopefully not common */
+                    /*  之前未解析捕获名称，请尝试查找After(效率低下，但希望不常见。 */ 
                     c = re_parse_captures(s, &dummy_res, s->u.tmp_buf);
                     if (c < 0) {
                         if (s->is_utf16 || re_has_named_captures(s))
@@ -1380,7 +1321,7 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
                     return re_parse_error(s, "invalid decimal escape in regular expression");
                 }
             } else {
-                /* Annex B.1.4: accept legacy octal */
+                /*  附件B.1.4：接受传统八进制。 */ 
                 if (*p >= '0' && *p <= '7') {
                     c = *p++ - '0';
                     if (*p >= '0' && *p <= '7') {
@@ -1396,7 +1337,7 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
                 c = parse_digits(&p);
                 if (c < 0 || (c >= s->capture_count && c >= re_count_captures(s))) {
                     if (!s->is_utf16) {
-                        /* Annex B.1.4: accept legacy octal */
+                        /*  附件B.1.4：接受传统八进制。 */ 
                         p = q;
                         if (*p <= '7') {
                             c = 0;
@@ -1452,7 +1393,7 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
             re_emit_op(s, REOP_prev);
         if (c >= CLASS_RANGE_BASE) {
             int ret;
-            /* Note: canonicalization is not needed */
+            /*  注：不需要规范化。 */ 
             ret = re_emit_range(s, cr);
             cr_free(cr);
             if (ret)
@@ -1470,7 +1411,7 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
         break;
     }
 
-    /* quantifier */
+    /*  量词。 */ 
     if (last_atom_start >= 0) {
         c = *p;
         switch(c) {
@@ -1490,8 +1431,7 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
             quant_max = 1;
             goto quantifier;
         case '{':
-            /* As an extension (see ES6 annex B), we accept '{' not
-               followed by digits as a normal atom */
+            /*  作为扩展(见ES6附件B)，我们接受‘{’后跟数字，表示正常原子。 */ 
             if (!is_digit(p[1])) {
                 if (s->is_utf16)
                     goto invalid_quant_count;
@@ -1511,7 +1451,7 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
                     if (quant_max < 0 || quant_max < quant_min)
                         goto invalid_quant_count;
                 } else {
-                    quant_max = INT32_MAX; /* infinity */
+                    quant_max = INT32_MAX; /*  无穷大。 */ 
                 }
             }
             if (re_parse_expect(s, &p, '}'))
@@ -1529,7 +1469,7 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
                 int len, pos;
                 
                 if (quant_max > 0) {
-                    /* specific optimization for simple quantifiers */
+                    /*  针对简单量词的特定优化。 */ 
                     len = re_is_simple_quantifier(s->byte_code.buf + last_atom_start,
                                                  s->byte_code.size - last_atom_start);
                     if (len > 0) {
@@ -1561,8 +1501,7 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
                 int len, pos;
                 len = s->byte_code.size - last_atom_start;
                 if (quant_min == 0) {
-                    /* need to reset the capture in case the atom is
-                       not executed */
+                    /*  需要重置捕获以防原子 */ 
                     if (last_capture_count != s->capture_count) {
                         dbuf_insert(&s->byte_code, last_atom_start, 3);
                         s->byte_code.buf[last_atom_start++] = REOP_save_reset;
@@ -1583,10 +1522,7 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
                         put_u32(s->byte_code.buf + last_atom_start + 1,
                                 len + 5 + add_zero_advance_check);
                         if (add_zero_advance_check) {
-                            /* avoid infinite loop by stoping the
-                               recursion if no advance was made in the
-                               atom (only works if the atom has no
-                               side effect) */
+                            /*   */ 
                             s->byte_code.buf[last_atom_start + 1 + 4] = REOP_push_char_pos;
                             re_emit_goto(s, REOP_bne_char_pos, last_atom_start); 
                         } else {
@@ -1609,7 +1545,7 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
                                  last_atom_start);
                 } else {
                     if (quant_min == 1) {
-                        /* nothing to add */
+                        /*  没有什么要补充的。 */ 
                     } else {
                         dbuf_insert(&s->byte_code, last_atom_start, 5);
                         s->byte_code.buf[last_atom_start] = REOP_push_i32;
@@ -1625,7 +1561,7 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
                                        len + 5 + add_zero_advance_check);
                         if (add_zero_advance_check)
                             re_emit_op(s, REOP_push_char_pos);
-                        /* copy the atom */
+                        /*  复制原子。 */ 
                         dbuf_put_self(&s->byte_code, last_atom_start, len);
                         if (add_zero_advance_check)
                             re_emit_goto(s, REOP_bne_char_pos, pos);
@@ -1635,7 +1571,7 @@ static int re_parse_term(REParseState *s, BOOL is_backward_dir)
                         re_emit_op_u32(s, REOP_push_i32, quant_max - quant_min);
                         pos = s->byte_code.size;
                         re_emit_op_u32(s, REOP_split_goto_first + greedy, len + 5);
-                        /* copy the atom */
+                        /*  复制原子。 */ 
                         dbuf_put_self(&s->byte_code, last_atom_start, len);
                         
                         re_emit_goto(s, REOP_loop, pos);
@@ -1672,8 +1608,7 @@ static int re_parse_alternative(REParseState *s, BOOL is_backward_dir)
         if (ret)
             return ret;
         if (is_backward_dir) {
-            /* reverse the order of the terms (XXX: inefficient, but
-               speed is not really critical here) */
+            /*  颠倒术语顺序(XXX：低效，但在这里，速度并不是真正重要的)。 */ 
             end = s->byte_code.size;
             term_size = end - term_start;
             if (dbuf_realloc(&s->byte_code, end + term_size))
@@ -1700,7 +1635,7 @@ static int re_parse_disjunction(REParseState *s, BOOL is_backward_dir)
 
         len = s->byte_code.size - start;
 
-        /* insert a split before the first alternative */
+        /*  在第一个备选方案之前插入拆分。 */ 
         dbuf_insert(&s->byte_code, start, 5);
         s->byte_code.buf[start] = REOP_split_next_first;
         put_u32(s->byte_code.buf + start + 1, len + 5);
@@ -1710,14 +1645,14 @@ static int re_parse_disjunction(REParseState *s, BOOL is_backward_dir)
         if (re_parse_alternative(s, is_backward_dir))
             return -1;
         
-        /* patch the goto */
+        /*  修补GoTO。 */ 
         len = s->byte_code.size - (pos + 4);
         put_u32(s->byte_code.buf + pos, len);
     }
     return 0;
 }
 
-/* the control flow is recursive so the analysis can be linear */
+/*  控制流是递归的，因此分析可以是线性的。 */ 
 static int compute_stack_size(const uint8_t *bc_buf, int bc_buf_len)
 {
     int stack_size, stack_size_max, pos, opcode, len;
@@ -1762,10 +1697,7 @@ static int compute_stack_size(const uint8_t *bc_buf, int bc_buf_len)
     return stack_size_max;
 }
 
-/* 'buf' must be a zero terminated UTF-8 string of length buf_len.
-   Return NULL if error and allocate an error message in *perror_msg,
-   otherwise the compiled bytecode and its length in plen.
-*/
+/*  ‘buf’必须是长度为buf_len的以零结尾的UTF-8字符串。如果出错则返回NULL，并在*perror_msg中分配错误消息。否则，编译后的字节码及其长度以Plen表示。 */ 
 uint8_t *lre_compile(int *plen, char *error_msg, int error_msg_size,
                      const char *buf, size_t buf_len, int re_flags,
                      void *opaque)
@@ -1791,16 +1723,13 @@ uint8_t *lre_compile(int *plen, char *error_msg, int error_msg_size,
     dbuf_init2(&s->byte_code, opaque, lre_realloc);
     dbuf_init2(&s->group_names, opaque, lre_realloc);
 
-    dbuf_putc(&s->byte_code, re_flags); /* first element is the flags */
-    dbuf_putc(&s->byte_code, 0); /* second element is the number of captures */
-    dbuf_putc(&s->byte_code, 0); /* stack size */
-    dbuf_put_u32(&s->byte_code, 0); /* bytecode length */
+    dbuf_putc(&s->byte_code, re_flags); /*  第一个元素是旗帜。 */ 
+    dbuf_putc(&s->byte_code, 0); /*  第二个元素是捕获的数量。 */ 
+    dbuf_putc(&s->byte_code, 0); /*  堆栈大小。 */ 
+    dbuf_put_u32(&s->byte_code, 0); /*  字节码长度。 */ 
     
     if (!is_sticky) {
-        /* iterate thru all positions (about the same as .*?( ... ) )
-           .  We do it without an explicit loop so that lock step
-           thread execution will be possible in an optimized
-           implementation */
+        /*  遍历所有位置(与.*？(...)大致相同)。我们在没有显式循环的情况下这样做，因此锁定步骤线程执行将可能在经过优化的实施。 */ 
         re_emit_op_u32(s, REOP_split_goto_first, 1 + 5);
         re_emit_op(s, REOP_any);
         re_emit_op_u32(s, REOP_goto, -(5 + 1 + 5));
@@ -1840,7 +1769,7 @@ uint8_t *lre_compile(int *plen, char *error_msg, int error_msg_size,
     s->byte_code.buf[RE_HEADER_STACK_SIZE] = stack_size;
     put_u32(s->byte_code.buf + 3, s->byte_code.size - RE_HEADER_LEN);
 
-    /* add the named groups if needed */
+    /*  如果需要，添加命名组。 */ 
     if (s->group_names.size > (s->capture_count - 1)) {
         dbuf_put(&s->byte_code, s->group_names.buf, s->group_names.size);
         s->byte_code.buf[RE_HEADER_FLAGS] |= LRE_FLAG_NAMED_GROUPS;
@@ -1971,7 +1900,7 @@ typedef enum {
 typedef struct REExecState {
     REExecStateEnum type : 8;
     uint8_t stack_len;
-    size_t count; /* only used for RE_EXEC_STATE_GREEDY_QUANT */
+    size_t count; /*  仅用于RE_EXEC_STATE_GREEDY_QUANT。 */ 
     const uint8_t *cptr;
     const uint8_t *pc;
     void *buf[0];
@@ -1980,14 +1909,14 @@ typedef struct REExecState {
 typedef struct {
     const uint8_t *cbuf;
     const uint8_t *cbuf_end;
-    /* 0 = 8 bit chars, 1 = 16 bit chars, 2 = 16 bit chars, UTF-16 */
+    /*  0=8位字符，1=16位字符，2=16位字符，UTF-16。 */ 
     int cbuf_type; 
     int capture_count;
     int stack_size_max;
     BOOL multi_line;
     BOOL ignore_case;
     BOOL is_utf16;
-    void *opaque; /* used for stack overflow check */
+    void *opaque; /*  用于堆栈溢出检查。 */ 
 
     size_t state_size;
     uint8_t *state_stack;
@@ -2007,7 +1936,7 @@ static int push_state(REExecContext *s,
     StackInt *stack_buf;
 
     if (unlikely((s->state_stack_len + 1) > s->state_stack_size)) {
-        /* reallocate the stack */
+        /*  重新分配堆栈。 */ 
         new_size = s->state_stack_size * 3 / 2;
         if (new_size < 8)
             new_size = 8;
@@ -2033,7 +1962,7 @@ static int push_state(REExecContext *s,
     return 0;
 }
 
-/* return 1 if match, 0 if not match or -1 if error. */
+/*  如果匹配，则返回1；如果不匹配，则返回0；如果错误，则返回-1。 */ 
 static intptr_t lre_exec_backtrack(REExecContext *s, uint8_t **capture,
                                    StackInt *stack, int stack_len,
                                    const uint8_t *pc, const uint8_t *cptr,
@@ -2048,7 +1977,7 @@ static intptr_t lre_exec_backtrack(REExecContext *s, uint8_t **capture,
     cbuf_end = s->cbuf_end;
 
     for(;;) {
-        //        printf("top=%p: pc=%d\n", th_list.top, (int)(pc - (bc_buf + RE_HEADER_LEN)));
+        //  Printf(“top=%p：pc=%d\n”，th_list.top，(Int)(pc-(BC_buf+RE_Header_LEN)；
         opcode = *pc++;
         switch(opcode) {
         case REOP_match:
@@ -2092,7 +2021,7 @@ static intptr_t lre_exec_backtrack(REExecContext *s, uint8_t **capture,
                                    stack_len * sizeof(stack[0]));
                             pc = rs->pc;
                             cptr = rs->cptr;
-                            /* go backward */
+                            /*  后退。 */ 
                             char_count = get_u32(pc + 12);
                             for(i = 0; i < char_count; i++) {
                                 PREV_CHAR(cptr, s->cbuf);
@@ -2109,7 +2038,7 @@ static intptr_t lre_exec_backtrack(REExecContext *s, uint8_t **capture,
                         ret = ((rs->type == RE_EXEC_STATE_LOOKAHEAD && ret) ||
                                (rs->type == RE_EXEC_STATE_NEGATIVE_LOOKAHEAD && !ret));
                         if (ret) {
-                            /* keep the capture in case of positive lookahead */
+                            /*  保留捕获，以防发生正面预测。 */ 
                             if (rs->type == RE_EXEC_STATE_LOOKAHEAD)
                                 goto pop_state1;
                             else
@@ -2250,14 +2179,14 @@ static intptr_t lre_exec_backtrack(REExecContext *s, uint8_t **capture,
         case REOP_not_word_boundary:
             {
                 BOOL v1, v2;
-                /* char before */
+                /*  字符之前。 */ 
                 if (cptr == s->cbuf) {
                     v1 = FALSE;
                 } else {
                     PEEK_PREV_CHAR(c, cptr, s->cbuf);
                     v1 = is_word_char(c);
                 }
-                /* current char */
+                /*  当前费用。 */ 
                 if (cptr >= cbuf_end) {
                     v2 = FALSE;
                 } else {
@@ -2317,7 +2246,7 @@ static intptr_t lre_exec_backtrack(REExecContext *s, uint8_t **capture,
                 int n;
                 uint32_t low, high, idx_min, idx_max, idx;
                 
-                n = get_u16(pc); /* n must be >= 1 */
+                n = get_u16(pc); /*  N必须&gt;=1。 */ 
                 pc += 2;
                 if (cptr >= cbuf_end)
                     goto no_match;
@@ -2331,7 +2260,7 @@ static intptr_t lre_exec_backtrack(REExecContext *s, uint8_t **capture,
                     goto no_match;
                 idx_max = n - 1;
                 high = get_u16(pc + idx_max * 4 + 2);
-                /* 0xffff in for last value means +infinity */
+                /*  最后一个值的0xffff表示+无穷大。 */ 
                 if (unlikely(c >= 0xffff) && high == 0xffff)
                     goto range_match;
                 if (c > high)
@@ -2357,7 +2286,7 @@ static intptr_t lre_exec_backtrack(REExecContext *s, uint8_t **capture,
                 int n;
                 uint32_t low, high, idx_min, idx_max, idx;
                 
-                n = get_u16(pc); /* n must be >= 1 */
+                n = get_u16(pc); /*  N必须&gt;=1。 */ 
                 pc += 2;
                 if (cptr >= cbuf_end)
                     goto no_match;
@@ -2390,7 +2319,7 @@ static intptr_t lre_exec_backtrack(REExecContext *s, uint8_t **capture,
             }
             break;
         case REOP_prev:
-            /* go to the previous char */
+            /*  转到上一次计费。 */ 
             if (cptr == s->cbuf)
                 goto no_match;
             PREV_CHAR(cptr, s->cbuf);
@@ -2425,7 +2354,7 @@ static intptr_t lre_exec_backtrack(REExecContext *s, uint8_t **capture,
                 if (q < quant_min)
                     goto no_match;
                 if (q > quant_min) {
-                    /* will examine all matches down to quant_min */
+                    /*  将检查一直到quant_min的所有匹配。 */ 
                     ret = push_state(s, capture, stack, stack_len,
                                      pc1 - 16, cptr,
                                      RE_EXEC_STATE_GREEDY_QUANT,
@@ -2441,9 +2370,7 @@ static intptr_t lre_exec_backtrack(REExecContext *s, uint8_t **capture,
     }
 }
 
-/* Return 1 if match, 0 if not match or -1 if error. cindex is the
-   starting position of the match and must be such as 0 <= cindex <=
-   clen. */
+/*  如果匹配，则返回1；如果不匹配，则返回0；如果错误，则返回-1。Cindex是匹配的起始位置，必须如下所示：0&lt;=cindex&lt;=克莱恩。 */ 
 int lre_exec(uint8_t **capture,
              const uint8_t *bc_buf, const uint8_t *cbuf, int cindex, int clen,
              int cbuf_type, void *opaque)

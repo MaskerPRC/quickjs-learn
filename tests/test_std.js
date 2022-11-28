@@ -1,3 +1,4 @@
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
 import * as std from "std";
 import * as os from "os";
 
@@ -18,10 +19,10 @@ function assert(actual, expected, message) {
                 (message ? " (" + message + ")" : ""));
 }
 
-// load more elaborate version of assert if available
+//  加载更精细的Assert版本(如果可用)。
 try { std.loadScript("test_assert.js"); } catch(e) {}
 
-/*----------------*/
+/*  。 */ 
 
 function test_printf()
 {
@@ -106,7 +107,7 @@ function test_popen()
     f.puts(content);
     f.close();
 
-    /* execute the 'cat' shell command */
+    /*  执行‘cat’外壳命令。 */ 
     f = std.popen("cat " + fname, "r");
     str = f.readAsString();
     f.close();
@@ -207,15 +208,15 @@ function test_os_exec()
     fds = os.pipe();
     pid = os.exec(["echo", "hello"], { stdout: fds[1], block: false } );
     assert(pid >= 0);
-    os.close(fds[1]); /* close the write end (as it is only in the child)  */
+    os.close(fds[1]); /*  关闭写入端(因为它只在子级中)。 */ 
     f = std.fdopen(fds[0], "r");
     assert(f.getline(), "hello");
     assert(f.getline(), null);
     f.close();
     [ret, status] = os.waitpid(pid, 0);
     assert(ret, pid);
-    assert(status & 0x7f, 0); /* exited */
-    assert(status >> 8, 0); /* exit code */
+    assert(status & 0x7f, 0); /*  已退出。 */ 
+    assert(status >> 8, 0); /*  退出代码。 */ 
 
     pid = os.exec(["cat"], { block: false } );
     assert(pid >= 0);
@@ -229,7 +230,7 @@ function test_timer()
 {
     var th, i;
 
-    /* just test that a timer can be inserted and removed */
+    /*  只需测试是否可以插入和移除计时器 */ 
     th = [];
     for(i = 0; i < 3; i++)
         th[i] = os.setTimeout(function () { }, 1000);

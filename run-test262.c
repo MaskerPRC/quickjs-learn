@@ -1,27 +1,5 @@
-/*
- * ECMA Test 262 Runner for QuickJS
- * 
- * Copyright (c) 2017-2018 Fabrice Bellard
- * Copyright (c) 2017-2018 Charlie Gordon
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *适用于QuickJS的ECMA测试262 Runner**版权所有(C)2017-2018 Fabrice Bellard*版权所有(C)2017-2018查理·戈登**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -39,10 +17,10 @@
 #include "list.h"
 #include "quickjs-libc.h"
 
-/* enable test262 thread support to test SharedArrayBuffer and Atomics */
+/*  启用Test262线程支持以测试SharedArrayBuffer和原子。 */ 
 #define CONFIG_AGENT
-/* cross-realm tests (not supported yet) */
-//#define CONFIG_REALM
+/*  跨领域测试(尚不支持)。 */ 
+//  #定义配置领域。
 
 #define CMD_NAME "run-test262"
 
@@ -59,11 +37,11 @@ namelist_t exclude_dir_list;
 
 FILE *outfile;
 enum test_mode_t {
-    TEST_DEFAULT_NOSTRICT, /* run tests as nostrict unless test is flagged as strictonly */
-    TEST_DEFAULT_STRICT,   /* run tests as strict unless test is flagged as nostrict */
-    TEST_NOSTRICT,         /* run tests as nostrict, skip strictonly tests */
-    TEST_STRICT,           /* run tests as strict, skip nostrict tests */
-    TEST_ALL,              /* run tests in both strict and nostrict, unless restricted by spec */
+    TEST_DEFAULT_NOSTRICT, /*  除非将测试标记为仅限严格，否则以非严格方式运行测试。 */ 
+    TEST_DEFAULT_STRICT,   /*  将测试作为严格测试运行，除非将测试标记为非严格测试。 */ 
+    TEST_NOSTRICT,         /*  以不严格的身份运行测试，跳过仅严格的测试。 */ 
+    TEST_STRICT,           /*  将测试作为严格测试运行，跳过非严格测试。 */ 
+    TEST_ALL,              /*  在严格和非严格中运行测试，除非受规范限制。 */ 
 } test_mode = TEST_DEFAULT_NOSTRICT;
 int skip_async;
 int skip_module;
@@ -172,7 +150,7 @@ char *skip_prefix(const char *str, const char *prefix)
 {
     int i;
     for (i = 0;; i++) {
-        if (prefix[i] == '\0') {  /* skip the prefix */
+        if (prefix[i] == '\0') {  /*  跳过前缀。 */ 
             str += i;
             break;
         }
@@ -217,7 +195,7 @@ char *compose_path(const char *path, const char *name)
 
 int namelist_cmp(const char *a, const char *b)
 {
-    /* compare strings in modified lexicographical order */
+    /*  以修改后的词典编排顺序比较字符串。 */ 
     for (;;) {
         int ca = (unsigned char)*a++;
         int cb = (unsigned char)*b++;
@@ -252,7 +230,7 @@ void namelist_sort(namelist_t *lp)
     int i, count;
     if (lp->count > 1) {
         qsort(lp->array, lp->count, sizeof(*lp->array), namelist_cmp_indirect);
-        /* remove duplicates */
+        /*  删除重复项。 */ 
         for (count = i = 1; i < lp->count; i++) {
             if (namelist_cmp(lp->array[count - 1], lp->array[i]) == 0) {
                 free(lp->array[i]);
@@ -322,7 +300,7 @@ void namelist_load(namelist_t *lp, const char *filename)
     while (fgets(buf, sizeof(buf), f) != NULL) {
         char *p = str_strip(buf);
         if (*p == '#' || *p == ';' || *p == '\0')
-            continue;  /* line comment */
+            continue;  /*  行注释。 */ 
         
         namelist_add(lp, base_name, p);
     }
@@ -362,7 +340,7 @@ static int add_test_file(const char *filename, const struct stat *ptr, int flag)
     return 0;
 }
 
-/* find js files from the directory tree and sort the list */
+/*  从目录树中查找js文件并对列表进行排序。 */ 
 static void enumerate_tests(const char *path)
 {
     namelist_t *lp = &test_list;
@@ -426,7 +404,7 @@ typedef struct {
     char *script;
     JSValue broadcast_func;
     BOOL broadcast_pending;
-    JSValue broadcast_sab; /* in the main context */
+    JSValue broadcast_sab; /*  在主要背景下。 */ 
     uint8_t *broadcast_sab_buf;
     size_t broadcast_sab_size;
     int32_t broadcast_val;
@@ -442,11 +420,11 @@ static void add_helpers(JSContext *ctx);
 
 static pthread_mutex_t agent_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t agent_cond = PTHREAD_COND_INITIALIZER;
-/* list of Test262Agent.link */
+/*  测试列表262Agent.link。 */ 
 static struct list_head agent_list = LIST_HEAD_INIT(agent_list);
 
 static pthread_mutex_t report_mutex = PTHREAD_MUTEX_INITIALIZER;
-/* list of AgentReport.link */
+/*  AgentReport.link列表。 */ 
 static struct list_head report_list = LIST_HEAD_INIT(report_list);
 
 static void *agent_start(void *arg)
@@ -567,7 +545,7 @@ static JSValue js_agent_leaving(JSContext *ctx, JSValue this_val,
     Test262Agent *agent = JS_GetContextOpaque(ctx);
     if (!agent)
         return JS_ThrowTypeError(ctx, "must be called inside an agent");
-    /* nothing to do */
+    /*  无事可做。 */ 
     return JS_UNDEFINED;
 }
 
@@ -602,14 +580,12 @@ static JSValue js_agent_broadcast(JSContext *ctx, JSValue this_val,
     if (JS_ToInt32(ctx, &val, argv[1]))
         return JS_EXCEPTION;
     
-    /* broadcast the values and wait until all agents have started
-       calling their callbacks */
+    /*  广播值并等待所有代理都已启动呼叫他们的回调。 */ 
     pthread_mutex_lock(&agent_mutex);
     list_for_each(el, &agent_list) {
         agent = list_entry(el, Test262Agent, link);
         agent->broadcast_pending = TRUE;
-        /* the shared array buffer is used by the thread, so increment
-           its refcount */
+        /*  共享数组缓冲区由线程使用，因此递增它的重新计数。 */ 
         agent->broadcast_sab = JS_DupValue(ctx, sab);
         agent->broadcast_sab_buf = buf;
         agent->broadcast_sab_size = buf_size;
@@ -704,15 +680,15 @@ static JSValue js_agent_report(JSContext *ctx, JSValue this_val,
 }
 
 static const JSCFunctionListEntry js_agent_funcs[] = {
-    /* only in main */
+    /*  仅限于Main。 */ 
     JS_CFUNC_DEF("start", 1, js_agent_start ),
     JS_CFUNC_DEF("getReport", 0, js_agent_getReport ),
     JS_CFUNC_DEF("broadcast", 2, js_agent_broadcast ),
-    /* only in agent */
+    /*  仅在代理中。 */ 
     JS_CFUNC_DEF("report", 1, js_agent_report ),
     JS_CFUNC_DEF("leaving", 0, js_agent_leaving ),
     JS_CFUNC_DEF("receiveBroadcast", 1, js_agent_receiveBroadcast ),
-    /* in both */
+    /*  在这两个地方。 */ 
     JS_CFUNC_DEF("sleep", 1, js_agent_sleep ),
     JS_CFUNC_DEF("monotonicNow", 0, js_agent_monotonicNow ),
 };
@@ -732,7 +708,7 @@ static JSValue js_createRealm(JSContext *ctx, JSValue this_val,
                               int argc, JSValue *argv)
 {
     JSContext *ctx1;
-    /* XXX: the context is not freed, need a refcount */
+    /*  XXX：上下文未释放，需要引用计数。 */ 
     ctx1 = JS_NewContext(JS_GetRuntime(ctx));
     if (!ctx1)
         return JS_ThrowOutOfMemory(ctx);
@@ -750,7 +726,7 @@ static JSValue add_helpers1(JSContext *ctx)
     JS_SetPropertyStr(ctx, global_obj, "print",
                       JS_NewCFunction(ctx, js_print, "print", 1));
 
-    /* $262 special object used by the tests */
+    /*  $262测试使用的特殊对象。 */ 
     obj262 = JS_NewObject(ctx);
     JS_SetPropertyStr(ctx, obj262, "detachArrayBuffer",
                       JS_NewCFunction(ctx, js_detachArrayBuffer,
@@ -812,13 +788,13 @@ static JSModuleDef *js_module_loader_test(JSContext *ctx,
         return NULL;
     }
     
-    /* compile the module */
+    /*  编译模块。 */ 
     func_val = JS_Eval(ctx, (char *)buf, buf_len, module_name,
                        JS_EVAL_TYPE_MODULE | JS_EVAL_FLAG_COMPILE_ONLY);
     js_free(ctx, buf);
     if (JS_IsException(func_val))
         return NULL;
-    /* the module is already referenced, so we must free it */
+    /*  该模块已被引用，因此我们必须释放它。 */ 
     m = JS_VALUE_GET_PTR(func_val);
     JS_FreeValue(ctx, func_val);
     return m;
@@ -860,7 +836,7 @@ char *find_word(const char *str, const char *word)
     return NULL;
 }
 
-/* handle exclude directories */
+/*  处理排除目录。 */ 
 void update_exclude_dirs(void)
 {
     namelist_t *lp = &test_list;
@@ -869,7 +845,7 @@ void update_exclude_dirs(void)
     char *name;
     int i, j, count;
 
-    /* split directpries from exclude_list */
+    /*  从EXCLUDE_LIST拆分目录。 */ 
     for (count = i = 0; i < ep->count; i++) {
         name = ep->array[i];
         if (has_suffix(name, "/")) {
@@ -883,7 +859,7 @@ void update_exclude_dirs(void)
 
     namelist_sort(dp);
 
-    /* filter out excluded directories */
+    /*  筛选出排除的目录。 */ 
     for (count = i = 0; i < lp->count; i++) {
         name = lp->array[i];
         for (j = 0; j < dp->count; j++) {
@@ -926,10 +902,10 @@ void load_config(const char *filename)
         lineno++;
         p = str_strip(buf);
         if (*p == '#' || *p == ';' || *p == '\0')
-            continue;  /* line comment */
+            continue;  /*  行注释。 */ 
         
         if (*p == "[]"[0]) {
-            /* new section */
+            /*  新章节。 */ 
             p++;
             p[strcspn(p, "]")] = '\0';
             if (str_equal(p, "config"))
@@ -946,7 +922,7 @@ void load_config(const char *filename)
         }
         q = strchr(p, '=');
         if (q) {
-            /* setting: name=value */
+            /*  设置：名称=值。 */ 
             *q++ = '\0';
             q = str_strip(q);
         }
@@ -1046,7 +1022,7 @@ void load_config(const char *filename)
             namelist_add(&test_list, base_name, p);
             break;
         default:
-            /* ignore settings in other sections */
+            /*  忽略其他部分中的设置。 */ 
             break;
         }
     }
@@ -1073,7 +1049,7 @@ char *find_error(const char *filename, int *pline, int is_strict)
                 while (*q == ' ') {
                     q++;
                 }
-                /* check strict mode indicator */
+                /*  检查严格模式指示器。 */ 
                 if (!strstart(q, "strict mode: ", &q) != !is_strict)
                     continue;
                 r = q = skip_prefix(q, "unexpected error: ");
@@ -1174,7 +1150,7 @@ static int eval_buf(JSContext *ctx, const char *buf, size_t buf_len,
     exception_val = JS_UNDEFINED;
     error_name = NULL;
 
-    async_done = 0; /* counter of "Test262:AsyncTestComplete" messages */
+    async_done = 0; /*  “Test262：AsyncTestComplete”消息计数器。 */ 
 
     res_val = JS_Eval(ctx, buf, buf_len, filename, eval_flags);
 
@@ -1187,7 +1163,7 @@ static int eval_buf(JSContext *ctx, const char *buf, size_t buf_len,
                 res_val = JS_EXCEPTION;
                 break;
             } else if (ret == 0) {
-                /* test if the test called $DONE() once */
+                /*  测试测试是否调用$Done()一次。 */ 
                 if (async_done != 1) {
                     res_val = JS_ThrowTypeError(ctx, "$DONE() not called");
                 } else {
@@ -1201,7 +1177,7 @@ static int eval_buf(JSContext *ctx, const char *buf, size_t buf_len,
     if (JS_IsException(res_val)) {
         exception_val = JS_GetException(ctx);
         is_error = JS_IsError(ctx, exception_val);
-        /* XXX: should get the filename and line number */
+        /*  XXX：应获取文件名和行号。 */ 
         if (outfile) {
             if (!is_error)
                 fprintf(outfile, "%sThrow: ", (eval_flags & JS_EVAL_FLAG_STRICT) ?
@@ -1270,12 +1246,12 @@ static int eval_buf(JSContext *ctx, const char *buf, size_t buf_len,
             msg_val = JS_ToString(ctx, exception_val);
             msg = JS_ToCString(ctx, msg_val);
         }
-        if (is_negative) {  // expect error
+        if (is_negative) {  //  预期错误。
             if (ret == 0) {
                 if (msg && s &&
                     (str_equal(s, "expected error") ||
                      strstart(s, "unexpected error type:", NULL) ||
-                     str_equal(s, msg))) {     // did not have error yet
+                     str_equal(s, msg))) {     //  还没有出现错误。
                     if (!has_error_line) {
                         longest_match(buf, msg, pos, &pos, pos_line, &error_line);
                     }
@@ -1284,7 +1260,7 @@ static int eval_buf(JSContext *ctx, const char *buf, size_t buf_len,
                     fixed_errors++;
                 }
             } else {
-                if (!s) {   // not yet reported
+                if (!s) {   //  尚未上报。
                     if (msg) {
                         fprintf(error_out, "%s:%d: %sunexpected error type: %s\n",
                                 filename, error_line, strict_mode, msg);
@@ -1295,7 +1271,7 @@ static int eval_buf(JSContext *ctx, const char *buf, size_t buf_len,
                     new_errors++;
                 }
             }
-        } else {            // should not have error
+        } else {            //  不应该有错误。
             if (msg) {
                 if (!s || !str_equal(s, msg)) {
                     if (!has_error_line) {
@@ -1511,13 +1487,12 @@ int run_test_buf(const char *filename, char *harness, namelist_t *ip,
 
     JS_SetCanBlock(rt, can_block);
     
-    /* loader for ES6 modules */
+    /*  ES6模块的加载器。 */ 
     JS_SetModuleLoaderFunc(rt, NULL, js_module_loader_test, NULL);
         
     add_helpers(ctx);
 
-    /* add backtrace if the isError property is present in a thrown
-       object */
+    /*  如果在引发的对象。 */ 
     JS_EnableIsErrorProperty(ctx, TRUE);
 
     for (i = 0; i < ip->count; i++) {
@@ -1544,7 +1519,7 @@ int run_test_buf(const char *filename, char *harness, namelist_t *ip,
     if (ret) {
         test_failed++;
         if (outfile) {
-            /* do not output a failure number to minimize diff */
+            /*  不输出故障编号以最小化差异。 */ 
             fprintf(outfile, "  FAILED\n");
         }
     }
@@ -1582,7 +1557,7 @@ int run_test(const char *filename, int index)
         }
         namelist_add(ip, NULL, "sta.js");
         namelist_add(ip, NULL, "assert.js");
-        /* extract the YAML frontmatter */
+        /*  提取YAML头条。 */ 
         desc = extract_desc(buf, '-');
         if (desc) {
             char *ifile, *option;
@@ -1590,7 +1565,7 @@ int run_test(const char *filename, int index)
             p = find_tag(desc, "includes:", &state);
             if (p) {
                 while ((ifile = get_option(&p, &state)) != NULL) {
-                    // skip unsupported harness files
+                    //  跳过不支持的线束文件。
                     if (find_word(harness_exclude, ifile)) {
                         skip |= 1;
                     } else {
@@ -1627,7 +1602,7 @@ int run_test(const char *filename, int index)
             }
             p = find_tag(desc, "negative:", &state);
             if (p) {
-                /* XXX: should extract the phase */
+                /*  XXX：应提取阶段。 */ 
                 char *q = find_tag(p, "type:", &state);
                 if (q) {
                     while (isspace(*q))
@@ -1640,12 +1615,12 @@ int run_test(const char *filename, int index)
             if (p) {
                 while ((option = get_option(&p, &state)) != NULL) {
                     if (find_word(harness_features, option)) {
-                        /* feature is enabled */
+                        /*  功能已启用。 */ 
                     } else if (find_word(harness_skip_features, option)) {
-                        /* skip disabled feature */
+                        /*  跳过禁用的功能。 */ 
                         skip |= 1;
                     } else {
-                        /* feature is not listed: skip and warn */
+                        /*  功能未列出：跳过并发出警告。 */ 
                         printf("%s:%d: unknown feature: %s\n", filename, 1, option);
                         skip |= 1;
                     }
@@ -1670,11 +1645,11 @@ int run_test(const char *filename, int index)
 
         namelist_add(ip, NULL, "sta.js");
 
-        /* include extra harness files */
+        /*  包括额外的线束文件。 */ 
         for (p = buf; (p = strstr(p, "$INCLUDE(\"")) != NULL; p++) {
             p += 10;
             ifile = strdup_len(p, strcspn(p, "\""));
-            // skip unsupported harness files
+            //  跳过不支持的线束文件。
             if (find_word(harness_exclude, ifile)) {
                 skip |= 1;
             } else {
@@ -1683,7 +1658,7 @@ int run_test(const char *filename, int index)
             free(ifile);
         }
 
-        /* locate the old style configuration comment */
+        /*  找到旧样式配置备注。 */ 
         desc = extract_desc(buf, '*');
         if (desc) {
             if (strstr(desc, "@noStrict")) {
@@ -1695,7 +1670,7 @@ int run_test(const char *filename, int index)
                 skip |= (test_mode == TEST_NOSTRICT);
             }
             if (strstr(desc, "@negative")) {
-                /* XXX: should extract the regex to check error type */
+                /*  XXX：应提取正则表达式以检查错误类型。 */ 
                 is_negative = TRUE;
             }
             free(desc);
@@ -1714,8 +1689,7 @@ int run_test(const char *filename, int index)
     }
 
     use_strict = use_nostrict = 0;
-    /* XXX: should remove 'test_mode' or simplify it just to force
-       strict or non strict mode for single file tests */
+    /*  Xxx：应删除或仅将其简化为强制单文件测试的严格或非严格模式。 */ 
     switch (test_mode) {
     case TEST_DEFAULT_NOSTRICT:
         if (is_onlystrict)
@@ -1774,7 +1748,7 @@ int run_test(const char *filename, int index)
         }
         clocks = clock() - clocks;
         if (outfile && index >= 0 && clocks >= CLOCKS_PER_SEC / 10) {
-            /* output timings for tests that take more than 100 ms */
+            /*  测试耗时超过100毫秒的输出计时。 */ 
             fprintf(outfile, " time: %d ms\n", (int)(clocks * 1000LL / CLOCKS_PER_SEC));
         }
     }
@@ -1785,7 +1759,7 @@ int run_test(const char *filename, int index)
     return ret;
 }
 
-/* run a test when called by test262-harness+eshost */
+/*  在由test262-harness+eshost调用时运行测试。 */ 
 int run_test262_harness_test(const char *filename, BOOL is_module)
 {
     JSRuntime *rt;
@@ -1796,7 +1770,7 @@ int run_test262_harness_test(const char *filename, BOOL is_module)
     JSValue res_val;
     BOOL can_block;
     
-    outfile = stdout; /* for js_print */
+    outfile = stdout; /*  对于js_print。 */ 
 
     rt = JS_NewRuntime();
     if (rt == NULL) {
@@ -1812,13 +1786,12 @@ int run_test262_harness_test(const char *filename, BOOL is_module)
     can_block = TRUE;
     JS_SetCanBlock(rt, can_block);
     
-    /* loader for ES6 modules */
+    /*  ES6模块的加载器。 */ 
     JS_SetModuleLoaderFunc(rt, NULL, js_module_loader_test, NULL);
         
     add_helpers(ctx);
 
-    /* add backtrace if the isError property is present in a thrown
-       object */
+    /*  如果在引发的对象。 */ 
     JS_EnableIsErrorProperty(ctx, TRUE);
 
     buf = load_file(filename, &buf_len);
@@ -1861,7 +1834,7 @@ void show_progress(int force) {
     clock_t t = clock();
     if (force || !last_clock || (t - last_clock) > CLOCKS_PER_SEC / 20) {
         last_clock = t;
-        /* output progress indicator: erase end of line and return to col 0 */
+        /*  输出进度指示器：擦除行尾并返回第0列。 */ 
         fprintf(stderr, "%d/%d/%d\033[K\r",
                 test_failed, test_count, test_skipped);
         fflush(stderr);
@@ -1943,12 +1916,11 @@ int main(int argc, char **argv)
     BOOL is_module = FALSE;
 
 #if !defined(_WIN32)
-    /* Date tests assume California local time */
+    /*  日期测试假设加州当地时间。 */ 
     setenv("TZ", "America/Los_Angeles", 1);
 #endif
 
-    /* cannot use getopt because we want to pass the command line to
-       the script */
+    /*  无法使用getopt，因为我们希望将命令行传递给剧本 */ 
     optind = 1;
     is_dir_list = TRUE;
     while (optind < argc) {

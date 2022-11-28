@@ -1,38 +1,16 @@
-/*
- * QuickJS Read Eval Print Loop
- * 
- * Copyright (c) 2017-2019 Fabrice Bellard
- * Copyright (c) 2017-2019 Charlie Gordon
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *QuickJS读取评估打印循环**版权所有(C)2017-2019 Fabrice Bellard*版权所有(C)2017-2019查理·戈登**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 "use strip";
 
 import * as std from "std";
 import * as os from "os";
 
 (function(g) {
-    /* add 'os' and 'std' bindings */
+    /*  添加‘os’和‘std’绑定。 */ 
     g.os = os;
     g.std = std;
     
-    /* close global objects */
+    /*  关闭全局对象。 */ 
     var Object = g.Object;
     var String = g.String;
     var Array = g.Array;
@@ -41,7 +19,7 @@ import * as os from "os";
     var isFinite = g.isFinite;
     var parseFloat = g.parseFloat;
 
-    /* XXX: use preprocessor ? */
+    /*  XXX：使用预处理器？ */ 
     var config_numcalc = (typeof os.open === "undefined");
     var has_jscalc = (typeof Fraction === "function");
     var has_bignum = (typeof BigFloat === "function");
@@ -136,14 +114,14 @@ import * as os from "os";
     var term_fd;
     var term_read_buf;
     var term_width;
-    /* current X position of the cursor in the terminal */
+    /*  光标在终端中的当前X位置。 */ 
     var term_cursor_x = 0; 
     
     function termInit() {
         var tab;
         term_fd = std.in.fileno();
         
-        /* get the terminal size */
+        /*  获取终端大小。 */ 
         term_width = 80;
         if (os.isatty(term_fd)) {
             if (os.ttyGetWinSize) {
@@ -152,21 +130,21 @@ import * as os from "os";
                     term_width = tab[0];
             }
             if (os.ttySetRaw) {
-                /* set the TTY to raw mode */
+                /*  将TTY设置为RAW模式。 */ 
                 os.ttySetRaw(term_fd);
             }
         }
 
-        /* install a Ctrl-C signal handler */
+        /*  安装Ctrl-C信号处理程序。 */ 
         os.signal(os.SIGINT, sigint_handler);
 
-        /* install a handler to read stdin */
+        /*  安装处理程序以读取标准输入。 */ 
         term_read_buf = new Uint8Array(64);
         os.setReadHandler(term_fd, term_read_handler);
     }
 
     function sigint_handler() {
-        /* send Ctrl-C to readline */
+        /*  将Ctrl-C发送到Readline。 */ 
         handle_byte(3);
     }
     
@@ -273,10 +251,10 @@ import * as os from "os";
 
         if (cmd != last_cmd) {
             if (!show_colors && last_cmd.substring(0, last_cursor_pos) == cmd.substring(0, last_cursor_pos)) {
-                /* optimize common case */
+                /*  优化常见案例。 */ 
                 std.puts(cmd.substring(last_cursor_pos));
             } else {
-                /* goto the start of the line */
+                /*  转到行的开头。 */ 
                 move_cursor(-last_cursor_pos);
                 if (show_colors) {
                     var str = mexpr ? mexpr + '\n' + cmd : cmd;
@@ -287,13 +265,13 @@ import * as os from "os";
                     std.puts(cmd);
                 }
             }
-            /* Note: assuming no surrogate pairs */
+            /*  注意：假设没有代理项对。 */ 
             term_cursor_x = (term_cursor_x + cmd.length) % term_width;
             if (term_cursor_x == 0) {
-                /* show the cursor on the next line */
+                /*  将光标显示在下一行。 */ 
                 std.puts(" \x08");
             }
-            /* remove the trailing characters */
+            /*  删除尾随字符。 */ 
             std.puts("\x1b[J");
             last_cmd = cmd;
             last_cursor_pos = cmd.length;
@@ -303,7 +281,7 @@ import * as os from "os";
         std.out.flush();
     }
 
-    /* editing commands */
+    /*  编辑命令。 */ 
     function insert(str) {
         if (str) {
             cmd = cmd.substring(0, cursor_pos) + str + cmd.substring(cursor_pos);
@@ -438,7 +416,7 @@ import * as os from "os";
     function control_d() {
         if (cmd.length == 0) {
             std.puts("\n");
-            return -3; /* exit read eval print loop */
+            return -3; /*  退出读取求值打印循环。 */ 
         } else {
             delete_char_dir(1);
         }
@@ -588,12 +566,10 @@ import * as os from "os";
         s = get_context_word(line, pos);
         ctx_obj = get_context_object(line, pos - s.length);
         r = [];
-        /* enumerate properties from object and its prototype chain,
-           add non-numeric regular properties with s as e prefix
-         */
+        /*  从对象及其原型链中枚举属性，添加以%s作为e前缀的非数字常规属性。 */ 
         for (i = 0, obj = ctx_obj; i < 10 && obj !== null && obj !== void 0; i++) {
             var props = Object.getOwnPropertyNames(obj);
-            /* add non-numeric regular properties */
+            /*  添加非数字常规属性。 */ 
             for (j = 0; j < props.length; j++) {
                 var prop = props[j];
                 if (typeof prop == "string" && ""+(+prop) != prop && prop.startsWith(s))
@@ -602,7 +578,7 @@ import * as os from "os";
             obj = Object.getPrototypeOf(obj);
         }
         if (r.length > 1) {
-            /* sort list with internal names last and remove duplicates */
+            /*  将内部名称排在最后的列表并删除重复项。 */ 
             function symcmp(a, b) {
                 if (a[0] != b[0]) {
                     if (a[0] == '_')
@@ -623,8 +599,7 @@ import * as os from "os";
             }
             r.length = j;
         }
-        /* 'tab' = list of completions, 'pos' = cursor position inside
-           the completions */
+        /*  ‘Tab’=完成列表，‘pos’=光标位置完成度。 */ 
         return { tab: r, pos: s.length, ctx: ctx_obj };
     }
 
@@ -636,7 +611,7 @@ import * as os from "os";
             return;
         s = tab[0];
         len = s.length;
-        /* add the chars which are identical in all the completions */
+        /*  添加在所有补全中相同的字符。 */ 
         for(i = 1; i < tab.length; i++) {
             t = tab[i];
             for(j = 0; j < len; j++) {
@@ -650,7 +625,7 @@ import * as os from "os";
             insert(s[i]);
         }
         if (last_fun === completion && tab.length == 1) {
-            /* append parentheses to function names */
+            /*  在函数名后附加圆括号。 */ 
             var m = res.ctx[tab[0]];
             if (typeof m == "function") {
                 insert('(');
@@ -660,7 +635,7 @@ import * as os from "os";
                 insert('.');
             }
         }
-        /* show the possible completions */
+        /*  显示可能完成的项目。 */ 
         if (last_fun === completion && tab.length >= 2) {
             max_width = 0;
             for(i = 0; i < tab.length; i++)
@@ -669,7 +644,7 @@ import * as os from "os";
             n_cols = Math.max(1, Math.floor((term_width + 1) / max_width));
             n_rows = Math.ceil(tab.length / n_cols);
             std.puts("\n");
-            /* display the sorted list column-wise */
+            /*  按列显示已排序的列表。 */ 
             for (row = 0; row < n_rows; row++) {
                 for (col = 0; col < n_cols; col++) {
                     i = col * n_rows + row;
@@ -682,12 +657,12 @@ import * as os from "os";
                 }
                 std.puts("\n");
             }
-            /* show a new prompt */
+            /*  显示新提示。 */ 
             readline_print_prompt();
         }
     }
     
-    var commands = {        /* command table */
+    var commands = {        /*  命令表。 */ 
         "\x01":     beginning_of_line,      /* ^A - bol */
         "\x02":     backward_char,          /* ^B - backward-char */
         "\x03":     control_c,              /* ^C - abort */
@@ -788,14 +763,14 @@ import * as os from "os";
         c = String.fromCharCode(c1);
         switch(readline_state) {
         case 0:
-            if (c == '\x1b') {  /* '^[' - ESC */
+            if (c == '\x1b') {  /*  ‘^[’-Esc。 */ 
                 readline_keys = c;
                 readline_state = 1;
             } else {
                 handle_key(c);
             }
             break;
-        case 1: /* '^[ */
+        case 1: /*  ‘^[。 */ 
             readline_keys += c;
             if (c == '[') {
                 readline_state = 2;
@@ -806,14 +781,14 @@ import * as os from "os";
                 readline_state = 0;
             }
             break;
-        case 2: /* '^[[' - CSI */
+        case 2: /*  ‘^[[’-CSI。 */ 
             readline_keys += c;
             if (!(c == ';' || (c >= '0' && c <= '9'))) {
                 handle_key(readline_keys);
                 readline_state = 0;
             }
             break;
-        case 3: /* '^[O' - ESC2 */
+        case 3: /*  ‘^[O’-ESc2。 */ 
             readline_keys += c;
             handle_key(readline_keys);
             readline_state = 0;
@@ -838,9 +813,9 @@ import * as os from "os";
                 readline_cb(null);
                 return;
             case -3:
-                /* uninstall a Ctrl-C signal handler */
+                /*  卸载Ctrl-C信号处理程序。 */ 
                 os.signal(os.SIGINT, null);
-                /* uninstall the stdin read handler */
+                /*  卸载stdin读取处理程序。 */ 
                 os.setReadHandler(term_fd, null);
                 return;
             }
@@ -849,7 +824,7 @@ import * as os from "os";
             insert(keys);
             last_fun = insert;
         } else {
-            alert(); /* beep! */
+            alert(); /*  哔！ */ 
         }
         
         cursor_pos = (cursor_pos < 0) ? 0 :
@@ -875,7 +850,7 @@ import * as os from "os";
     function number_to_string(a, radix) {
         var s;
         if (!isFinite(a)) {
-            /* NaN, Infinite */
+            /*  南，无限。 */ 
             if (typeof a === "bigfloat" && eval_mode !== "math") {
                 return "BigFloat(" + a.toString() + ")";
             } else {
@@ -906,8 +881,7 @@ import * as os from "os";
             } else if (eval_mode !== "std" && s.indexOf(".") < 0 &&
                 ((radix == 16 && s.indexOf("p") < 0) ||
                  (radix == 10 && s.indexOf("e") < 0))) {
-                /* add a decimal point so that the floating point type
-                   is visible */
+                /*  添加一个小数点，以便浮点类型是可见的。 */ 
                 s += ".0";
             }
             return s;
@@ -1020,7 +994,7 @@ import * as os from "os";
         return a.substring(1, pos);
     }
 
-    /* return true if the string after cmd can be evaluted as JS */
+    /*  如果cmd后的字符串可以计算为JS，则返回TRUE。 */ 
     function handle_directive(cmd, expr) {
         var param, prec1, expBits1;
         
@@ -1116,7 +1090,7 @@ import * as os from "os";
     }
 
     if (config_numcalc) {
-        /* called by the GUI */
+        /*  由图形用户界面调用。 */ 
         g.execCmd = function (cmd) {
             switch(cmd) {
             case "dec":
@@ -1169,14 +1143,14 @@ import * as os from "os";
             else if (eval_mode === "bigint")
                 expr = '"use bigint"; void 0;' + expr;
             var now = (new Date).getTime();
-            /* eval as a script */
+            /*  作为剧本的Eval。 */ 
             result = std.evalScript(expr);
             eval_time = (new Date).getTime() - now;
             std.puts(colors[styles.result]);
             print(result);
             std.puts("\n");
             std.puts(colors.none);
-            /* set the last result */
+            /*  设置最后一个结果。 */ 
             g._ = result;
         } catch (error) {
             std.puts(colors[styles.error_msg]);
@@ -1206,7 +1180,7 @@ import * as os from "os";
                 prec = 113;
                 expBits = 15;
                 eval_mode = "math";
-                /* XXX: numeric mode should always be the default ? */
+                /*  XXX：数字模式是否应始终为默认模式？ */ 
                 g.algebraicMode = config_numcalc;
             } else {
                 prec = 53;
@@ -1265,7 +1239,7 @@ import * as os from "os";
         }
         level = 0;
         
-        /* run the garbage collector after each command */
+        /*  在每个命令后运行垃圾收集器。 */ 
         std.gc();
     }
 
@@ -1344,7 +1318,7 @@ import * as os from "os";
                     if (c == ']') {
                         pop_state()
                     }
-                    // ECMA 5: ignore '/' inside char classes
+                    //  ECMA 5：忽略字符类中的‘/’
                     continue;
                 }
                 if (c == '[') {
@@ -1441,11 +1415,11 @@ import * as os from "os";
                 can_regex = 1;
                 continue;
             case '/':
-                if (i < n && str[i] == '*') { // block comment
+                if (i < n && str[i] == '*') { //  阻止注释。
                     parse_block_comment();
                     break;
                 }
-                if (i < n && str[i] == '/') { // line comment
+                if (i < n && str[i] == '/') { //  行注释
                     parse_line_comment();
                     break;
                 }

@@ -1,27 +1,5 @@
-/*
- * QuickJS Javascript Engine
- * 
- * Copyright (c) 2017-2019 Fabrice Bellard
- * Copyright (c) 2017-2019 Charlie Gordon
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *QuickJS Java脚本引擎**版权所有(C)2017-2019 Fabrice Bellard*版权所有(C)2017-2019查理·戈登**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -68,45 +46,37 @@
 #endif
 
 #if !defined(_WIN32)
-/* define it if printf uses the RNDN rounding mode instead of RNDNA */
+/*  如果printf使用RNDN舍入模式而不是RNDNA，请定义它。 */ 
 #define CONFIG_PRINTF_RNDN
 #endif
 
-/* define to include Atomics.* operations which depend on the OS
-   threads */
-//#if !defined(EMSCRIPTEN)
-//#define CONFIG_ATOMICS
-//#endif
+/*  定义为包括原子。*依赖于操作系统的操作丝线。 */ 
+//  #If！已定义(Emscripten)。
+//  #定义配置原子。
+//  #endif。
 
-/* dump object free */
-//#define DUMP_FREE
-//#define DUMP_CLOSURE
-/* dump the bytecode of the compiled functions: combination of bits
-   1: dump pass 3 final byte code
-   2: dump pass 2 code
-   4: dump pass 1 code
-   8: dump stdlib functions
-  16: dump bytecode in hex
-  32: dump line number table
- */
-//#define DUMP_BYTECODE  (1)
-/* dump the occurence of the automatic GC */
-//#define DUMP_GC
-/* dump objects freed by the garbage collector */
-//#define DUMP_GC_FREE
-/* dump objects leaking when freeing the runtime */
-//#define DUMP_LEAKS  1
-/* dump memory usage before running the garbage collector */
-//#define DUMP_MEM
-//#define DUMP_OBJECTS    /* dump objects in JS_FreeContext */
-//#define DUMP_ATOMS      /* dump atoms in JS_FreeContext */
-//#define DUMP_SHAPES     /* dump shapes in JS_FreeContext */
-//#define DUMP_MODULE_RESOLVE
-//#define DUMP_PROMISE
-//#define DUMP_READ_OBJECT
+/*  可释放转储对象。 */ 
+//  #定义转储空闲。
+//  #定义转储关闭。
+/*  转储已编译函数的字节码：位组合1：转储通道3最后一个字节代码2：转储通行码24：转储通过代码18：转储stdlib函数16：以十六进制格式转储字节码32：转储行号表。 */ 
+//  #定义转储字节码(1)。
+/*  转储自动GC的出现。 */ 
+//  #定义DUMP_GC。
+/*  转储垃圾回收器释放的对象。 */ 
+//  #定义转储_GC_FREE。
+/*  释放运行库时转储泄漏的对象。 */ 
+//  #定义转储泄漏1。
+/*  在运行垃圾回收器之前转储内存使用量。 */ 
+//  #定义DUMP_MEM。
+//  转储JS_Free Context中的对象。
+//  转储JS_Free Context中的原子。
+//  转储JS_Free Context中的形状。
+//  #定义转储模块解析。
+//  #定义转储承诺。
+//  #定义转储读取对象。
 
-/* test the GC by forcing it before each object allocation */
-//#define FORCE_GC_AT_MALLOC
+/*  通过在每个对象分配之前强制GC来测试GC。 */ 
+//  #定义FORCE_GC_AT_MALLOC。
 
 #ifdef CONFIG_ATOMICS
 #include <pthread.h>
@@ -115,71 +85,71 @@
 #endif
 
 enum {
-    /* classid tag        */    /* union usage   | properties */
-    JS_CLASS_OBJECT = 1,        /* must be first */
-    JS_CLASS_ARRAY,             /* u.array       | length */
+    /*  分类标签。 */     /* union usage   | properties */
+    JS_CLASS_OBJECT = 1,        /*  必须是第一名。 */ 
+    JS_CLASS_ARRAY,             /*  美国数组|长度。 */ 
     JS_CLASS_ERROR,
-    JS_CLASS_NUMBER,            /* u.object_data */
-    JS_CLASS_STRING,            /* u.object_data */
-    JS_CLASS_BOOLEAN,           /* u.object_data */
-    JS_CLASS_SYMBOL,            /* u.object_data */
-    JS_CLASS_ARGUMENTS,         /* u.array       | length */
-    JS_CLASS_MAPPED_ARGUMENTS,  /*               | length */
-    JS_CLASS_DATE,              /* u.object_data */
+    JS_CLASS_NUMBER,            /*  U.S.Object_Data。 */ 
+    JS_CLASS_STRING,            /*  U.S.Object_Data。 */ 
+    JS_CLASS_BOOLEAN,           /*  U.S.Object_Data。 */ 
+    JS_CLASS_SYMBOL,            /*  U.S.Object_Data。 */ 
+    JS_CLASS_ARGUMENTS,         /*  美国数组|长度。 */ 
+    JS_CLASS_MAPPED_ARGUMENTS,  /*  |长度。 */ 
+    JS_CLASS_DATE,              /*  U.S.Object_Data。 */ 
     JS_CLASS_MODULE_NS,
-    JS_CLASS_C_FUNCTION,        /* u.cfunc */
-    JS_CLASS_BYTECODE_FUNCTION, /* u.func */
-    JS_CLASS_BOUND_FUNCTION,    /* u.bound_function */
-    JS_CLASS_C_FUNCTION_DATA,   /* u.c_function_data_record */
-    JS_CLASS_GENERATOR_FUNCTION, /* u.func */
-    JS_CLASS_FOR_IN_ITERATOR,   /* u.for_in_iterator */
-    JS_CLASS_REGEXP,            /* u.regexp */
-    JS_CLASS_ARRAY_BUFFER,      /* u.array_buffer */
-    JS_CLASS_SHARED_ARRAY_BUFFER, /* u.array_buffer */
-    JS_CLASS_UINT8C_ARRAY,      /* u.array (typed_array) */
-    JS_CLASS_INT8_ARRAY,        /* u.array (typed_array) */
-    JS_CLASS_UINT8_ARRAY,       /* u.array (typed_array) */
-    JS_CLASS_INT16_ARRAY,       /* u.array (typed_array) */
-    JS_CLASS_UINT16_ARRAY,      /* u.array (typed_array) */
-    JS_CLASS_INT32_ARRAY,       /* u.array (typed_array) */
-    JS_CLASS_UINT32_ARRAY,      /* u.array (typed_array) */
+    JS_CLASS_C_FUNCTION,        /*  U.cfunc。 */ 
+    JS_CLASS_BYTECODE_FUNCTION, /*  U.func。 */ 
+    JS_CLASS_BOUND_FUNCTION,    /*  U.S.Bound_Function。 */ 
+    JS_CLASS_C_FUNCTION_DATA,   /*  U.C函数数据记录。 */ 
+    JS_CLASS_GENERATOR_FUNCTION, /*  U.func。 */ 
+    JS_CLASS_FOR_IN_ITERATOR,   /*  U.S.for_in_迭代器。 */ 
+    JS_CLASS_REGEXP,            /*  U.regexp。 */ 
+    JS_CLASS_ARRAY_BUFFER,      /*  美国数组缓冲区。 */ 
+    JS_CLASS_SHARED_ARRAY_BUFFER, /*  美国数组缓冲区。 */ 
+    JS_CLASS_UINT8C_ARRAY,      /*  美国数组(TYPED_ARRAY)。 */ 
+    JS_CLASS_INT8_ARRAY,        /*  美国数组(TYPED_ARRAY)。 */ 
+    JS_CLASS_UINT8_ARRAY,       /*  美国数组(TYPED_ARRAY)。 */ 
+    JS_CLASS_INT16_ARRAY,       /*  美国数组(TYPED_ARRAY)。 */ 
+    JS_CLASS_UINT16_ARRAY,      /*  美国数组(TYPED_ARRAY)。 */ 
+    JS_CLASS_INT32_ARRAY,       /*  美国数组(TYPED_ARRAY)。 */ 
+    JS_CLASS_UINT32_ARRAY,      /*  美国数组(TYPED_ARRAY)。 */ 
 #ifdef CONFIG_BIGNUM
-    JS_CLASS_BIG_INT64_ARRAY,   /* u.array (typed_array) */
-    JS_CLASS_BIG_UINT64_ARRAY,  /* u.array (typed_array) */
+    JS_CLASS_BIG_INT64_ARRAY,   /*  美国数组(TYPED_ARRAY)。 */ 
+    JS_CLASS_BIG_UINT64_ARRAY,  /*  美国数组(TYPED_ARRAY)。 */ 
 #endif
-    JS_CLASS_FLOAT32_ARRAY,     /* u.array (typed_array) */
-    JS_CLASS_FLOAT64_ARRAY,     /* u.array (typed_array) */
-    JS_CLASS_DATAVIEW,          /* u.typed_array */
+    JS_CLASS_FLOAT32_ARRAY,     /*  美国数组(TYPED_ARRAY)。 */ 
+    JS_CLASS_FLOAT64_ARRAY,     /*  美国数组(TYPED_ARRAY)。 */ 
+    JS_CLASS_DATAVIEW,          /*  美国类型化数组。 */ 
 #ifdef CONFIG_BIGNUM
-    JS_CLASS_BIG_INT,           /* u.object_data */
-    JS_CLASS_BIG_FLOAT,         /* u.object_data */
-    JS_CLASS_FLOAT_ENV,         /* u.float_env */
+    JS_CLASS_BIG_INT,           /*  U.S.Object_Data。 */ 
+    JS_CLASS_BIG_FLOAT,         /*  U.S.Object_Data。 */ 
+    JS_CLASS_FLOAT_ENV,         /*  美国浮动环境。 */ 
 #endif
-    JS_CLASS_MAP,               /* u.map_state */
-    JS_CLASS_SET,               /* u.map_state */
-    JS_CLASS_WEAKMAP,           /* u.map_state */
-    JS_CLASS_WEAKSET,           /* u.map_state */
-    JS_CLASS_MAP_ITERATOR,      /* u.map_iterator_data */
-    JS_CLASS_SET_ITERATOR,      /* u.map_iterator_data */
-    JS_CLASS_ARRAY_ITERATOR,    /* u.array_iterator_data */
-    JS_CLASS_STRING_ITERATOR,   /* u.array_iterator_data */
-    JS_CLASS_REGEXP_STRING_ITERATOR,   /* u.regexp_string_iterator_data */
-    JS_CLASS_GENERATOR,         /* u.generator_data */
-    JS_CLASS_PROXY,             /* u.proxy_data */
-    JS_CLASS_PROMISE,           /* u.promise_data */
-    JS_CLASS_PROMISE_RESOLVE_FUNCTION,  /* u.promise_function_data */
-    JS_CLASS_PROMISE_REJECT_FUNCTION,   /* u.promise_function_data */
-    JS_CLASS_ASYNC_FUNCTION,            /* u.func */
-    JS_CLASS_ASYNC_FUNCTION_RESOLVE,    /* u.async_function_data */
-    JS_CLASS_ASYNC_FUNCTION_REJECT,     /* u.async_function_data */
-    JS_CLASS_ASYNC_FROM_SYNC_ITERATOR,  /* u.async_from_sync_iterator_data */
-    JS_CLASS_ASYNC_GENERATOR_FUNCTION,  /* u.func */
-    JS_CLASS_ASYNC_GENERATOR,   /* u.async_generator_data */
+    JS_CLASS_MAP,               /*  美国地图_州。 */ 
+    JS_CLASS_SET,               /*  美国地图_州。 */ 
+    JS_CLASS_WEAKMAP,           /*  美国地图_州。 */ 
+    JS_CLASS_WEAKSET,           /*  美国地图_州。 */ 
+    JS_CLASS_MAP_ITERATOR,      /*  美国地图迭代器数据。 */ 
+    JS_CLASS_SET_ITERATOR,      /*  美国地图迭代器数据。 */ 
+    JS_CLASS_ARRAY_ITERATOR,    /*  美国数组迭代器数据。 */ 
+    JS_CLASS_STRING_ITERATOR,   /*  美国数组迭代器数据。 */ 
+    JS_CLASS_REGEXP_STRING_ITERATOR,   /*  U.S.regexp_字符串_迭代器_数据。 */ 
+    JS_CLASS_GENERATOR,         /*  美国生成器数据。 */ 
+    JS_CLASS_PROXY,             /*  U.S.Proxy_Data。 */ 
+    JS_CLASS_PROMISE,           /*  美国承诺数据。 */ 
+    JS_CLASS_PROMISE_RESOLVE_FUNCTION,  /*  美国承诺函数数据。 */ 
+    JS_CLASS_PROMISE_REJECT_FUNCTION,   /*  美国承诺函数数据。 */ 
+    JS_CLASS_ASYNC_FUNCTION,            /*  U.func。 */ 
+    JS_CLASS_ASYNC_FUNCTION_RESOLVE,    /*  美国异步函数数据。 */ 
+    JS_CLASS_ASYNC_FUNCTION_REJECT,     /*  美国异步函数数据。 */ 
+    JS_CLASS_ASYNC_FROM_SYNC_ITERATOR,  /*  U.S.async_from_sync_iterator_data。 */ 
+    JS_CLASS_ASYNC_GENERATOR_FUNCTION,  /*  U.func。 */ 
+    JS_CLASS_ASYNC_GENERATOR,   /*  美国异步生成器数据。 */ 
 
-    JS_CLASS_INIT_COUNT, /* last entry for predefined classes */
+    JS_CLASS_INIT_COUNT, /*  预定义类的最后一个条目。 */ 
 };
 
-/* number of typed array types */
+/*  类型化数组类型的数量。 */ 
 #define JS_TYPED_ARRAY_COUNT  (JS_CLASS_FLOAT64_ARRAY - JS_CLASS_UINT8C_ARRAY + 1)
 static uint8_t const typed_array_size_log2[JS_TYPED_ARRAY_COUNT];
 #define typed_array_size_log2(classid)  (typed_array_size_log2[(classid)- JS_CLASS_UINT8C_ARRAY])
@@ -193,7 +163,7 @@ typedef enum JSErrorEnum {
     JS_URI_ERROR,
     JS_INTERNAL_ERROR,
 
-    JS_NATIVE_ERROR_COUNT, /* number of different NativeError objects */
+    JS_NATIVE_ERROR_COUNT, /*  不同NativeError对象的数量。 */ 
 } JSErrorEnum;
 
 #define JS_MAX_LOCAL_VARS 65536
@@ -215,44 +185,44 @@ struct JSRuntime {
     JSMallocState malloc_state;
     const char *rt_info;
 
-    int atom_hash_size; /* power of two */
+    int atom_hash_size; /*  二的幂。 */ 
     int atom_count;
     int atom_size;
-    int atom_count_resize; /* resize hash table at this count */
+    int atom_count_resize; /*  按此计数调整哈希表的大小。 */ 
     uint32_t *atom_hash;
     JSAtomStruct **atom_array;
-    int atom_free_index; /* 0 = none */
+    int atom_free_index; /*  0=无。 */ 
 
-    int class_count;    /* size of class_array */
+    int class_count;    /*  CLASS_ARRAY大小。 */ 
     JSClass *class_array;
 
-    struct list_head context_list; /* list of JSContext.link */
-    /* list of allocated objects (used by the garbage collector) */
-    struct list_head obj_list; /* list of JSObject.link */
+    struct list_head context_list; /*  JSConext.link列表。 */ 
+    /*  已分配对象的列表(由垃圾回收器使用)。 */ 
+    struct list_head obj_list; /*  JSObject.link列表。 */ 
     size_t malloc_gc_threshold;
 #ifdef DUMP_LEAKS
-    struct list_head string_list; /* list of JSString.link */
+    struct list_head string_list; /*  JSString.link列表。 */ 
 #endif
-    struct list_head tmp_obj_list; /* used during gc */
-    struct list_head free_obj_list; /* used during gc */
-    struct list_head *el_next; /* used during gc */
+    struct list_head tmp_obj_list; /*  在GC期间使用。 */ 
+    struct list_head free_obj_list; /*  在GC期间使用。 */ 
+    struct list_head *el_next; /*  在GC期间使用。 */ 
 
     JSInterruptHandler *interrupt_handler;
     void *interrupt_opaque;
 
-    struct list_head job_list; /* list of JSJobEntry.link */
+    struct list_head job_list; /*  JSJobEntry.link列表。 */ 
 
     JSModuleNormalizeFunc *module_normalize_func;
     JSModuleLoaderFunc *module_loader_func;
     void *module_loader_opaque;
 
     BOOL in_gc_sweep : 8;
-    BOOL can_block : 8; /* TRUE if Atomics.wait can block */
+    BOOL can_block : 8; /*  如果原子等待可以阻止，则为True。 */ 
 
-    /* Shape hash table */
+    /*  形状哈希表。 */ 
     int shape_hash_bits;
     int shape_hash_size;
-    int shape_hash_count; /* number of hashed shapes */
+    int shape_hash_count; /*  哈希形状的数量。 */ 
     JSShape **shape_hash;
 #ifdef CONFIG_BIGNUM
     bf_context_t bf_ctx;
@@ -260,12 +230,12 @@ struct JSRuntime {
 };
 
 struct JSClass {
-    uint32_t class_id; /* 0 means free entry */
+    uint32_t class_id; /*  0表示自由进入。 */ 
     JSAtom class_name;
     JSClassFinalizer *finalizer;
     JSClassGCMark *gc_mark;
     JSClassCall *call;
-    /* pointers for exotic behavior, can be NULL if none are present */
+    /*  指向奇异行为的指针，如果不存在，则可以为空。 */ 
     const JSClassExoticMethods *exotic;
 };
 
@@ -275,17 +245,15 @@ struct JSClass {
 #define JS_MODE_MATH   (1 << 3)
 
 typedef struct JSStackFrame {
-    struct JSStackFrame *prev_frame; /* NULL if first stack frame */
-    JSValue cur_func; /* current function, JS_UNDEFINED if the frame is detached */
-    JSValue *arg_buf; /* arguments */
-    JSValue *var_buf; /* variables */
-    struct list_head var_ref_list; /* list of JSVarRef.link */
-    const uint8_t *cur_pc; /* only used in bytecode functions : PC of the
-                        instruction after the call */
+    struct JSStackFrame *prev_frame; /*  如果是第一个堆栈帧，则为空。 */ 
+    JSValue cur_func; /*  如果框架被分离，则当前函数为JS_UNDEFINED。 */ 
+    JSValue *arg_buf; /*  论据。 */ 
+    JSValue *var_buf; /*  变数。 */ 
+    struct list_head var_ref_list; /*  JSVarRef.link列表。 */ 
+    const uint8_t *cur_pc; /*  仅在字节码函数中使用：调用后的说明。 */ 
     int arg_count;
-    int js_mode; /* for C functions: 0 */
-    /* only used in generators. Current stack pointer value. NULL if
-       the function is running. */ 
+    int js_mode; /*  对于C函数：0。 */ 
+    /*  仅在发电机中使用。当前堆栈指针值。如果为空，则为空该函数正在运行。 */  
     JSValue *cur_sp;
 } JSStackFrame;
 
@@ -294,15 +262,13 @@ typedef struct JSGCHeader {
 } JSGCHeader;
 
 typedef struct JSVarRef {
-    JSRefCountHeader header; /* must come first, 32-bit */
-    JSGCHeader gc_header; /* must come after JSRefCountHeader, 8-bit */
+    JSRefCountHeader header; /*  必须排在第一位，32位。 */ 
+    JSGCHeader gc_header; /*  必须在JSRefCountHeader之后，8位。 */ 
     uint8_t is_arg : 1;
-    int var_idx; /* index of the corresponding function variable on
-                    the stack */
-    struct list_head link; /* prev = NULL if no longer on the stack */
-    JSValue *pvalue; /* pointer to the value, either on the stack or
-                        to 'value' */
-    JSValue value; /* used when the variable is no longer on the stack */
+    int var_idx; /*  上的相应函数变量的索引堆栈。 */ 
+    struct list_head link; /*  如果堆栈上不再存在，则prev=NULL。 */ 
+    JSValue *pvalue; /*  指向堆栈上的值的指针或到“价值” */ 
+    JSValue value; /*  当变量不再位于堆栈上时使用。 */ 
 } JSVarRef;
 
 #ifdef CONFIG_BIGNUM
@@ -312,35 +278,31 @@ typedef struct JSFloatEnv {
     unsigned int status;
 } JSFloatEnv;
 
-/* the same structure is used for big integers and big floats. Big
-   integers are never infinite or NaNs */
+/*  同样的结构也适用于大整数和大浮点数。大的整数永远不是无穷大或nans。 */ 
 typedef struct JSBigFloat {
-    JSRefCountHeader header; /* must come first, 32-bit */
+    JSRefCountHeader header; /*  必须排在第一位，32位。 */ 
     bf_t num;
 } JSBigFloat;
 #endif
 
-/* must be large enough to have a negligible runtime cost and small
-   enough to call the interrupt callback often. */
+/*  必须足够大，运行时成本可以忽略不计，并且必须很小足以经常调用中断回调。 */ 
 #define JS_INTERRUPT_COUNTER_INIT 10000
 
 struct JSContext {
     JSRuntime *rt;
     struct list_head link;
     const uint8_t *stack_top;
-    size_t stack_size; /* in bytes */
+    size_t stack_size; /*  单位：字节。 */ 
 
     JSValue current_exception;
-    /* true if a backtrace needs to be added to the current exception
-       (the backtrace generation cannot be done immediately in a bytecode
-       function) */
+    /*  如果需要向当前异常添加回溯，则为True(回溯生成不能立即在字节码中完成功能)。 */ 
     BOOL exception_needs_backtrace : 8;
-    /* true if inside an out of memory error, to avoid recursing */
+    /*  如果发生内存不足错误，则为True，以避免递归。 */ 
     BOOL in_out_of_memory : 8;
     uint16_t binary_object_count;
     int binary_object_size;
 
-    JSShape *array_shape;   /* initial shape for Array objects */
+    JSShape *array_shape;   /*  数组对象的初始形状。 */ 
 
     JSStackFrame *current_stack_frame;
 
@@ -356,24 +318,24 @@ struct JSContext {
     JSValue throw_type_error;
     JSValue eval_obj;
 
-    JSValue global_obj; /* global object */
-    JSValue global_var_obj; /* contains the global let/const definitions */
+    JSValue global_obj; /*  全局对象。 */ 
+    JSValue global_var_obj; /*  包含全局let/const定义。 */ 
 
     uint64_t random_state;
 #ifdef CONFIG_BIGNUM
-    bf_context_t *bf_ctx;   /* points to rt->bf_ctx, shared by all contexts */
-    JSFloatEnv fp_env; /* global FP environment */
+    bf_context_t *bf_ctx;   /*  指向RT-&gt;bf_ctx，由所有上下文共享。 */ 
+    JSFloatEnv fp_env; /*  全球FP环境。 */ 
 #endif
-    /* when the counter reaches zero, JSRutime.interrupt_handler is called */
+    /*  当计数器达到零时，JSRutime.inte */ 
     int interrupt_counter;
     BOOL is_error_property_enabled;
 
-    struct list_head loaded_modules; /* list of JSModuleDef.link */
+    struct list_head loaded_modules; /*   */ 
 
-    /* if NULL, RegExp compilation is not supported */
+    /*   */ 
     JSValue (*compile_regexp)(JSContext *ctx, JSValueConst pattern,
                               JSValueConst flags);
-    /* if NULL, eval is not supported */
+    /*   */ 
     JSValue (*eval_internal)(JSContext *ctx, JSValueConst this_obj,
                              const char *input, size_t input_len,
                              const char *filename, int flags, int scope_idx);
@@ -407,20 +369,18 @@ typedef enum {
 #define JS_ATOM_HASH_MASK  ((1 << 30) - 1)
 
 struct JSString {
-    JSRefCountHeader header; /* must come first, 32-bit */
+    JSRefCountHeader header; /*   */ 
     uint32_t len : 31;
-    uint8_t is_wide_char : 1; /* 0 = 8 bits, 1 = 16 bits characters */
-    /* for JS_ATOM_TYPE_SYMBOL: hash = 0, atom_type = 3,
-       for JS_ATOM_TYPE_PRIVATE: hash = 1, atom_type = 3
-       XXX: could change encoding to have one more bit in hash */
+    uint8_t is_wide_char : 1; /*  0=8位，1=16位字符。 */ 
+    /*  对于JS_ATOM_TYPE_SYMBOL：HASH=0，ATOM_TYPE=3，对于JS_ATOM_TYPE_PRIVATE：HASH=1，ATOM_TYPE=3XXX：可以更改编码以在哈希中多包含一位。 */ 
     uint32_t hash : 30;
-    uint8_t atom_type : 2; /* != 0 if atom, JS_ATOM_TYPE_x */
-    uint32_t hash_next; /* atom_index for JS_ATOM_TYPE_SYMBOL */
+    uint8_t atom_type : 2; /*  ！=0，如果是ATOM，JS_ATOM_TYPE_x。 */ 
+    uint32_t hash_next; /*  JS_ATOM_TYPE_符号的ATOM_INDEX。 */ 
 #ifdef DUMP_LEAKS
-    struct list_head link; /* string list */
+    struct list_head link; /*  字符串列表。 */ 
 #endif
     union {
-        uint8_t str8[0]; /* 8 bit strings will get an extra null terminator */
+        uint8_t str8[0]; /*  8位字符串将获得额外的空终止符。 */ 
         uint16_t str16[0];
     } u;
 };
@@ -430,52 +390,44 @@ typedef struct JSClosureVar {
     uint8_t is_arg : 1;
     uint8_t is_const : 1;
     uint8_t is_lexical : 1;
-    uint8_t var_kind : 3; /* see JSVarKindEnum */
-    /* 9 bits available */
-    uint16_t var_idx; /* is_local = TRUE: index to a normal variable of the
-                    parent function. otherwise: index to a closure
-                    variable of the parent function */
+    uint8_t var_kind : 3; /*  请参阅JSVarKindEnum。 */ 
+    /*  9位可用。 */ 
+    uint16_t var_idx; /*  Is_local=TRUE：指向父函数。否则：闭包的索引父函数的变量。 */ 
     JSAtom var_name;
 } JSClosureVar;
 
 typedef struct JSVarScope {
-    int parent;  /* index into fd->scopes of the enclosing scope */
-    int first;   /* index into fd->vars of the last variable in this scope */
+    int parent;  /*  索引到FD-&gt;封闭作用域的作用域。 */ 
+    int first;   /*  此作用域中最后一个变量的fd-&gt;vars索引。 */ 
 } JSVarScope;
 
 typedef enum {
-    /* XXX: add more variable kinds here instead of using bit fields */
+    /*  XXX：在此处添加更多变量类型，而不是使用位字段。 */ 
     JS_VAR_NORMAL,
-    JS_VAR_FUNCTION_DECL, /* lexical var with function declaration */
-    JS_VAR_NEW_FUNCTION_DECL, /* lexical var with async/generator
-                                 function declaration */
+    JS_VAR_FUNCTION_DECL, /*  使用函数声明的词法变量。 */ 
+    JS_VAR_NEW_FUNCTION_DECL, /*  带有异步/生成器的词法变量函数声明。 */ 
     JS_VAR_CATCH,
     JS_VAR_PRIVATE_FIELD,
     JS_VAR_PRIVATE_METHOD,
     JS_VAR_PRIVATE_GETTER,
-    JS_VAR_PRIVATE_SETTER, /* must come after JS_VAR_PRIVATE_GETTER */
-    JS_VAR_PRIVATE_GETTER_SETTER, /* must come after JS_VAR_PRIVATE_SETTER */
+    JS_VAR_PRIVATE_SETTER, /*  必须在JS_VAR_PRIVATE_Getter之后。 */ 
+    JS_VAR_PRIVATE_GETTER_SETTER, /*  必须在JS_VAR_PRIVATE_SETTER之后。 */ 
 } JSVarKindEnum;
 
 typedef struct JSVarDef {
     JSAtom var_name;
-    int scope_level;   /* index into fd->scopes of this variable lexical scope */
-    int scope_next;    /* index into fd->vars of the next variable in the
-                        * same or enclosing lexical scope */
-    uint8_t is_func_var : 1; /* used for the function self reference */
+    int scope_level;   /*  此变量词法作用域的fd-&gt;作用域索引。 */ 
+    int scope_next;    /*  中下一个变量的fd-&gt;vars中的索引*相同或包含词法范围。 */ 
+    uint8_t is_func_var : 1; /*  用于函数自引用。 */ 
     uint8_t is_const : 1;
     uint8_t is_lexical : 1;
     uint8_t is_captured : 1;
-    uint8_t var_kind : 4; /* see JSVarKindEnum */
-    /* only used during compilation: function pool index for lexical
-       variables with var_kind =
-       JS_VAR_FUNCTION_DECL/JS_VAR_NEW_FUNCTION_DECL or scope level of
-       the definition of the 'var' variables (they have scope_level =
-       0) */
-    int func_pool_or_scope_idx : 24; /* only used during compilation */
+    uint8_t var_kind : 4; /*  请参阅JSVarKindEnum。 */ 
+    /*  仅在编译期间使用：用于词法的函数池索引VAR_KIND=的变量JS_VAR_Function_DECL/JS_VAR_NEW_Function_DECL或范围级别‘var’变量的定义(它们具有SCOPE_LEVEL=0)。 */ 
+    int func_pool_or_scope_idx : 24; /*  仅在编译期间使用。 */ 
 } JSVarDef;
 
-/* for the encoding of the pc2line table */
+/*  用于对pc2line表进行编码。 */ 
 #define PC2LINE_BASE     (-1)
 #define PC2LINE_RANGE    5
 #define PC2LINE_OP_FIRST 1
@@ -489,13 +441,13 @@ typedef enum JSFunctionKindEnum {
 } JSFunctionKindEnum;
 
 typedef struct JSFunctionBytecode {
-    JSRefCountHeader header; /* must come first, 32-bit */
-    JSGCHeader gc_header; /* must come after header, 8-bit */
+    JSRefCountHeader header; /*  必须排在第一位，32位。 */ 
+    JSGCHeader gc_header; /*  必须在标题之后，8位。 */ 
     uint8_t js_mode;
-    uint8_t has_prototype : 1; /* true if a prototype field is necessary */
+    uint8_t has_prototype : 1; /*  如果需要Prototype字段，则为True。 */ 
     uint8_t has_simple_parameter_list : 1;
     uint8_t is_derived_class_constructor : 1;
-    /* true if home_object needs to be initialized */
+    /*  如果需要初始化HOME_OBJECT，则为True。 */ 
     uint8_t need_home_object : 1;
     uint8_t func_kind : 2;
     uint8_t new_target_allowed : 1;
@@ -504,21 +456,21 @@ typedef struct JSFunctionBytecode {
     uint8_t arguments_allowed : 1;
     uint8_t has_debug : 1;
     uint8_t read_only_bytecode : 1;
-    /* XXX: 4 bits available */
-    uint8_t *byte_code_buf; /* (self pointer) */
+    /*  XXX：4位可用。 */ 
+    uint8_t *byte_code_buf; /*  (自指针)。 */ 
     int byte_code_len;
     JSAtom func_name;
-    JSVarDef *vardefs; /* arguments + local variables (arg_count + var_count) (self pointer) */
-    JSClosureVar *closure_var; /* list of variables in the closure (self pointer) */
+    JSVarDef *vardefs; /*  参数+局部变量(arg_count+var_count)(自指针)。 */ 
+    JSClosureVar *closure_var; /*  闭包中的变量列表(自指针)。 */ 
     uint16_t arg_count;
     uint16_t var_count;
-    uint16_t defined_arg_count; /* for length function property */
-    uint16_t stack_size; /* maximum stack size */
-    JSValue *cpool; /* constant pool (self pointer) */
+    uint16_t defined_arg_count; /*  对于LENGTH函数属性。 */ 
+    uint16_t stack_size; /*  最大堆栈大小。 */ 
+    JSValue *cpool; /*  常量池(自指针)。 */ 
     int cpool_count;
     int closure_var_count;
     struct {
-        /* debug info, move to separate structure to save memory? */
+        /*  调试信息，移动到单独的结构以节省内存？ */ 
         JSAtom filename;
         int line_num;
         int source_len;
@@ -550,7 +502,7 @@ typedef struct JSForInIterator {
 
 typedef struct JSRegExp {
     JSString *pattern;
-    JSString *bytecode; /* also contains the flags */
+    JSString *bytecode; /*  还包含标志。 */ 
 } JSRegExp;
 
 typedef struct JSProxyData {
@@ -562,43 +514,42 @@ typedef struct JSProxyData {
 } JSProxyData;
 
 typedef struct JSArrayBuffer {
-    int byte_length; /* 0 if detached */
+    int byte_length; /*  如果分离，则为0。 */ 
     uint8_t detached;
-    uint8_t shared; /* if shared, the array buffer cannot be detached */
-    uint8_t *data; /* NULL if detached */
+    uint8_t shared; /*  如果是共享的，则无法分离数组缓冲区。 */ 
+    uint8_t *data; /*  如果已分离，则为空。 */ 
     struct list_head array_list;
     void *opaque;
     JSFreeArrayBufferDataFunc *free_func;
 } JSArrayBuffer;
 
 typedef struct JSTypedArray {
-    struct list_head link; /* link to arraybuffer */
-    JSObject *obj; /* back pointer to the TypedArray/DataView object */
-    JSObject *buffer; /* based array buffer */
-    uint32_t offset; /* offset in the array buffer */
-    uint32_t length; /* length in the array buffer */
+    struct list_head link; /*  链接到数组缓冲区。 */ 
+    JSObject *obj; /*  指向Tyed数组/DataView对象的反向指针。 */ 
+    JSObject *buffer; /*  基于数组缓冲区。 */ 
+    uint32_t offset; /*  数组缓冲区中的偏移量。 */ 
+    uint32_t length; /*  数组缓冲区中的长度。 */ 
 } JSTypedArray;
 
 typedef struct JSAsyncFunctionState {
-    JSValue this_val; /* 'this' generator argument */
-    int argc; /* number of function arguments */
-    BOOL throw_flag; /* used to throw an exception in JS_CallInternal() */
+    JSValue this_val; /*  “This”生成器参数。 */ 
+    int argc; /*  函数参数的数量。 */ 
+    BOOL throw_flag; /*  用于在JS_CallInternal()中引发异常。 */ 
     JSStackFrame frame;
 } JSAsyncFunctionState;
 
-/* XXX: could use an object instead to avoid the
-   JS_TAG_ASYNC_FUNCTION tag for the GC */
+/*  XXX：可以改用对象来避免GC的JS_TAG_ASYNC_Function标签。 */ 
 typedef struct JSAsyncFunctionData {
-    JSRefCountHeader header; /* must come first, 32-bit */
-    JSGCHeader gc_header; /* must come after JSRefCountHeader, 8-bit */
+    JSRefCountHeader header; /*  必须排在第一位，32位。 */ 
+    JSGCHeader gc_header; /*  必须在JSRefCountHeader之后，8位。 */ 
     JSValue resolving_funcs[2];
-    BOOL is_active; /* true if the async function state is valid */
+    BOOL is_active; /*  如果异步函数状态有效，则为True。 */ 
     JSAsyncFunctionState func_state;
 } JSAsyncFunctionData;
 
 typedef struct JSReqModuleEntry {
     JSAtom module_name;
-    JSModuleDef *module; /* used using resolution */
+    JSModuleDef *module; /*  使用分辨率时使用。 */ 
 } JSReqModuleEntry;
 
 typedef enum JSExportTypeEnum {
@@ -609,29 +560,28 @@ typedef enum JSExportTypeEnum {
 typedef struct JSExportEntry {
     union {
         struct {
-            int var_idx; /* closure variable index */
-            JSVarRef *var_ref; /* if != NULL, reference to the variable */
-        } local; /* for local export */
-        int req_module_idx; /* module for indirect export */
+            int var_idx; /*  闭合变量指数。 */ 
+            JSVarRef *var_ref; /*  如果！=NULL，则引用变量。 */ 
+        } local; /*  用于本地出口。 */ 
+        int req_module_idx; /*  用于间接出口的模块。 */ 
     } u;
     JSExportTypeEnum export_type;
-    JSAtom local_name; /* '*' if export ns from. not used for local
-                          export after compilation */
-    JSAtom export_name; /* exported variable name */
+    JSAtom local_name; /*  如果从导出ns，则使用‘*’。不用于本地编译后导出。 */ 
+    JSAtom export_name; /*  导出的变量名称。 */ 
 } JSExportEntry;
 
 typedef struct JSStarExportEntry {
-    int req_module_idx; /* in req_module_entries */
+    int req_module_idx; /*  在请求模块条目中。 */ 
 } JSStarExportEntry;
 
 typedef struct JSImportEntry {
-    int var_idx; /* closure variable index */
+    int var_idx; /*  闭合变量指数。 */ 
     JSAtom import_name;
-    int req_module_idx; /* in req_module_entries */
+    int req_module_idx; /*  在请求模块条目中。 */ 
 } JSImportEntry;
 
 struct JSModuleDef {
-    JSRefCountHeader header; /* must come first, 32-bit */
+    JSRefCountHeader header; /*  必须排在第一位，32位。 */ 
     JSAtom module_name;
     struct list_head link;
 
@@ -652,17 +602,16 @@ struct JSModuleDef {
     int import_entries_size;
 
     JSValue module_ns;
-    JSValue func_obj; /* only used for JS modules */
-    JSModuleInitFunc *init_func; /* only used for C modules */
+    JSValue func_obj; /*  仅用于JS模块。 */ 
+    JSModuleInitFunc *init_func; /*  仅用于C模块。 */ 
     BOOL resolved : 8;
     BOOL instantiated : 8;
     BOOL evaluated : 8;
-    BOOL eval_mark : 8; /* temporary use during js_evaluate_module() */
-    /* true if evaluation yielded an exception. It is saved in
-       eval_exception */
+    BOOL eval_mark : 8; /*  JS_EVALUATE_MODULE()期间的临时使用。 */ 
+    /*  如果评估结果为异常，则为True。它保存在评估异常(_E)。 */ 
     BOOL eval_has_exception : 8; 
     JSValue eval_exception;
-    JSValue meta_obj; /* for import.meta */
+    JSValue meta_obj; /*  对于导入.meta。 */ 
 };
 
 typedef struct JSJobEntry {
@@ -675,13 +624,13 @@ typedef struct JSJobEntry {
 
 typedef struct JSProperty {
     union {
-        JSValue value;      /* JS_PROP_NORMAL */
-        struct {            /* JS_PROP_GETSET */
-            JSObject *getter; /* NULL if undefined */
-            JSObject *setter; /* NULL if undefined */
+        JSValue value;      /*  JS_PROP_Normal。 */ 
+        struct {            /*  JS_PROP_GETSET。 */ 
+            JSObject *getter; /*  如果未定义，则为空。 */ 
+            JSObject *setter; /*  如果未定义，则为空。 */ 
         } getset;
-        JSVarRef *var_ref;  /* JS_PROP_VARREF */
-        struct {            /* JS_PROP_AUTOINIT */
+        JSVarRef *var_ref;  /*  JS_PROP_VARREF。 */ 
+        struct {            /*  JS_PROP_AUTOINIT。 */ 
             int (*init_func)(JSContext *ctx, JSObject *obj,
                              JSAtom prop, void *opaque);
             void *opaque;
@@ -690,116 +639,112 @@ typedef struct JSProperty {
 } JSProperty;
 
 #define JS_PROP_INITIAL_SIZE 2
-#define JS_PROP_INITIAL_HASH_SIZE 4 /* must be a power of two */
+#define JS_PROP_INITIAL_HASH_SIZE 4 /*  一定是2的幂。 */ 
 #define JS_ARRAY_INITIAL_SIZE 2
 
 typedef struct JSShapeProperty {
-    uint32_t hash_next : 26; /* 0 if last in list */
-    uint32_t flags : 6;   /* JS_PROP_XXX */
-    JSAtom atom; /* JS_ATOM_NULL = free property entry */
+    uint32_t hash_next : 26; /*  如果在列表中最后一个，则为0。 */ 
+    uint32_t flags : 6;   /*  JS_PROP_XXX。 */ 
+    JSAtom atom; /*  JS_ATOM_NULL=自由属性条目。 */ 
 } JSShapeProperty;
 
 struct JSShape {
     union{
-        uint32_t prop_hash_end[1]; /* hash table of size hash_mask + 1
-                                      before the start of the structure. */
-        JSRefCountHeader header; /* must come first, 32-bit */
+        uint32_t prop_hash_end[1]; /*  大小为HASH_MASK+1的哈希表在建筑开始之前。 */ 
+        JSRefCountHeader header; /*  必须排在第一位，32位。 */ 
     };
-    JSGCHeader gc_header; /* must come after JSRefCountHeader, 8-bit */
-    /* true if the shape is inserted in the shape hash table. If not,
-       JSShape.hash is not valid */
+    JSGCHeader gc_header; /*  必须在JSRefCountHeader之后，8位。 */ 
+    /*  如果形状插入到形状哈希表中，则为True。如果没有，JSShape.hash无效。 */ 
     uint8_t is_hashed;
-    /* If true, the shape may have small array index properties 'n' with 0
-       <= n <= 2^31-1. If false, the shape is guaranteed not to have
-       small array index properties */
+    /*  如果为True，则该形状可能具有带有0的小型数组索引属性‘n’&lt;=n&lt;=2^31-1。如果为False，则该形状保证不会具有小数组索引属性。 */ 
     uint8_t has_small_array_index;
-    uint32_t hash; /* current hash value */
+    uint32_t hash; /*  当前哈希值。 */ 
     uint32_t prop_hash_mask;
-    int prop_size; /* allocated properties */
+    int prop_size; /*  已分配的属性。 */ 
     int prop_count;
-    JSShape *shape_hash_next; /* in JSRuntime.shape_hash[h] list */
+    JSShape *shape_hash_next; /*  在JSRunime.Shape_hash[h]列表中。 */ 
     JSObject *proto;
-    JSShapeProperty prop[0]; /* prop_size elements */
+    JSShapeProperty prop[0]; /*  属性大小元素。 */ 
 };
 struct JSObject {
-    JSRefCountHeader header; /* must come first, 32-bit */
-    JSGCHeader gc_header; /* must come after JSRefCountHeader, 8-bit */
+    JSRefCountHeader header; /*  必须排在第一位，32位。 */ 
+    JSGCHeader gc_header; /*  必须在JSRefCountHeader之后，8位。 */ 
     uint8_t extensible : 1;
-    uint8_t free_mark : 1; /* only used when freeing objects with cycles */
-    uint8_t is_exotic : 1; /* TRUE if object has exotic property handlers */
-    uint8_t fast_array : 1; /* TRUE if u.array is used for get/put */
-    uint8_t is_constructor : 1; /* TRUE if object is a constructor function */
-    uint8_t is_uncatchable_error : 1; /* if TRUE, error is not catchable */
-    uint8_t is_class : 1; /* TRUE if object is a class constructor */
-    uint8_t tmp_mark : 1; /* used in JS_WriteObjectRec() */
-    uint16_t class_id; /* see JS_CLASS_x */
-    /* byte offsets: 8/8 */
-    struct list_head link; /* object list */
-    /* byte offsets: 16/24 */
-    JSShape *shape; /* prototype and property names + flag */
-    JSProperty *prop; /* array of properties */
-    /* byte offsets: 24/40 */
-    struct JSMapRecord *first_weak_ref; /* XXX: use a bit and an external hash table? */
-    /* byte offsets: 28/48 */
+    uint8_t free_mark : 1; /*  仅在使用循环释放对象时使用。 */ 
+    uint8_t is_exotic : 1; /*  如果对象具有外来属性处理程序，则为True。 */ 
+    uint8_t fast_array : 1; /*  如果将U.S.数组用于GET/PUT，则为True。 */ 
+    uint8_t is_constructor : 1; /*  如果对象是构造函数，则为True。 */ 
+    uint8_t is_uncatchable_error : 1; /*  如果为True，则无法捕获错误。 */ 
+    uint8_t is_class : 1; /*  如果对象是类构造函数，则为True。 */ 
+    uint8_t tmp_mark : 1; /*  在JS_WriteObjectRec()中使用。 */ 
+    uint16_t class_id; /*  参见JS_CLASS_x。 */ 
+    /*  字节偏移量：8/8。 */ 
+    struct list_head link; /*  对象列表。 */ 
+    /*  字节偏移量：16/24。 */ 
+    JSShape *shape; /*  原型和属性名称+标志。 */ 
+    JSProperty *prop; /*  属性数组。 */ 
+    /*  字节偏移量：24/40。 */ 
+    struct JSMapRecord *first_weak_ref; /*  XXX：使用位和外部哈希表？ */ 
+    /*  字节偏移量：28/48。 */ 
     union {
         void *opaque;
-        struct JSBoundFunction *bound_function; /* JS_CLASS_BOUND_FUNCTION */
-        struct JSCFunctionDataRecord *c_function_data_record; /* JS_CLASS_C_FUNCTION_DATA */
-        struct JSForInIterator *for_in_iterator; /* JS_CLASS_FOR_IN_ITERATOR */
-        struct JSArrayBuffer *array_buffer; /* JS_CLASS_ARRAY_BUFFER, JS_CLASS_SHARED_ARRAY_BUFFER */
-        struct JSTypedArray *typed_array; /* JS_CLASS_UINT8C_ARRAY..JS_CLASS_DATAVIEW */
+        struct JSBoundFunction *bound_function; /*  JS_CLASS_BIND_Function。 */ 
+        struct JSCFunctionDataRecord *c_function_data_record; /*  JS_CLASS_C_Function_Data。 */ 
+        struct JSForInIterator *for_in_iterator; /*  JS_CLASS_FOR_IN_ITERATOR。 */ 
+        struct JSArrayBuffer *array_buffer; /*  JS_CLASS_ARRAY_BUFFER、JS_CLASS_SHARED_ARRAY_BUFFER。 */ 
+        struct JSTypedArray *typed_array; /*  JS_CLASS_UINT8C_ARRAY..JS_CLASS_DATAVIEW。 */ 
 #ifdef CONFIG_BIGNUM
-        struct JSFloatEnv *float_env; /* JS_CLASS_FLOAT_ENV */
+        struct JSFloatEnv *float_env; /*  JS_CLASS_FLOAT_ENV。 */ 
 #endif
-        struct JSMapState *map_state;   /* JS_CLASS_MAP..JS_CLASS_WEAKSET */
-        struct JSMapIteratorData *map_iterator_data; /* JS_CLASS_MAP_ITERATOR, JS_CLASS_SET_ITERATOR */
-        struct JSArrayIteratorData *array_iterator_data; /* JS_CLASS_ARRAY_ITERATOR, JS_CLASS_STRING_ITERATOR */
-        struct JSRegExpStringIteratorData *regexp_string_iterator_data; /* JS_CLASS_REGEXP_STRING_ITERATOR */
-        struct JSGeneratorData *generator_data; /* JS_CLASS_GENERATOR */
-        struct JSProxyData *proxy_data; /* JS_CLASS_PROXY */
-        struct JSPromiseData *promise_data; /* JS_CLASS_PROMISE */
-        struct JSPromiseFunctionData *promise_function_data; /* JS_CLASS_PROMISE_RESOLVE_FUNCTION, JS_CLASS_PROMISE_REJECT_FUNCTION */
-        struct JSAsyncFunctionData *async_function_data; /* JS_CLASS_ASYNC_FUNCTION_RESOLVE, JS_CLASS_ASYNC_FUNCTION_REJECT */
-        struct JSAsyncFromSyncIteratorData *async_from_sync_iterator_data; /* JS_CLASS_ASYNC_FROM_SYNC_ITERATOR */
-        struct JSAsyncGeneratorData *async_generator_data; /* JS_CLASS_ASYNC_GENERATOR */
-        struct { /* JS_CLASS_BYTECODE_FUNCTION: 12/24 bytes */
-            /* also used by JS_CLASS_GENERATOR_FUNCTION, JS_CLASS_ASYNC_FUNCTION and JS_CLASS_ASYNC_GENERATOR_FUNCTION */
+        struct JSMapState *map_state;   /*  JS_CLASS_MAP..JS_CLASS_WEAKSET。 */ 
+        struct JSMapIteratorData *map_iterator_data; /*  JS_CLASS_MAP_ITERATOR、JS_CLASS_SET_ITERATOR。 */ 
+        struct JSArrayIteratorData *array_iterator_data; /*  JS_CLASS_ARRAY_ITERATOR、JS_CLASS_STRING_ITERATOR。 */ 
+        struct JSRegExpStringIteratorData *regexp_string_iterator_data; /*  JS_CLASS_REGEXP_STRING_ITERATOR。 */ 
+        struct JSGeneratorData *generator_data; /*  JS类生成器。 */ 
+        struct JSProxyData *proxy_data; /*  JS_类_代理。 */ 
+        struct JSPromiseData *promise_data; /*  JS_CLASS_Promise。 */ 
+        struct JSPromiseFunctionData *promise_function_data; /*  JS_CLASS_PROMANCE_RESOLE_Function、JS_CLASS_PROMANCE_REJECT_Function。 */ 
+        struct JSAsyncFunctionData *async_function_data; /*  JS_CLASS_ASYNC_Function_RESOLE、JS_CLASS_ASYNC_Function_REJECT。 */ 
+        struct JSAsyncFromSyncIteratorData *async_from_sync_iterator_data; /*  JS_CLASS_ASYNC_FROM_SYNC_ITERATOR。 */ 
+        struct JSAsyncGeneratorData *async_generator_data; /*  JS_CLASS_ASYNC_生成器。 */ 
+        struct { /*  JS_CLASS_BYTECODE_Function：12/24字节。 */ 
+            /*  也由JS_CLASS_GENERATOR_Function、JS_CLASS_ASYNC_Function和JS_CLASS_ASYNC_GENERATOR_Function使用。 */ 
             struct JSFunctionBytecode *function_bytecode;
             JSVarRef **var_refs;
-            JSObject *home_object; /* for 'super' access */
+            JSObject *home_object; /*  获得超级访问权限。 */ 
         } func;
-        struct { /* JS_CLASS_C_FUNCTION: 8/12 bytes */
+        struct { /*  JS_CLASS_C_Function：8/12字节。 */ 
             JSCFunctionType c_function;
             uint8_t length;
             uint8_t cproto;
             int16_t magic;
         } cfunc;
-        /* array part for fast arrays and typed arrays */
-        struct { /* JS_CLASS_ARRAY, JS_CLASS_ARGUMENTS, JS_CLASS_UINT8C_ARRAY..JS_CLASS_FLOAT64_ARRAY */
+        /*  用于快速数组和类型化数组的数组部分。 */ 
+        struct { /*  JS_CLASS_AR */ 
             union {
-                uint32_t size;          /* JS_CLASS_ARRAY, JS_CLASS_ARGUMENTS */
-                struct JSTypedArray *typed_array; /* JS_CLASS_UINT8C_ARRAY..JS_CLASS_FLOAT64_ARRAY */
+                uint32_t size;          /*   */ 
+                struct JSTypedArray *typed_array; /*   */ 
             } u1;
             union {
-                JSValue *values;        /* JS_CLASS_ARRAY, JS_CLASS_ARGUMENTS */ 
-                void *ptr;              /* JS_CLASS_UINT8C_ARRAY..JS_CLASS_FLOAT64_ARRAY */
-                int8_t *int8_ptr;       /* JS_CLASS_INT8_ARRAY */
-                uint8_t *uint8_ptr;     /* JS_CLASS_UINT8_ARRAY, JS_CLASS_UINT8C_ARRAY */
-                int16_t *int16_ptr;     /* JS_CLASS_INT16_ARRAY */
-                uint16_t *uint16_ptr;   /* JS_CLASS_UINT16_ARRAY */
-                int32_t *int32_ptr;     /* JS_CLASS_INT32_ARRAY */
-                uint32_t *uint32_ptr;   /* JS_CLASS_UINT32_ARRAY */
-                int64_t *int64_ptr;     /* JS_CLASS_INT64_ARRAY */
-                uint64_t *uint64_ptr;   /* JS_CLASS_UINT64_ARRAY */
-                float *float_ptr;       /* JS_CLASS_FLOAT32_ARRAY */
-                double *double_ptr;     /* JS_CLASS_FLOAT64_ARRAY */
+                JSValue *values;        /*  JS_CLASS_ARRAY、JS_CLASS_ARGUMENTS。 */  
+                void *ptr;              /*  JS_CLASS_UINT8C_ARRAY..JS_CLASS_FLOAT64_ARRAY。 */ 
+                int8_t *int8_ptr;       /*  JS_CLASS_INT8_ARRAY。 */ 
+                uint8_t *uint8_ptr;     /*  JS_CLASS_UINT8_ARRAY、JS_CLASS_UINT8C_ARRAY。 */ 
+                int16_t *int16_ptr;     /*  JS_CLASS_INT16_ARRAY。 */ 
+                uint16_t *uint16_ptr;   /*  JS_CLASS_UINT16_ARRAY。 */ 
+                int32_t *int32_ptr;     /*  JS_CLASS_INT32_ARRAY。 */ 
+                uint32_t *uint32_ptr;   /*  JS_CLASS_UINT32_ARRAY。 */ 
+                int64_t *int64_ptr;     /*  JS_CLASS_INT64_ARRAY。 */ 
+                uint64_t *uint64_ptr;   /*  JS_CLASS_UINT64_ARRAY。 */ 
+                float *float_ptr;       /*  JS_CLASS_FLOAT32_ARRAY。 */ 
+                double *double_ptr;     /*  JS_CLASS_FLOAT64_ARRAY。 */ 
             } u;
-            uint32_t count; /* <= 2^31-1. 0 for a detached typed array */
-        } array;    /* 12/20 bytes */
-        JSRegExp regexp;    /* JS_CLASS_REGEXP: 8/16 bytes */
-        JSValue object_data;    /* for JS_SetObjectData(): 8/16/16 bytes */
+            uint32_t count; /*  &lt;=2^31-1。0表示分离的类型化数组。 */ 
+        } array;    /*  12/20字节。 */ 
+        JSRegExp regexp;    /*  JS_CLASS_REGEXP：8/16字节。 */ 
+        JSValue object_data;    /*  对于JS_SetObjectData()：8/16/16字节。 */ 
     } u;
-    /* byte sizes: 40/48/72 */
+    /*  字节大小：40/48/72。 */ 
 };
 enum {
     JS_ATOM_NULL,
@@ -833,8 +778,8 @@ typedef enum OPCodeEnum {
 #undef def
 #undef DEF
 #undef FMT
-    OP_COUNT, /* excluding temporary opcodes */
-    /* temporary opcodes : overlap with the short opcodes */
+    OP_COUNT, /*  不包括临时操作码。 */ 
+    /*  临时操作码：与短操作码重叠。 */ 
     OP_TEMP_START = OP_nop + 1,
     OP___dummy = OP_TEMP_START - 1,
 #define FMT(f)
@@ -1125,15 +1070,15 @@ void *js_mallocz_rt(JSRuntime *rt, size_t size)
 }
 
 #ifdef CONFIG_BIGNUM
-/* called by libbf */
+/*  由libbf调用。 */ 
 static void *js_bf_realloc(void *opaque, void *ptr, size_t size)
 {
     JSRuntime *rt = opaque;
     return js_realloc_rt(rt, ptr, size);
 }
-#endif /* CONFIG_BIGNUM */
+#endif /*  配置_BIGNUM。 */ 
 
-/* Throw out of memory in case of error */
+/*  在出错的情况下抛出内存。 */ 
 void *js_malloc(JSContext *ctx, size_t size)
 {
     void *ptr;
@@ -1145,7 +1090,7 @@ void *js_malloc(JSContext *ctx, size_t size)
     return ptr;
 }
 
-/* Throw out of memory in case of error */
+/*  在出错的情况下抛出内存。 */ 
 void *js_mallocz(JSContext *ctx, size_t size)
 {
     void *ptr;
@@ -1162,7 +1107,7 @@ void js_free(JSContext *ctx, void *ptr)
     js_free_rt(ctx->rt, ptr);
 }
 
-/* Throw out of memory in case of error */
+/*  在出错的情况下抛出内存。 */ 
 void *js_realloc(JSContext *ctx, void *ptr, size_t size)
 {
     void *ret;
@@ -1174,7 +1119,7 @@ void *js_realloc(JSContext *ctx, void *ptr, size_t size)
     return ret;
 }
 
-/* store extra allocated size in *pslack if successful */
+/*  如果成功，则在*pslack中存储额外分配的大小。 */ 
 void *js_realloc2(JSContext *ctx, void *ptr, size_t size, size_t *pslack)
 {
     void *ret;
@@ -1195,7 +1140,7 @@ size_t js_malloc_usable_size(JSContext *ctx, const void *ptr)
     return js_malloc_usable_size_rt(ctx->rt, ptr);
 }
 
-/* Throw out of memory exception in case of error */
+/*  出现错误时抛出内存不足异常。 */ 
 char *js_strndup(JSContext *ctx, const char *s, size_t n)
 {
     char *ptr;
@@ -1228,55 +1173,55 @@ typedef struct JSClassShortDef {
 } JSClassShortDef;
 
 static JSClassShortDef const js_std_class_def[] = {
-    { JS_ATOM_Object, NULL, NULL },                             /* JS_CLASS_OBJECT */
-    { JS_ATOM_Array, js_array_finalizer, js_array_mark },       /* JS_CLASS_ARRAY */
-    { JS_ATOM_Error, NULL, NULL },                              /* JS_CLASS_ERROR */
-    { JS_ATOM_Number, js_object_data_finalizer, js_object_data_mark }, /* JS_CLASS_NUMBER */
-    { JS_ATOM_String, js_object_data_finalizer, js_object_data_mark }, /* JS_CLASS_STRING */
-    { JS_ATOM_Boolean, js_object_data_finalizer, js_object_data_mark }, /* JS_CLASS_BOOLEAN */
-    { JS_ATOM_Symbol, js_object_data_finalizer, js_object_data_mark }, /* JS_CLASS_SYMBOL */
-    { JS_ATOM_Arguments, js_array_finalizer, js_array_mark },   /* JS_CLASS_ARGUMENTS */
-    { JS_ATOM_Arguments, NULL, NULL },                          /* JS_CLASS_MAPPED_ARGUMENTS */
-    { JS_ATOM_Date, js_object_data_finalizer, js_object_data_mark }, /* JS_CLASS_DATE */
-    { JS_ATOM_Object, NULL, NULL },                             /* JS_CLASS_MODULE_NS */
-    { JS_ATOM_Function, NULL, NULL },                           /* JS_CLASS_C_FUNCTION */
-    { JS_ATOM_Function, js_bytecode_function_finalizer, js_bytecode_function_mark }, /* JS_CLASS_BYTECODE_FUNCTION */
-    { JS_ATOM_Function, js_bound_function_finalizer, js_bound_function_mark }, /* JS_CLASS_BOUND_FUNCTION */
-    { JS_ATOM_Function, js_c_function_data_finalizer, js_c_function_data_mark }, /* JS_CLASS_C_FUNCTION_DATA */
-    { JS_ATOM_GeneratorFunction, js_bytecode_function_finalizer, js_bytecode_function_mark },  /* JS_CLASS_GENERATOR_FUNCTION */
-    { JS_ATOM_ForInIterator, js_for_in_iterator_finalizer, js_for_in_iterator_mark },      /* JS_CLASS_FOR_IN_ITERATOR */
-    { JS_ATOM_RegExp, js_regexp_finalizer, NULL },                              /* JS_CLASS_REGEXP */
-    { JS_ATOM_ArrayBuffer, js_array_buffer_finalizer, NULL },                   /* JS_CLASS_ARRAY_BUFFER */
-    { JS_ATOM_SharedArrayBuffer, js_array_buffer_finalizer, NULL },             /* JS_CLASS_SHARED_ARRAY_BUFFER */
-    { JS_ATOM_Uint8ClampedArray, js_typed_array_finalizer, js_typed_array_mark }, /* JS_CLASS_UINT8C_ARRAY */
-    { JS_ATOM_Int8Array, js_typed_array_finalizer, js_typed_array_mark },       /* JS_CLASS_INT8_ARRAY */
-    { JS_ATOM_Uint8Array, js_typed_array_finalizer, js_typed_array_mark },      /* JS_CLASS_UINT8_ARRAY */
-    { JS_ATOM_Int16Array, js_typed_array_finalizer, js_typed_array_mark },      /* JS_CLASS_INT16_ARRAY */
-    { JS_ATOM_Uint16Array, js_typed_array_finalizer, js_typed_array_mark },     /* JS_CLASS_UINT16_ARRAY */
-    { JS_ATOM_Int32Array, js_typed_array_finalizer, js_typed_array_mark },      /* JS_CLASS_INT32_ARRAY */
-    { JS_ATOM_Uint32Array, js_typed_array_finalizer, js_typed_array_mark },     /* JS_CLASS_UINT32_ARRAY */
+    { JS_ATOM_Object, NULL, NULL },                             /*  JS_类_对象。 */ 
+    { JS_ATOM_Array, js_array_finalizer, js_array_mark },       /*  JS_类_数组。 */ 
+    { JS_ATOM_Error, NULL, NULL },                              /*  JS_CLASS_错误。 */ 
+    { JS_ATOM_Number, js_object_data_finalizer, js_object_data_mark }, /*  JS_类别_编号。 */ 
+    { JS_ATOM_String, js_object_data_finalizer, js_object_data_mark }, /*  JS_CLASS_字符串。 */ 
+    { JS_ATOM_Boolean, js_object_data_finalizer, js_object_data_mark }, /*  JS_CLASS_布尔值。 */ 
+    { JS_ATOM_Symbol, js_object_data_finalizer, js_object_data_mark }, /*  JS_类_符号。 */ 
+    { JS_ATOM_Arguments, js_array_finalizer, js_array_mark },   /*  Js_类_参数。 */ 
+    { JS_ATOM_Arguments, NULL, NULL },                          /*  JS_CLASS_MAPLED_ARGUMENTS。 */ 
+    { JS_ATOM_Date, js_object_data_finalizer, js_object_data_mark }, /*  JS_类_日期。 */ 
+    { JS_ATOM_Object, NULL, NULL },                             /*  JS_CLASS_MODEL_NS。 */ 
+    { JS_ATOM_Function, NULL, NULL },                           /*  JS_CLASS_C_Function。 */ 
+    { JS_ATOM_Function, js_bytecode_function_finalizer, js_bytecode_function_mark }, /*  JS_CLASS_BYTECODE_Function。 */ 
+    { JS_ATOM_Function, js_bound_function_finalizer, js_bound_function_mark }, /*  JS_CLASS_BIND_Function。 */ 
+    { JS_ATOM_Function, js_c_function_data_finalizer, js_c_function_data_mark }, /*  JS_CLASS_C_Function_Data。 */ 
+    { JS_ATOM_GeneratorFunction, js_bytecode_function_finalizer, js_bytecode_function_mark },  /*  JS_CLASS生成器函数。 */ 
+    { JS_ATOM_ForInIterator, js_for_in_iterator_finalizer, js_for_in_iterator_mark },      /*  JS_CLASS_FOR_IN_ITERATOR。 */ 
+    { JS_ATOM_RegExp, js_regexp_finalizer, NULL },                              /*  JS_CLASS_REGEXP。 */ 
+    { JS_ATOM_ArrayBuffer, js_array_buffer_finalizer, NULL },                   /*  JS_类_数组_缓冲区。 */ 
+    { JS_ATOM_SharedArrayBuffer, js_array_buffer_finalizer, NULL },             /*  JS_CLASS_SHARED_ARRAY_缓冲区。 */ 
+    { JS_ATOM_Uint8ClampedArray, js_typed_array_finalizer, js_typed_array_mark }, /*  JS_CLASS_UINT8C_ARRAY。 */ 
+    { JS_ATOM_Int8Array, js_typed_array_finalizer, js_typed_array_mark },       /*  JS_CLASS_INT8_ARRAY。 */ 
+    { JS_ATOM_Uint8Array, js_typed_array_finalizer, js_typed_array_mark },      /*  JS_CLASS_UINT8_ARRAY。 */ 
+    { JS_ATOM_Int16Array, js_typed_array_finalizer, js_typed_array_mark },      /*  JS_CLASS_INT16_ARRAY。 */ 
+    { JS_ATOM_Uint16Array, js_typed_array_finalizer, js_typed_array_mark },     /*  JS_CLASS_UINT16_ARRAY。 */ 
+    { JS_ATOM_Int32Array, js_typed_array_finalizer, js_typed_array_mark },      /*  JS_CLASS_INT32_ARRAY。 */ 
+    { JS_ATOM_Uint32Array, js_typed_array_finalizer, js_typed_array_mark },     /*  JS_CLASS_UINT32_ARRAY。 */ 
 #ifdef CONFIG_BIGNUM
-    { JS_ATOM_BigInt64Array, js_typed_array_finalizer, js_typed_array_mark },   /* JS_CLASS_BIG_INT64_ARRAY */
-    { JS_ATOM_BigUint64Array, js_typed_array_finalizer, js_typed_array_mark },  /* JS_CLASS_BIG_UINT64_ARRAY */
+    { JS_ATOM_BigInt64Array, js_typed_array_finalizer, js_typed_array_mark },   /*  JS_CLASS_BIG_INT64_ARRAY。 */ 
+    { JS_ATOM_BigUint64Array, js_typed_array_finalizer, js_typed_array_mark },  /*  JS_CLASS_BIG_UINT64_ARRAY。 */ 
 #endif
-    { JS_ATOM_Float32Array, js_typed_array_finalizer, js_typed_array_mark },    /* JS_CLASS_FLOAT32_ARRAY */
-    { JS_ATOM_Float64Array, js_typed_array_finalizer, js_typed_array_mark },    /* JS_CLASS_FLOAT64_ARRAY */
-    { JS_ATOM_DataView, js_typed_array_finalizer, js_typed_array_mark },        /* JS_CLASS_DATAVIEW */
+    { JS_ATOM_Float32Array, js_typed_array_finalizer, js_typed_array_mark },    /*  JS_CLASS_FLOAT32_ARRAY。 */ 
+    { JS_ATOM_Float64Array, js_typed_array_finalizer, js_typed_array_mark },    /*  JS_CLASS_FLOAT64_ARRAY。 */ 
+    { JS_ATOM_DataView, js_typed_array_finalizer, js_typed_array_mark },        /*  JS_CLASS_数据。 */ 
 #ifdef CONFIG_BIGNUM
-    { JS_ATOM_BigInt, js_object_data_finalizer, js_object_data_mark },      /* JS_CLASS_BIG_INT */
-    { JS_ATOM_BigFloat, js_object_data_finalizer, js_object_data_mark },    /* JS_CLASS_BIG_FLOAT */
-    { JS_ATOM_BigFloatEnv, js_float_env_finalizer, NULL },      /* JS_CLASS_FLOAT_ENV */
+    { JS_ATOM_BigInt, js_object_data_finalizer, js_object_data_mark },      /*  JS_CLASS_BIG_INT。 */ 
+    { JS_ATOM_BigFloat, js_object_data_finalizer, js_object_data_mark },    /*  JS_CLASS_BIG_FLOAT。 */ 
+    { JS_ATOM_BigFloatEnv, js_float_env_finalizer, NULL },      /*  JS_CLASS_FLOAT_ENV。 */ 
 #endif
-    { JS_ATOM_Map, js_map_finalizer, js_map_mark },             /* JS_CLASS_MAP */
-    { JS_ATOM_Set, js_map_finalizer, js_map_mark },             /* JS_CLASS_SET */
-    { JS_ATOM_WeakMap, js_map_finalizer, js_map_mark },         /* JS_CLASS_WEAKMAP */
-    { JS_ATOM_WeakSet, js_map_finalizer, js_map_mark },         /* JS_CLASS_WEAKSET */
-    { JS_ATOM_Map_Iterator, js_map_iterator_finalizer, js_map_iterator_mark }, /* JS_CLASS_MAP_ITERATOR */
-    { JS_ATOM_Set_Iterator, js_map_iterator_finalizer, js_map_iterator_mark }, /* JS_CLASS_SET_ITERATOR */
-    { JS_ATOM_Array_Iterator, js_array_iterator_finalizer, js_array_iterator_mark }, /* JS_CLASS_ARRAY_ITERATOR */
-    { JS_ATOM_String_Iterator, js_array_iterator_finalizer, js_array_iterator_mark }, /* JS_CLASS_STRING_ITERATOR */
-    { JS_ATOM_RegExp_String_Iterator, js_regexp_string_iterator_finalizer, js_regexp_string_iterator_mark }, /* JS_CLASS_STRING_ITERATOR */
-    { JS_ATOM_Generator, js_generator_finalizer, js_generator_mark }, /* JS_CLASS_GENERATOR */
+    { JS_ATOM_Map, js_map_finalizer, js_map_mark },             /*  Js_class_map。 */ 
+    { JS_ATOM_Set, js_map_finalizer, js_map_mark },             /*  JS_类别_集合。 */ 
+    { JS_ATOM_WeakMap, js_map_finalizer, js_map_mark },         /*  JS_CLASS_WEAKMAP。 */ 
+    { JS_ATOM_WeakSet, js_map_finalizer, js_map_mark },         /*  JS_CLASS_WEAKSET。 */ 
+    { JS_ATOM_Map_Iterator, js_map_iterator_finalizer, js_map_iterator_mark }, /*  JS_CLASS_MAP_ITERATOR。 */ 
+    { JS_ATOM_Set_Iterator, js_map_iterator_finalizer, js_map_iterator_mark }, /*  JS_CLASS_SET_ITERATOR。 */ 
+    { JS_ATOM_Array_Iterator, js_array_iterator_finalizer, js_array_iterator_mark }, /*  JS_CLASS_ARRAY_ITERATOR。 */ 
+    { JS_ATOM_String_Iterator, js_array_iterator_finalizer, js_array_iterator_mark }, /*  JS_CLASS_STRING_ITERATOR。 */ 
+    { JS_ATOM_RegExp_String_Iterator, js_regexp_string_iterator_finalizer, js_regexp_string_iterator_mark }, /*  JS_CLASS_STRING_ITERATOR。 */ 
+    { JS_ATOM_Generator, js_generator_finalizer, js_generator_mark }, /*  JS类生成器。 */ 
 };
 
 static int init_class_range(JSRuntime *rt, JSClassShortDef const *tab,
@@ -1311,7 +1256,7 @@ JSRuntime *JS_NewRuntime2(const JSMallocFunctions *mf, void *opaque)
     memset(rt, 0, sizeof(*rt));
     rt->mf = *mf;
     if (!rt->mf.js_malloc_usable_size) {
-        /* use dummy function if none provided */
+        /*  如果没有提供虚拟函数，则使用虚拟函数。 */ 
         rt->mf.js_malloc_usable_size = js_malloc_usable_size_unknown;
     }
     rt->malloc_state = ms;
@@ -1331,7 +1276,7 @@ JSRuntime *JS_NewRuntime2(const JSMallocFunctions *mf, void *opaque)
     if (JS_InitAtoms(rt))
         goto fail;
 
-    /* create the object, array and function classes */
+    /*  创建对象、数组和函数类。 */ 
     if (init_class_range(rt, js_std_class_def, JS_CLASS_OBJECT,
                          countof(js_std_class_def)) < 0)
         goto fail;
@@ -1349,7 +1294,7 @@ JSRuntime *JS_NewRuntime2(const JSMallocFunctions *mf, void *opaque)
     return NULL;
 }
 
-/* default memory allocation functions with memory limitation */
+/*  具有内存限制的默认内存分配函数。 */ 
 static inline size_t js_def_malloc_usable_size(void *ptr)
 {
 #if defined(__APPLE__)
@@ -1361,7 +1306,7 @@ static inline size_t js_def_malloc_usable_size(void *ptr)
 #elif defined(__linux__)
     return malloc_usable_size(ptr);
 #else
-    /* change this to `return 0;` if compilation fails */
+    /*  如果编译失败，则将其更改为`Return 0；`。 */ 
     return malloc_usable_size(ptr);
 #endif
 }
@@ -1370,7 +1315,7 @@ static void *js_def_malloc(JSMallocState *s, size_t size)
 {
     void *ptr;
 
-    /* Do not allocate zero bytes: behavior is platform dependent */
+    /*  不分配零字节：行为取决于平台。 */ 
     assert(size != 0);
 
     if (unlikely(s->malloc_size + size > s->malloc_limit))
@@ -1435,7 +1380,7 @@ static const JSMallocFunctions def_malloc_funcs = {
 #elif defined(__linux__)
     (size_t (*)(const void *))malloc_usable_size,
 #else
-    /* change this to `NULL,` if compilation fails */
+    /*  如果编译失败，则将其更改为`NULL，`。 */ 
     malloc_usable_size,
 #endif
 };
@@ -1450,7 +1395,7 @@ void JS_SetMemoryLimit(JSRuntime *rt, size_t limit)
     rt->malloc_state.malloc_limit = limit;
 }
 
-/* use -1 to disable automatic GC */
+/*  使用-1禁用自动GC。 */ 
 void JS_SetGCThreshold(JSRuntime *rt, size_t gc_threshold)
 {
     rt->malloc_gc_threshold = gc_threshold;
@@ -1471,7 +1416,7 @@ void JS_SetCanBlock(JSRuntime *rt, BOOL can_block)
     rt->can_block = can_block;
 }
 
-/* return 0 if OK, < 0 if exception */
+/*  如果正常，则返回0；如果异常，则返回&lt;0。 */ 
 int JS_EnqueueJob(JSContext *ctx, JSJobFunc *job_func,
                   int argc, JSValueConst *argv)
 {
@@ -1497,8 +1442,7 @@ BOOL JS_IsJobPending(JSRuntime *rt)
     return !list_empty(&rt->job_list);
 }
 
-/* return < 0 if exception, 0 if no job pending, 1 if a job was
-   executed successfully. the context of the job is stored in '*pctx' */
+/*  如果出现异常，则返回&lt;0；如果没有作业挂起，则返回0；如果作业已成功执行。作业的上下文存储在‘*pctx’中。 */ 
 int JS_ExecutePendingJob(JSRuntime *rt, JSContext **pctx)
 {
     JSContext *ctx;
@@ -1511,7 +1455,7 @@ int JS_ExecutePendingJob(JSRuntime *rt, JSContext **pctx)
         return 0;
     }
 
-    /* get the first pending job and execute it */
+    /*  获取第一个挂起的作业并执行它。 */ 
     e = list_entry(rt->job_list.next, JSJobEntry, link);
     list_del(&e->link);
     ctx = e->ctx;
@@ -1543,7 +1487,7 @@ static inline JSAtomStruct *atom_set_free(uint32_t v)
     return (JSAtomStruct *)(((uintptr_t)v << 1) | 1);
 }
 
-/* Note: the string contents are uninitialized */
+/*  注意：字符串内容未初始化。 */ 
 static JSString *js_alloc_string_rt(JSRuntime *rt, int max_len, int is_wide_char)
 {
     JSString *str;
@@ -1554,8 +1498,8 @@ static JSString *js_alloc_string_rt(JSRuntime *rt, int max_len, int is_wide_char
     str->is_wide_char = is_wide_char;
     str->len = max_len;
     str->atom_type = 0;
-    str->hash = 0;          /* optional but costless */
-    str->hash_next = 0;     /* optional */
+    str->hash = 0;          /*  可选，但不需要成本。 */ 
+    str->hash_next = 0;     /*  任选。 */ 
 #ifdef DUMP_LEAKS
     list_add_tail(&str->link, &rt->string_list);
 #endif
@@ -1573,7 +1517,7 @@ static JSString *js_alloc_string(JSContext *ctx, int max_len, int is_wide_char)
     return p;
 }
 
-/* same as JS_FreeValueRT() but faster */
+/*  与JS_FreeValueRT()相同，但速度更快。 */ 
 static inline void js_free_string(JSRuntime *rt, JSString *str)
 {
     if (--str->header.ref_count <= 0) {
@@ -1615,14 +1559,13 @@ void JS_FreeRuntime(JSRuntime *rt)
     JS_RunGC(rt);
 
 #ifdef DUMP_LEAKS
-    /* leaking objects */
+    /*  泄漏的物体。 */ 
     {
         BOOL header_done;
         JSObject *p;
         int count;
 
-        /* remove the internal refcounts to display only the object
-           referenced externally */
+        /*  删除内部参照计数以仅显示对象外部参照。 */ 
         list_for_each(el, &rt->obj_list) {
             p = list_entry(el, JSObject, link);
             p->gc_header.mark = 0;
@@ -1655,7 +1598,7 @@ void JS_FreeRuntime(JSRuntime *rt)
 #endif
     assert(list_empty(&rt->obj_list));
 
-    /* free the classes */
+    /*  解放班级。 */ 
     for(i = 0; i < rt->class_count; i++) {
         JSClass *cl = &rt->class_array[i];
         if (cl->class_id != 0) {
@@ -1669,13 +1612,13 @@ void JS_FreeRuntime(JSRuntime *rt)
 #endif
 
 #ifdef DUMP_LEAKS
-    /* only the atoms defined in JS_InitAtoms() should be left */
+    /*  应该只保留在JS_InitAers()中定义的原子。 */ 
     {
         BOOL header_done = FALSE;
 
         for(i = 0; i < rt->atom_size; i++) {
             JSAtomStruct *p = rt->atom_array[i];
-            if (!atom_is_free(p) /* && p->str*/) {
+            if (!atom_is_free(p) /*  &&p-&gt;字符串。 */ ) {
                 if (i >= JS_ATOM_END || p->header.ref_count != 1) {
                     if (!header_done) {
                         header_done = TRUE;
@@ -1726,7 +1669,7 @@ void JS_FreeRuntime(JSRuntime *rt)
     }
 #endif
 
-    /* free the atoms */
+    /*  使原子自由。 */ 
     for(i = 0; i < rt->atom_size; i++) {
         JSAtomStruct *p = rt->atom_array[i];
         if (!atom_is_free(p)) {
@@ -1786,7 +1729,7 @@ void JS_FreeRuntime(JSRuntime *rt)
 }
 
 #if defined(EMSCRIPTEN)||defined(_MSC_VER)
-/* currently no stack limitation */
+/*  目前没有堆栈限制。 */ 
 static inline uint8_t *js_get_stack_pointer(void)
 {
     return NULL;
@@ -1797,7 +1740,7 @@ static inline BOOL js_check_stack_overflow(JSContext *ctx, size_t alloca_size)
     return FALSE;
 }
 #else
-/* Note: OS and CPU dependent */
+/*  注：取决于操作系统和CPU。 */ 
 static inline uint8_t *js_get_stack_pointer(void)
 {
     return __builtin_frame_address(0);
@@ -1877,8 +1820,7 @@ void JS_SetContextOpaque(JSContext *ctx, void *opaque)
     ctx->user_opaque = opaque;
 }
 
-/* set the new value and free the old value after (freeing the value
-   can reallocate the object data) */
+/*  设置新值并在之后释放旧值(释放值可以重新分配对象数据)。 */ 
 static inline void set_value(JSContext *ctx, JSValue *pval, JSValue new_val)
 {
     JSValue old_val;
@@ -1907,7 +1849,7 @@ typedef enum JSFreeModuleEnum {
     JS_FREE_MODULE_NOT_EVALUATED,
 } JSFreeModuleEnum;
 
-/* XXX: would be more efficient with separate module lists */
+/*  XXX：使用单独的模块列表会更有效率。 */ 
 static void js_free_modules(JSContext *ctx, JSFreeModuleEnum flag)
 {
     struct list_head *el, *el1;
@@ -2042,13 +1984,13 @@ static force_inline JSValue JS_NewUint32(JSContext *ctx, uint32_t val)
 #endif
 }
 
-/* JSAtom support */
+/*  JSAtom支持。 */ 
 
 #define JS_ATOM_TAG_INT (1U << 31)
 #define JS_ATOM_MAX_INT (JS_ATOM_TAG_INT - 1)
 #define JS_ATOM_MAX     ((1U << 30) - 1)
 
-/* return the max count from the hash size */
+/*  从散列大小返回最大计数。 */ 
 #define JS_ATOM_COUNT_RESIZE(n) ((n) * 2)
 
 static inline BOOL __JS_AtomIsConst(JSAtom v)
@@ -2080,7 +2022,7 @@ static inline int is_num(int c)
     return c >= '0' && c <= '9';
 }
 
-/* return TRUE if the string is a number n with 0 <= n <= 2^32-1 */
+/*  如果字符串是0&lt;=n&lt;=2^32-1的数字n，则返回TRUE。 */ 
 static inline BOOL is_num_string(uint32_t *pval, const JSString *p)
 {
     uint32_t n;
@@ -2121,7 +2063,7 @@ static inline BOOL is_num_string(uint32_t *pval, const JSString *p)
     }
 }
 
-/* XXX: could use faster version ? */
+/*  XXX：可以使用更快的版本吗？ */ 
 static inline uint32_t hash_string8(const uint8_t *str, size_t len, uint32_t h)
 {
     size_t i;
@@ -2186,7 +2128,7 @@ static __maybe_unused void JS_DumpAtoms(JSRuntime *rt)
 {
     JSAtomStruct *p;
     int h, i;
-    /* This only dumps hashed atoms, not JS_ATOM_TYPE_SYMBOL atoms */
+    /*  这只转储散列原子，而不是JS_ATOM_TYPE_SYMBOL原子。 */ 
     printf("JSAtom count=%d size=%d hash_size=%d:\n",
            rt->atom_count, rt->atom_size, rt->atom_hash_size);
     printf("JSAtom hash table: {\n");
@@ -2222,7 +2164,7 @@ static int JS_ResizeAtomHash(JSRuntime *rt, int new_hash_size)
     JSAtomStruct *p;
     uint32_t new_hash_mask, h, i, hash_next1, j, *new_hash;
 
-    assert((new_hash_size & (new_hash_size - 1)) == 0); /* power of two */
+    assert((new_hash_size & (new_hash_size - 1)) == 0); /*  二的幂。 */ 
     new_hash_mask = new_hash_size - 1;
     new_hash = js_mallocz_rt(rt, sizeof(rt->atom_hash[0]) * new_hash_size);
     if (!new_hash)
@@ -2232,7 +2174,7 @@ static int JS_ResizeAtomHash(JSRuntime *rt, int new_hash_size)
         while (h != 0) {
             p = rt->atom_array[h];
             hash_next1 = p->hash_next;
-            /* add in new hash table */
+            /*  添加新的哈希表。 */ 
             j = p->hash & new_hash_mask;
             p->hash_next = new_hash[j];
             new_hash[j] = h;
@@ -2243,7 +2185,7 @@ static int JS_ResizeAtomHash(JSRuntime *rt, int new_hash_size)
     rt->atom_hash = new_hash;
     rt->atom_hash_size = new_hash_size;
     rt->atom_count_resize = JS_ATOM_COUNT_RESIZE(new_hash_size);
-    //    JS_DumpAtoms(rt);
+    //  JS_DumpAers(RT)；
     return 0;
 }
 
@@ -2257,7 +2199,7 @@ static int JS_InitAtoms(JSRuntime *rt)
     rt->atom_count = 0;
     rt->atom_size = 0;
     rt->atom_free_index = 0;
-    if (JS_ResizeAtomHash(rt, 256))     /* there are at least 195 predefined atoms */
+    if (JS_ResizeAtomHash(rt, 256))     /*  至少有195个预定义的原子。 */ 
         return -1;
 
     p = js_atom_init;
@@ -2335,7 +2277,7 @@ static BOOL JS_AtomIsString(JSContext *ctx, JSAtom v)
 
 static JSAtom js_get_atom_index(JSRuntime *rt, JSAtomStruct *p)
 {
-    uint32_t i = p->hash_next;  /* atom_index */
+    uint32_t i = p->hash_next;  /*  原子索引。 */ 
     if (p->atom_type != JS_ATOM_TYPE_SYMBOL) {
         JSAtomStruct *p1;
 
@@ -2350,8 +2292,7 @@ static JSAtom js_get_atom_index(JSRuntime *rt, JSAtomStruct *p)
     return i;
 }
 
-/* string case (internal). Return JS_ATOM_NULL if error. 'str' is
-   freed. */
+/*  字符串大小写(内部)。如果错误，则返回JS_ATOM_NULL。“str”是自由了。 */ 
 static JSAtom __JS_NewAtom(JSRuntime *rt, JSString *str, int atom_type)
 {
     uint32_t h, h1, i;
@@ -2362,16 +2303,16 @@ static JSAtom __JS_NewAtom(JSRuntime *rt, JSString *str, int atom_type)
     printf("__JS_NewAtom: ");  JS_DumpString(rt, str); printf("\n");
 #endif
     if (atom_type < JS_ATOM_TYPE_SYMBOL) {
-        /* str is not NULL */
+        /*  字符串不为空。 */ 
         if (str->atom_type == atom_type) {
-            /* str is the atom, return its index */
+            /*  字符串是原子，返回其索引。 */ 
             i = js_get_atom_index(rt, str);
-            /* reduce string refcount and increase atom's unless constant */
+            /*  减少字符串引用计数并增加原子的非常量。 */ 
             if (__JS_AtomIsConst(i))
                 str->header.ref_count--;
             return i;
         }
-        /* try and locate an already registered atom */
+        /*  尝试找到已注册的原子。 */ 
         len = str->len;
         h = hash_string(str, atom_type);
         h &= JS_ATOM_HASH_MASK;
@@ -2390,7 +2331,7 @@ static JSAtom __JS_NewAtom(JSRuntime *rt, JSString *str, int atom_type)
             i = p->hash_next;
         }
     } else {
-        h1 = 0; /* avoid warning */
+        h1 = 0; /*  避免警告。 */ 
         if (atom_type == JS_ATOM_TYPE_SYMBOL) {
             h = JS_ATOM_HASH_SYMBOL;
         } else {
@@ -2400,31 +2341,28 @@ static JSAtom __JS_NewAtom(JSRuntime *rt, JSString *str, int atom_type)
     }
 
     if (rt->atom_free_index == 0) {
-        /* allow new atom entries */
+        /*  允许新的原子条目。 */ 
         uint32_t new_size, start;
         JSAtomStruct **new_array;
 
-        /* alloc new with size progression 3/2:
-           4 6 9 13 19 28 42 63 94 141 211 316 474 711 1066 1599 2398 3597 5395 8092
-           preallocating space for predefined atoms (at least 195).
-         */
+        /*  Alalc全新，尺寸提升3/2：4 6 9 13 19 28 42 63 94 141 211 316 474 711 1066 1599 2398 3597 5395 8092为预定义原子预分配空间(至少195个)。 */ 
         new_size = max_int(211, rt->atom_size * 3 / 2);
         if (new_size > JS_ATOM_MAX)
             goto fail;
-        /* XXX: should use realloc2 to use slack space */
+        /*  XXX：应使用realloc2来使用空闲空间。 */ 
         new_array = js_realloc_rt(rt, rt->atom_array, sizeof(*new_array) * new_size);
         if (!new_array)
             goto fail;
-        /* Note: the atom 0 is not used */
+        /*  注：不使用原子0。 */ 
         start = rt->atom_size;
         if (start == 0) {
-            /* JS_ATOM_NULL entry */
+            /*  JS_ATOM_NULL条目。 */ 
             p = js_mallocz_rt(rt, sizeof(JSAtomStruct));
             if (!p) {
                 js_free_rt(rt, new_array);
                 goto fail;
             }
-            p->header.ref_count = 1;  /* not refcounted */
+            p->header.ref_count = 1;  /*  未重新计算。 */ 
             p->atom_type = JS_ATOM_TYPE_SYMBOL;
 #ifdef DUMP_LEAKS
             list_add_tail(&p->link, &rt->string_list);
@@ -2467,24 +2405,24 @@ static JSAtom __JS_NewAtom(JSRuntime *rt, JSString *str, int atom_type)
             js_free_string(rt, str);
         }
     } else {
-        p = js_malloc_rt(rt, sizeof(JSAtomStruct)); /* empty wide string */
+        p = js_malloc_rt(rt, sizeof(JSAtomStruct)); /*  空的宽字符串。 */ 
         if (!p)
             return JS_ATOM_NULL;
         p->header.ref_count = 1;
-        p->is_wide_char = 1;    /* Hack to represent NULL as a JSString */
+        p->is_wide_char = 1;    /*  将NULL表示为JSString的Hack。 */ 
         p->len = 0;
 #ifdef DUMP_LEAKS
         list_add_tail(&p->link, &rt->string_list);
 #endif
     }
 
-    /* use an already free entry */
+    /*  使用已免费的条目。 */ 
     i = rt->atom_free_index;
     rt->atom_free_index = atom_get_free(rt->atom_array[i]);
     rt->atom_array[i] = p;
 
     p->hash = h;
-    p->hash_next = i;   /* atom_index */
+    p->hash_next = i;   /*  原子索引。 */ 
     p->atom_type = atom_type;
 
     rt->atom_count++;
@@ -2496,7 +2434,7 @@ static JSAtom __JS_NewAtom(JSRuntime *rt, JSString *str, int atom_type)
             JS_ResizeAtomHash(rt, rt->atom_hash_size * 2);
     }
 
-    //    JS_DumpAtoms(rt);
+    //  JS_DumpAers(RT)；
     return i;
 
  fail:
@@ -2507,7 +2445,7 @@ static JSAtom __JS_NewAtom(JSRuntime *rt, JSString *str, int atom_type)
     return i;
 }
 
-/* only works with zero terminated 8 bit strings */
+/*  仅适用于以零结尾的8位字符串。 */ 
 static JSAtom __JS_NewAtomInit(JSRuntime *rt, const char *str, int len,
                                int atom_type)
 {
@@ -2548,13 +2486,13 @@ static JSAtom __JS_FindAtom(JSRuntime *rt, const char *str, size_t len,
 
 static void JS_FreeAtomStruct(JSRuntime *rt, JSAtomStruct *p)
 {
-#if 0   /* JS_ATOM_NULL is not refcounted: __JS_AtomIsConst() includes 0 */
+#if 0   /*  未重新计算JS_ATOM_NULL：__JS_Atom IsConst()包括0。 */ 
     if (unlikely(i == JS_ATOM_NULL)) {
         p->header.ref_count = INT32_MAX / 2;
         return;
     }
 #endif
-    uint32_t i = p->hash_next;  /* atom_index */
+    uint32_t i = p->hash_next;  /*  原子索引。 */ 
     if (p->atom_type != JS_ATOM_TYPE_SYMBOL) {
         JSAtomStruct *p0, *p1;
         uint32_t h0;
@@ -2577,10 +2515,10 @@ static void JS_FreeAtomStruct(JSRuntime *rt, JSAtomStruct *p)
             }
         }
     }
-    /* insert in free atom list */
+    /*  在自由原子列表中插入。 */ 
     rt->atom_array[i] = atom_set_free(rt->atom_free_index);
     rt->atom_free_index = i;
-    /* free the string structure */
+    /*  释放字符串结构。 */ 
 #ifdef DUMP_LEAKS
     list_del(&p->link);
 #endif
@@ -2599,7 +2537,7 @@ static void __JS_FreeAtom(JSRuntime *rt, uint32_t i)
     JS_FreeAtomStruct(rt, p);
 }
 
-/* Warning: 'p' is freed */
+/*  警告：‘P’已释放。 */ 
 static JSAtom JS_NewAtomStr(JSContext *ctx, JSString *p)
 {
     JSRuntime *rt = ctx->rt;
@@ -2610,7 +2548,7 @@ static JSAtom JS_NewAtomStr(JSContext *ctx, JSString *p)
             return __JS_AtomFromUInt32(n);
         }
     }
-    /* XXX: should generate an exception */
+    /*  XXX：应生成异常。 */ 
     return __JS_NewAtom(rt, p, JS_ATOM_TYPE_STRING);
 }
 
@@ -2666,7 +2604,7 @@ static JSAtom JS_NewAtomInt64(JSContext *ctx, int64_t n)
     }
 }
 
-/* 'p' is freed */
+/*  “p”已释放。 */ 
 static JSValue JS_NewSymbol(JSContext *ctx, JSString *p, int atom_type)
 {
     JSRuntime *rt = ctx->rt;
@@ -2677,7 +2615,7 @@ static JSValue JS_NewSymbol(JSContext *ctx, JSString *p, int atom_type)
     return JS_MKPTR(JS_TAG_SYMBOL, rt->atom_array[atom]);
 }
 
-/* descr must be a non-numeric string atom */
+/*  DESCR必须是非数字字符串原子。 */ 
 static JSValue JS_NewSymbolFromAtom(JSContext *ctx, JSAtom descr,
                                     int atom_type)
 {
@@ -2693,7 +2631,7 @@ static JSValue JS_NewSymbolFromAtom(JSContext *ctx, JSAtom descr,
 
 #define ATOM_GET_STR_BUF_SIZE 64
 
-/* Should only be used for debug. */
+/*  应仅用于调试。 */ 
 static const char *JS_AtomGetStrRT(JSRuntime *rt, char *buf, int buf_size,
                                    JSAtom atom)
 {
@@ -2715,7 +2653,7 @@ static const char *JS_AtomGetStrRT(JSRuntime *rt, char *buf, int buf_size,
             str = p;
             if (str) {
                 if (!str->is_wide_char) {
-                    /* special case ASCII strings */
+                    /*  特殊情况ASCII字符串。 */ 
                     c = 0;
                     for(i = 0; i < str->len; i++) {
                         c |= str->u.str8[i];
@@ -2764,7 +2702,7 @@ static JSValue __JS_AtomToValue(JSContext *ctx, JSAtom atom, BOOL force_string)
             goto ret_string;
         } else if (force_string) {
             if (p->len == 0 && p->is_wide_char != 0) {
-                /* no description string */
+                /*  无描述字符串。 */ 
                 p = rt->atom_array[JS_ATOM_empty_string];
             }
         ret_string:
@@ -2785,8 +2723,7 @@ JSValue JS_AtomToString(JSContext *ctx, JSAtom atom)
     return __JS_AtomToValue(ctx, atom, TRUE);
 }
 
-/* return TRUE if the atom is an array index (i.e. 0 <= index <=
-   2^32-2 and return its value */
+/*  如果原子是数组索引(即0&lt;=索引&lt;=)，则返回TRUE2^32-2并返回其值。 */ 
 static BOOL JS_AtomIsArrayIndex(JSContext *ctx, uint32_t *pval, JSAtom atom)
 {
     if (__JS_AtomIsTaggedInt(atom)) {
@@ -2810,9 +2747,7 @@ static BOOL JS_AtomIsArrayIndex(JSContext *ctx, uint32_t *pval, JSAtom atom)
     }
 }
 
-/* This test must be fast if atom is not a numeric index (e.g. a
-   method name). Return JS_UNDEFINED if not a numeric
-   index. JS_EXCEPTION can also be returned. */
+/*  如果ATOM不是数字索引(例如，方法名称)。如果不是数字，则返回JS_UNDEFINED指数。也可以返回JS_EXCEPTION。 */ 
 static JSValue JS_AtomIsNumericIndex1(JSContext *ctx, JSAtom atom)
 {
     JSRuntime *rt = ctx->rt;
@@ -2839,13 +2774,13 @@ static JSValue JS_AtomIsNumericIndex1(JSContext *ctx, JSAtom atom)
                 return JS_UNDEFINED;
             r++;
             c = *r;
-            /* -0 case is specific */
+            /*  -0大小写是特定的。 */ 
             if (c == '0' && len == 2)
                 goto minus_zero;
         }
-        /* XXX: should test NaN, but the tests do not check it */
+        /*  XXX：应该测试NaN，但测试不检查它。 */ 
         if (!is_num(c)) {
-            /* XXX: String should be normalized, therefore 8-bit only */
+            /*  Xxx：字符串应标准化，因此仅为8位。 */ 
             const uint16_t nfinity16[7] = { 'n', 'f', 'i', 'n', 'i', 't', 'y' };
             if (!(c =='I' && (r_end - r) == 8 &&
                   !memcmp(r + 1, nfinity16, sizeof(nfinity16))))
@@ -2861,7 +2796,7 @@ static JSValue JS_AtomIsNumericIndex1(JSContext *ctx, JSAtom atom)
                 return JS_UNDEFINED;
             r++;
             c = *r;
-            /* -0 case is specific */
+            /*  -0大小写是特定的。 */ 
             if (c == '0' && len == 2) {
             minus_zero:
                 return __JS_NewFloat64(ctx, -0.0);
@@ -2873,9 +2808,8 @@ static JSValue JS_AtomIsNumericIndex1(JSContext *ctx, JSAtom atom)
                 return JS_UNDEFINED;
         }
     }
-    /* XXX: bignum: would be better to only accept integer to avoid
-       relying on current floating point precision */
-    /* this is ECMA CanonicalNumericIndexString primitive */
+    /*  Xxx：bignum：最好只接受整数以避免依靠当前的浮点精度。 */ 
+    /*  这是ECMA CanonicalNumericIndexString原语。 */ 
     num = JS_ToNumber(ctx, JS_MKPTR(JS_TAG_STRING, p));
     if (JS_IsException(num))
         return num;
@@ -2894,7 +2828,7 @@ static JSValue JS_AtomIsNumericIndex1(JSContext *ctx, JSAtom atom)
     }
 }
 
-/* return -1 if exception or TRUE/FALSE */
+/*  如果异常或True/False，则返回-1。 */ 
 static int JS_AtomIsNumericIndex(JSContext *ctx, JSAtom atom)
 {
     JSValue num;
@@ -2919,7 +2853,7 @@ void JS_FreeAtomRT(JSRuntime *rt, JSAtom v)
         __JS_FreeAtom(rt, v);
 }
 
-/* return TRUE if 'v' is a symbol with a string description */
+/*  如果‘v’是带有字符串描述的符号，则返回TRUE。 */ 
 static BOOL JS_AtomSymbolHasDescription(JSContext *ctx, JSAtom v)
 {
     JSRuntime *rt;
@@ -2941,8 +2875,8 @@ static __maybe_unused void print_atom(JSContext *ctx, JSAtom atom)
     const char *p;
     int i;
 
-    /* XXX: should handle embedded null characters */
-    /* XXX: should move encoding code to JS_AtomGetStr */
+    /*  XXX：应处理嵌入的空字符。 */ 
+    /*  XXX：应将编码代码移动到JS_ATOM GetStr。 */ 
     p = JS_AtomGetStr(ctx, buf, sizeof(buf), atom);
     for (i = 0; p[i]; i++) {
         int c = (unsigned char)p[i];
@@ -2973,7 +2907,7 @@ static __maybe_unused void print_atom(JSContext *ctx, JSAtom atom)
     }
 }
 
-/* free with JS_FreeCString() */
+/*  FREE WITH JS_FreeCString()。 */ 
 const char *JS_AtomToCString(JSContext *ctx, JSAtom atom)
 {
     JSValue str;
@@ -2987,7 +2921,7 @@ const char *JS_AtomToCString(JSContext *ctx, JSAtom atom)
     return cstr;
 }
 
-/* return a string atom containing name concatenated with str1 */
+/*  返回包含与str1连接的名称的字符串ATOM。 */ 
 static JSAtom js_atom_concat_str(JSContext *ctx, JSAtom name, const char *str1)
 {
     JSValue str;
@@ -3032,13 +2966,13 @@ static inline BOOL JS_IsEmptyString(JSValueConst v)
     return JS_VALUE_GET_TAG(v) == JS_TAG_STRING && JS_VALUE_GET_STRING(v)->len == 0;
 }
 
-/* JSClass support */
+/*  JSClass支持。 */ 
 
-/* a new class ID is allocated if *pclass_id != 0 */
+/*  如果*pclass_id，则分配新的类ID */ 
 JSClassID JS_NewClassID(JSClassID *pclass_id)
 {
     JSClassID class_id;
-    /* XXX: make it thread safe */
+    /*   */ 
     class_id = *pclass_id;
     if (class_id == 0) {
         class_id = js_class_id_alloc++;
@@ -3053,8 +2987,7 @@ BOOL JS_IsRegisteredClass(JSRuntime *rt, JSClassID class_id)
             rt->class_array[class_id].class_id != 0);
 }
 
-/* create a new object internal class. Return -1 if error, 0 if
-   OK. The finalizer can be NULL if none is needed. */
+/*   */ 
 static int JS_NewClass1(JSRuntime *rt, JSClassID class_id,
                         const JSClassDef *class_def, JSAtom name)
 {
@@ -3070,7 +3003,7 @@ static int JS_NewClass1(JSRuntime *rt, JSClassID class_id,
         new_size = max_int(JS_CLASS_INIT_COUNT,
                            max_int(class_id + 1, rt->class_count * 3 / 2));
 
-        /* reallocate the context class prototype array, if any */
+        /*   */ 
         list_for_each(el, &rt->context_list) {
             JSContext *ctx = list_entry(el, JSContext, link);
             JSValue *new_tab;
@@ -3082,7 +3015,7 @@ static int JS_NewClass1(JSRuntime *rt, JSClassID class_id,
                 new_tab[i] = JS_NULL;
             ctx->class_proto = new_tab;
         }
-        /* reallocate the class array */
+        /*  重新分配类数组。 */ 
         new_class_array = js_realloc_rt(rt, rt->class_array,
                                         sizeof(JSClass) * new_size);
         if (!new_class_array)
@@ -3193,10 +3126,7 @@ typedef struct StringBuffer {
     int error_status;
 } StringBuffer;
 
-/* It is valid to call string_buffer_end() and all string_buffer functions even
-   if string_buffer_init() or another string_buffer function returns an error.
-   If the error_status is set, string_buffer_end() returns JS_EXCEPTION.
- */
+/*  即使调用STRING_BUFFER_END()和所有STRING_BUFFER函数也是有效的如果STRING_BUFFER_INIT()或其他STRING_BUFFER函数返回错误。如果设置了ERROR_STATUS，则STRING_BUFFER_END()返回JS_EXCEPTION。 */ 
 static int string_buffer_init2(JSContext *ctx, StringBuffer *s, int size,
                                int is_wide)
 {
@@ -3211,7 +3141,7 @@ static int string_buffer_init2(JSContext *ctx, StringBuffer *s, int size,
         return s->error_status = -1;
     }
 #ifdef DUMP_LEAKS
-    /* the StringBuffer may reallocate the JSString, only link it at the end */
+    /*  StringBuffer可能会重新分配JSString，只在末尾链接它。 */ 
     list_del(&s->str->link);
 #endif
     return 0;
@@ -3304,7 +3234,7 @@ static no_inline int string_buffer_putc_slow(StringBuffer *s, uint32_t c)
     return 0;
 }
 
-/* 0 <= c <= 0xff */
+/*  0&lt;=c&lt;=0xff。 */ 
 static int string_buffer_putc8(StringBuffer *s, uint32_t c)
 {
     if (unlikely(s->len >= s->size)) {
@@ -3319,7 +3249,7 @@ static int string_buffer_putc8(StringBuffer *s, uint32_t c)
     return 0;
 }
 
-/* 0 <= c <= 0xffff */
+/*  0&lt;=c&lt;=0xffff。 */ 
 static int string_buffer_putc16(StringBuffer *s, uint32_t c)
 {
     if (likely(s->len < s->size)) {
@@ -3334,11 +3264,11 @@ static int string_buffer_putc16(StringBuffer *s, uint32_t c)
     return string_buffer_putc_slow(s, c);
 }
 
-/* 0 <= c <= 0x10ffff */
+/*  0&lt;=c&lt;=0x10ffff。 */ 
 static int string_buffer_putc(StringBuffer *s, uint32_t c)
 {
     if (unlikely(c >= 0x10000)) {
-        /* surrogate pair */
+        /*  代理项对。 */ 
         c -= 0x10000;
         if (string_buffer_putc16(s, (c >> 10) + 0xd800))
             return -1;
@@ -3417,7 +3347,7 @@ static int string_buffer_write16(StringBuffer *s, const uint16_t *p, int len)
     return 0;
 }
 
-/* appending an ASCII string */
+/*  追加ASCII字符串。 */ 
 static int string_buffer_puts8(StringBuffer *s, const char *str)
 {
     return string_buffer_write8(s, (const uint8_t *)str, strlen(str));
@@ -3441,7 +3371,7 @@ static int string_buffer_concat_value(StringBuffer *s, JSValueConst v)
     int res;
 
     if (s->error_status) {
-        /* prevent exception overload */
+        /*  防止异常过载。 */ 
         return -1;
     }
     if (unlikely(JS_VALUE_GET_TAG(v) != JS_TAG_STRING)) {
@@ -3463,7 +3393,7 @@ static int string_buffer_concat_value_free(StringBuffer *s, JSValue v)
     int res;
 
     if (s->error_status) {
-        /* prevent exception overload */
+        /*  防止异常过载。 */ 
         JS_FreeValue(s->ctx, v);
         return -1;
     }
@@ -3480,7 +3410,7 @@ static int string_buffer_concat_value_free(StringBuffer *s, JSValue v)
 
 static int string_buffer_fill(StringBuffer *s, int c, int count)
 {
-    /* XXX: optimize */
+    /*  XXX：优化。 */ 
     if (s->len + count > s->size) {
         if (string_buffer_realloc(s, s->len + count, c))
             return -1;
@@ -3504,9 +3434,9 @@ static JSValue string_buffer_end(StringBuffer *s)
         return JS_AtomToString(s->ctx, JS_ATOM_empty_string);
     }
     if (s->len < s->size) {
-        /* smaller size so js_realloc should not fail, but OK if it does */
-        /* XXX: should add some slack to avoid unnecessary calls */
-        /* XXX: might need to use malloc+free to ensure smaller size */
+        /*  较小的大小，因此js_realloc应该不会失败，但如果失败，则可以。 */ 
+        /*  XXX：应该增加一些空闲时间以避免不必要的呼叫。 */ 
+        /*  XXX：可能需要使用Malloc+Free以确保更小的大小。 */ 
         str = js_realloc_rt(s->ctx->rt, str, sizeof(JSString) +
                             (s->len << s->is_wide_char) + 1 - s->is_wide_char);
         if (str == NULL)
@@ -3524,7 +3454,7 @@ static JSValue string_buffer_end(StringBuffer *s)
     return JS_MKPTR(JS_TAG_STRING, str);
 }
 
-/* create a string from a UTF-8 buffer */
+/*  从UTF-8缓冲区创建字符串。 */ 
 JSValue JS_NewStringLen(JSContext *ctx, const char *buf, size_t buf_len)
 {
     const uint8_t *p, *p_end, *p_start, *p_next;
@@ -3541,7 +3471,7 @@ JSValue JS_NewStringLen(JSContext *ctx, const char *buf, size_t buf_len)
     if (len1 > JS_STRING_LEN_MAX)
         return JS_ThrowInternalError(ctx, "string too long");
     if (p == p_end) {
-        /* ASCII string */
+        /*  ASCII字符串。 */ 
         return js_new_string8(ctx, (const uint8_t *)buf, buf_len);
     } else {
         if (string_buffer_init(ctx, b, buf_len))
@@ -3551,21 +3481,21 @@ JSValue JS_NewStringLen(JSContext *ctx, const char *buf, size_t buf_len)
             if (*p < 128) {
                 string_buffer_putc8(b, *p++);
             } else {
-                /* parse utf-8 sequence, return 0xFFFFFFFF for error */
+                /*  解析UTF-8序列，返回0xFFFFFFFF错误。 */ 
                 c = unicode_from_utf8(p, p_end - p, &p_next);
                 if (c < 0x10000) {
                     p = p_next;
                 } else if (c <= 0x10FFFF) {
                     p = p_next;
-                    /* surrogate pair */
+                    /*  代理项对。 */ 
                     c -= 0x10000;
                     string_buffer_putc16(b, (c >> 10) + 0xd800);
                     c = (c & 0x3ff) + 0xdc00;
                 } else {
-                    /* invalid char */
+                    /*  无效的字符。 */ 
                     c = 0xfffd;
-                    /* skip the invalid chars */
-                    /* XXX: seems incorrect. Why not just use c = *p++; ? */
+                    /*  跳过无效字符。 */ 
+                    /*  XXX：似乎不正确。为什么不干脆用c=*p++；？ */ 
                     while (p < p_end && (*p >= 0x80 && *p < 0xc0))
                         p++;
                     if (p < p_end) {
@@ -3632,9 +3562,9 @@ JSValue JS_NewAtomString(JSContext *ctx, const char *str)
     return val;
 }
 
-/* return (NULL, 0) if exception. */
-/* return pointer into a JSString with a live ref_count */
-/* cesu8 determines if non-BMP1 codepoints are encoded as 1 or 2 utf-8 sequences */
+/*  如果异常，则返回(NULL，0)。 */ 
+/*  将指针返回到具有活动ref_count的JSString。 */ 
+/*  Cesu8确定是否将非BMP1码点编码为1个或2个UTF-8序列。 */ 
 const char *JS_ToCStringLen2(JSContext *ctx, size_t *plen, JSValueConst val1, BOOL cesu8)
 {
     JSValue val;
@@ -3656,12 +3586,8 @@ const char *JS_ToCStringLen2(JSContext *ctx, size_t *plen, JSValueConst val1, BO
         const uint8_t *src = str->u.str8;
         int count;
 
-        /* count the number of non-ASCII characters */
-        /* Scanning the whole string is required for ASCII strings,
-           and computing the number of non-ASCII bytes is less expensive
-           than testing each byte, hence this method is faster for ASCII
-           strings, which is the most common case.
-         */
+        /*  计算非ASCII字符的数量。 */ 
+        /*  对于ASCII串需要扫描整个串，并且计算非ASCII字节的数量的成本较低比测试每个字节都要快，因此这种方法对于ASCII更快字符串，这是最常见的情况。 */ 
         count = 0;
         for (pos = 0; pos < len; pos++) {
             count += src[pos] >> 7;
@@ -3686,9 +3612,7 @@ const char *JS_ToCStringLen2(JSContext *ctx, size_t *plen, JSValueConst val1, BO
         }
     } else {
         const uint16_t *src = str->u.str16;
-        /* Allocate 3 bytes per 16 bit code point. Surrogate pairs may
-           produce 4 bytes but use 2 code points.
-         */
+        /*  为每个16位码位分配3个字节。代理对可以生成4个字节，但使用2个码位。 */ 
         str_new = js_alloc_string(ctx, len * 3, 0);
         if (!str_new)
             goto fail;
@@ -3704,15 +3628,15 @@ const char *JS_ToCStringLen2(JSContext *ctx, size_t *plen, JSValueConst val1, BO
                         c1 = src[pos];
                         if (c1 >= 0xdc00 && c1 < 0xe000) {
                             pos++;
-                            /* surrogate pair */
+                            /*  代理项对。 */ 
                             c = (((c & 0x3ff) << 10) | (c1 & 0x3ff)) + 0x10000;
                         } else {
-                            /* Keep unmatched surrogate code points */
-                            /* c = 0xfffd; */ /* error */
+                            /*  保留不匹配的代理代码点。 */ 
+                            /*  C=0xfffd； */  /* error */
                         }
                     } else {
-                        /* Keep unmatched surrogate code points */
-                        /* c = 0xfffd; */ /* error */
+                        /*  保留不匹配的代理代码点。 */ 
+                        /*  C=0xfffd； */  /* error */
                     }
                 }
                 q += unicode_to_utf8(q, c);
@@ -3737,7 +3661,7 @@ void JS_FreeCString(JSContext *ctx, const char *ptr)
     JSString *p;
     if (!ptr)
         return;
-    /* purposely removing constness */
+    /*  刻意去除恒定性。 */ 
     p = (JSString *)(void *)(ptr - offsetof(JSString, u));
     JS_FreeValue(ctx, JS_MKPTR(JS_TAG_STRING, p));
 }
@@ -3782,7 +3706,7 @@ static int js_string_memcmp(const JSString *p1, const JSString *p2, int len)
     return res;
 }
 
-/* return < 0, 0 or > 0 */
+/*  返回&lt;0、0或&gt;0。 */ 
 static int js_string_compare(JSContext *ctx,
                              const JSString *p1, const JSString *p2)
 {
@@ -3838,8 +3762,7 @@ static JSValue JS_ConcatString1(JSContext *ctx,
     return JS_MKPTR(JS_TAG_STRING, p);
 }
 
-/* op1 and op2 are converted to strings. For convience, op1 or op2 =
-   JS_EXCEPTION are accepted and return JS_EXCEPTION.  */
+/*  OP1和OP2被转换为字符串。为方便起见，OP1或OP2=JS_EXCEPTION被接受并返回JS_EXCEPTION。 */ 
 static JSValue JS_ConcatString(JSContext *ctx, JSValue op1, JSValue op2)
 {
     JSValue ret;
@@ -3862,13 +3785,13 @@ static JSValue JS_ConcatString(JSContext *ctx, JSValue op1, JSValue op2)
     p1 = JS_VALUE_GET_STRING(op1);
     p2 = JS_VALUE_GET_STRING(op2);
 
-    /* XXX: could also check if p1 is empty */
+    /*  Xxx：还可以检查p1是否为空。 */ 
     if (p2->len == 0) {
         goto ret_op1;
     }
     if (p1->header.ref_count == 1 && p1->is_wide_char == p2->is_wide_char
     &&  js_malloc_usable_size(ctx, p1) >= sizeof(*p1) + ((p1->len + p2->len) << p2->is_wide_char) + 1 - p1->is_wide_char) {
-        /* Concatenate in place in available space at the end of p1 */
+        /*  在p1末尾的可用空间中适当地拼接。 */ 
         if (p1->is_wide_char) {
             memcpy(p1->u.str16 + p1->len, p2->u.str16, p2->len << 1);
             p1->len += p2->len;
@@ -3887,7 +3810,7 @@ static JSValue JS_ConcatString(JSContext *ctx, JSValue op1, JSValue op2)
     return ret;
 }
 
-/* Shape support */
+/*  形状支撑。 */ 
 
 static inline size_t get_shape_size(size_t hash_size, size_t prop_size)
 {
@@ -3912,7 +3835,7 @@ static inline JSShapeProperty *get_shape_prop(JSShape *sh)
 
 static int init_shape_hash(JSRuntime *rt)
 {
-    rt->shape_hash_bits = 4;   /* 16 shapes */
+    rt->shape_hash_bits = 4;   /*  16个形状。 */ 
     rt->shape_hash_size = 1 << rt->shape_hash_bits;
     rt->shape_hash_count = 0;
     rt->shape_hash = js_mallocz_rt(rt, sizeof(rt->shape_hash[0]) *
@@ -3922,13 +3845,13 @@ static int init_shape_hash(JSRuntime *rt)
     return 0;
 }
 
-/* same magic hash multiplier as the Linux kernel */
+/*  与Linux内核相同的魔术散列乘法器。 */ 
 static uint32_t shape_hash(uint32_t h, uint32_t val)
 {
     return (h + val) * 0x9e370001;
 }
 
-/* truncate the shape hash to 'hash_bits' bits */
+/*  将形状哈希截断为‘hash_its’位。 */ 
 static uint32_t get_shape_hash(uint32_t h, int hash_bits)
 {
     return h >> (32 - hash_bits);
@@ -3991,7 +3914,7 @@ static void js_shape_hash_unlink(JSRuntime *rt, JSShape *sh)
     rt->shape_hash_count--;
 }
 
-/* create a new empty shape with prototype 'proto' */
+/*  使用原型“proto”创建新的空形状。 */ 
 static no_inline JSShape *js_new_shape2(JSContext *ctx, JSObject *proto,
                                         int hash_size, int prop_size)
 {
@@ -3999,7 +3922,7 @@ static no_inline JSShape *js_new_shape2(JSContext *ctx, JSObject *proto,
     void *sh_alloc;
     JSShape *sh;
 
-    /* resize the shape hash table if necessary */
+    /*  如有必要，调整形状哈希表的大小。 */ 
     if (2 * (rt->shape_hash_count + 1) > rt->shape_hash_size) {
         resize_shape_hash(rt, rt->shape_hash_bits + 1);
     }
@@ -4019,7 +3942,7 @@ static no_inline JSShape *js_new_shape2(JSContext *ctx, JSObject *proto,
     sh->prop_count = 0;
     sh->prop_size = prop_size;
 
-    /* insert in the hash table */
+    /*  在哈希表中插入。 */ 
     sh->hash = shape_initial_hash(proto);
     sh->is_hashed = TRUE;
     sh->has_small_array_index = FALSE;
@@ -4033,8 +3956,7 @@ static JSShape *js_new_shape(JSContext *ctx, JSObject *proto)
                          JS_PROP_INITIAL_SIZE);
 }
 
-/* The shape is cloned. The new shape is not inserted in the shape
-   hash table */
+/*  该形状即被克隆。新形状未插入到该形状中哈希表。 */ 
 static JSShape *js_clone_shape(JSContext *ctx, JSShape *sh1)
 {
     JSShape *sh;
@@ -4096,7 +4018,7 @@ static void js_free_shape_null(JSRuntime *rt, JSShape *sh)
         js_free_shape(rt, sh);
 }
 
-/* make space to hold at least 'count' properties */
+/*  腾出空间至少容纳‘Count’属性。 */ 
 static no_inline int resize_properties(JSContext *ctx, JSShape **psh,
                                        JSObject *p, uint32_t count)
 {
@@ -4108,8 +4030,7 @@ static no_inline int resize_properties(JSContext *ctx, JSShape **psh,
 
     sh = *psh;
     new_size = max_int(count, sh->prop_size * 3 / 2);
-    /* Reallocate prop array first to avoid crash or size inconsistency
-       in case of memory allocation failure */
+    /*  首先重新分配道具数组，以避免崩溃或大小不一致在内存分配失败的情况下。 */ 
     if (p) {
         JSProperty *new_prop;
         new_prop = js_realloc(ctx, p->prop, sizeof(new_prop[0]) * new_size);
@@ -4122,13 +4043,13 @@ static no_inline int resize_properties(JSContext *ctx, JSShape **psh,
         new_hash_size = 2 * new_hash_size;
     if (new_hash_size != (sh->prop_hash_mask + 1)) {
         JSShape *old_sh;
-        /* resize the hash table and the properties */
+        /*  调整哈希表和属性的大小。 */ 
         old_sh = sh;
         sh_alloc = js_malloc(ctx, get_shape_size(new_hash_size, new_size));
         if (!sh_alloc)
             return -1;
         sh = get_shape_from_alloc(sh_alloc, new_hash_size);
-        /* copy all the fields and the properties */
+        /*  复制所有字段和属性。 */ 
         memcpy(sh, old_sh,
                sizeof(JSShape) + sizeof(sh->prop[0]) * old_sh->prop_count);
         new_hash_mask = new_hash_size - 1;
@@ -4144,7 +4065,7 @@ static no_inline int resize_properties(JSContext *ctx, JSShape **psh,
         }
         js_free(ctx, get_alloc_from_shape(old_sh));
     } else {
-        /* only resize the properties */
+        /*  仅调整属性大小。 */ 
         sh_alloc = js_realloc(ctx, get_alloc_from_shape(sh),
                               get_shape_size(new_hash_size, new_size));
         if (unlikely(!sh_alloc))
@@ -4165,7 +4086,7 @@ static int add_shape_property(JSContext *ctx, JSShape **psh,
     uint32_t hash_mask, new_shape_hash = 0;
     intptr_t h;
 
-    /* update the shape hash */
+    /*  更新形状哈希。 */ 
     if (sh->is_hashed) {
         js_shape_hash_unlink(rt, sh);
         new_shape_hash = shape_hash(shape_hash(sh->hash, atom), prop_flags);
@@ -4173,8 +4094,7 @@ static int add_shape_property(JSContext *ctx, JSShape **psh,
 
     if (unlikely(sh->prop_count >= sh->prop_size)) {
         if (resize_properties(ctx, psh, p, sh->prop_count + 1)) {
-            /* in case of error, reinsert in the hash table.
-               sh is still valid if resize_properties() failed */
+            /*  如果出现错误，请重新插入哈希表。如果RESIZE_PROPERTIES()失败，则SH仍然有效。 */ 
             if (sh->is_hashed)
                 js_shape_hash_link(rt, sh);
             return -1;
@@ -4185,14 +4105,13 @@ static int add_shape_property(JSContext *ctx, JSShape **psh,
         sh->hash = new_shape_hash;
         js_shape_hash_link(rt, sh);
     }
-    /* Initialize the new shape property.
-       The object property at p->prop[sh->prop_count] is uninitialized */
+    /*  初始化新的Shape属性。P-&gt;prop[sh-&gt;prop_count]处的对象属性未初始化。 */ 
     prop = get_shape_prop(sh);
     pr = &prop[sh->prop_count++];
     pr->atom = JS_DupAtom(ctx, atom);
     pr->flags = prop_flags;
     sh->has_small_array_index |= __JS_AtomIsTaggedInt(atom);
-    /* add in hash table */
+    /*  添加哈希表。 */ 
     hash_mask = sh->prop_hash_mask;
     h = atom & hash_mask;
     pr->hash_next = sh->prop_hash_end[-h - 1];
@@ -4200,8 +4119,7 @@ static int add_shape_property(JSContext *ctx, JSShape **psh,
     return 0;
 }
 
-/* find a hashed empty shape matching the prototype. Return NULL if
-   not found */
+/*  找到与原型匹配的散列空形状。如果满足以下条件，则返回NULL未找到。 */ 
 static JSShape *find_hashed_shape_proto(JSRuntime *rt, JSObject *proto)
 {
     JSShape *sh1;
@@ -4219,8 +4137,7 @@ static JSShape *find_hashed_shape_proto(JSRuntime *rt, JSObject *proto)
     return NULL;
 }
 
-/* find a hashed shape matching sh + (prop, prop_flags). Return NULL if
-   not found */
+/*  找到一个与sh+(prop，prop_)匹配的散列形状。如果满足以下条件，则返回NULL未找到。 */ 
 static JSShape *find_hashed_shape_prop(JSRuntime *rt, JSShape *sh,
                                        JSAtom atom, int prop_flags)
 {
@@ -4232,8 +4149,7 @@ static JSShape *find_hashed_shape_prop(JSRuntime *rt, JSShape *sh,
     h = shape_hash(h, prop_flags);
     h1 = get_shape_hash(h, rt->shape_hash_bits);
     for(sh1 = rt->shape_hash[h1]; sh1 != NULL; sh1 = sh1->shape_hash_next) {
-        /* we test the hash first so that the rest is done only if the
-           shapes really match */
+        /*  我们首先测试散列，以便仅在形状真的很匹配。 */ 
         if (sh1->hash == h &&
             sh1->proto == sh->proto &&
             sh1->prop_count == ((n = sh->prop_count) + 1)) {
@@ -4257,7 +4173,7 @@ static __maybe_unused void JS_DumpShape(JSRuntime *rt, int i, JSShape *sh)
     char atom_buf[ATOM_GET_STR_BUF_SIZE];
     int j;
 
-    /* XXX: should output readable class prototype */
+    /*  XXX：应输出可读的类原型。 */ 
     printf("%5d %3d%c %14p %5d %5d", i,
            sh->header.ref_count, " *"[sh->is_hashed],
            (void *)sh->proto, sh->prop_size, sh->prop_count);
@@ -4283,7 +4199,7 @@ static __maybe_unused void JS_DumpShapes(JSRuntime *rt)
             assert(sh->is_hashed);
         }
     }
-    /* dump non-hashed shapes */
+    /*  转储非哈希形状。 */ 
     list_for_each(el, &rt->obj_list) {
         p = list_entry(el, JSObject, link);
         if (!p->shape->is_hashed) {
@@ -4334,12 +4250,12 @@ static JSValue JS_NewObjectFromShape(JSContext *ctx, JSShape *sh, JSClassID clas
             p->u.array.u.values = NULL;
             p->u.array.count = 0;
             p->u.array.u1.size = 0;
-            /* the length property is always the first one */
+            /*  长度属性始终是第一个属性。 */ 
             if (likely(sh == ctx->array_shape)) {
                 pr = &p->prop[0];
             } else {
-                /* only used for the first array */
-                /* cannot fail */
+                /*  仅用于第一个阵列。 */ 
+                /*  不能失败。 */ 
                 pr = add_property(ctx, p, JS_ATOM_length,
                                   JS_PROP_WRITABLE | JS_PROP_LENGTH);
             }
@@ -4406,7 +4322,7 @@ static JSObject *get_proto_obj(JSValueConst proto_val)
         return JS_VALUE_GET_OBJ(proto_val);
 }
 
-/* WARNING: proto must be an object or JS_NULL */
+/*  警告：PROTO必须是对象或JS_NULL。 */ 
 JSValue JS_NewObjectProtoClass(JSContext *ctx, JSValueConst proto_val,
                                JSClassID class_id)
 {
@@ -4494,14 +4410,14 @@ JSValue JS_NewArray(JSContext *ctx)
 
 JSValue JS_NewObject(JSContext *ctx)
 {
-    /* inline JS_NewObjectClass(ctx, JS_CLASS_OBJECT); */
+    /*  Inline JS_NewObjectClass(CTX，JS_CLASS_OBJECT)； */ 
     return JS_NewObjectProtoClass(ctx, ctx->class_proto[JS_CLASS_OBJECT], JS_CLASS_OBJECT);
 }
 
 static void js_function_set_properties(JSContext *ctx, JSValueConst func_obj,
                                        JSAtom name, int len)
 {
-    /* ES6 feature non compatible with ES5.1: length is configurable */
+    /*  ES6功能与ES5.1不兼容：长度可配置。 */ 
     JS_DefinePropertyValue(ctx, func_obj, JS_ATOM_length, JS_NewInt32(ctx, len),
                            JS_PROP_CONFIGURABLE);
     JS_DefinePropertyValue(ctx, func_obj, JS_ATOM_name,
@@ -4516,7 +4432,7 @@ static BOOL js_class_has_bytecode(JSClassID class_id)
             class_id == JS_CLASS_ASYNC_GENERATOR_FUNCTION);
 }
 
-/* return NULL without exception if not a function or no bytecode */
+/*  如果不是函数或没有字节码，则返回NULL而不会出现异常。 */ 
 static JSFunctionBytecode *JS_GetFunctionBytecode(JSValueConst val)
 {
     JSObject *p;
@@ -4564,10 +4480,7 @@ static JSValue js_get_function_name(JSContext *ctx, JSAtom name)
     return name_str;
 }
 
-/* Modify the name of a method according to the atom and
-   'flags'. 'flags' is a bitmask of JS_PROP_HAS_GET and
-   JS_PROP_HAS_SET. Also set the home object of the method.
-   Return < 0 if exception. */
+/*  根据原子和元素修改方法的名称“旗帜”。是JS_PROP_HAS_GET的位掩码JS_PROP_HAS_SET。还设置了该方法的home对象。如果异常，则返回&lt;0。 */ 
 static int js_method_set_properties(JSContext *ctx, JSValueConst func_obj,
                                     JSAtom name, int flags, JSValueConst home_obj)
 {
@@ -4588,7 +4501,7 @@ static int js_method_set_properties(JSContext *ctx, JSValueConst func_obj,
     return 0;
 }
 
-/* Note: at least 'length' arguments will be readable in 'argv' */
+/*  注意：在‘argv’中，至少可以读取‘Long’参数。 */ 
 static JSValue JS_NewCFunction3(JSContext *ctx, JSCFunction *func,
                                 const char *name,
                                 int length, JSCFunctionEnum cproto, int magic,
@@ -4618,7 +4531,7 @@ static JSValue JS_NewCFunction3(JSContext *ctx, JSCFunction *func,
     return func_obj;
 }
 
-/* Note: at least 'length' arguments will be readable in 'argv' */
+/*  注意：在‘argv’中，至少可以读取‘Long’参数。 */ 
 JSValue JS_NewCFunction2(JSContext *ctx, JSCFunction *func,
                          const char *name,
                          int length, JSCFunctionEnum cproto, int magic)
@@ -4669,7 +4582,7 @@ static JSValue js_c_function_data_call(JSContext *ctx, JSValueConst func_obj,
     JSValueConst *arg_buf;
     int i;
 
-    /* XXX: could add the function on the stack for debug */
+    /*  XXX：可以在堆栈上添加函数以进行调试。 */ 
     if (unlikely(argc < s->length)) {
         arg_buf = alloca(sizeof(arg_buf[0]) * s->length);
         for(i = 0; i < argc; i++)
@@ -4723,7 +4636,7 @@ static void free_property(JSRuntime *rt, JSProperty *pr, int prop_flags)
         } else if ((prop_flags & JS_PROP_TMASK) == JS_PROP_VARREF) {
             free_var_ref(rt, pr->u.var_ref);
         } else if ((prop_flags & JS_PROP_TMASK) == JS_PROP_AUTOINIT) {
-            /* nothing to do */
+            /*  无事可做。 */ 
         }
     } else {
         JS_FreeValueRT(rt, pr->u.value);
@@ -4765,7 +4678,7 @@ static force_inline JSShapeProperty *find_own_property(JSProperty **ppr,
         pr = &prop[h - 1];
         if (likely(pr->atom == atom)) {
             *ppr = &p->prop[h - 1];
-            /* the compiler should be able to assume that pr != NULL here */
+            /*  编译器应该能够假定这里的pr！=NULL。 */ 
             return pr;
         }
         h = pr->hash_next;
@@ -4774,7 +4687,7 @@ static force_inline JSShapeProperty *find_own_property(JSProperty **ppr,
     return NULL;
 }
 
-/* indicate that the object may be part of a function prototype cycle */
+/*  指示该对象可能是函数原型循环的一部分。 */ 
 static void set_cycle_flag(JSContext *ctx, JSValueConst obj)
 {
 }
@@ -4785,7 +4698,7 @@ static void free_var_ref(JSRuntime *rt, JSVarRef *var_ref)
         assert(var_ref->header.ref_count > 0);
         if (--var_ref->header.ref_count == 0) {
             if (var_ref->link.prev != NULL) {
-                list_del(&var_ref->link); /* still on the stack */
+                list_del(&var_ref->link); /*  仍在堆栈上。 */ 
             } else {
                 JS_FreeValueRT(rt, var_ref->value);
             }
@@ -4875,8 +4788,7 @@ static void js_bytecode_function_mark(JSRuntime *rt, JSValueConst val,
                 }
             }
         }
-        /* must mark the function bytecode because template objects may be
-           part of a cycle */
+        /*  必须将函数标记为字节码，因为模板对象可能循环的一部分。 */ 
         JS_MarkValue(rt, JS_MKPTR(JS_TAG_FUNCTION_BYTECODE, b), mark_func);
     }
 }
@@ -4931,7 +4843,7 @@ static void free_object_struct(JSRuntime *rt, JSObject *p)
     JSShape *sh;
     JSShapeProperty *pr;
 
-    /* free all the fields */
+    /*  释放所有字段。 */ 
     sh = p->shape;
     pr = get_shape_prop(sh);
     for(i = 0; i < sh->prop_count; i++) {
@@ -4941,7 +4853,7 @@ static void free_object_struct(JSRuntime *rt, JSObject *p)
     js_free_rt(rt, p->prop);
     js_free_shape(rt, sh);
 
-    /* fail safe */
+    /*  故障安全。 */ 
     p->shape = NULL;
     p->prop = NULL;
 
@@ -4953,7 +4865,7 @@ static void free_object_struct(JSRuntime *rt, JSObject *p)
     if (finalizer)
         (*finalizer)(rt, JS_MKPTR(JS_TAG_OBJECT, p));
 
-    /* fail safe */
+    /*  故障安全。 */ 
     p->class_id = 0;
     p->u.opaque = NULL;
     p->u.func.var_refs = NULL;
@@ -4963,15 +4875,15 @@ static void free_object_struct(JSRuntime *rt, JSObject *p)
 static void free_object2(JSRuntime *rt, JSObject *p)
 {
     if (p->free_mark) {
-        /* already freed (happen when freeing cycles) */
+        /*  已释放(在释放周期时发生)。 */ 
         return;
     }
-    /* indicate that the object is being freed */
+    /*  指示该对象正在被释放。 */ 
     p->free_mark = 1;
 
     free_object_struct(rt, p);
 
-    /* remove from the global object list */
+    /*  从全局对象列表中删除。 */ 
     list_del(&p->link);
     if (rt->in_gc_sweep) {
         list_add_tail(&p->link, &rt->free_obj_list);
@@ -4987,7 +4899,7 @@ static void free_object(JSRuntime *rt, JSObject *p)
         free_object2(rt, p);
 }
 
-/* called with the ref_count of 'v' reaches zero. */
+/*  用‘v’的ref_count调用的值为零。 */ 
 void __JS_FreeValueRT(JSRuntime *rt, JSValue v)
 {
     uint32_t tag = JS_VALUE_GET_TAG(v);
@@ -5028,7 +4940,7 @@ void __JS_FreeValueRT(JSRuntime *rt, JSValue v)
     case JS_TAG_ASYNC_FUNCTION:
     case JS_TAG_VAR_REF:
     case JS_TAG_MODULE:
-        abort(); /* never freed here */
+        abort(); /*  从未在这里获得自由。 */ 
         break;
 #ifdef CONFIG_BIGNUM
     case JS_TAG_BIG_INT:
@@ -5057,7 +4969,7 @@ void __JS_FreeValue(JSContext *ctx, JSValue v)
     __JS_FreeValueRT(ctx->rt, v);
 }
 
-/* garbage collection */
+/*  垃圾收集。 */ 
 
 static BOOL has_children(JSValueConst val)
 {
@@ -5091,7 +5003,7 @@ static void mark_children(JSRuntime *rt, JSValueConst val, JS_MarkFunc *mark_fun
             int i;
             sh = p->shape;
             mark_func(rt, JS_MKPTR(JS_TAG_SHAPE, sh));
-            /* mark all the fields */
+            /*  标记所有字段。 */ 
             prs = get_shape_prop(sh);
             for(i = 0; i < sh->prop_count; i++) {
                 JSProperty *pr = &p->prop[i];
@@ -5105,7 +5017,7 @@ static void mark_children(JSRuntime *rt, JSValueConst val, JS_MarkFunc *mark_fun
                         } else if ((prs->flags & JS_PROP_TMASK) == JS_PROP_VARREF) {
                             JS_MarkValue(rt, JS_MKPTR(JS_TAG_VAR_REF, pr->u.var_ref), mark_func);
                         } else if ((prs->flags & JS_PROP_TMASK) == JS_PROP_AUTOINIT) {
-                            /* nothing to do */
+                            /*  无事可做。 */ 
                         }
                     } else {
                         JS_MarkValue(rt, pr->u.value, mark_func);
@@ -5123,7 +5035,7 @@ static void mark_children(JSRuntime *rt, JSValueConst val, JS_MarkFunc *mark_fun
         }
         break;
     case JS_TAG_FUNCTION_BYTECODE:
-        /* the template objects can be part of a cycle */
+        /*  模板对象可以是循环的一部分。 */ 
         {
             JSFunctionBytecode *b = JS_VALUE_GET_PTR(val);
             int i;
@@ -5135,8 +5047,7 @@ static void mark_children(JSRuntime *rt, JSValueConst val, JS_MarkFunc *mark_fun
     case JS_TAG_VAR_REF:
         {
             JSVarRef *var_ref = JS_VALUE_GET_PTR(val);
-            /* the refcount of stack values is not incremented, hence
-               the test */
+            /*  堆栈值的引用计数不会递增，因此这个测试。 */ 
             if (var_ref->link.prev == NULL) {
                 JS_MarkValue(rt, *var_ref->pvalue, mark_func);
             }
@@ -5160,13 +5071,13 @@ static void mark_children(JSRuntime *rt, JSValueConst val, JS_MarkFunc *mark_fun
         }
         break;
     default:
-        /* no children */
+        /*  没有孩子。 */ 
         break;
     }
 }
 
 #if 0
-/* not useful until realms are supported */
+/*  在支持领域之前没有用处。 */ 
 static void mark_context(JSRuntime *rt, JSContext *ctx)
 {
     int i;
@@ -5199,13 +5110,11 @@ static void mark_context(JSRuntime *rt, JSContext *ctx)
 }
 #endif
 
-/* 1 = possible member of a cycle
-   2 = member of a cycle
-*/
+/*  1=循环的可能成员2=循环成员。 */ 
 
 static void gc_decref_mark(JSRuntime *rt, JSValueConst obj);
 
-//#define DUMP_GC_DECREF
+//  #定义DUMP_GC_DECREF。
 
 #ifdef DUMP_GC_DECREF
 static int decref_indent;
@@ -5282,13 +5191,12 @@ static void gc_scan_incref_child(JSRuntime *rt, JSValueConst obj)
 static void gc_scan_incref(JSRuntime *rt, JSValueConst obj)
 {
     JSObject *p = JS_VALUE_GET_OBJ(obj);
-    p->gc_header.mark = 0; /* not freed */
+    p->gc_header.mark = 0; /*  未被释放。 */ 
     if (JS_IsObject(obj)) {
-        /* remove the tmp_obj_list and update the next object to
-           explore */
+        /*  删除tmp_obj_list并将下一个对象更新为探索。 */ 
         if (rt->el_next == &p->link)
             rt->el_next = rt->el_next->next;
-        /* add to rt->obj_list */
+        /*  添加到RT-&gt;obj_list。 */ 
         list_del(&p->link);
         list_add_tail(&p->link, &rt->obj_list);
     }
@@ -5331,23 +5239,20 @@ static void gc_scan(JSRuntime *rt)
     struct list_head *el;
     JSObject *p;
 
-    /* move obj_list to tmp_obj_list */
+    /*  将obj_list移至tmp_obj_list。 */ 
     list_add(&rt->tmp_obj_list, &rt->obj_list);
     list_del(&rt->obj_list);
     init_list_head(&rt->obj_list);
 
-    /* keep the objects with a refcount > 0 and their children. After
-       this pass, obj_list contains the objects to be deleted. Their
-       mark is 2. */
+    /*  保留引用计数&gt;0的对象及其子对象。之后此传递obj_list包含要删除的对象。他们的马克2岁。 */ 
     for(el = rt->tmp_obj_list.next; el != &rt->tmp_obj_list;
         el = rt->el_next) {
-        rt->el_next = el->next; /* may be modified by gc_scan_obj() */
+        rt->el_next = el->next; /*  可由gc_can_obj()修改。 */ 
         p = list_entry(el, JSObject, link);
         gc_scan_obj(rt, JS_MKPTR(JS_TAG_OBJECT, p));
     }
 
-    /* restore the refcount of the objects to be deleted. After this
-       pass, their mark is 3 */
+    /*  恢复要删除的对象的引用计数。在这之后通过，他们的分数是3。 */ 
     list_for_each(el, &rt->tmp_obj_list) {
         p = list_entry(el, JSObject, link);
         gc_scan_obj2(rt, JS_MKPTR(JS_TAG_OBJECT, p));
@@ -5378,7 +5283,7 @@ static void gc_free_cycles(JSRuntime *rt)
     }
     rt->in_gc_sweep = FALSE;
 
-    /* free all the object structures */
+    /*  释放所有对象结构。 */ 
     list_for_each_safe(el, el1, &rt->free_obj_list) {
         p = list_entry(el, JSObject, link);
         js_free_rt(rt, p);
@@ -5387,20 +5292,17 @@ static void gc_free_cycles(JSRuntime *rt)
 
 void JS_RunGC(JSRuntime *rt)
 {
-    /* decrement the reference of the children of each object. mark =
-       1 after this pass. */
+    /*  递减每个对象的子级的引用。标记=这一次传球后1分。 */ 
     gc_decref(rt);
 
-    /* keep objects with a non zero refcount and their childs */
+    /*  保留具有非零引用计数的对象及其c */ 
     gc_scan(rt);
 
-    /* free the objects with a zero refcount */
+    /*   */ 
     gc_free_cycles(rt);
 }
 
-/* Return false if not an object or if the object has already been
-   freed (zombie objects are visible in finalizers when freeing
-   cycles). */
+/*   */ 
 BOOL JS_IsLiveObject(JSRuntime *rt, JSValueConst obj)
 {
     JSObject *p;
@@ -5410,14 +5312,14 @@ BOOL JS_IsLiveObject(JSRuntime *rt, JSValueConst obj)
     return !p->free_mark;
 }
 
-/* Return true during the GC sweep phase (can be useful inside in finalizer) */
+/*  在GC扫描阶段返回TRUE(在终结器内部可能很有用)。 */ 
 BOOL JS_IsInGCSweep(JSRuntime *rt)
 {
     return rt->in_gc_sweep;
 }
 
-/* Compute memory used by various object types */
-/* XXX: poor man's approach to handling multiply referenced objects */
+/*  各种对象类型使用的计算内存。 */ 
+/*  XXX：可怜的人处理多重引用对象的方法。 */ 
 typedef struct JSMemoryUsage_helper {
     double memory_used_count;
     double str_count;
@@ -5433,7 +5335,7 @@ static void compute_value_size(JSValueConst val, JSMemoryUsage_helper *hp);
 
 static void compute_jsstring_size(JSString *str, JSMemoryUsage_helper *hp)
 {
-    if (!str->atom_type) {  /* atoms are handled separately */
+    if (!str->atom_type) {  /*  原子是分开处理的。 */ 
         double s_ref_count = str->header.ref_count;
         hp->str_count += 1 / s_ref_count;
         hp->str_size += ((sizeof(*str) + (str->len << str->is_wide_char) +
@@ -5493,7 +5395,7 @@ static void compute_value_size(JSValueConst val, JSMemoryUsage_helper *hp)
 #ifdef CONFIG_BIGNUM
     case JS_TAG_BIG_INT:
     case JS_TAG_BIG_FLOAT:
-        /* should track JSBigFloat usage */
+        /*  应跟踪JSBigFloat的使用情况。 */ 
         break;
 #endif
     }
@@ -5510,19 +5412,19 @@ void JS_ComputeMemoryUsage(JSRuntime *rt, JSMemoryUsage *s)
     s->malloc_size = rt->malloc_state.malloc_size;
     s->malloc_limit = rt->malloc_state.malloc_limit;
 
-    s->memory_used_count = 2; /* rt + rt->class_array */
+    s->memory_used_count = 2; /*  RT+RT-&gt;CLASS_ARRAY。 */ 
     s->memory_used_size = sizeof(JSRuntime) + sizeof(JSValue) * rt->class_count;
 
     list_for_each(el, &rt->context_list) {
         JSContext *ctx = list_entry(el, JSContext, link);
         JSShape *sh = ctx->array_shape;
-        s->memory_used_count += 2; /* ctx + ctx->class_proto */
+        s->memory_used_count += 2; /*  CTX+CTX-&gt;CLASS_PROTO。 */ 
         s->memory_used_size += sizeof(JSContext) +
             sizeof(JSValue) * rt->class_count;
         s->binary_object_count += ctx->binary_object_count;
         s->binary_object_size += ctx->binary_object_size;
 
-        /* the hashed shapes are counted separately */
+        /*  散列形状将单独计算。 */ 
         if (sh && !sh->is_hashed) {
             int hash_size = sh->prop_hash_mask + 1;
             s->shape_count++;
@@ -5542,7 +5444,7 @@ void JS_ComputeMemoryUsage(JSRuntime *rt, JSMemoryUsage *s)
                 for (i = 0; i < m->export_entries_count; i++) {
                     JSExportEntry *me = &m->export_entries[i];
                     if (me->export_type == JS_EXPORT_TYPE_LOCAL && me->u.local.var_ref) {
-                        /* potential multiple count */
+                        /*  潜在的多重计数。 */ 
                         s->memory_used_count += 1;
                         compute_value_size(me->u.local.var_ref->value, hp);
                     }
@@ -5579,7 +5481,7 @@ void JS_ComputeMemoryUsage(JSRuntime *rt, JSMemoryUsage *s)
                 prs++;
             }
         }
-        /* the hashed shapes are counted separately */
+        /*  散列形状将单独计算。 */ 
         if (!sh->is_hashed) {
             int hash_size = sh->prop_hash_mask + 1;
             s->shape_count++;
@@ -5587,8 +5489,8 @@ void JS_ComputeMemoryUsage(JSRuntime *rt, JSMemoryUsage *s)
         }
 
         switch(p->class_id) {
-        case JS_CLASS_ARRAY:             /* u.array | length */
-        case JS_CLASS_ARGUMENTS:         /* u.array | length */
+        case JS_CLASS_ARRAY:             /*  美国数组|长度。 */ 
+        case JS_CLASS_ARGUMENTS:         /*  美国数组|长度。 */ 
             s->array_count++;
             if (p->fast_array) {
                 s->fast_array_count++;
@@ -5603,25 +5505,25 @@ void JS_ComputeMemoryUsage(JSRuntime *rt, JSMemoryUsage *s)
                 }
             }
             break;
-        case JS_CLASS_NUMBER:            /* u.object_data */
-        case JS_CLASS_STRING:            /* u.object_data */
-        case JS_CLASS_BOOLEAN:           /* u.object_data */
-        case JS_CLASS_SYMBOL:            /* u.object_data */
-        case JS_CLASS_DATE:              /* u.object_data */
+        case JS_CLASS_NUMBER:            /*  U.S.Object_Data。 */ 
+        case JS_CLASS_STRING:            /*  U.S.Object_Data。 */ 
+        case JS_CLASS_BOOLEAN:           /*  U.S.Object_Data。 */ 
+        case JS_CLASS_SYMBOL:            /*  U.S.Object_Data。 */ 
+        case JS_CLASS_DATE:              /*  U.S.Object_Data。 */ 
 #ifdef CONFIG_BIGNUM
-        case JS_CLASS_BIG_INT:           /* u.object_data */
-        case JS_CLASS_BIG_FLOAT:         /* u.object_data */
+        case JS_CLASS_BIG_INT:           /*  U.S.Object_Data。 */ 
+        case JS_CLASS_BIG_FLOAT:         /*  U.S.Object_Data。 */ 
 #endif
             compute_value_size(p->u.object_data, hp);
             break;
-        case JS_CLASS_C_FUNCTION:        /* u.cfunc */
+        case JS_CLASS_C_FUNCTION:        /*  U.cfunc。 */ 
             s->c_func_count++;
             break;
-        case JS_CLASS_BYTECODE_FUNCTION: /* u.func */
+        case JS_CLASS_BYTECODE_FUNCTION: /*  U.func。 */ 
             {
                 JSFunctionBytecode *b = p->u.func.function_bytecode;
                 JSVarRef **var_refs = p->u.func.var_refs;
-                /* home_object: object will be accounted for in list scan */
+                /*  HOME_OBJECT：列表扫描中将考虑对象。 */ 
                 if (var_refs) {
                     s->memory_used_count++;
                     s->js_func_size += b->closure_var_count * sizeof(*var_refs);
@@ -5630,9 +5532,9 @@ void JS_ComputeMemoryUsage(JSRuntime *rt, JSMemoryUsage *s)
                             double ref_count = var_refs[i]->header.ref_count;
                             s->memory_used_count += 1 / ref_count;
                             s->js_func_size += sizeof(*var_refs[i]) / ref_count;
-                            /* handle non object closed values */
+                            /*  处理非对象闭合值。 */ 
                             if (var_refs[i]->pvalue == &var_refs[i]->value) {
-                                /* potential multiple count */
+                                /*  潜在的多重计数。 */ 
                                 compute_value_size(var_refs[i]->value, hp);
                             }
                         }
@@ -5641,10 +5543,10 @@ void JS_ComputeMemoryUsage(JSRuntime *rt, JSMemoryUsage *s)
                 compute_bytecode_size(b, hp);
             }
             break;
-        case JS_CLASS_BOUND_FUNCTION:    /* u.bound_function */
+        case JS_CLASS_BOUND_FUNCTION:    /*  U.S.Bound_Function。 */ 
             {
                 JSBoundFunction *bf = p->u.bound_function;
-                /* func_obj and this_val are objects */
+                /*  Func_obj和this_val是对象。 */ 
                 for (i = 0; i < bf->argc; i++) {
                     compute_value_size(bf->argv[i], hp);
                 }
@@ -5652,7 +5554,7 @@ void JS_ComputeMemoryUsage(JSRuntime *rt, JSMemoryUsage *s)
                 s->memory_used_size += sizeof(*bf) + bf->argc * sizeof(*bf->argv);
             }
             break;
-        case JS_CLASS_C_FUNCTION_DATA:   /* u.c_function_data_record */
+        case JS_CLASS_C_FUNCTION_DATA:   /*  U.C函数数据记录。 */ 
             {
                 JSCFunctionDataRecord *fd = p->u.c_function_data_record;
                 if (fd) {
@@ -5664,12 +5566,12 @@ void JS_ComputeMemoryUsage(JSRuntime *rt, JSMemoryUsage *s)
                 }
             }
             break;
-        case JS_CLASS_REGEXP:            /* u.regexp */
+        case JS_CLASS_REGEXP:            /*  U.regexp。 */ 
             compute_jsstring_size(p->u.regexp.pattern, hp);
             compute_jsstring_size(p->u.regexp.bytecode, hp);
             break;
 
-        case JS_CLASS_FOR_IN_ITERATOR:   /* u.for_in_iterator */
+        case JS_CLASS_FOR_IN_ITERATOR:   /*  U.S.for_in_迭代器。 */ 
             {
                 JSForInIterator *it = p->u.for_in_iterator;
                 if (it) {
@@ -5679,8 +5581,8 @@ void JS_ComputeMemoryUsage(JSRuntime *rt, JSMemoryUsage *s)
                 }
             }
             break;
-        case JS_CLASS_ARRAY_BUFFER:      /* u.array_buffer */
-        case JS_CLASS_SHARED_ARRAY_BUFFER: /* u.array_buffer */
+        case JS_CLASS_ARRAY_BUFFER:      /*  美国数组缓冲区。 */ 
+        case JS_CLASS_SHARED_ARRAY_BUFFER: /*  美国数组缓冲区。 */ 
             {
                 JSArrayBuffer *abuf = p->u.array_buffer;
                 if (abuf) {
@@ -5693,43 +5595,43 @@ void JS_ComputeMemoryUsage(JSRuntime *rt, JSMemoryUsage *s)
                 }
             }
             break;
-        case JS_CLASS_GENERATOR:         /* u.generator_data */
-        case JS_CLASS_UINT8C_ARRAY:      /* u.typed_array / u.array */
-        case JS_CLASS_INT8_ARRAY:        /* u.typed_array / u.array */
-        case JS_CLASS_UINT8_ARRAY:       /* u.typed_array / u.array */
-        case JS_CLASS_INT16_ARRAY:       /* u.typed_array / u.array */
-        case JS_CLASS_UINT16_ARRAY:      /* u.typed_array / u.array */
-        case JS_CLASS_INT32_ARRAY:       /* u.typed_array / u.array */
-        case JS_CLASS_UINT32_ARRAY:      /* u.typed_array / u.array */
+        case JS_CLASS_GENERATOR:         /*  美国生成器数据。 */ 
+        case JS_CLASS_UINT8C_ARRAY:      /*  美国类型数组/美国数组。 */ 
+        case JS_CLASS_INT8_ARRAY:        /*  美国类型数组/美国数组。 */ 
+        case JS_CLASS_UINT8_ARRAY:       /*  美国类型数组/美国数组。 */ 
+        case JS_CLASS_INT16_ARRAY:       /*  美国类型数组/美国数组。 */ 
+        case JS_CLASS_UINT16_ARRAY:      /*  美国类型数组/美国数组。 */ 
+        case JS_CLASS_INT32_ARRAY:       /*  美国类型数组/美国数组。 */ 
+        case JS_CLASS_UINT32_ARRAY:      /*  美国类型数组/美国数组。 */ 
 #ifdef CONFIG_BIGNUM
-        case JS_CLASS_BIG_INT64_ARRAY:   /* u.typed_array / u.array */
-        case JS_CLASS_BIG_UINT64_ARRAY:  /* u.typed_array / u.array */
+        case JS_CLASS_BIG_INT64_ARRAY:   /*  美国类型数组/美国数组。 */ 
+        case JS_CLASS_BIG_UINT64_ARRAY:  /*  美国类型数组/美国数组。 */ 
 #endif
-        case JS_CLASS_FLOAT32_ARRAY:     /* u.typed_array / u.array */
-        case JS_CLASS_FLOAT64_ARRAY:     /* u.typed_array / u.array */
-        case JS_CLASS_DATAVIEW:          /* u.typed_array */
+        case JS_CLASS_FLOAT32_ARRAY:     /*  美国类型数组/美国数组。 */ 
+        case JS_CLASS_FLOAT64_ARRAY:     /*  美国类型数组/美国数组。 */ 
+        case JS_CLASS_DATAVIEW:          /*  美国类型化数组。 */ 
 #ifdef CONFIG_BIGNUM
-        case JS_CLASS_FLOAT_ENV:         /* u.float_env */
+        case JS_CLASS_FLOAT_ENV:         /*  美国浮动环境。 */ 
 #endif
-        case JS_CLASS_MAP:               /* u.map_state */
-        case JS_CLASS_SET:               /* u.map_state */
-        case JS_CLASS_WEAKMAP:           /* u.map_state */
-        case JS_CLASS_WEAKSET:           /* u.map_state */
-        case JS_CLASS_MAP_ITERATOR:      /* u.map_iterator_data */
-        case JS_CLASS_SET_ITERATOR:      /* u.map_iterator_data */
-        case JS_CLASS_ARRAY_ITERATOR:    /* u.array_iterator_data */
-        case JS_CLASS_STRING_ITERATOR:   /* u.array_iterator_data */
-        case JS_CLASS_PROXY:             /* u.proxy_data */
-        case JS_CLASS_PROMISE:           /* u.promise_data */
-        case JS_CLASS_PROMISE_RESOLVE_FUNCTION:  /* u.promise_function_data */
-        case JS_CLASS_PROMISE_REJECT_FUNCTION:   /* u.promise_function_data */
-        case JS_CLASS_ASYNC_FUNCTION_RESOLVE:    /* u.async_function_data */
-        case JS_CLASS_ASYNC_FUNCTION_REJECT:     /* u.async_function_data */
-        case JS_CLASS_ASYNC_FROM_SYNC_ITERATOR:  /* u.async_from_sync_iterator_data */
-        case JS_CLASS_ASYNC_GENERATOR:   /* u.async_generator_data */
-            /* TODO */
+        case JS_CLASS_MAP:               /*  美国地图_州。 */ 
+        case JS_CLASS_SET:               /*  美国地图_州。 */ 
+        case JS_CLASS_WEAKMAP:           /*  美国地图_州。 */ 
+        case JS_CLASS_WEAKSET:           /*  美国地图_州。 */ 
+        case JS_CLASS_MAP_ITERATOR:      /*  美国地图迭代器数据。 */ 
+        case JS_CLASS_SET_ITERATOR:      /*  美国地图迭代器数据。 */ 
+        case JS_CLASS_ARRAY_ITERATOR:    /*  美国数组迭代器数据。 */ 
+        case JS_CLASS_STRING_ITERATOR:   /*  美国数组迭代器数据。 */ 
+        case JS_CLASS_PROXY:             /*  U.S.Proxy_Data。 */ 
+        case JS_CLASS_PROMISE:           /*  美国承诺数据。 */ 
+        case JS_CLASS_PROMISE_RESOLVE_FUNCTION:  /*  美国承诺函数数据。 */ 
+        case JS_CLASS_PROMISE_REJECT_FUNCTION:   /*  美国承诺函数数据。 */ 
+        case JS_CLASS_ASYNC_FUNCTION_RESOLVE:    /*  美国异步函数数据。 */ 
+        case JS_CLASS_ASYNC_FUNCTION_REJECT:     /*  美国异步函数数据。 */ 
+        case JS_CLASS_ASYNC_FROM_SYNC_ITERATOR:  /*  U.S.async_from_sync_iterator_data。 */ 
+        case JS_CLASS_ASYNC_GENERATOR:   /*  美国异步生成器数据。 */ 
+            /*  待办事项。 */ 
         default:
-            /* XXX: class definition should have an opaque block size */
+            /*  XXX：类定义应具有不透明的块大小。 */ 
             if (p->u.opaque) {
                 s->memory_used_count += 1;
             }
@@ -5738,8 +5640,8 @@ void JS_ComputeMemoryUsage(JSRuntime *rt, JSMemoryUsage *s)
     }
     s->obj_size += s->obj_count * sizeof(JSObject);
 
-    /* hashed shapes */
-    s->memory_used_count++; /* rt->shape_hash */
+    /*  散列形状。 */ 
+    s->memory_used_count++; /*  RT-&gt;Shape_Hash。 */ 
     s->memory_used_size += sizeof(rt->shape_hash[0]) * rt->shape_hash_size;
     for(i = 0; i < rt->shape_hash_size; i++) {
         JSShape *sh;
@@ -5750,8 +5652,8 @@ void JS_ComputeMemoryUsage(JSRuntime *rt, JSMemoryUsage *s)
         }
     }
 
-    /* atoms */
-    s->memory_used_count += 2; /* rt->atom_array, rt->atom_hash */
+    /*  原子。 */ 
+    s->memory_used_count += 2; /*  RT-&gt;ATOM_ARRAY，RT-&gt;ATOM_HASH。 */ 
     s->atom_count = rt->atom_count;
     s->atom_size = sizeof(rt->atom_array[0]) * rt->atom_size +
         sizeof(rt->atom_hash[0]) * rt->atom_hash_size;
@@ -5911,7 +5813,7 @@ JSValue JS_GetGlobalObject(JSContext *ctx)
     return JS_DupValue(ctx, ctx->global_obj);
 }
 
-/* WARNING: obj is freed */
+/*  警告：OBJ已被释放。 */ 
 JSValue JS_Throw(JSContext *ctx, JSValue obj)
 {
     JS_FreeValue(ctx, ctx->current_exception);
@@ -5920,7 +5822,7 @@ JSValue JS_Throw(JSContext *ctx, JSValue obj)
     return JS_EXCEPTION;
 }
 
-/* return the pending exception (cannot be called twice). */
+/*  返回挂起异常(不能调用两次)。 */ 
 JSValue JS_GetException(JSContext *ctx)
 {
     JSValue val;
@@ -5993,7 +5895,7 @@ static int find_line_num(JSContext *ctx, JSFunctionBytecode *b,
     unsigned int op;
 
     if (!b->has_debug || !b->debug.pc2line_buf) {
-        /* function was stripped */
+        /*  函数被剥离。 */ 
         return -1;
     }
 
@@ -6013,7 +5915,7 @@ static int find_line_num(JSContext *ctx, JSFunctionBytecode *b,
             ret = get_sleb128(&v, p, p_end);
             if (ret < 0) {
             fail:
-                /* should never happen */
+                /*  永远不应该发生。 */ 
                 return b->debug.line_num;
             }
             p += ret;
@@ -6030,9 +5932,7 @@ static int find_line_num(JSContext *ctx, JSFunctionBytecode *b,
     return line_num;
 }
 
-/* in order to avoid executing arbitrary code during the stack trace
-   generation, we only look at simple 'name' properties containing a
-   string. */
+/*  为了避免在堆栈跟踪期间执行任意代码生成时，我们只查看包含弦乐。 */ 
 static const char *get_func_name(JSContext *ctx, JSValueConst func)
 {
     JSProperty *pr;
@@ -6052,9 +5952,7 @@ static const char *get_func_name(JSContext *ctx, JSValueConst func)
     return JS_ToCString(ctx, val);
 }
 
-/* if filename != NULL, an additional level is added with the filename
-   and line number information (used for parse error). If 'pc' !=
-   NULL, it is used as the cur_pc value for the current stack frame */
+/*  如果FILENAME！=NULL，则使用文件名添加附加级别和行号信息(用于解析错误)。如果‘PC’！=空，则将其用作当前堆栈帧的cur_pc值。 */ 
 static void build_backtrace(JSContext *ctx, JSValueConst error_obj,
                             const char *filename, int line_num,
                             const uint8_t *cur_pc)
@@ -6141,7 +6039,7 @@ static JSValue JS_ThrowError(JSContext *ctx, JSErrorEnum error_num,
     obj = JS_NewObjectProtoClass(ctx, ctx->native_error_proto[error_num],
                                  JS_CLASS_ERROR);
     if (unlikely(JS_IsException(obj))) {
-        /* out of memory: throw JS_NULL to avoid recursing */
+        /*  内存不足：引发JS_NULL以避免递归。 */ 
         obj = JS_NULL;
     } else {
         JS_DefinePropertyValue(ctx, obj, JS_ATOM_message,
@@ -6285,7 +6183,7 @@ static JSValue JS_ThrowTypeErrorInvalidClass(JSContext *ctx, int class_id)
                              JS_AtomGetStr(ctx, buf, sizeof(buf), name));
 }
 
-/* return -1 (exception) or TRUE/FALSE */
+/*  返回-1(异常)或True/False。 */ 
 static int JS_SetPrototypeInternal(JSContext *ctx, JSValueConst obj,
                                    JSValueConst proto_val,
                                    BOOL throw_flag)
@@ -6330,7 +6228,7 @@ static int JS_SetPrototypeInternal(JSContext *ctx, JSValueConst obj,
         }
     }
     if (proto) {
-        /* check if there is a cycle */
+        /*  检查是否存在循环。 */ 
         p1 = proto;
         do {
             if (p1 == p) {
@@ -6341,7 +6239,7 @@ static int JS_SetPrototypeInternal(JSContext *ctx, JSValueConst obj,
                     return FALSE;
                 }
             }
-            /* Note: for Proxy objects, proto is NULL */
+            /*  注意：对于代理对象，proto为空。 */ 
             p1 = p1->shape->proto;
         } while (p1 != NULL);
         JS_DupValue(ctx, proto_val);
@@ -6356,13 +6254,13 @@ static int JS_SetPrototypeInternal(JSContext *ctx, JSValueConst obj,
     return TRUE;
 }
 
-/* return -1 (exception) or TRUE/FALSE */
+/*  返回-1(异常)或True/False。 */ 
 int JS_SetPrototype(JSContext *ctx, JSValueConst obj, JSValueConst proto_val)
 {
     return JS_SetPrototypeInternal(ctx, obj, proto_val, TRUE);
 }
 
-/* Return an Object, JS_NULL or JS_EXCEPTION in case of Proxy object. */
+/*  如果是Proxy对象，则返回对象JS_NULL或JS_EXCEPTION。 */ 
 JSValueConst JS_GetPrototype(JSContext *ctx, JSValueConst val)
 {
     JSObject *p;
@@ -6421,7 +6319,7 @@ JSValueConst JS_GetPrototype(JSContext *ctx, JSValueConst val)
     return val;
 }
 
-/* return TRUE, FALSE or (-1) in case of exception */
+/*  如果出现异常，则返回True、False或(-1。 */ 
 static int JS_OrdinaryIsInstanceOf(JSContext *ctx, JSValueConst val,
                                    JSValueConst obj)
 {
@@ -6438,7 +6336,7 @@ static int JS_OrdinaryIsInstanceOf(JSContext *ctx, JSValueConst val,
         return JS_IsInstanceOf(ctx, val, s->func_obj);
     }
 
-    /* Only explicitly boxed values are instances of constructors */
+    /*  只有显式装箱的值才是构造函数的实例。 */ 
     if (JS_VALUE_GET_TAG(val) != JS_TAG_OBJECT)
         return FALSE;
     ret = FALSE;
@@ -6479,7 +6377,7 @@ done:
     return ret;
 }
 
-/* return TRUE, FALSE or (-1) in case of exception */
+/*  如果出现异常，则返回True、False或(-1。 */ 
 int JS_IsInstanceOf(JSContext *ctx, JSValueConst val, JSValueConst obj)
 {
     JSValue method;
@@ -6495,7 +6393,7 @@ int JS_IsInstanceOf(JSContext *ctx, JSValueConst val, JSValueConst obj)
         return JS_ToBoolFree(ctx, ret);
     }
 
-    /* legacy case */
+    /*  遗留案例。 */ 
     if (!JS_IsFunction(ctx, obj)) {
     fail:
         JS_ThrowTypeError(ctx, "invalid 'instanceof' right operand");
@@ -6547,7 +6445,7 @@ JSValue JS_GetPropertyInternal(JSContext *ctx, JSValueConst obj,
         default:
             break;
         }
-        /* cannot raise an exception */
+        /*  无法引发异常。 */ 
         p = JS_VALUE_GET_OBJ(JS_GetPrototype(ctx, obj));
         if (!p)
             return JS_UNDEFINED;
@@ -6558,14 +6456,14 @@ JSValue JS_GetPropertyInternal(JSContext *ctx, JSValueConst obj,
     for(;;) {
         prs = find_own_property(&pr, p, prop);
         if (prs) {
-            /* found */
+            /*  发现。 */ 
             if (unlikely(prs->flags & JS_PROP_TMASK)) {
                 if ((prs->flags & JS_PROP_TMASK) == JS_PROP_GETSET) {
                     if (unlikely(!pr->u.getset.getter)) {
                         return JS_UNDEFINED;
                     } else {
                         JSValue func = JS_MKPTR(JS_TAG_OBJECT, pr->u.getset.getter);
-                        /* Note: the field could be removed in the getter */
+                        /*  注意：可以在getter中删除该字段。 */ 
                         func = JS_DupValue(ctx, func);
                         return JS_CallFree(ctx, func, this_obj, 0, NULL);
                     }
@@ -6575,7 +6473,7 @@ JSValue JS_GetPropertyInternal(JSContext *ctx, JSValueConst obj,
                         return JS_ThrowReferenceErrorUninitialized(ctx, prs->atom);
                     return JS_DupValue(ctx, val);
                 } else if ((prs->flags & JS_PROP_TMASK) == JS_PROP_AUTOINIT) {
-                    /* Instantiate property and retry */
+                    /*  实例化属性并重试。 */ 
                     if (JS_AutoInitProperty(ctx, p, prop, pr))
                         return JS_EXCEPTION;
                     continue;
@@ -6585,12 +6483,12 @@ JSValue JS_GetPropertyInternal(JSContext *ctx, JSValueConst obj,
             }
         }
         if (unlikely(p->is_exotic)) {
-            /* exotic behaviors */
+            /*  异国情调。 */ 
             if (p->fast_array) {
                 if (__JS_AtomIsTaggedInt(prop)) {
                     uint32_t idx = __JS_AtomToUInt32(prop);
                     if (idx < p->u.array.count) {
-                        /* we avoid duplicating the code */
+                        /*  我们避免重复代码。 */ 
                         return JS_GetPropertyUint32(ctx, JS_MKPTR(JS_TAG_OBJECT, p), idx);
                     } else if (p->class_id >= JS_CLASS_UINT8C_ARRAY &&
                                p->class_id <= JS_CLASS_FLOAT64_ARRAY) {
@@ -6613,7 +6511,7 @@ JSValue JS_GetPropertyInternal(JSContext *ctx, JSValueConst obj,
                 const JSClassExoticMethods *em = ctx->rt->class_array[p->class_id].exotic;
                 if (em) {
                     if (em->get_property) {
-                        /* XXX: should pass throw_ref_error */
+                        /*  XXX：应传递Throw_REF_Error。 */ 
                         return em->get_property(ctx, JS_MKPTR(JS_TAG_OBJECT, p),
                                                 prop, this_obj);
                     }
@@ -6654,8 +6552,7 @@ static JSValue JS_ThrowTypeErrorPrivateNotFound(JSContext *ctx, JSAtom atom)
                       JS_AtomGetStr(ctx, buf, sizeof(buf), atom));
 }
 
-/* Private fields can be added even on non extensible objects or
-   Proxies */
+/*  即使在不可扩展的对象上也可以添加私有字段代理服务器。 */ 
 static int JS_DefinePrivateField(JSContext *ctx, JSValueConst obj,
                                  JSValueConst name, JSValue val)
 {
@@ -6668,7 +6565,7 @@ static int JS_DefinePrivateField(JSContext *ctx, JSValueConst obj,
         JS_ThrowTypeErrorNotAnObject(ctx);
         goto fail;
     }
-    /* safety check */
+    /*  安全检查。 */ 
     if (unlikely(JS_VALUE_GET_TAG(name) != JS_TAG_SYMBOL)) {
         JS_ThrowTypeErrorNotASymbol(ctx);
         goto fail;
@@ -6702,7 +6599,7 @@ static JSValue JS_GetPrivateField(JSContext *ctx, JSValueConst obj,
 
     if (unlikely(JS_VALUE_GET_TAG(obj) != JS_TAG_OBJECT))
         return JS_ThrowTypeErrorNotAnObject(ctx);
-    /* safety check */
+    /*  安全检查。 */ 
     if (unlikely(JS_VALUE_GET_TAG(name) != JS_TAG_SYMBOL))
         return JS_ThrowTypeErrorNotASymbol(ctx);
     prop = js_symbol_to_atom(ctx, JS_VALUE_CAST name);
@@ -6727,7 +6624,7 @@ static int JS_SetPrivateField(JSContext *ctx, JSValueConst obj,
         JS_ThrowTypeErrorNotAnObject(ctx);
         goto fail;
     }
-    /* safety check */
+    /*  安全检查。 */ 
     if (unlikely(JS_VALUE_GET_TAG(name) != JS_TAG_SYMBOL)) {
         JS_ThrowTypeErrorNotASymbol(ctx);
         goto fail;
@@ -6763,7 +6660,7 @@ static int JS_AddBrand(JSContext *ctx, JSValueConst obj, JSValueConst home_obj)
         brand = JS_NewSymbolFromAtom(ctx, JS_ATOM_brand, JS_ATOM_TYPE_PRIVATE);
         if (JS_IsException(brand))
             return -1;
-        /* if the brand is not present, add it */
+        /*  如果该品牌不存在，则添加它。 */ 
         pr = add_property(ctx, p, JS_ATOM_Private_brand, JS_PROP_C_W_E);
         if (!pr) {
             JS_FreeValue(ctx, brand);
@@ -6796,7 +6693,7 @@ static int JS_CheckBrand(JSContext *ctx, JSValueConst obj, JSValueConst func)
     JSProperty *pr;
     JSValueConst brand;
     
-    /* get the home object of 'func' */
+    /*  获取‘func’的主对象。 */ 
     if (unlikely(JS_VALUE_GET_TAG(func) != JS_TAG_OBJECT)) {
     not_obj:
         JS_ThrowTypeErrorNotAnObject(ctx);
@@ -6814,11 +6711,11 @@ static int JS_CheckBrand(JSContext *ctx, JSValueConst obj, JSValueConst func)
         return -1;
     }
     brand = pr->u.value;
-    /* safety check */
+    /*  安全检查。 */ 
     if (unlikely(JS_VALUE_GET_TAG(brand) != JS_TAG_SYMBOL))
         goto not_obj;
     
-    /* get the brand array of 'obj' */
+    /*  获取‘obj’的品牌数组。 */ 
     if (unlikely(JS_VALUE_GET_TAG(obj) != JS_TAG_OBJECT))
         goto not_obj;
     p = JS_VALUE_GET_OBJ(obj);
@@ -6859,8 +6756,7 @@ static void js_free_prop_enum(JSContext *ctx, JSPropertyEnum *tab, uint32_t len)
     }
 }
 
-/* return < 0 in case if exception, 0 if OK. ptab and its atoms must
-   be freed by the user. */
+/*  如果异常，则返回&lt;0；如果正常，则返回0。PTAB及其原子必须被用户释放。 */ 
 static int __exception JS_GetOwnPropertyNamesInternal(JSContext *ctx,
                                                       JSPropertyEnum **ptab,
                                                       uint32_t *plen,
@@ -6877,11 +6773,11 @@ static int __exception JS_GetOwnPropertyNamesInternal(JSContext *ctx,
     uint32_t num_key;
     JSAtomKindEnum kind;
     
-    /* clear pointer for consistency in case of failure */
+    /*  为故障情况下的一致性清除指针。 */ 
     *ptab = NULL;
     *plen = 0;
 
-    /* compute the number of returned properties */
+    /*  计算返回的属性数量。 */ 
     num_keys_count = 0;
     str_keys_count = 0;
     sym_keys_count = 0;
@@ -6895,8 +6791,7 @@ static int __exception JS_GetOwnPropertyNamesInternal(JSContext *ctx,
             kind = JS_AtomGetKind(ctx, atom);
             if ((!(flags & JS_GPN_ENUM_ONLY) || is_enumerable) &&
                 ((flags >> kind) & 1) != 0) {
-                /* need to raise an exception in case of the module
-                   name space (implicit GetOwnProperty) */
+                /*  需要在模块的情况下引发异常命名空间(隐式GetOwnProperty)。 */ 
                 if (unlikely((prs->flags & JS_PROP_TMASK) == JS_PROP_VARREF) &&
                     (flags & (JS_GPN_SET_ENUM | JS_GPN_ENUM_ONLY))) {
                     JSVarRef *var_ref = p->prop[i].u.var_ref;
@@ -6918,8 +6813,7 @@ static int __exception JS_GetOwnPropertyNamesInternal(JSContext *ctx,
 
     if (p->is_exotic) {
         if (p->fast_array) {
-            /* the implicit GetOwnProperty raises an exception if the
-               typed array is detached */
+            /*  隐式GetOwnProperty在以下情况下引发异常已分离类型化数组。 */ 
             if ((flags & (JS_GPN_SET_ENUM | JS_GPN_ENUM_ONLY)) &&
                  (p->class_id >= JS_CLASS_UINT8C_ARRAY &&
                   p->class_id <= JS_CLASS_FLOAT64_ARRAY) &&
@@ -6943,7 +6837,7 @@ static int __exception JS_GetOwnPropertyNamesInternal(JSContext *ctx,
                         if (flags & (JS_GPN_SET_ENUM | JS_GPN_ENUM_ONLY)) {
                             JSPropertyDescriptor desc;
                             int res;
-                            /* set the "is_enumerable" field if necessary */
+                            /*  如有必要，设置“IS_ENUMERABLE”字段。 */ 
                             res = JS_GetOwnPropertyInternal(ctx, &desc, p, atom);
                             if (res < 0) {
                                 js_free_prop_enum(ctx, tab_exotic, exotic_count);
@@ -6971,10 +6865,10 @@ static int __exception JS_GetOwnPropertyNamesInternal(JSContext *ctx,
         }
     }
 
-    /* fill them */
+    /*  填满它们。 */ 
 
     atom_count = num_keys_count + str_keys_count + sym_keys_count;
-    /* avoid allocating 0 bytes */
+    /*  避免分配0字节。 */ 
     tab_atom = js_malloc(ctx, sizeof(tab_atom[0]) * max_int(atom_count, 1));
     if (!tab_atom) {
         js_free_prop_enum(ctx, tab_exotic, exotic_count);
@@ -7070,9 +6964,7 @@ int JS_GetOwnPropertyNames(JSContext *ctx, JSPropertyEnum **ptab,
                                           JS_VALUE_GET_OBJ(obj), flags);
 }
 
-/* Return -1 if exception,
-   FALSE if the property does not exist, TRUE if it exists. If TRUE is
-   returned, the property descriptor 'desc' is filled present. */
+/*  如果异常，则返回-1，如果该属性不存在，则为False；如果该属性存在，则为True。如果True为返回时，属性描述符‘desc’将填充Present。 */ 
 static int JS_GetOwnPropertyInternal(JSContext *ctx, JSPropertyDescriptor *desc,
                                      JSObject *p, JSAtom prop)
 {
@@ -7102,7 +6994,7 @@ retry:
                     }
                     desc->value = JS_DupValue(ctx, val);
                 } else if ((prs->flags & JS_PROP_TMASK) == JS_PROP_AUTOINIT) {
-                    /* Instantiate property and retry */
+                    /*  实例化属性并重试。 */ 
                     if (JS_AutoInitProperty(ctx, p, prop, pr))
                         return -1;
                     goto retry;
@@ -7111,21 +7003,21 @@ retry:
                 desc->value = JS_DupValue(ctx, pr->u.value);
             }
         } else {
-            /* for consistency, send the exception even if desc is NULL */
+            /*  为保持一致性，即使desc为空也发送异常。 */ 
             if (unlikely((prs->flags & JS_PROP_TMASK) == JS_PROP_VARREF)) {
                 if (unlikely(JS_IsUninitialized(*pr->u.var_ref->pvalue))) {
                     JS_ThrowReferenceErrorUninitialized(ctx, prs->atom);
                     return -1;
                 }
             } else if ((prs->flags & JS_PROP_TMASK) == JS_PROP_AUTOINIT) {
-                /* nothing to do: delay instantiation until actual value and/or attributes are read */
+                /*  不做任何事情：延迟实例化，直到读取实际值和/或属性。 */ 
             }
         }
         return TRUE;
     }
     if (p->is_exotic) {
         if (p->fast_array) {
-            /* specific case for fast arrays */
+            /*  FAST阵列的特定情况。 */ 
             if (__JS_AtomIsTaggedInt(prop)) {
                 uint32_t idx;
                 idx = __JS_AtomToUInt32(prop);
@@ -7176,7 +7068,7 @@ int JS_GetOwnProperty(JSContext *ctx, JSPropertyDescriptor *desc,
     return JS_GetOwnPropertyInternal(ctx, desc, JS_VALUE_GET_OBJ(obj), prop);
 }
 
-/* return -1 if exception (Proxy object only) or TRUE/FALSE */
+/*  如果异常(仅代理对象)或TRUE/FALSE，则返回-1。 */ 
 int JS_IsExtensible(JSContext *ctx, JSValueConst obj)
 {
     JSObject *p;
@@ -7190,7 +7082,7 @@ int JS_IsExtensible(JSContext *ctx, JSValueConst obj)
         return p->extensible;
 }
 
-/* return -1 if exception (Proxy object only) or TRUE/FALSE */
+/*  如果异常(仅代理对象)或TRUE/FALSE，则返回-1。 */ 
 int JS_PreventExtensions(JSContext *ctx, JSValueConst obj)
 {
     JSObject *p;
@@ -7204,7 +7096,7 @@ int JS_PreventExtensions(JSContext *ctx, JSValueConst obj)
     return TRUE;
 }
 
-/* return -1 if exception otherwise TRUE or FALSE */
+/*  如果异常为True或False，则返回-1。 */ 
 int JS_HasProperty(JSContext *ctx, JSValueConst obj, JSAtom prop)
 {
     JSObject *p;
@@ -7228,8 +7120,7 @@ int JS_HasProperty(JSContext *ctx, JSValueConst obj, JSAtom prop)
             if (ret != 0) {
                 if (ret < 0)
                     return -1;
-                /* the detached array test was done in
-                   JS_GetOwnPropertyInternal() */
+                /*  分离的阵列测试是在JS_GetOwnPropertyInternal()。 */ 
                 return FALSE;
             }
         }
@@ -7240,14 +7131,14 @@ int JS_HasProperty(JSContext *ctx, JSValueConst obj, JSAtom prop)
     return FALSE;
 }
 
-/* val must be a symbol */
+/*  VAL必须是一个符号。 */ 
 static JSAtom js_symbol_to_atom(JSContext *ctx, JSValue val)
 {
     JSAtomStruct *p = JS_VALUE_GET_PTR(val);
     return js_get_atom_index(ctx->rt, p);
 }
 
-/* return JS_ATOM_NULL in case of exception */
+/*  异常情况下返回JS_ATOM_NULL。 */ 
 JSAtom JS_ValueToAtom(JSContext *ctx, JSValueConst val)
 {
     JSAtom atom;
@@ -7255,7 +7146,7 @@ JSAtom JS_ValueToAtom(JSContext *ctx, JSValueConst val)
     tag = JS_VALUE_GET_TAG(val);
     if (tag == JS_TAG_INT &&
         (uint32_t)JS_VALUE_GET_INT(val) <= JS_ATOM_MAX_INT) {
-        /* fast path for integer values */
+        /*  整数值的快速路径。 */ 
         atom = __JS_AtomFromUInt32(JS_VALUE_GET_INT(val));
     } else if (tag == JS_TAG_SYMBOL) {
         JSAtomStruct *p = JS_VALUE_GET_PTR(val);
@@ -7284,7 +7175,7 @@ static JSValue JS_GetPropertyValue(JSContext *ctx, JSValueConst this_obj,
                JS_VALUE_GET_TAG(prop) == JS_TAG_INT)) {
         JSObject *p;
         uint32_t idx, len;
-        /* fast path for array access */
+        /*  阵列访问的快速路径。 */ 
         p = JS_VALUE_GET_OBJ(this_obj);
         idx = JS_VALUE_GET_INT(prop);
         len = (uint32_t)p->u.array.count;
@@ -7338,11 +7229,7 @@ JSValue JS_GetPropertyUint32(JSContext *ctx, JSValueConst this_obj,
     return JS_GetPropertyValue(ctx, this_obj, JS_NewUint32(ctx, idx));
 }
 
-/* Check if an object has a generalized numeric property. Return value:
-   -1 for exception,
-   TRUE if property exists, stored into *pval,
-   FALSE if proprty does not exist.
- */
+/*  检查对象是否具有泛型数值属性。返回值：对于例外情况，如果属性存在并存储到*pval中，则为True如果proprty不存在，则为False。 */ 
 static int JS_TryGetPropertyInt64(JSContext *ctx, JSValueConst obj, int64_t idx, JSValue *pval)
 {
     JSValue val = JS_UNDEFINED;
@@ -7350,7 +7237,7 @@ static int JS_TryGetPropertyInt64(JSContext *ctx, JSValueConst obj, int64_t idx,
     int present;
 
     if (likely((uint64_t)idx <= JS_ATOM_MAX_INT)) {
-        /* fast path */
+        /*  快速路径。 */ 
         present = JS_HasProperty(ctx, obj, __JS_AtomFromUInt32(idx));
         if (present > 0) {
             val = JS_GetPropertyValue(ctx, obj, JS_NewInt32(ctx, idx));
@@ -7380,7 +7267,7 @@ static JSValue JS_GetPropertyInt64(JSContext *ctx, JSValueConst obj, int64_t idx
     JSValue val;
 
     if ((uint64_t)idx <= INT32_MAX) {
-        /* fast path for fast arrays */
+        /*  FAST阵列的快速路径。 */ 
         return JS_GetPropertyValue(ctx, obj, JS_NewInt32(ctx, idx));
     }
     prop = JS_NewAtomInt64(ctx, idx);
@@ -7403,8 +7290,7 @@ JSValue JS_GetPropertyStr(JSContext *ctx, JSValueConst this_obj,
     return ret;
 }
 
-/* Note: the property value is not initialized. Return NULL if memory
-   error. */
+/*  注意：属性值未初始化。如果是内存，则返回NULL错误。 */ 
 static JSProperty *add_property(JSContext *ctx,
                                 JSObject *p, JSAtom prop, int prop_flags)
 {
@@ -7412,11 +7298,11 @@ static JSProperty *add_property(JSContext *ctx,
 
     sh = p->shape;
     if (sh->is_hashed) {
-        /* try to find an existing shape */
+        /*  尝试查找现有形状。 */ 
         new_sh = find_hashed_shape_prop(ctx->rt, sh, prop, prop_flags);
         if (new_sh) {
-            /* matching shape found: use it */
-            /*  the property array may need to be resized */
+            /*  找到匹配的形状：使用它。 */ 
+            /*  可能需要调整属性数组的大小。 */ 
             if (new_sh->prop_size != sh->prop_size) {
                 JSProperty *new_prop;
                 new_prop = js_realloc(ctx, p->prop, sizeof(p->prop[0]) *
@@ -7429,11 +7315,11 @@ static JSProperty *add_property(JSContext *ctx,
             js_free_shape(ctx->rt, sh);
             return &p->prop[new_sh->prop_count - 1];
         } else if (sh->header.ref_count != 1) {
-            /* if the shape is shared, clone it */
+            /*  如果该形状是共享的，请克隆它。 */ 
             new_sh = js_clone_shape(ctx, sh);
             if (!new_sh)
                 return NULL;
-            /* hash the cloned shape */
+            /*  对克隆的形状进行哈希处理。 */ 
             new_sh->is_hashed = TRUE;
             js_shape_hash_link(ctx->rt, new_sh);
             js_free_shape(ctx->rt, p->shape);
@@ -7446,8 +7332,7 @@ static JSProperty *add_property(JSContext *ctx,
     return &p->prop[p->shape->prop_count - 1];
 }
 
-/* can be called on Array or Arguments objects. return < 0 if
-   memory alloc error. */
+/*  可以在数组或参数对象上调用。如果满足以下条件，则返回&lt;0内存分配错误。 */ 
 static no_inline __exception int convert_fast_array_to_array(JSContext *ctx,
                                                              JSObject *p)
 {
@@ -7459,7 +7344,7 @@ static no_inline __exception int convert_fast_array_to_array(JSContext *ctx,
     if (js_shape_prepare_update(ctx, p, NULL))
         return -1;
     len = p->u.array.count;
-    /* resize the properties once to simplify the error handling */
+    /*  调整属性大小一次以简化错误处理。 */ 
     sh = p->shape;
     new_count = sh->prop_count + len;
     if (new_count > sh->prop_size) {
@@ -7469,14 +7354,13 @@ static no_inline __exception int convert_fast_array_to_array(JSContext *ctx,
 
     tab = p->u.array.u.values;
     for(i = 0; i < len; i++) {
-        /* add_property cannot fail here but
-           __JS_AtomFromUInt32(i) fails for i > INT32_MAX */
+        /*  Add_Property在此处不能失败，但由于I&gt;INT32_MAX，__JS_ATOM FromUInt32(I)失败。 */ 
         pr = add_property(ctx, p, __JS_AtomFromUInt32(i), JS_PROP_C_W_E);
         pr->u.value = *tab++;
     }
     js_free(ctx, p->u.array.u.values);
     p->u.array.count = 0;
-    p->u.array.u.values = NULL; /* fail safe */
+    p->u.array.u.values = NULL; /*  故障安全。 */ 
     p->u.array.u1.size = 0;
     p->fast_array = 0;
     return 0;
@@ -7496,31 +7380,31 @@ static int delete_property(JSContext *ctx, JSObject *p, JSAtom atom)
     h = sh->prop_hash_end[-h1 - 1];
     prop = get_shape_prop(sh);
     lpr = NULL;
-    lpr_idx = 0;   /* prevent warning */
+    lpr_idx = 0;   /*  防止警告。 */ 
     while (h != 0) {
         pr = &prop[h - 1];
         if (likely(pr->atom == atom)) {
-            /* found ! */
+            /*  找到了！ */ 
             if (!(pr->flags & JS_PROP_CONFIGURABLE))
                 return FALSE;
-            /* realloc the shape if needed */
+            /*  如果需要，请重新锁定形状。 */ 
             if (lpr)
                 lpr_idx = lpr - get_shape_prop(sh);
             if (js_shape_prepare_update(ctx, p, &pr))
                 return -1;
             sh = p->shape;
-            /* remove property */
+            /*  删除属性。 */ 
             if (lpr) {
                 lpr = get_shape_prop(sh) + lpr_idx;
                 lpr->hash_next = pr->hash_next;
             } else {
                 sh->prop_hash_end[-h1 - 1] = pr->hash_next;
             }
-            /* free the entry */
+            /*  释放条目。 */ 
             pr1 = &p->prop[h - 1];
             free_property(ctx->rt, pr1, pr->flags);
             JS_FreeAtom(ctx, pr->atom);
-            /* put default values */
+            /*  放置缺省值。 */ 
             pr->flags = 0;
             pr->atom = JS_ATOM_NULL;
             pr1->u.value = JS_UNDEFINED;
@@ -7537,7 +7421,7 @@ static int delete_property(JSContext *ctx, JSObject *p, JSAtom atom)
                 idx < p->u.array.count) {
                 if (p->class_id == JS_CLASS_ARRAY ||
                     p->class_id == JS_CLASS_ARGUMENTS) {
-                    /* Special case deleting the last element of a fast Array */
+                    /*  特殊情况下删除FAST数组的最后一个元素。 */ 
                     if (idx == p->u.array.count - 1) {
                         JS_FreeValue(ctx, p->u.array.u.values[idx]);
                         p->u.array.count = idx;
@@ -7547,7 +7431,7 @@ static int delete_property(JSContext *ctx, JSObject *p, JSAtom atom)
                         return -1;
                     goto redo;
                 } else {
-                    return FALSE; /* not configurable */
+                    return FALSE; /*  不可配置。 */ 
                 }
             }
         } else {
@@ -7557,7 +7441,7 @@ static int delete_property(JSContext *ctx, JSObject *p, JSAtom atom)
             }
         }
     }
-    /* not found */
+    /*  未找到。 */ 
     return TRUE;
 }
 
@@ -7567,7 +7451,7 @@ static int call_setter(JSContext *ctx, JSObject *setter,
     JSValue ret, func;
     if (likely(setter)) {
         func = JS_MKPTR(JS_TAG_OBJECT, setter);
-        /* Note: the field could be removed in the setter */
+        /*  注意：可以在setter中删除该字段。 */ 
         func = JS_DupValue(ctx, func);
         ret = JS_CallFree(ctx, func, this_obj, 1, (JSValueConst *)&val);
         JS_FreeValue(ctx, val);
@@ -7581,12 +7465,12 @@ static int call_setter(JSContext *ctx, JSObject *setter,
             JS_ThrowTypeError(ctx, "no setter for property");
             return -1;
         }
-        /* XXX: should return FALSE? */
+        /*  XXX：应该返回FALSE吗？ */ 
     }
     return TRUE;
 }
 
-/* set the array length and remove the array elements if necessary. */
+/*  设置数组长度并删除数组el */ 
 static int set_array_length(JSContext *ctx, JSObject *p, JSProperty *prop,
                             JSValue val, int flags)
 {
@@ -7610,8 +7494,7 @@ static int set_array_length(JSContext *ctx, JSObject *p, JSProperty *prop,
         prop->u.value = JS_NewUint32(ctx, len);
 #endif
     } else {
-        /* Note: length is always a uint32 because the object is an
-           array */
+        /*   */ 
         JS_ToUint32(ctx, &cur_len, prop->u.value);
         if (len < cur_len) {
             uint32_t d;
@@ -7623,22 +7506,19 @@ static int set_array_length(JSContext *ctx, JSObject *p, JSProperty *prop,
             if (d <= sh->prop_count) {
                 JSAtom atom;
 
-                /* faster to iterate */
+                /*   */ 
                 while (cur_len > len) {
                     atom = JS_NewAtomUInt32(ctx, cur_len - 1);
                     ret = delete_property(ctx, p, atom);
                     JS_FreeAtom(ctx, atom);
                     if (unlikely(!ret)) {
-                        /* unlikely case: property is not
-                           configurable */
+                        /*   */ 
                         break;
                     }
                     cur_len--;
                 }
             } else {
-                /* faster to iterate thru all the properties. Need two
-                   passes in case one of the property is not
-                   configurable */
+                /*  迭代所有属性的速度更快。需要两个如果其中一个属性不是可配置。 */ 
                 cur_len = len;
                 for(i = 0, pr = get_shape_prop(sh); i < sh->prop_count;
                     i++, pr++) {
@@ -7656,9 +7536,9 @@ static int set_array_length(JSContext *ctx, JSObject *p, JSProperty *prop,
                     if (pr->atom != JS_ATOM_NULL &&
                         JS_AtomIsArrayIndex(ctx, &idx, pr->atom)) {
                         if (idx >= cur_len) {
-                            /* remove the property */
+                            /*  删除该属性。 */ 
                             delete_property(ctx, p, pr->atom);
-                            /* WARNING: the shape may have been modified */
+                            /*  警告：形状可能已被修改。 */ 
                             sh = p->shape;
                             pr = get_shape_prop(sh) + i;
                         }
@@ -7676,17 +7556,15 @@ static int set_array_length(JSContext *ctx, JSObject *p, JSProperty *prop,
     return TRUE;
 }
 
-/* Preconditions: 'p' must be of class JS_CLASS_ARRAY, p->fast_array =
-   TRUE and p->extensible = TRUE */
+/*  前提条件：‘P’必须属于JS_CLASS_ARRAY类，p-&gt;FAST_ARRAY=True和p-&gt;eXtensible=True。 */ 
 static int add_fast_array_element(JSContext *ctx, JSObject *p,
                                   JSValue val, int flags)
 {
     uint32_t new_len, array_len;
-    /* extend the array by one */
-    /* XXX: convert to slow array if new_len > 2^31-1 elements */
+    /*  将阵列扩展一个。 */ 
+    /*  XXX：如果new_len&gt;2^31-1个元素，则转换为慢速数组。 */ 
     new_len = p->u.array.count + 1;
-    /* update the length if necessary. We assume that if the length is
-       not an integer, then if it >= 2^31.  */
+    /*  如有必要，请更新长度。我们假设如果长度是不是整数，则如果它&gt;=2^31。 */ 
     if (likely(JS_VALUE_GET_TAG(p->prop[0].u.value) == JS_TAG_INT)) {
         array_len = JS_VALUE_GET_INT(p->prop[0].u.value);
         if (new_len > array_len) {
@@ -7701,7 +7579,7 @@ static int add_fast_array_element(JSContext *ctx, JSObject *p,
         uint32_t new_size;
         size_t slack;
         JSValue *new_array_prop;
-        /* XXX: potential arithmetic overflow */
+        /*  XXX：潜在的算术溢出。 */ 
         new_size = max_int(new_len, p->u.array.u1.size * 3 / 2);
         new_array_prop = js_realloc2(ctx, p->u.array.u.values, sizeof(JSValue) * new_size, &slack);
         if (!new_array_prop) {
@@ -7724,7 +7602,7 @@ static void js_free_desc(JSContext *ctx, JSPropertyDescriptor *desc)
     JS_FreeValue(ctx, desc->value);
 }
 
-/* generic (and slower) version of JS_SetProperty() for Reflect.set() */
+/*  Reflect.set()的JS_SetProperty()的通用(和较慢)版本。 */ 
 static int JS_SetPropertyGeneric(JSContext *ctx,
                                  JSObject *p, JSAtom prop,
                                  JSValue val, JSValueConst this_obj,
@@ -7774,7 +7652,7 @@ static int JS_SetPropertyGeneric(JSContext *ctx,
 
     p = JS_VALUE_GET_OBJ(this_obj);
 
-    /* modify the property in this_obj if it already exists */
+    /*  修改this_obj中的属性(如果该属性已存在。 */ 
     ret = JS_GetOwnPropertyInternal(ctx, &desc, p, prop);
     if (ret < 0)
         return ret;
@@ -7811,10 +7689,7 @@ static int JS_SetPropertyGeneric(JSContext *ctx,
     return ret;
 }
 
-/* return -1 in case of exception or TRUE or FALSE. Warning: 'val' is
-   freed by the function. 'flags' is a bitmask of JS_PROP_NO_ADD,
-   JS_PROP_THROW or JS_PROP_THROW_STRICT. If JS_PROP_NO_ADD is set,
-   the new property is not added and an error is raised. */
+/*  如果出现异常或True或False，则返回-1。警告：‘val’为由该函数释放。标志是JS_PROP_NO_ADD的位掩码，JS_PROP_SHORT或JS_PROP_SHORT_STRICT。如果设置了JS_PROP_NO_ADD，不添加新属性，并引发错误。 */ 
 int JS_SetPropertyInternal(JSContext *ctx, JSValueConst this_obj,
                            JSAtom prop, JSValue val, int flags)
 {
@@ -7836,7 +7711,7 @@ int JS_SetPropertyInternal(JSContext *ctx, JSValueConst this_obj,
             JS_ThrowTypeError(ctx, "value has no property");
             return -1;
         default:
-            /* even on a primitive type we can have setters on the prototype */
+            /*  即使在基元类型上，我们也可以在原型上有setter。 */ 
             p = NULL;
             p1 = JS_VALUE_GET_OBJ(JS_GetPrototype(ctx, this_obj));
             goto prototype_lookup;
@@ -7848,7 +7723,7 @@ retry:
     if (prs) {
         if (likely((prs->flags & (JS_PROP_TMASK | JS_PROP_WRITABLE |
                                   JS_PROP_LENGTH)) == JS_PROP_WRITABLE)) {
-            /* fast case */
+            /*  FAST案例。 */ 
             set_value(ctx, &pr->u.value, val);
             return TRUE;
         } else if ((prs->flags & (JS_PROP_LENGTH | JS_PROP_WRITABLE)) ==
@@ -7859,15 +7734,13 @@ retry:
         } else if ((prs->flags & JS_PROP_TMASK) == JS_PROP_GETSET) {
             return call_setter(ctx, pr->u.getset.setter, this_obj, val, flags);
         } else if ((prs->flags & JS_PROP_TMASK) == JS_PROP_VARREF) {
-            /* JS_PROP_WRITABLE is always true for variable
-               references, but they are write protected in module name
-               spaces. */
+            /*  对于变量，JS_PROP_WRITABLE始终为真引用，但它们在模块名称中是写保护的空格。 */ 
             if (p->class_id == JS_CLASS_MODULE_NS)
                 goto read_only_prop;
             set_value(ctx, pr->u.var_ref->pvalue, val);
             return TRUE;
         } else if ((prs->flags & JS_PROP_TMASK) == JS_PROP_AUTOINIT) {
-            /* Instantiate property and retry (potentially useless) */
+            /*  实例化属性并重试(可能无用)。 */ 
             if (JS_AutoInitProperty(ctx, p, prop, pr)) {
                 JS_FreeValue(ctx, val);
                 return -1;
@@ -7970,7 +7843,7 @@ retry:
             if ((prs->flags & JS_PROP_TMASK) == JS_PROP_GETSET) {
                 return call_setter(ctx, pr->u.getset.setter, this_obj, val, flags);
             } else if ((prs->flags & JS_PROP_TMASK) == JS_PROP_AUTOINIT) {
-                /* Instantiate property and retry (potentially useless) */
+                /*  实例化属性并重试(可能无用)。 */ 
                 if (JS_AutoInitProperty(ctx, p1, prop, pr))
                     return -1;
                 goto retry2;
@@ -8002,7 +7875,7 @@ retry:
         if (p->class_id == JS_CLASS_ARRAY && p->fast_array) {
             uint32_t idx = __JS_AtomToUInt32(prop);
             if (idx == p->u.array.count) {
-                /* fast case */
+                /*  FAST案例。 */ 
                 return add_fast_array_element(ctx, p, val, flags);
             } else {
                 goto generic_create_prop;
@@ -8030,7 +7903,7 @@ retry:
     return TRUE;
 }
 
-/* flags can be JS_PROP_THROW or JS_PROP_THROW_STRICT */
+/*  标志可以是JS_PROP_SHORT或JS_PROP_THROW_STRICT。 */ 
 static int JS_SetPropertyValue(JSContext *ctx, JSValueConst this_obj,
                                JSValue prop, JSValue val, int flags)
 {
@@ -8041,7 +7914,7 @@ static int JS_SetPropertyValue(JSContext *ctx, JSValueConst this_obj,
         double d;
         int32_t v;
 
-        /* fast path for array access */
+        /*  阵列访问的快速路径。 */ 
         p = JS_VALUE_GET_OBJ(this_obj);
         idx = JS_VALUE_GET_INT(prop);
         switch(p->class_id) {
@@ -8050,11 +7923,11 @@ static int JS_SetPropertyValue(JSContext *ctx, JSValueConst this_obj,
                 JSObject *p1;
                 JSShape *sh1;
 
-                /* fast path to add an element to the array */
+                /*  将元素添加到数组的快速路径。 */ 
                 if (idx != (uint32_t)p->u.array.count ||
                     !p->fast_array || !p->extensible)
                     goto slow_path;
-                /* check if prototype chain has a numeric property */
+                /*  检查原型链是否具有数值属性。 */ 
                 p1 = p->shape->proto;
                 while (p1 != NULL) {
                     sh1 = p1->shape;
@@ -8069,7 +7942,7 @@ static int JS_SetPropertyValue(JSContext *ctx, JSValueConst this_obj,
                     }
                     p1 = sh1->proto;
                 }
-                /* add element */
+                /*  添加元素。 */ 
                 return add_fast_array_element(ctx, p, val, flags);
             }
             set_value(ctx, &p->u.array.u.values[idx], val);
@@ -8082,8 +7955,7 @@ static int JS_SetPropertyValue(JSContext *ctx, JSValueConst this_obj,
         case JS_CLASS_UINT8C_ARRAY:
             if (JS_ToUint8ClampFree(ctx, &v, val))
                 return -1;
-            /* Note: the conversion can detach the typed array, so the
-               array bound check must be done after */
+            /*  注意：转换可以分离类型化数组，因此必须在以下时间之后执行数组边界检查。 */ 
             if (unlikely(idx >= (uint32_t)p->u.array.count))
                 goto ta_out_of_bound;
             p->u.array.u.uint8_ptr[idx] = v;
@@ -8115,7 +7987,7 @@ static int JS_SetPropertyValue(JSContext *ctx, JSValueConst this_obj,
 #ifdef CONFIG_BIGNUM
         case JS_CLASS_BIG_INT64_ARRAY:
         case JS_CLASS_BIG_UINT64_ARRAY:
-            /* XXX: need specific conversion function */
+            /*  XXX：需要特定的转换函数。 */ 
             {
                 int64_t v;
                 if (JS_ToBigInt64Free(ctx, &v, val))
@@ -8181,7 +8053,7 @@ int JS_SetPropertyInt64(JSContext *ctx, JSValueConst this_obj,
     int res;
 
     if ((uint64_t)idx <= INT32_MAX) {
-        /* fast path for fast arrays */
+        /*  FAST阵列的快速路径。 */ 
         return JS_SetPropertyValue(ctx, this_obj, JS_NewInt32(ctx, idx), val,
                                    JS_PROP_THROW);
     }
@@ -8206,10 +8078,7 @@ int JS_SetPropertyStr(JSContext *ctx, JSValueConst this_obj,
     return ret;
 }
 
-/* compute the property flags. For each flag: (JS_PROP_HAS_x forces
-   it, otherwise def_flags is used)
-   Note: makes assumption about the bit pattern of the flags
-*/
+/*  计算属性标志。对于每个旗帜：(JS_PROP_HAS_X FORCES它，否则使用def_flag)注意：对标志的位模式进行假设。 */ 
 static int get_prop_flags(int flags, int def_flags)
 {
     int mask;
@@ -8225,7 +8094,7 @@ static int JS_CreateProperty(JSContext *ctx, JSObject *p,
     JSProperty *pr;
     int ret, prop_flags;
 
-    /* add a new property or modify an existing exotic one */
+    /*  添加新属性或修改现有的外来属性。 */ 
     if (p->is_exotic) {
         if (p->class_id == JS_CLASS_ARRAY) {
             uint32_t idx, len;
@@ -8247,7 +8116,7 @@ static int JS_CreateProperty(JSContext *ctx, JSObject *p,
                         goto convert_to_array;
                     }
                 } else if (JS_AtomIsArrayIndex(ctx, &idx, prop)) {
-                    /* convert the fast array to normal array */
+                    /*  将快速阵列转换为普通阵列。 */ 
                 convert_to_array:
                     if (convert_fast_array_to_array(ctx, p))
                         return -1;
@@ -8257,15 +8126,14 @@ static int JS_CreateProperty(JSContext *ctx, JSObject *p,
                 JSProperty *plen;
                 JSShapeProperty *pslen;
             generic_array:
-                /* update the length field */
+                /*  更新长度字段。 */ 
                 plen = &p->prop[0];
                 JS_ToUint32(ctx, &len, plen->u.value);
                 if ((idx + 1) > len) {
                     pslen = get_shape_prop(p->shape);
                     if (unlikely(!(pslen->flags & JS_PROP_WRITABLE)))
                         return JS_ThrowTypeErrorReadOnly(ctx, flags, JS_ATOM_length);
-                    /* XXX: should update the length after defining
-                       the property */
+                    /*  XXX：定义后应更新长度该物业。 */ 
                     len = idx + 1;
                     set_value(ctx, &plen->u.value, JS_NewUint32(ctx, len));
                 }
@@ -8329,7 +8197,7 @@ static int JS_CreateProperty(JSContext *ctx, JSObject *p,
     return TRUE;
 }
 
-/* return FALSE if not OK */
+/*  如果不确定，则返回FALSE。 */ 
 static BOOL check_define_prop_flags(int prop_flags, int flags)
 {
     BOOL has_accessor, is_getset;
@@ -8351,7 +8219,7 @@ static BOOL check_define_prop_flags(int prop_flags, int flags)
             if (has_accessor != is_getset)
                 return FALSE;
             if (!has_accessor && !is_getset && !(prop_flags & JS_PROP_WRITABLE)) {
-                /* not writable: cannot set the writable bit */
+                /*  不可写：无法设置可写位。 */ 
                 if ((flags & (JS_PROP_HAS_WRITABLE | JS_PROP_WRITABLE)) ==
                     (JS_PROP_HAS_WRITABLE | JS_PROP_WRITABLE))
                     return FALSE;
@@ -8361,19 +8229,19 @@ static BOOL check_define_prop_flags(int prop_flags, int flags)
     return TRUE;
 }
 
-/* ensure that the shape can be safely modified */
+/*  确保可以安全地修改形状。 */ 
 static int js_shape_prepare_update(JSContext *ctx, JSObject *p,
                                    JSShapeProperty **pprs)
 {
     JSShape *sh;
-    uint32_t idx = 0;    /* prevent warning */
+    uint32_t idx = 0;    /*  防止警告。 */ 
 
     sh = p->shape;
     if (sh->is_hashed) {
         if (sh->header.ref_count != 1) {
             if (pprs)
                 idx = *pprs - get_shape_prop(sh);
-            /* clone the shape (the resulting one is no longer hashed) */
+            /*  复制形状(生成的形状不再是散列的)。 */ 
             sh = js_clone_shape(ctx, sh);
             if (!sh)
                 return -1;
@@ -8400,16 +8268,7 @@ static int js_update_property_flags(JSContext *ctx, JSObject *p,
     return 0;
 }
 
-/* allowed flags:
-   JS_PROP_CONFIGURABLE, JS_PROP_WRITABLE, JS_PROP_ENUMERABLE
-   JS_PROP_HAS_GET, JS_PROP_HAS_SET, JS_PROP_HAS_VALUE,
-   JS_PROP_HAS_CONFIGURABLE, JS_PROP_HAS_WRITABLE, JS_PROP_HAS_ENUMERABLE,
-   JS_PROP_THROW, JS_PROP_NO_EXOTIC.
-   If JS_PROP_THROW is set, return an exception instead of FALSE.
-   if JS_PROP_NO_EXOTIC is set, do not call the exotic
-   define_own_property callback.
-   return -1 (exception), FALSE or TRUE.
-*/
+/*  允许的标志：JS_PROP_可配置、JS_PROP_WRITABLE、JS_PROP_ENUMPERABLEJS_PROP_HAS_GET、JS_PROP_HAS_SET、JS_PROP_HAS_VALUE、JS_PROP_HAS_CONFIGURATABLE、JS_PROP_HAS_WRITABLE、JS_PROP_HAS_EARTABLE、JS_PROP_SROW，JS_PROP_NO_EXTIONIC。如果设置了JS_PROP_SWORT，则返回异常而不是FALSE。如果设置了JS_PROP_NO_EXICAL，不要把异国情调称为定义_OWN_PROPERTY回调。返回-1(异常)，FALSE或TRUE。 */ 
 int JS_DefineProperty(JSContext *ctx, JSValueConst this_obj,
                       JSAtom prop, JSValueConst val,
                       JSValueConst getter, JSValueConst setter, int flags)
@@ -8428,7 +8287,7 @@ int JS_DefineProperty(JSContext *ctx, JSValueConst this_obj,
  redo_prop_update:
     prs = find_own_property(&pr, p, prop);
     if (prs) {
-        /* property already exists */
+        /*  属性已存在。 */ 
         if (!check_define_prop_flags(prs->flags, flags)) {
         not_configurable:
             return JS_ThrowTypeErrorOrFalse(ctx, flags, "property is not configurable");
@@ -8454,11 +8313,11 @@ int JS_DefineProperty(JSContext *ctx, JSValueConst this_obj,
                 if ((prs->flags & JS_PROP_TMASK) != JS_PROP_GETSET) {
                     if (js_shape_prepare_update(ctx, p, &prs))
                         return -1;
-                    /* convert to getset */
+                    /*  转换为getset。 */ 
                     if ((prs->flags & JS_PROP_TMASK) == JS_PROP_VARREF) {
                         free_var_ref(ctx->rt, pr->u.var_ref);
                     } else if ((prs->flags & JS_PROP_TMASK) == JS_PROP_AUTOINIT) {
-                        /* clear property and update */
+                        /*  清除属性并更新。 */ 
                         if (js_shape_prepare_update(ctx, p, &prs))
                             return -1;
                         prs->flags &= ~JS_PROP_TMASK;
@@ -8500,7 +8359,7 @@ int JS_DefineProperty(JSContext *ctx, JSValueConst this_obj,
                 }
             } else {
                 if ((prs->flags & JS_PROP_TMASK) == JS_PROP_GETSET) {
-                    /* convert to data descriptor */
+                    /*  转换为数据描述符。 */ 
                     if (js_shape_prepare_update(ctx, p, &prs))
                         return -1;
                     if (pr->u.getset.getter)
@@ -8510,9 +8369,9 @@ int JS_DefineProperty(JSContext *ctx, JSValueConst this_obj,
                     prs->flags &= ~(JS_PROP_TMASK | JS_PROP_WRITABLE);
                     pr->u.value = JS_UNDEFINED;
                 } else if ((prs->flags & JS_PROP_TMASK) == JS_PROP_VARREF) {
-                    /* Note: JS_PROP_VARREF is always writable */
+                    /*  注意：JS_PROP_VARREF始终是可写的。 */ 
                 } else if ((prs->flags & JS_PROP_TMASK) == JS_PROP_AUTOINIT) {
-                    /* clear property and update */
+                    /*  清除属性并更新。 */ 
                     if (js_shape_prepare_update(ctx, p, &prs))
                         return -1;
                     prs->flags &= ~JS_PROP_TMASK;
@@ -8531,9 +8390,7 @@ int JS_DefineProperty(JSContext *ctx, JSValueConst this_obj,
                     } else {
                         res = TRUE;
                     }
-                    /* still need to reset the writable flag if needed.
-                       The JS_PROP_LENGTH is reset to have the correct
-                       read-only behavior in JS_SetProperty(). */
+                    /*  如果需要，仍需要重置可写标志。JS_PROP_LENGTH被重置为具有正确的JS_SetProperty()中的只读行为。 */ 
                     if ((flags & (JS_PROP_HAS_WRITABLE | JS_PROP_WRITABLE)) ==
                         JS_PROP_HAS_WRITABLE) {
                         prs = get_shape_prop(p->shape);
@@ -8545,18 +8402,15 @@ int JS_DefineProperty(JSContext *ctx, JSValueConst this_obj,
                 } else if ((prs->flags & JS_PROP_TMASK) == JS_PROP_VARREF) {
                     if (flags & JS_PROP_HAS_VALUE) {
                         if (p->class_id == JS_CLASS_MODULE_NS) {
-                            /* JS_PROP_WRITABLE is always true for variable
-                               references, but they are write protected in module name
-                               spaces. */
+                            /*  对于变量，JS_PROP_WRITABLE始终为真引用，但它们在模块名称中是写保护的空格。 */ 
                             if (!js_same_value(ctx, val, *pr->u.var_ref->pvalue))
                                 goto not_configurable;
                         }
-                        /* update the reference */
+                        /*  更新引用。 */ 
                         set_value(ctx, pr->u.var_ref->pvalue,
                                   JS_DupValue(ctx, val));
                     }
-                    /* if writable is set to false, no longer a
-                       reference (for mapped arguments) */
+                    /*  如果Writable设置为False，则不再是引用(用于映射参数)。 */ 
                     if ((flags & (JS_PROP_HAS_WRITABLE | JS_PROP_WRITABLE)) == JS_PROP_HAS_WRITABLE) {
                         JSValue val1;
                         if (js_shape_prepare_update(ctx, p, &prs))
@@ -8567,7 +8421,7 @@ int JS_DefineProperty(JSContext *ctx, JSValueConst this_obj,
                         prs->flags &= ~(JS_PROP_TMASK | JS_PROP_WRITABLE);
                     }
                 } else if ((prs->flags & JS_PROP_TMASK) == JS_PROP_AUTOINIT) {
-                    /* XXX: should never happen, type was reset above */
+                    /*  XXX：永远不会发生，上面的类型已重置。 */ 
                     abort();
                 } else {
                     if (flags & JS_PROP_HAS_VALUE) {
@@ -8594,7 +8448,7 @@ int JS_DefineProperty(JSContext *ctx, JSValueConst this_obj,
         return TRUE;
     }
 
-    /* handle modification of fast array elements */
+    /*  处理FAST数组元素的修改。 */ 
     if (p->fast_array) {
         uint32_t idx;
         uint32_t prop_flags;
@@ -8624,7 +8478,7 @@ int JS_DefineProperty(JSContext *ctx, JSValueConst this_obj,
             int ret;
 
             if (!__JS_AtomIsTaggedInt(prop)) {
-                /* slow path with to handle all numeric indexes */
+                /*  用于处理所有数字索引的慢速路径。 */ 
                 num = JS_AtomIsNumericIndex1(ctx, prop);
                 if (JS_IsUndefined(num))
                     goto typed_array_done;
@@ -8648,7 +8502,7 @@ int JS_DefineProperty(JSContext *ctx, JSValueConst this_obj,
                     goto typed_array_oob;
             }
             idx = __JS_AtomToUInt32(prop);
-            /* if the typed array is detached, p->u.array.count = 0 */
+            /*  如果已分离类型化数组，则p-&gt;U.S.array.count=0。 */ 
             if (idx >= typed_array_get_length(ctx, p)) {
             typed_array_oob:
                 return JS_ThrowTypeErrorOrFalse(ctx, flags, "out-of-bound index in typed array");
@@ -8683,12 +8537,12 @@ static int JS_DefineAutoInitProperty(JSContext *ctx, JSValueConst this_obj,
     p = JS_VALUE_GET_OBJ(this_obj);
 
     if (find_own_property(&pr, p, prop)) {
-        /* property already exists */
+        /*  属性已存在。 */ 
         abort();
         return FALSE;
     }
 
-    /* Specialized CreateProperty */
+    /*  专业化的CreateProperty。 */ 
     pr = add_property(ctx, p, prop, (flags & JS_PROP_C_W_E) | JS_PROP_AUTOINIT);
     if (unlikely(!pr))
         return -1;
@@ -8698,7 +8552,7 @@ static int JS_DefineAutoInitProperty(JSContext *ctx, JSValueConst this_obj,
     return TRUE;
 }
 
-/* shortcut to add or redefine a new property value */
+/*  用于添加或重定义新属性值的快捷方式。 */ 
 int JS_DefinePropertyValue(JSContext *ctx, JSValueConst this_obj,
                            JSAtom prop, JSValue val, int flags)
 {
@@ -8750,7 +8604,7 @@ int JS_DefinePropertyValueStr(JSContext *ctx, JSValueConst this_obj,
     return ret;
 }
 
-/* shortcut to add getter & setter */
+/*  添加getter和setter的快捷方式。 */ 
 int JS_DefinePropertyGetSet(JSContext *ctx, JSValueConst this_obj,
                             JSAtom prop, JSValue getter, JSValue setter,
                             int flags)
@@ -8773,7 +8627,7 @@ static int JS_CreateDataPropertyUint32(JSContext *ctx, JSValueConst this_obj,
 }
 
 
-/* return TRUE if 'obj' has a non empty 'name' string */
+/*  如果‘obj’具有非空的‘name’字符串，则返回True。 */ 
 static BOOL js_object_has_name(JSContext *ctx, JSValueConst obj)
 {
     JSProperty *pr;
@@ -8835,8 +8689,8 @@ static JSValue JS_ThrowSyntaxErrorVarRedeclaration(JSContext *ctx, JSAtom prop)
                                JS_AtomGetStr(ctx, buf, sizeof(buf), prop));
 }
 
-/* flags is 0, DEFINE_GLOBAL_LEX_VAR or DEFINE_GLOBAL_FUNC_VAR */
-/* XXX: could support exotic global object. */
+/*  标志为0、DEFINE_GLOBAL_LEX_VAR或DEFINE_GLOBAL_FUNC_VAR。 */ 
+/*  XXX：可以支持外来全局对象。 */ 
 static int JS_CheckDefineGlobalVar(JSContext *ctx, JSAtom prop, int flags)
 {
     JSObject *p;
@@ -8845,7 +8699,7 @@ static int JS_CheckDefineGlobalVar(JSContext *ctx, JSAtom prop, int flags)
 
     p = JS_VALUE_GET_OBJ(ctx->global_obj);
     prs = find_own_property1(p, prop);
-    /* XXX: should handle JS_PROP_AUTOINIT */
+    /*  XXX：应处理JS_PROP_AUTOINIT。 */ 
     if (flags & DEFINE_GLOBAL_LEX_VAR) {
         if (prs && !(prs->flags & JS_PROP_CONFIGURABLE))
             goto fail_redeclaration;
@@ -8866,7 +8720,7 @@ static int JS_CheckDefineGlobalVar(JSContext *ctx, JSAtom prop, int flags)
             }
         }
     }
-    /* check if there already is a lexical declaration */
+    /*  检查是否已有词法声明。 */ 
     p = JS_VALUE_GET_OBJ(ctx->global_var_obj);
     prs = find_own_property1(p, prop);
     if (prs) {
@@ -8877,9 +8731,8 @@ static int JS_CheckDefineGlobalVar(JSContext *ctx, JSAtom prop, int flags)
     return 0;
 }
 
-/* def_flags is (0, DEFINE_GLOBAL_LEX_VAR) |
-   JS_PROP_CONFIGURABLE | JS_PROP_WRITABLE */
-/* XXX: could support exotic global object. */
+/*  定义标志为(0，DEFINE_GLOBAL_LEX_VAR)JS_PROP_可配置|JS_PROP_WRITABLE。 */ 
+/*  XXX：可以支持外来全局对象。 */ 
 static int JS_DefineGlobalVar(JSContext *ctx, JSAtom prop, int def_flags)
 {
     JSObject *p;
@@ -8911,8 +8764,8 @@ static int JS_DefineGlobalVar(JSContext *ctx, JSAtom prop, int def_flags)
     return 0;
 }
 
-/* 'def_flags' is 0 or JS_PROP_CONFIGURABLE. */
-/* XXX: could support exotic global object. */
+/*  DEF_FLAGS为0或JS_PROP_CONFIGURATABLE。 */ 
+/*  XXX：可以支持外来全局对象。 */ 
 static int JS_DefineGlobalFunction(JSContext *ctx, JSAtom prop,
                                    JSValueConst func, int def_flags)
 {
@@ -8941,11 +8794,11 @@ static JSValue JS_GetGlobalVar(JSContext *ctx, JSAtom prop,
     JSShapeProperty *prs;
     JSProperty *pr;
 
-    /* no exotic behavior is possible in global_var_obj */
+    /*  在global_var_obj中不可能有外来行为。 */ 
     p = JS_VALUE_GET_OBJ(ctx->global_var_obj);
     prs = find_own_property(&pr, p, prop);
     if (prs) {
-        /* XXX: should handle JS_PROP_TMASK properties */
+        /*  XXX：应处理JS_PROP_TMASK属性。 */ 
         if (unlikely(JS_IsUninitialized(pr->u.value)))
             return JS_ThrowReferenceErrorUninitialized(ctx, prs->atom);
         return JS_DupValue(ctx, pr->u.value);
@@ -8954,20 +8807,19 @@ static JSValue JS_GetGlobalVar(JSContext *ctx, JSAtom prop,
                                  ctx->global_obj, throw_ref_error);
 }
 
-/* construct a reference to a global variable */
+/*  构造对全局变量的引用。 */ 
 static int JS_GetGlobalVarRef(JSContext *ctx, JSAtom prop, JSValue *sp)
 {
     JSObject *p;
     JSShapeProperty *prs;
     JSProperty *pr;
 
-    /* no exotic behavior is possible in global_var_obj */
+    /*  在global_var_obj中不可能有外来行为。 */ 
     p = JS_VALUE_GET_OBJ(ctx->global_var_obj);
     prs = find_own_property(&pr, p, prop);
     if (prs) {
-        /* XXX: should handle JS_PROP_AUTOINIT properties? */
-        /* XXX: conformance: do these tests in
-           OP_put_var_ref/OP_get_var_ref ? */
+        /*  XXX：是否应该处理JS_PROP_AUTOINIT属性？ */ 
+        /*  XXX：一致性：在以下位置执行这些测试Op_put_var_ref/op_get_var_ref？ */ 
         if (unlikely(JS_IsUninitialized(pr->u.value))) {
             JS_ThrowReferenceErrorUninitialized(ctx, prs->atom);
             return -1;
@@ -8991,14 +8843,14 @@ static int JS_GetGlobalVarRef(JSContext *ctx, JSAtom prop, JSValue *sp)
     return 0;
 }
 
-/* use for strict variable access: test if the variable exists */
+/*  用于严格的变量访问：测试变量是否存在。 */ 
 static int JS_CheckGlobalVar(JSContext *ctx, JSAtom prop)
 {
     JSObject *p;
     JSShapeProperty *prs;
     int ret;
 
-    /* no exotic behavior is possible in global_var_obj */
+    /*  在global_var_obj中不可能有外来行为。 */ 
     p = JS_VALUE_GET_OBJ(ctx->global_var_obj);
     prs = find_own_property1(p, prop);
     if (prs) {
@@ -9011,10 +8863,7 @@ static int JS_CheckGlobalVar(JSContext *ctx, JSAtom prop)
     return ret;
 }
 
-/* flag = 0: normal variable write
-   flag = 1: initialize lexical variable
-   flag = 2: normal variable write, strict check was done before
-*/
+/*  标志=0：正常变量写入标志=1：初始化词法变量FLAG=2：正常变量写入，之前进行过严格检查。 */ 
 static int JS_SetGlobalVar(JSContext *ctx, JSAtom prop, JSValue val,
                            int flag)
 {
@@ -9023,11 +8872,11 @@ static int JS_SetGlobalVar(JSContext *ctx, JSAtom prop, JSValue val,
     JSProperty *pr;
     int flags;
 
-    /* no exotic behavior is possible in global_var_obj */
+    /*  在global_var_obj中不可能有外来行为。 */ 
     p = JS_VALUE_GET_OBJ(ctx->global_var_obj);
     prs = find_own_property(&pr, p, prop);
     if (prs) {
-        /* XXX: should handle JS_PROP_AUTOINIT properties? */
+        /*  XXX：是否应该处理JS_PROP_AUTOINIT属性？ */ 
         if (flag != 1) {
             if (unlikely(JS_IsUninitialized(pr->u.value))) {
                 JS_FreeValue(ctx, val);
@@ -9049,9 +8898,7 @@ static int JS_SetGlobalVar(JSContext *ctx, JSAtom prop, JSValue val,
     return JS_SetPropertyInternal(ctx, ctx->global_obj, prop, val, flags);
 }
 
-/* return -1, FALSE or TRUE. return FALSE if not configurable or
-   invalid object. return -1 in case of exception.
-   flags can be 0, JS_PROP_THROW or JS_PROP_THROW_STRICT */
+/*  返回-1，FALSE或TRUE。如果不可配置，则返回FALSE，或者无效对象。如果出现异常，返回-1。标志可以是0、JS_PROP_SHORT或JS_PROP_THROW_STRICT。 */ 
 int JS_DeleteProperty(JSContext *ctx, JSValueConst obj, JSAtom prop, int flags)
 {
     JSValue obj1;
@@ -9080,7 +8927,7 @@ int JS_DeletePropertyInt64(JSContext *ctx, JSValueConst obj, int64_t idx, int fl
     int res;
 
     if ((uint64_t)idx <= JS_ATOM_MAX_INT) {
-        /* fast path for fast arrays */
+        /*  FAST阵列的快速路径。 */ 
         return JS_DeleteProperty(ctx, obj, __JS_AtomFromUInt32(idx), flags);
     }
     prop = JS_NewAtomInt64(ctx, idx);
@@ -9150,7 +8997,7 @@ BOOL JS_IsError(JSContext *ctx, JSValueConst val)
     if (p->class_id == JS_CLASS_ERROR)
         return TRUE;
     if (ctx->is_error_property_enabled) {
-        /* check for a special property for test262 test suites */
+        /*  检查Test262测试套件的特殊属性。 */ 
         JSValue isError;
         isError = JS_GetPropertyStr(ctx, val, "isError");
         return JS_ToBoolFree(ctx, isError);
@@ -9159,13 +9006,13 @@ BOOL JS_IsError(JSContext *ctx, JSValueConst val)
     }
 }
 
-/* only used for test262 test suites */
+/*  仅用于测试262测试套件。 */ 
 void JS_EnableIsErrorProperty(JSContext *ctx, BOOL enable)
 {
     ctx->is_error_property_enabled = enable;
 }
 
-/* used to avoid catching interrupt exceptions */
+/*  用于避免捕获中断异常。 */ 
 BOOL JS_IsUncatchableError(JSContext *ctx, JSValueConst val)
 {
     JSObject *p;
@@ -9199,7 +9046,7 @@ void JS_SetOpaque(JSValue obj, void *opaque)
     }
 }
 
-/* return NULL if not an object of class class_id */
+/*  如果不是，则返回NULL */ 
 void *JS_GetOpaque(JSValueConst obj, JSClassID class_id)
 {
     JSObject *p;
@@ -9226,7 +9073,7 @@ void *JS_GetOpaque2(JSContext *ctx, JSValueConst obj, JSClassID class_id)
 #ifdef CONFIG_BIGNUM
 #define HINT_INTEGER 3
 #endif
-/* don't try Symbol.toPrimitive */
+/*   */ 
 #define HINT_FORCE_ORDINARY (1 << 4)
 
 static JSValue JS_ToPrimitiveFree(JSContext *ctx, JSValue val, int hint)
@@ -9244,8 +9091,7 @@ static JSValue JS_ToPrimitiveFree(JSContext *ctx, JSValue val, int hint)
         method = JS_GetProperty(ctx, val, JS_ATOM_Symbol_toPrimitive);
         if (JS_IsException(method))
             goto exception;
-        /* ECMA says *If exoticToPrim is not undefined* but tests in
-           test262 use null as a non callable converter */
+        /*   */ 
         if (!JS_IsUndefined(method) && !JS_IsNull(method)) {
             JSAtom atom;
             JSValue arg;
@@ -9382,9 +9228,9 @@ static int skip_spaces(const char *pc)
 
 #ifdef CONFIG_BIGNUM
 
-/* force big int type if integer result */
+/*  如果结果为整型，则强制使用大整型。 */ 
 #define BF_ATOF_BIG_INT     (1 << 30)
-/* return JS_EXCEPTION if invalid syntax. Otherwise return NaN */
+/*  如果语法无效则返回JS_EXCEPTION。否则返回NaN。 */ 
 #define BF_ATOF_THROW       (1 << 29)
 #define BF_ATOF_FLOAT64     (1 << 28)
 
@@ -9401,7 +9247,7 @@ static JSValue js_atof(JSContext *ctx, const char *p, const char **pp,
         prec = 53;
         flags |= bf_set_exp_bits(11) | BF_RNDN | BF_FLAG_SUBNORMAL;
     } else {
-        /* use the current precision */
+        /*  使用当前精度。 */ 
         prec = ctx->fp_env.prec;
         flags |= ctx->fp_env.flags;
     }
@@ -9417,7 +9263,7 @@ static JSValue js_atof(JSContext *ctx, const char *p, const char **pp,
         double d;
         bf_get_float64(a, &d, BF_RNDN);
         bf_delete(a);
-        /* return int or float64 */
+        /*  返回INT或FLOAT64。 */ 
         val = JS_NewFloat64(ctx, d);
     } else {
         val = JS_NewBigFloat(ctx, a);
@@ -9442,19 +9288,18 @@ static inline int to_digit(int c)
 }
 
 #define ATOD_INT_ONLY        (1 << 0)
-/* return JS_EXCEPTION if invalid syntax. Otherwise return NaN */
+/*  如果语法无效则返回JS_EXCEPTION。否则返回NaN。 */ 
 #define ATOD_THROW           (1 << 1)
-/* accept Oo and Ob prefixes in addition to 0x prefix if radix = 0 */
+/*  如果基数=0，则除0x前缀外，还接受Oo和Ob前缀。 */ 
 #define ATOD_ACCEPT_BIN_OCT  (1 << 2)
-/* if set return NaN if empty number string */
+/*  如果设置为空，则返回NaN。 */ 
 #define ATOD_NAN_IF_EMPTY    (1 << 3)
-/* accept O prefix as octal if radix == 0 and properly formed (Annex B) */
+/*  如果基数==0且格式正确，则接受O前缀为八进制(附件B)。 */ 
 #define ATOD_ACCEPT_LEGACY_OCTAL  (1 << 4)
-/* accept _ between digits as a digit separator */
+/*  ACCEPT_BETWING数字作为数字分隔符。 */ 
 #define ATOD_ACCEPT_UNDERSCORES  (1 << 5)
 
-/* radix = 0 accepts prefixes. radix = 16 also
-   accepts 0x prefix. radix must be 0 or between 2 and 36 */
+/*  基数=0接受前缀。基数=16也接受0x前缀。基数必须为0或介于2和36之间。 */ 
 static JSValue js_atod(JSContext *ctx, const char *str, const char **pp,
                        int radix, int flags)
 {
@@ -9463,7 +9308,7 @@ static JSValue js_atod(JSContext *ctx, const char *str, const char **pp,
     int is_neg, c, sep;
     double d;
 
-    /* optional separator between digits */
+    /*  数字之间可选的分隔符。 */ 
     sep = (flags & ATOD_ACCEPT_UNDERSCORES) ? '_' : 256;
 
     p = str + skip_spaces(str);
@@ -9507,7 +9352,7 @@ static JSValue js_atod(JSContext *ctx, const char *str, const char **pp,
         } else {
             goto no_prefix;
         }
-        /* there must be a digit after the prefix */
+        /*  前缀后面必须有一个数字。 */ 
         if (to_digit((uint8_t)*p) >= radix)
             goto fail;
     no_prefix: ;
@@ -9524,15 +9369,15 @@ static JSValue js_atod(JSContext *ctx, const char *str, const char **pp,
         uint64_t n_max, n;
         int int_exp;
 
-        /* skip leading zeros */
+        /*  跳过前导零。 */ 
         while (*p == '0')
             p++;
         n = 0;
         if (radix == 10)
-            n_max = ((uint64_t)-1 - 9) / 10; /* most common case */
+            n_max = ((uint64_t)-1 - 9) / 10; /*  最常见的情况。 */ 
         else
             n_max = ((uint64_t)-1 - (radix - 1)) / radix;
-        /* XXX: could be more precise */
+        /*  XXX：可以更准确地说。 */ 
         int_exp = 0;
         while (*p != '\0') {
             if (*p == sep && to_digit(p[1]) < radix)
@@ -9643,7 +9488,7 @@ static JSValue JS_ToNumberHintFree(JSContext *ctx, JSValue val,
             JS_FreeValue(ctx, val);
             return JS_ThrowTypeError(ctx, "cannot convert bigint to number");
         }
-        /* fall thru */
+        /*  失败。 */ 
     case JS_TAG_BIG_FLOAT:
 #endif
     case JS_TAG_FLOAT64:
@@ -9751,9 +9596,7 @@ static __exception int __JS_ToFloat64Free(JSContext *ctx, double *pres,
     case JS_TAG_BIG_FLOAT:
         {
             JSBigFloat *p = JS_VALUE_GET_PTR(val);
-            /* XXX: there can be a double rounding issue with some
-               primitives (such as JS_ToUint8ClampFree()), but it is
-               not critical to fix it. */
+            /*  XXX：可能会出现双舍入问题基本类型(如JS_ToUint8ClampFree())，但它是修复它并不重要。 */ 
             bf_get_float64(&p->num, &d, BF_RNDN);
             JS_FreeValue(ctx, val);
         }
@@ -9812,8 +9655,8 @@ static __maybe_unused JSValue JS_ToIntegerFree(JSContext *ctx, JSValue val)
             if (isnan(d)) {
                 ret = JS_NewInt32(ctx, 0);
             } else {
-                /* convert -0 to +0 */
-                /* XXX: should not be done here ? */
+                /*  将-0转换为+0。 */ 
+                /*  XXX：不应该在这里做吗？ */ 
                 d = trunc(d) + 0.0;
                 ret = JS_NewFloat64(ctx, d);
             }
@@ -9861,7 +9704,7 @@ static __maybe_unused JSValue JS_ToIntegerFree(JSContext *ctx, JSValue val)
     return ret;
 }
 
-/* Note: the integer value is satured to 32 bits */
+/*  注：整数值饱和为32位。 */ 
 static int JS_ToInt32SatFree(JSContext *ctx, int *pres, JSValue val)
 {
     uint32_t tag;
@@ -9906,7 +9749,7 @@ static int JS_ToInt32SatFree(JSContext *ctx, int *pres, JSValue val)
     case JS_TAG_BIG_INT:
         if (is_bignum_mode(ctx))
             goto to_bf;
-        /* fall thru */
+        /*  失败。 */ 
 #endif
     default:
         val = JS_ToNumberFree(ctx, val);
@@ -9985,7 +9828,7 @@ static int JS_ToInt64SatFree(JSContext *ctx, int64_t *pres, JSValue val)
     case JS_TAG_BIG_INT:
         if (is_bignum_mode(ctx))
             goto to_bf;
-        /* fall thru */
+        /*  失败。 */ 
 #endif
     default:
         val = JS_ToNumberFree(ctx, val);
@@ -10017,8 +9860,7 @@ int JS_ToInt64Clamp(JSContext *ctx, int64_t *pres, JSValueConst val,
     return res;
 }
 
-/* Same as JS_ToInt32Free() but with a 64 bit result. Return (<0, 0)
-   in case of exception */
+/*  与JS_ToInt32Free()相同，但结果为64位。RETURN(&lt;0，0)在例外的情况下。 */ 
 static int JS_ToInt64Free(JSContext *ctx, int64_t *pres, JSValue val)
 {
     uint32_t tag;
@@ -10040,21 +9882,21 @@ static int JS_ToInt64Free(JSContext *ctx, int64_t *pres, JSValue val)
             int e;
             d = JS_VALUE_GET_FLOAT64(val);
             u.d = d;
-            /* we avoid doing fmod(x, 2^64) */
+            /*  我们避免使用fmod(x，2^64)。 */ 
             e = (u.u64 >> 52) & 0x7ff;
             if (likely(e <= (1023 + 62))) {
-                /* fast case */
+                /*  FAST案例。 */ 
                 ret = (int64_t)d;
             } else if (e <= (1023 + 62 + 53)) {
                 uint64_t v;
-                /* remainder modulo 2^64 */
+                /*  余数模2^64。 */ 
                 v = (u.u64 & (((uint64_t)1 << 52) - 1)) | ((uint64_t)1 << 52);
                 ret = v << ((e - 1023) - 52);
-                /* take the sign into account */
+                /*  把这个牌子考虑进去。 */ 
                 if (u.u64 >> 63)
                     ret = -ret;
             } else {
-                ret = 0; /* also handles NaN and +inf */
+                ret = 0; /*  还可以处理NaN和+inf。 */ 
             }
         }
         break;
@@ -10070,7 +9912,7 @@ static int JS_ToInt64Free(JSContext *ctx, int64_t *pres, JSValue val)
     case JS_TAG_BIG_INT:
         if (is_bignum_mode(ctx))
             goto to_bf;
-        /* fall thru */
+        /*  失败。 */ 
 #endif
     default:
         val = JS_ToNumberFree(ctx, val);
@@ -10089,7 +9931,7 @@ int JS_ToInt64(JSContext *ctx, int64_t *pres, JSValueConst val)
     return JS_ToInt64Free(ctx, pres, JS_DupValue(ctx, val));
 }
 
-/* return (<0, 0) in case of exception */
+/*  异常情况下返回(&lt;0，0)。 */ 
 static int JS_ToInt32Free(JSContext *ctx, int32_t *pres, JSValue val)
 {
     uint32_t tag;
@@ -10111,22 +9953,22 @@ static int JS_ToInt32Free(JSContext *ctx, int32_t *pres, JSValue val)
             int e;
             d = JS_VALUE_GET_FLOAT64(val);
             u.d = d;
-            /* we avoid doing fmod(x, 2^32) */
+            /*  我们避免使用fmod(x，2^32)。 */ 
             e = (u.u64 >> 52) & 0x7ff;
             if (likely(e <= (1023 + 30))) {
-                /* fast case */
+                /*  FAST案例。 */ 
                 ret = (int32_t)d;
             } else if (e <= (1023 + 30 + 53)) {
                 uint64_t v;
-                /* remainder modulo 2^32 */
+                /*  模2^32的余数。 */ 
                 v = (u.u64 & (((uint64_t)1 << 52) - 1)) | ((uint64_t)1 << 52);
                 v = v << ((e - 1023) - 52 + 32);
                 ret = v >> 32;
-                /* take the sign into account */
+                /*  把这个牌子考虑进去。 */ 
                 if (u.u64 >> 63)
                     ret = -ret;
             } else {
-                ret = 0; /* also handles NaN and +inf */
+                ret = 0; /*  还可以处理NaN和+inf。 */ 
             }
         }
         break;
@@ -10142,7 +9984,7 @@ static int JS_ToInt32Free(JSContext *ctx, int32_t *pres, JSValue val)
     case JS_TAG_BIG_INT:
         if (is_bignum_mode(ctx))
             goto to_bf;
-        /* fall thru */
+        /*  失败。 */ 
 #endif
     default:
         val = JS_ToNumberFree(ctx, val);
@@ -10312,8 +10154,7 @@ int JS_ToIndex(JSContext *ctx, uint64_t *plen, JSValueConst val)
     return 0;
 }
 
-/* convert a value to a length between 0 and MAX_SAFE_INTEGER.
-   return -1 for exception */
+/*  将值转换为介于0和MAX_SAFE_INTEGER之间的长度。返回-1表示异常。 */ 
 static __exception int JS_ToLengthFree(JSContext *ctx, int64_t *plen,
                                        JSValue val)
 {
@@ -10322,8 +10163,8 @@ static __exception int JS_ToLengthFree(JSContext *ctx, int64_t *plen,
     return res;
 }
 
-/* Note: can return an exception */
-/* XXX: bignum case */
+/*  注意：可以返回异常。 */ 
+/*  XXX：Bignum Case。 */ 
 static int JS_NumberIsInteger(JSContext *ctx, JSValueConst val)
 {
     double d;
@@ -10356,7 +10197,7 @@ static BOOL JS_NumberIsNegativeOrMinusZero(JSContext *ctx, JSValueConst val)
     case JS_TAG_BIG_INT:
         {
             JSBigFloat *p = JS_VALUE_GET_PTR(val);
-            /* Note: integer zeros are not necessarily positive */
+            /*  注意：整数零不一定是正数。 */ 
             return p->num.sign && !bf_is_zero(&p->num);
         }
     case JS_TAG_BIG_FLOAT:
@@ -10391,15 +10232,12 @@ static JSValue js_ftoa(JSContext *ctx, JSValueConst val1, int radix,
         a->sign = 0;
     flags |= BF_FTOA_JS_QUIRKS;
     if ((flags & BF_FTOA_FORMAT_MASK) == BF_FTOA_FORMAT_FREE_MIN) {
-        /* Note: for floating point numbers with a radix which is not
-           a power of two, the current precision is used to compute
-           the number of digits. For integers, the full precision is
-           always returned. */
+        /*  注意：对于基数不是的浮点数2的幂，当前精度用于计算位数。对于整数，全精度为总是会回来的。 */ 
         if (is_float || (flags & BF_FTOA_FORCE_EXP)) {
             if ((radix & (radix - 1)) != 0) {
                 bf_t r_s, *r = &r_s;
                 int prec, flags1;
-                /* must round first */
+                /*  必须先转一圈。 */ 
                 if (JS_VALUE_GET_TAG(val) == JS_TAG_BIG_FLOAT) {
                     prec = ctx->fp_env.prec;
                     flags1 = ctx->fp_env.flags &
@@ -10431,9 +10269,9 @@ static JSValue js_ftoa(JSContext *ctx, JSValueConst val1, int radix,
     return ret;
 }
 
-#else /* !CONFIG_BIGNUM */
+#else /*  ！CONFIG_BIGNUM。 */ 
 
-/* 2 <= base <= 36 */
+/*  2&lt;=碱基&lt;=36。 */ 
 static char *i64toa(char *buf_end, int64_t n, unsigned int base)
 {
     char *q = buf_end;
@@ -10459,7 +10297,7 @@ static char *i64toa(char *buf_end, int64_t n, unsigned int base)
     return q;
 }
 
-/* buf1 contains the printf result */
+/*  Buf1包含printf结果。 */ 
 static void js_ecvt1(double d, int n_digits, int *decpt, int *sign, char *buf,
                      int rounding_mode, char *buf1, int buf1_size)
 {
@@ -10469,20 +10307,19 @@ static void js_ecvt1(double d, int n_digits, int *decpt, int *sign, char *buf,
     if (rounding_mode != FE_TONEAREST)
         fesetround(FE_TONEAREST);
     *sign = (buf1[0] == '-');
-    /* mantissa */
+    /*  尾数。 */ 
     buf[0] = buf1[1];
     if (n_digits > 1)
         memcpy(buf + 1, buf1 + 3, n_digits - 1);
     buf[n_digits] = '\0';
-    /* exponent */
+    /*  指数。 */ 
     *decpt = atoi(buf1 + n_digits + 2 + (n_digits > 1)) + 1;
 }
 
-/* maximum buffer size for js_dtoa */
+/*  Js_dtoa的最大缓冲区大小。 */ 
 #define JS_DTOA_BUF_SIZE 128
 
-/* needed because ecvt usually limits the number of digits to
-   17. Return the number of digits. */
+/*  需要，因为eCVT通常将位数限制为17.返回位数。 */ 
 static int js_ecvt(double d, int n_digits, int *decpt, int *sign, char *buf,
                    BOOL is_fixed)
 {
@@ -10491,7 +10328,7 @@ static int js_ecvt(double d, int n_digits, int *decpt, int *sign, char *buf,
 
     if (!is_fixed) {
         unsigned int n_digits_min, n_digits_max;
-        /* find the minimum amount of digits (XXX: inefficient but simple) */
+        /*  查找最小位数(XXX：低效但简单)。 */ 
         n_digits_min = 1;
         n_digits_max = 17;
         while (n_digits_min < n_digits_max) {
@@ -10499,7 +10336,7 @@ static int js_ecvt(double d, int n_digits, int *decpt, int *sign, char *buf,
             js_ecvt1(d, n_digits, decpt, sign, buf, FE_TONEAREST,
                      buf_tmp, sizeof(buf_tmp));
             if (strtod(buf_tmp, NULL) == d) {
-                /* no need to keep the trailing zeros */
+                /*  不需要保留尾随零。 */ 
                 while (n_digits >= 2 && buf[n_digits - 1] == '0')
                     n_digits--;
                 n_digits_max = n_digits;
@@ -10515,20 +10352,17 @@ static int js_ecvt(double d, int n_digits, int *decpt, int *sign, char *buf,
         {
             char buf1[JS_DTOA_BUF_SIZE], buf2[JS_DTOA_BUF_SIZE];
             int decpt1, sign1, decpt2, sign2;
-            /* The JS rounding is specified as round to nearest ties away
-               from zero (RNDNA), but in printf the "ties" case is not
-               specified (for example it is RNDN for glibc, RNDNA for
-               Windows), so we must round manually. */
+            /*  JS舍入被指定为舍入到距离最近的平局从零开始(RNDNA)，但在print tf中“tie”大小写不是已指定(例如，对于glibc，它是RNDN；对于Windows)，所以我们必须手动绕圈。 */ 
             js_ecvt1(d, n_digits + 1, &decpt1, &sign1, buf1, FE_TONEAREST,
                      buf_tmp, sizeof(buf_tmp));
-            /* XXX: could use 2 digits to reduce the average running time */
+            /*  XXX：可以使用2位数来减少平均运行时间。 */ 
             if (buf1[n_digits] == '5') {
                 js_ecvt1(d, n_digits + 1, &decpt1, &sign1, buf1, FE_DOWNWARD,
                          buf_tmp, sizeof(buf_tmp));
                 js_ecvt1(d, n_digits + 1, &decpt2, &sign2, buf2, FE_UPWARD,
                          buf_tmp, sizeof(buf_tmp));
                 if (memcmp(buf1, buf2, n_digits + 1) == 0 && decpt1 == decpt2) {
-                    /* exact result: round away from zero */
+                    /*  确切结果：从零开始四舍五入。 */ 
                     if (sign1)
                         rounding_mode = FE_DOWNWARD;
                     else
@@ -10536,7 +10370,7 @@ static int js_ecvt(double d, int n_digits, int *decpt, int *sign, char *buf,
                 }
             }
         }
-#endif /* CONFIG_PRINTF_RNDN */
+#endif /*  CONFIG_PRINTF_RNDN。 */ 
     }
     js_ecvt1(d, n_digits, decpt, sign, buf, rounding_mode,
              buf_tmp, sizeof(buf_tmp));
@@ -10566,18 +10400,15 @@ static void js_fcvt(char *buf, int buf_size, double d, int n_digits)
         char buf1[JS_DTOA_BUF_SIZE];
         char buf2[JS_DTOA_BUF_SIZE];
 
-        /* The JS rounding is specified as round to nearest ties away from
-           zero (RNDNA), but in printf the "ties" case is not specified
-           (for example it is RNDN for glibc, RNDNA for Windows), so we
-           must round manually. */
+        /*  JS舍入指定为四舍五入到距离最近的平局零(RNDNA)，但在print tf中未指定“tie”大小写(例如，glibc是RNDN，Windows是RNDNA)，所以我们必须手动取整。 */ 
         n1 = js_fcvt1(buf1, sizeof(buf1), d, n_digits + 1, FE_TONEAREST);
         rounding_mode = FE_TONEAREST;
-        /* XXX: could use 2 digits to reduce the average running time */
+        /*  XXX：可以使用2位数来减少平均运行时间。 */ 
         if (buf1[n1 - 1] == '5') {
             n1 = js_fcvt1(buf1, sizeof(buf1), d, n_digits + 1, FE_DOWNWARD);
             n2 = js_fcvt1(buf2, sizeof(buf2), d, n_digits + 1, FE_UPWARD);
             if (n1 == n2 && memcmp(buf1, buf2, n1) == 0) {
-                /* exact result: round away from zero */
+                /*  确切结果：从零开始四舍五入。 */ 
                 if (buf1[0] == '-')
                     rounding_mode = FE_DOWNWARD;
                 else
@@ -10585,23 +10416,21 @@ static void js_fcvt(char *buf, int buf_size, double d, int n_digits)
             }
         }
     }
-#endif /* CONFIG_PRINTF_RNDN */
+#endif /*  CONFIG_PRINTF_RNDN。 */ 
     js_fcvt1(buf, buf_size, d, n_digits, rounding_mode);
 }
 
-/* radix != 10 is only supported with flags = JS_DTOA_VAR_FORMAT */
-/* use as many digits as necessary */
+/*  仅当标志=JS_DTOA_VAR_FORMAT时才支持基数！=10。 */ 
+/*  根据需要使用任意数量的数字。 */ 
 #define JS_DTOA_VAR_FORMAT   (0 << 0)
-/* use n_digits significant digits (1 <= n_digits <= 101) */
+/*  使用n_位数有效数字(1&lt;=n_位数&lt;=101)。 */ 
 #define JS_DTOA_FIXED_FORMAT (1 << 0)
-/* force fractional format: [-]dd.dd with n_digits fractional digits */
+/*  强制小数格式：[-]dd.dd，带n_位数小数位。 */ 
 #define JS_DTOA_FRAC_FORMAT  (2 << 0)
-/* force exponential notation either in fixed or variable format */
+/*  强制使用固定或可变格式的指数记数法。 */ 
 #define JS_DTOA_FORCE_EXP    (1 << 2)
 
-/* XXX: slow and maybe not fully correct
-   XXX: radix != 10 is only supported for small integers
-*/
+/*  XXX：速度慢，可能不完全正确Xxx：Radix！=10仅支持小整数。 */ 
 static void js_dtoa1(char *buf, double d, int radix, int n_digits, int flags)
 {
     char *q;
@@ -10621,12 +10450,12 @@ static void js_dtoa1(char *buf, double d, int radix, int n_digits, int flags)
         i64 = (int64_t)d;
         if (d != i64 || i64 > MAX_SAFE_INTEGER || i64 < -MAX_SAFE_INTEGER)
             goto generic_conv;
-        /* fast path for integers */
+        /*  整数的快速路径。 */ 
         ptr = i64toa(buf1 + sizeof(buf1), i64, radix);
         strcpy(buf, ptr);
     } else {
         if (d == 0.0)
-            d = 0.0; /* convert -0 to 0 */
+            d = 0.0; /*  将-0转换为0。 */ 
         if (flags == JS_DTOA_FRAC_FORMAT) {
             js_fcvt(buf, JS_DTOA_BUF_SIZE, d, n_digits);
         } else {
@@ -10640,9 +10469,9 @@ static void js_dtoa1(char *buf, double d, int radix, int n_digits, int flags)
             } else {
                 n_max = 21;
             }
-            /* the number has k digits (k >= 1) */
+            /*  数字为k位(k&gt;=1)。 */ 
             k = js_ecvt(d, n_digits, &decpt, &sign, buf1, is_fixed);
-            n = decpt; /* d=10^(n-k)*(buf1) i.e. d= < x.yyyy 10^(n-1) */
+            n = decpt; /*  D=10^(n-k)*(Buf1)，即d=&lt;x.yyyy10^(n-1)。 */ 
             q = buf;
             if (sign)
                 *q++ = '-';
@@ -10656,7 +10485,7 @@ static void js_dtoa1(char *buf, double d, int radix, int n_digits, int flags)
                         *q++ = '0';
                     *q = '\0';
                 } else {
-                    /* k > n */
+                    /*  K&gt;n。 */ 
                     memcpy(q, buf1, n);
                     q += n;
                     *q++ = '.';
@@ -10674,7 +10503,7 @@ static void js_dtoa1(char *buf, double d, int radix, int n_digits, int flags)
                 *q = '\0';
             } else {
             force_exp:
-                /* exponential notation */
+                /*  指数记数法。 */ 
                 *q++ = buf1[0];
                 if (k > 1) {
                     *q++ = '.';
@@ -10699,7 +10528,7 @@ static JSValue js_dtoa(JSContext *ctx,
     return JS_NewString(ctx, buf);
 }
 
-#endif /* !CONFIG_BIGNUM */
+#endif /*  ！CONFIG_BIGNUM。 */ 
 
 JSValue JS_ToStringInternal(JSContext *ctx, JSValueConst val, BOOL is_ToPropertyKey)
 {
@@ -10867,7 +10696,7 @@ static __maybe_unused void JS_DumpObjectHeader(JSRuntime *rt)
            "ADDRESS", "REFS", "SHRF", "PROTO", "CLASS", "PROPS");
 }
 
-/* for debug only: dump an object without side effect */
+/*  仅用于调试：转储对象时不会产生副作用。 */ 
 static __maybe_unused void JS_DumpObject(JSRuntime *rt, JSObject *p)
 {
     uint32_t i;
@@ -10877,8 +10706,8 @@ static __maybe_unused void JS_DumpObject(JSRuntime *rt, JSObject *p)
     JSProperty *pr;
     BOOL is_first = TRUE;
 
-    /* XXX: should encode atoms with special characters */
-    sh = p->shape; /* the shape can be NULL while freeing an object */
+    /*  XXX：应使用特殊字符对原子进行编码。 */ 
+    sh = p->shape; /*  释放对象时，形状可以为空。 */ 
     printf("%14p %4d ",
            (void *)p,
            p->header.ref_count);
@@ -11085,7 +10914,7 @@ static __maybe_unused void JS_PrintValue(JSContext *ctx,
     printf("\n");
 }
 
-/* return -1 if exception (proxy case) or TRUE/FALSE */
+/*  如果出现异常(代理情况)或True/False，则返回-1。 */ 
 int JS_IsArray(JSContext *ctx, JSValueConst val)
 {
     JSObject *p;
@@ -11103,7 +10932,7 @@ int JS_IsArray(JSContext *ctx, JSValueConst val)
 static double js_pow(double a, double b)
 {
     if (unlikely(!isfinite(b)) && fabs(a) == 1) {
-        /* not compatible with IEEE 754 */
+        /*  与IEEE 754不兼容。 */ 
         return JS_FLOAT64_NAN;
     } else {
         return pow(a, b);
@@ -11138,8 +10967,7 @@ JSValue JS_NewBigUint64(JSContext *ctx, uint64_t v)
     }
 }
 
-/* if the returned bigfloat is allocated it is equal to
-   'buf'. Otherwise it is a pointer to the bigfloat in 'val'. */
+/*  如果返回的BigFloat被分配，则等于‘Buf’。否则，它是指向‘val’中的大浮点数的指针。 */ 
 static bf_t *JS_ToBigFloat(JSContext *ctx, BOOL *pis_float, bf_t *buf,
                            JSValueConst val)
 {
@@ -11185,7 +11013,7 @@ static bf_t *JS_ToBigFloat(JSContext *ctx, BOOL *pis_float, bf_t *buf,
     return r;
 }
 
-/* return NaN if bad bigint literal */
+/*  如果Bigint文本不正确，则返回NaN。 */ 
 static JSValue JS_StringToBigInt(JSContext *ctx, JSValue val)
 {
     const char *str;
@@ -11221,8 +11049,7 @@ static JSValue JS_StringToBigIntErr(JSContext *ctx, JSValue val)
     return val;
 }
 
-/* if the returned bigfloat is allocated it is equal to
-   'buf'. Otherwise it is a pointer to the bigfloat in 'val'. */
+/*  如果返回的BigFloat被分配，则等于‘Buf’。否则，它是指向‘val’中的大浮点数的指针。 */ 
 static bf_t *JS_ToBigIntFree(JSContext *ctx, bf_t *buf, JSValue val)
 {
     uint32_t tag;
@@ -11237,7 +11064,7 @@ static bf_t *JS_ToBigIntFree(JSContext *ctx, bf_t *buf, JSValue val)
     case JS_TAG_UNDEFINED:
         if (!is_bignum_mode(ctx))
             goto fail;
-        /* fall tru */
+        /*  落锤式桁架。 */ 
     case JS_TAG_BOOL:
         r = buf;
         bf_init(ctx->bf_ctx, r);
@@ -11310,7 +11137,7 @@ static __maybe_unused JSValue JS_ToBigIntValueFree(JSContext *ctx, JSValue val)
     }
 }
 
-/* free the bf_t allocated by JS_ToBigInt */
+/*  释放js_ToBigInt分配的bf_t。 */ 
 static void JS_FreeBigInt(JSContext *ctx, bf_t *a, bf_t *buf)
 {
     if (a == buf) {
@@ -11322,7 +11149,7 @@ static void JS_FreeBigInt(JSContext *ctx, bf_t *a, bf_t *buf)
     }
 }
 
-/* XXX: merge with JS_ToInt64Free with a specific flag */
+/*  XXX：使用特定标志与JS_ToInt64Free合并。 */ 
 static int JS_ToBigInt64Free(JSContext *ctx, int64_t *pres, JSValue val)
 {
     bf_t a_s, *a;
@@ -11353,7 +11180,7 @@ static JSBigFloat *js_new_bf(JSContext *ctx)
     return p;
 }
 
-/* WARNING: 'a' is freed */
+/*  警告：‘a’已释放。 */ 
 static JSValue JS_NewBigFloat(JSContext *ctx, bf_t *a)
 {
     JSValue ret;
@@ -11365,7 +11192,7 @@ static JSValue JS_NewBigFloat(JSContext *ctx, bf_t *a)
     return ret;
 }
 
-/* WARNING: 'a' is freed */
+/*  警告：‘a’已释放。 */ 
 static JSValue JS_NewBigInt2(JSContext *ctx, bf_t *a, BOOL force_bigint)
 {
     JSValue ret;
@@ -11373,13 +11200,13 @@ static JSValue JS_NewBigInt2(JSContext *ctx, bf_t *a, BOOL force_bigint)
     int32_t v;
 
     if (!force_bigint && bf_get_int32(&v, a, 0) == 0) {
-        /* can fit in an int32 */
+        /*  可以放入int32。 */ 
         ret = JS_NewInt32(ctx, v);
         bf_delete(a);
     } else {
         p = js_new_bf(ctx);
         p->num = *a;
-        /* normalize the zero representation */
+        /*  归一化零表示。 */ 
         if (bf_is_zero(&p->num))
             p->num.sign = 0;
         ret = JS_MKPTR(JS_TAG_BIG_INT, p);
@@ -11392,8 +11219,7 @@ static JSValue JS_NewBigInt(JSContext *ctx, bf_t *a)
     return JS_NewBigInt2(ctx, a, FALSE);
 }
 
-/* return < 0 if exception, 0 if overloading method, 1 if overloading
-   operator called */
+/*  如果异常，则返回&lt;0；如果重载方法，则返回0；如果重载，则返回1被调用的操作员。 */ 
 static __exception int js_call_binary_op_fallback(JSContext *ctx,
                                                    JSValue *pret,
                                                    JSValueConst op1,
@@ -11484,13 +11310,13 @@ static __exception int js_call_binary_op_fallback(JSContext *ctx,
         JS_VALUE_GET_TAG(c2) != JS_TAG_OBJECT)
         goto fail;
     if (JS_VALUE_GET_OBJ(c1) == JS_VALUE_GET_OBJ(c2)) {
-        /* if same constructor, there is no ambiguity */
+        /*  如果构造函数相同，则不会有歧义。 */ 
         method = JS_GetProperty(ctx, c1, op_name);
     } else {
         JSValue val;
         int order1, order2;
 
-        /* different constructors: we use a user-defined ordering */
+        /*  不同的构造函数：我们使用用户定义的顺序。 */ 
         val = JS_GetProperty(ctx, c1, JS_ATOM_Symbol_operatorOrder);
         if (JS_IsException(val))
             goto exception;
@@ -11510,7 +11336,7 @@ static __exception int js_call_binary_op_fallback(JSContext *ctx,
         }
         if (JS_ToInt32Free(ctx, &order2, val))
             goto exception;
-        /* ambiguous priority: error */
+        /*  优先级不明确：错误。 */ 
         if (order1 == order2) {
             JS_ThrowTypeError(ctx, "operator_order is identical in both constructors");
             goto exception;
@@ -11584,7 +11410,7 @@ static no_inline __exception int js_unary_arith_slow(JSContext *ctx,
     uint32_t tag;
 
     op1 = sp[-1];
-    /* fast path for float64 */
+    /*  Float64的快速路径。 */ 
     if (JS_TAG_IS_FLOAT64(JS_VALUE_GET_TAG(op1)))
         goto handle_float64;
     if (JS_IsObject(op1)) {
@@ -11748,7 +11574,7 @@ static __exception int js_post_inc_slow(JSContext *ctx,
 {
     JSValue op1;
 
-    /* XXX: allow custom operators */
+    /*  XXX：允许自定义运算符。 */ 
     op1 = sp[-1];
     op1 = JS_ToNumericFree(ctx, op1);
     if (JS_IsException(op1)) {
@@ -11825,14 +11651,14 @@ static no_inline __exception int js_binary_arith_slow(JSContext *ctx, JSValue *s
     op2 = sp[-1];
     tag1 = JS_VALUE_GET_NORM_TAG(op1);
     tag2 = JS_VALUE_GET_NORM_TAG(op2);
-    /* fast path for float operations */
+    /*  浮点运算的快速途径。 */ 
     if (tag1 == JS_TAG_FLOAT64 && tag2 == JS_TAG_FLOAT64) {
         d1 = JS_VALUE_GET_FLOAT64(op1);
         d2 = JS_VALUE_GET_FLOAT64(op2);
         goto handle_float64;
     }
 
-    /* try to call an overloaded operator */
+    /*  尝试调用重载运算符。 */ 
     if ((tag1 == JS_TAG_OBJECT &&
          (tag2 != JS_TAG_NULL && tag2 != JS_TAG_UNDEFINED)) ||
         (tag2 == JS_TAG_OBJECT &&
@@ -11934,7 +11760,7 @@ static no_inline __exception int js_binary_arith_slow(JSContext *ctx, JSValue *s
     } else if ((tag1 == JS_TAG_BIG_INT && (tag2 == JS_TAG_INT ||
                                            tag2 == JS_TAG_BIG_INT)) ||
                (tag2 == JS_TAG_BIG_INT && tag1 == JS_TAG_INT)) {
-        /* big int result */
+        /*  大整型结果。 */ 
         bf_t a_s, b_s, r_s, *r, *a, *b;
     handle_bigint:
         a = JS_ToBigFloat(ctx, &is_float, &a_s, op1);
@@ -11965,7 +11791,7 @@ static no_inline __exception int js_binary_arith_slow(JSContext *ctx, JSValue *s
             }
             break;
         case OP_math_mod:
-            /* Euclidian remainder */
+            /*  欧几里得余数。 */ 
             rnd_mode = BF_DIVREM_EUCLIDIAN;
             goto do_int_mod;
         case OP_mod:
@@ -12045,7 +11871,7 @@ static no_inline __exception int js_binary_arith_slow(JSContext *ctx, JSValue *s
                (tag2 == JS_TAG_FLOAT64 && (tag1 == JS_TAG_INT ||
                                            tag1 == JS_TAG_BIG_INT))) {
         double dr;
-        /* float64 result */
+        /*  Float64结果。 */ 
         JS_ToFloat64Free(ctx, &d1, op1);
         JS_ToFloat64Free(ctx, &d2, op2);
     handle_float64:
@@ -12067,7 +11893,7 @@ static no_inline __exception int js_binary_arith_slow(JSContext *ctx, JSValue *s
             if (d1 >= 0 && d2 >= 0) {
                 dr = fmod(d1, d2);
             } else {
-                /* XXX: slow */
+                /*  XXX：速度慢。 */ 
                 bf_t a, b, r, q;
                 bf_init(ctx->bf_ctx, &a);
                 bf_init(ctx->bf_ctx, &b);
@@ -12094,7 +11920,7 @@ static no_inline __exception int js_binary_arith_slow(JSContext *ctx, JSValue *s
         sp[-2] = __JS_NewFloat64(ctx, dr);
     } else {
         bf_t a_s, b_s, r_s, *r, *a, *b;
-        /* big float result */
+        /*  大浮点数结果。 */ 
         a = JS_ToBigFloat(ctx, &is_float, &a_s, op1);
         b = JS_ToBigFloat(ctx, &is_float, &b_s, op2);
         r = &r_s;
@@ -12112,7 +11938,7 @@ static no_inline __exception int js_binary_arith_slow(JSContext *ctx, JSValue *s
             bf_div(r, a, b, ctx->fp_env.prec, ctx->fp_env.flags);
             break;
         case OP_math_mod:
-            /* Euclidian remainder */
+            /*  欧几里得余数。 */ 
             rnd_mode = BF_DIVREM_EUCLIDIAN;
             goto do_mod;
         case OP_mod:
@@ -12166,7 +11992,7 @@ static no_inline __exception int js_add_slow(JSContext *ctx, JSValue *sp)
 
     tag1 = JS_VALUE_GET_NORM_TAG(op1);
     tag2 = JS_VALUE_GET_NORM_TAG(op2);
-    /* fast path for float64 */
+    /*  Float64的快速路径。 */ 
     if (tag1 == JS_TAG_FLOAT64 && tag2 == JS_TAG_FLOAT64) {
         double d1, d2;
         d1 = JS_VALUE_GET_FLOAT64(op1);
@@ -12176,7 +12002,7 @@ static no_inline __exception int js_add_slow(JSContext *ctx, JSValue *sp)
     }
 
     if (tag1 == JS_TAG_OBJECT || tag2 == JS_TAG_OBJECT) {
-        /* try to call an overloaded operator */
+        /*  尝试调用重载运算符。 */ 
         if ((tag1 == JS_TAG_OBJECT &&
              (tag2 != JS_TAG_NULL && tag2 != JS_TAG_UNDEFINED)) ||
             (tag2 == JS_TAG_OBJECT &&
@@ -12249,7 +12075,7 @@ static no_inline __exception int js_add_slow(JSContext *ctx, JSValue *sp)
                                            tag2 == JS_TAG_BIG_INT)) ||
                (tag2 == JS_TAG_BIG_INT && tag1 == JS_TAG_INT)) {
         bf_t a_s, b_s, r_s, *r, *a, *b;
-        /* big int result */
+        /*  大整型结果。 */ 
         a = JS_ToBigFloat(ctx, &is_float, &a_s, op1);
         b = JS_ToBigFloat(ctx, &is_float, &b_s, op2);
         r = &r_s;
@@ -12273,13 +12099,13 @@ static no_inline __exception int js_add_slow(JSContext *ctx, JSValue *sp)
                (tag2 == JS_TAG_FLOAT64 && (tag1 == JS_TAG_INT ||
                                            tag1 == JS_TAG_BIG_INT))) {
         double d1, d2;
-        /* float64 result */
+        /*  Float64结果。 */ 
         JS_ToFloat64Free(ctx, &d1, op1);
         JS_ToFloat64Free(ctx, &d2, op2);
         sp[-2] = __JS_NewFloat64(ctx, d1 + d2);
     } else {
         bf_t a_s, b_s, r_s, *r, *a, *b;
-        /* big float result */
+        /*  大浮点数结果。 */ 
         a = JS_ToBigFloat(ctx, &is_float, &a_s, op1);
         b = JS_ToBigFloat(ctx, &is_float, &b_s, op2);
 
@@ -12316,7 +12142,7 @@ static no_inline __exception int js_binary_logic_slow(JSContext *ctx,
     tag1 = JS_VALUE_GET_NORM_TAG(op1);
     tag2 = JS_VALUE_GET_NORM_TAG(op2);
 
-    /* try to call an overloaded operator */
+    /*  尝试调用重载运算符。 */ 
     if ((tag1 == JS_TAG_OBJECT &&
          (tag2 != JS_TAG_NULL && tag2 != JS_TAG_UNDEFINED)) ||
         (tag2 == JS_TAG_OBJECT &&
@@ -12457,7 +12283,7 @@ static no_inline int js_relational_slow(JSContext *ctx, JSValue *sp,
     op2 = sp[-1];
     tag1 = JS_VALUE_GET_NORM_TAG(op1);
     tag2 = JS_VALUE_GET_NORM_TAG(op2);
-    /* try to call an overloaded operator */
+    /*  尝试调用重载运算符。 */ 
     if ((tag1 == JS_TAG_OBJECT &&
          (tag2 != JS_TAG_NULL && tag2 != JS_TAG_UNDEFINED)) ||
         (tag2 == JS_TAG_OBJECT &&
@@ -12511,7 +12337,7 @@ static no_inline int js_relational_slow(JSContext *ctx, JSValue *sp,
         JS_FreeValue(ctx, op2);
     } else if ((tag1 <= JS_TAG_NULL || tag1 == JS_TAG_FLOAT64) &&
                (tag2 <= JS_TAG_NULL || tag2 == JS_TAG_FLOAT64)) {
-        /* can use floating point comparison */
+        /*  可以使用浮点比较。 */ 
         double d1, d2;
         if (tag1 == JS_TAG_FLOAT64) {
             d1 = JS_VALUE_GET_FLOAT64(op1);
@@ -12525,17 +12351,17 @@ static no_inline int js_relational_slow(JSContext *ctx, JSValue *sp,
         }
         switch(op) {
         case OP_lt:
-            res = (d1 < d2); /* if NaN return false */
+            res = (d1 < d2); /*  如果NaN返回FALSE。 */ 
             break;
         case OP_lte:
-            res = (d1 <= d2); /* if NaN return false */
+            res = (d1 <= d2); /*  如果NaN返回FALSE。 */ 
             break;
         case OP_gt:
-            res = (d1 > d2); /* if NaN return false */
+            res = (d1 > d2); /*  如果NaN返回FALSE。 */ 
             break;
         default:
         case OP_gte:
-            res = (d1 >= d2); /* if NaN return false */
+            res = (d1 >= d2); /*  如果NaN返回FALSE。 */ 
             break;
         }
     } else {
@@ -12578,17 +12404,17 @@ static no_inline int js_relational_slow(JSContext *ctx, JSValue *sp,
 
         switch(op) {
         case OP_lt:
-            res = bf_cmp_lt(a, b); /* if NaN return false */
+            res = bf_cmp_lt(a, b); /*  如果NaN返回FALSE。 */ 
             break;
         case OP_lte:
-            res = bf_cmp_le(a, b); /* if NaN return false */
+            res = bf_cmp_le(a, b); /*  如果NaN返回FALSE。 */ 
             break;
         case OP_gt:
-            res = bf_cmp_lt(b, a); /* if NaN return false */
+            res = bf_cmp_lt(b, a); /*  如果NaN返回FALSE。 */ 
             break;
         default:
         case OP_gte:
-            res = bf_cmp_le(b, a); /* if NaN return false */
+            res = bf_cmp_le(b, a); /*  如果NaN返回FALSE。 */ 
             break;
         }
         if (a == &a_s)
@@ -12659,7 +12485,7 @@ static no_inline __exception int js_eq_slow(JSContext *ctx, JSValue *sp,
         }
     } else if (tag1 == tag2) {
         if (tag1 == JS_TAG_OBJECT) {
-            /* try the fallback operator */
+            /*  尝试使用备用运算符。 */ 
             res = js_call_binary_op_fallback(ctx, &ret, op1, op2,
                                               is_neq ? OP_neq : OP_eq);
             if (res != 0) {
@@ -12721,7 +12547,7 @@ static no_inline __exception int js_eq_slow(JSContext *ctx, JSValue *sp,
                (tag2 == JS_TAG_OBJECT &&
                 (tag_is_number(tag1) || tag1 == JS_TAG_STRING || tag1 == JS_TAG_SYMBOL))) {
 
-        /* try the fallback operator */
+        /*  尝试使用备用运算符。 */ 
         res = js_call_binary_op_fallback(ctx, &ret, op1, op2,
                                           is_neq ? OP_neq : OP_eq);
         if (res != 0) {
@@ -12777,7 +12603,7 @@ static no_inline int js_shr_slow(JSContext *ctx, JSValue *sp)
         JS_FreeValue(ctx, op1);
         goto exception;
     }
-    /* XXX: could forbid >>> in bignum mode */
+    /*  Xxx：可以在bignum模式下禁止&gt;。 */ 
     if (!is_bignum_mode(ctx) &&
         (JS_VALUE_GET_TAG(op1) == JS_TAG_BIG_INT ||
          JS_VALUE_GET_TAG(op2) == JS_TAG_BIG_INT)) {
@@ -12786,7 +12612,7 @@ static no_inline int js_shr_slow(JSContext *ctx, JSValue *sp)
         JS_FreeValue(ctx, op2);
         goto exception;
     }
-    /* cannot give an exception */
+    /*  不能给予例外。 */ 
     JS_ToUint32Free(ctx, &v1, op1);
     JS_ToUint32Free(ctx, &v2, op2);
     r = v1 >> (v2 & 0x1f);
@@ -12803,7 +12629,7 @@ static double bf_mul_pow10_to_float64(JSContext *ctx, const bf_t *a,
 {
     bf_t r_s, *r = &r_s;
     double d;
-    /* always convert to Float64 */
+    /*  始终转换为Float64。 */ 
     bf_init(ctx->bf_ctx, r);
     bf_mul_pow_radix(r, a, 10, exponent,
                      53, bf_set_exp_bits(11) | BF_RNDN | BF_FLAG_SUBNORMAL);
@@ -12846,7 +12672,7 @@ static no_inline int js_mul_pow10(JSContext *ctx, JSValue *sp)
     return 0;
 }
 
-#else /* !CONFIG_BIGNUM */
+#else /*  ！CONFIG_BIGNUM。 */ 
 
 static no_inline __exception int js_unary_arith_slow(JSContext *ctx,
                                                      JSValue *sp,
@@ -12879,7 +12705,7 @@ static no_inline __exception int js_unary_arith_slow(JSContext *ctx,
     return 0;
 }
 
-/* specific case necessary for correct return value semantics */
+/*  正确返回值%s所需的特定大小写 */ 
 static __exception int js_post_inc_slow(JSContext *ctx,
                                         JSValue *sp, OPCodeEnum op)
 {
@@ -13092,17 +12918,17 @@ static no_inline int js_relational_slow(JSContext *ctx, JSValue *sp,
             goto exception;
         switch(op) {
         case OP_lt:
-            res = (d1 < d2); /* if NaN return false */
+            res = (d1 < d2); /*   */ 
             break;
         case OP_lte:
-            res = (d1 <= d2); /* if NaN return false */
+            res = (d1 <= d2); /*   */ 
             break;
         case OP_gt:
-            res = (d1 > d2); /* if NaN return false */
+            res = (d1 > d2); /*   */ 
             break;
         default:
         case OP_gte:
-            res = (d1 >= d2); /* if NaN return false */
+            res = (d1 >= d2); /*   */ 
             break;
         }
     }
@@ -13203,9 +13029,9 @@ static no_inline int js_shr_slow(JSContext *ctx, JSValue *sp)
     return -1;
 }
 
-#endif /* !CONFIG_BIGNUM */
+#endif /*   */ 
 
-/* XXX: Should take JSValueConst arguments */
+/*   */ 
 static BOOL js_strict_eq2(JSContext *ctx, JSValue op1, JSValue op2,
                           JSStrictEqModeEnum eq_mode)
 {
@@ -13300,18 +13126,18 @@ static BOOL js_strict_eq2(JSContext *ctx, JSValue op1, JSValue op2,
     number_test:
         if (unlikely(eq_mode >= JS_EQ_SAME_VALUE)) {
             JSFloat64Union u1, u2;
-            /* NaN is not always normalized, so this test is necessary */
+            /*  NaN并不总是标准化的，因此此测试是必要的。 */ 
             if (isnan(d1) || isnan(d2)) {
                 res = isnan(d1) == isnan(d2);
             } else if (eq_mode == JS_EQ_SAME_VALUE_ZERO) {
-                res = (d1 == d2); /* +0 == -0 */
+                res = (d1 == d2); /*  +0==-0。 */ 
             } else {
                 u1.d = d1;
                 u2.d = d2;
-                res = (u1.u64 == u2.u64); /* +0 != -0 */
+                res = (u1.u64 == u2.u64); /*  +0！=-0。 */ 
             }
         } else {
-            res = (d1 == d2); /* if NaN return false and +0 == -0 */
+            res = (d1 == d2); /*  如果NaN返回FALSE且+0==-0。 */ 
         }
         goto done_no_free;
 #ifdef CONFIG_BIGNUM
@@ -13320,9 +13146,9 @@ static BOOL js_strict_eq2(JSContext *ctx, JSValue op1, JSValue op2,
             bf_t a_s, *a, b_s, *b;
             BOOL is_float;
             if (tag1 == tag2) {
-                /* OK */
+                /*  好的。 */ 
             } else if (tag2 == JS_TAG_INT && is_bignum_mode(ctx)) {
-                /* OK */
+                /*  好的。 */ 
             } else {
                 res = FALSE;
                 break;
@@ -13545,9 +13371,7 @@ static JSValue js_throw_type_error(JSContext *ctx, JSValueConst this_val,
     return JS_ThrowTypeError(ctx, "invalid property access");
 }
 
-/* XXX: not 100% compatible, but mozilla seems to use a similar
-   implementation to ensure that caller in non strict mode does not
-   throw (ES5 compatibility) */
+/*  XXX：不是100%兼容，但Mozilla似乎使用了类似的实现以确保处于非严格模式的调用方不会抛出(ES5兼容性)。 */ 
 static JSValue js_function_proto_caller(JSContext *ctx, JSValueConst this_val,
                                         int argc, JSValueConst *argv)
 {
@@ -13586,13 +13410,13 @@ static int js_arguments_define_own_property(JSContext *ctx,
     JSObject *p;
     uint32_t idx;
     p = JS_VALUE_GET_OBJ(this_obj);
-    /* convert to normal array when redefining an existing numeric field */
+    /*  重定义现有数值字段时转换为普通数组。 */ 
     if (p->fast_array && JS_AtomIsArrayIndex(ctx, &idx, prop) &&
         idx < p->u.array.count) {
         if (convert_fast_array_to_array(ctx, p))
             return -1;
     }
-    /* run the default define own property */
+    /*  运行默认的定义自己的属性。 */ 
     return JS_DefineProperty(ctx, this_obj, prop, val, getter, setter,
                              flags | JS_PROP_NO_EXOTIC);
 }
@@ -13614,12 +13438,12 @@ static JSValue js_build_arguments(JSContext *ctx, int argc, JSValueConst *argv)
         return val;
     p = JS_VALUE_GET_OBJ(val);
 
-    /* add the length field (cannot fail) */
+    /*  添加长度字段(不能失败)。 */ 
     pr = add_property(ctx, p, JS_ATOM_length,
                       JS_PROP_WRITABLE | JS_PROP_CONFIGURABLE);
     pr->u.value = JS_NewInt32(ctx, argc);
 
-    /* initialize the fast array part */
+    /*  初始化FAST阵列部分。 */ 
     tab = NULL;
     if (argc > 0) {
         tab = js_malloc(ctx, sizeof(tab[0]) * argc);
@@ -13637,7 +13461,7 @@ static JSValue js_build_arguments(JSContext *ctx, int argc, JSValueConst *argv)
     JS_DefinePropertyValue(ctx, val, JS_ATOM_Symbol_iterator,
                            JS_DupValue(ctx, ctx->array_proto_values),
                            JS_PROP_CONFIGURABLE | JS_PROP_WRITABLE);
-    /* add callee property to throw a TypeError in strict mode */
+    /*  添加被调用者属性以在严格模式下引发TypeError。 */ 
     JS_DefineProperty(ctx, val, JS_ATOM_callee, JS_UNDEFINED,
                       ctx->throw_type_error, ctx->throw_type_error,
                       JS_PROP_HAS_GET | JS_PROP_HAS_SET);
@@ -13647,7 +13471,7 @@ static JSValue js_build_arguments(JSContext *ctx, int argc, JSValueConst *argv)
 #define GLOBAL_VAR_OFFSET 0x40000000
 #define ARGUMENT_VAR_OFFSET 0x20000000
 
-/* legacy arguments object: add references to the function arguments */
+/*  遗留参数对象：添加对函数参数的引用。 */ 
 static JSValue js_build_mapped_arguments(JSContext *ctx, int argc,
                                          JSValueConst *argv,
                                          JSStackFrame *sf, int arg_count)
@@ -13663,7 +13487,7 @@ static JSValue js_build_mapped_arguments(JSContext *ctx, int argc,
         return val;
     p = JS_VALUE_GET_OBJ(val);
 
-    /* add the length field (cannot fail) */
+    /*  添加长度字段(不能失败)。 */ 
     pr = add_property(ctx, p, JS_ATOM_length,
                       JS_PROP_WRITABLE | JS_PROP_CONFIGURABLE);
     pr->u.value = JS_NewInt32(ctx, argc);
@@ -13681,8 +13505,7 @@ static JSValue js_build_mapped_arguments(JSContext *ctx, int argc,
         pr->u.var_ref = var_ref;
     }
 
-    /* the arguments not mapped to the arguments of the function can
-       be normal properties */
+    /*  未映射到函数参数的参数可以成为正常属性。 */ 
     for(i = arg_count; i < argc; i++) {
         if (JS_DefinePropertyValueUint32(ctx, val, i,
                                          JS_DupValue(ctx, argv[i]),
@@ -13693,7 +13516,7 @@ static JSValue js_build_mapped_arguments(JSContext *ctx, int argc,
     JS_DefinePropertyValue(ctx, val, JS_ATOM_Symbol_iterator,
                            JS_DupValue(ctx, ctx->array_proto_values),
                            JS_PROP_CONFIGURABLE | JS_PROP_WRITABLE);
-    /* callee returns this function in non strict mode */
+    /*  被调用者以非严格模式返回此函数。 */ 
     JS_DefinePropertyValue(ctx, val, JS_ATOM_callee,
                            JS_DupValue(ctx, ctx->current_stack_frame->cur_func),
                            JS_PROP_CONFIGURABLE | JS_PROP_WRITABLE);
@@ -13759,7 +13582,7 @@ static JSValue build_for_in_iterator(JSContext *ctx, JSValue obj)
 
     p = JS_VALUE_GET_OBJ(obj);
 
-    /* fast path: assume no enumerable properties in the prototype chain */
+    /*  快速路径：假设原型链中没有可枚举的属性。 */ 
     p1 = p->shape->proto;
     while (p1 != NULL) {
         if (JS_GetOwnPropertyNamesInternal(ctx, &tab_atom, &tab_atom_count, p1,
@@ -13774,14 +13597,13 @@ static JSValue build_for_in_iterator(JSContext *ctx, JSValue obj)
     if (p->fast_array) {
         JSShape *sh;
         JSShapeProperty *prs;
-        /* check that there are no enumerable normal fields */
+        /*  检查是否没有可枚举的普通字段。 */ 
         sh = p->shape;
         for(i = 0, prs = get_shape_prop(sh); i < sh->prop_count; i++, prs++) {
             if (prs->flags & JS_PROP_ENUMERABLE)
                 goto normal_case;
         }
-        /* the implicit GetOwnProperty raises an exception if the
-           typed array is detached */
+        /*  隐式GetOwnProperty在以下情况下引发异常已分离类型化数组。 */ 
         if ((p->class_id >= JS_CLASS_UINT8C_ARRAY &&
              p->class_id <= JS_CLASS_FLOAT64_ARRAY) &&
             typed_array_is_detached(ctx, p) &&
@@ -13789,7 +13611,7 @@ static JSValue build_for_in_iterator(JSContext *ctx, JSValue obj)
             JS_ThrowTypeErrorDetachedArrayBuffer(ctx);
             goto fail;
         }
-        /* for fast arrays, we only store the number of elements */
+        /*  对于快速数组，我们只存储元素的数量。 */ 
         it->is_array = TRUE;
         it->array_length = p->u.array.count;
     } else {
@@ -13805,8 +13627,7 @@ static JSValue build_for_in_iterator(JSContext *ctx, JSValue obj)
     return enum_obj;
 
  slow_path:
-    /* non enumerable properties hide the enumerables ones in the
-       prototype chain */
+    /*  不可枚举的属性隐藏可枚举属性原型链。 */ 
     while (p != NULL) {
         if (JS_GetOwnPropertyNamesInternal(ctx, &tab_atom, &tab_atom_count, p,
                                    JS_GPN_STRING_MASK | JS_GPN_SET_ENUM))
@@ -13826,7 +13647,7 @@ static JSValue build_for_in_iterator(JSContext *ctx, JSValue obj)
     return JS_EXCEPTION;
 }
 
-/* obj -> enum_obj */
+/*  对象-&gt;枚举对象。 */ 
 static __exception int js_for_in_start(JSContext *ctx, JSValue *sp)
 {
     sp[-1] = build_for_in_iterator(ctx, sp[-1]);
@@ -13835,7 +13656,7 @@ static __exception int js_for_in_start(JSContext *ctx, JSValue *sp)
     return 0;
 }
 
-/* enum_obj -> enum_obj value done */
+/*  枚举对象-&gt;枚举对象值完成。 */ 
 static __exception int js_for_in_next(JSContext *ctx, JSValue *sp)
 {
     JSValueConst enum_obj;
@@ -13845,7 +13666,7 @@ static __exception int js_for_in_next(JSContext *ctx, JSValue *sp)
     int ret;
 
     enum_obj = sp[-1];
-    /* fail safe */
+    /*  故障安全。 */ 
     if (JS_VALUE_GET_TAG(enum_obj) != JS_TAG_OBJECT)
         goto done;
     p = JS_VALUE_GET_OBJ(enum_obj);
@@ -13870,19 +13691,19 @@ static __exception int js_for_in_next(JSContext *ctx, JSValue *sp)
             if (prop == JS_ATOM_NULL || !(prs->flags & JS_PROP_ENUMERABLE))
                 continue;
         }
-        /* check if the property was deleted */
+        /*  检查该属性是否已删除。 */ 
         ret = JS_HasProperty(ctx, it->obj, prop);
         if (ret < 0)
             return ret;
         if (ret)
             break;
     }
-    /* return the property */
+    /*  返还财产。 */ 
     sp[0] = JS_AtomToValue(ctx, prop);
     sp[1] = JS_FALSE;
     return 0;
  done:
-    /* return the end */
+    /*  退回尾部。 */ 
     sp[0] = JS_UNDEFINED;
     sp[1] = JS_TRUE;
     return 0;
@@ -13937,15 +13758,14 @@ static JSValue JS_GetIterator(JSContext *ctx, JSValueConst obj, BOOL is_async)
     return ret;
 }
 
-/* return *pdone = 2 if the iterator object is not parsed */
+/*  如果迭代器对象未解析，则返回*pone=2。 */ 
 static JSValue JS_IteratorNext2(JSContext *ctx, JSValueConst enum_obj,
                                 JSValueConst method,
                                 int argc, JSValueConst *argv, int *pdone)
 {
     JSValue obj;
 
-    /* fast path for the built-in iterators (avoid creating the
-       intermediate result object) */
+    /*  内置迭代器的快速路径(避免创建中间结果对象)。 */ 
     if (JS_IsObject(method)) {
         JSObject *p = JS_VALUE_GET_OBJ(method);
         if (p->class_id == JS_CLASS_C_FUNCTION &&
@@ -13953,7 +13773,7 @@ static JSValue JS_IteratorNext2(JSContext *ctx, JSValueConst enum_obj,
             JSCFunctionType func;
             JSValueConst args[1];
 
-            /* in case the function expects one argument */
+            /*  如果函数需要一个参数。 */ 
             if (argc == 0) {
                 args[0] = JS_UNDEFINED;
                 argv = args;
@@ -14009,7 +13829,7 @@ static JSValue JS_IteratorNext(JSContext *ctx, JSValueConst enum_obj,
     return JS_EXCEPTION;
 }
 
-/* return < 0 in case of exception */
+/*  出现异常时返回&lt;0。 */ 
 static int JS_IteratorClose(JSContext *ctx, JSValueConst enum_obj,
                             BOOL is_exception_pending)
 {
@@ -14049,7 +13869,7 @@ static int JS_IteratorClose(JSContext *ctx, JSValueConst enum_obj,
     return res;
 }
 
-/* obj -> enum_rec (3 slots) */
+/*  OBJ-&gt;enum_rec(3个插槽)。 */ 
 static __exception int js_for_of_start(JSContext *ctx, JSValue *sp,
                                        BOOL is_async)
 {
@@ -14067,7 +13887,7 @@ static __exception int js_for_of_start(JSContext *ctx, JSValue *sp,
     return 0;
 }
 
-/* enum_rec -> enum_rec value done */
+/*  Enum_rec-&gt;enum_rec值完成。 */ 
 static __exception int js_for_of_next(JSContext *ctx, JSValue *sp, int offset)
 {
     JSValue value = JS_UNDEFINED;
@@ -14078,8 +13898,8 @@ static __exception int js_for_of_next(JSContext *ctx, JSValue *sp, int offset)
         if (JS_IsException(value))
             done = -1;
         if (done) {
-            /* value is JS_UNDEFINED or JS_EXCEPTION */
-            /* replace the iteration object with undefined */
+            /*  值为JS_UNDEFINED或JS_EXCEPTION。 */ 
+            /*  将小版本对象替换为未定义。 */ 
             JS_FreeValue(ctx, sp[offset]);
             sp[offset] = JS_UNDEFINED;
             if (done < 0)
@@ -14170,7 +13990,7 @@ static JSValue js_create_array_iterator(JSContext *ctx, JSValueConst this_val,
 
 static BOOL js_is_fast_array(JSContext *ctx, JSValueConst obj)
 {
-    /* Try and handle fast arrays explicitly */
+    /*  尝试显式处理FAST阵列。 */ 
     if (JS_VALUE_GET_TAG(obj) == JS_TAG_OBJECT) {
         JSObject *p = JS_VALUE_GET_OBJ(obj);
         if (p->class_id == JS_CLASS_ARRAY && p->fast_array) {
@@ -14180,11 +14000,11 @@ static BOOL js_is_fast_array(JSContext *ctx, JSValueConst obj)
     return FALSE;
 }
 
-/* Access an Array's internal JSValue array if available */
+/*  访问数组的内部JSValue数组(如果可用。 */ 
 static BOOL js_get_fast_array(JSContext *ctx, JSValueConst obj,
                               JSValue **arrpp, uint32_t *countp)
 {
-    /* Try and handle fast arrays explicitly */
+    /*  尝试显式处理FAST阵列。 */ 
     if (JS_VALUE_GET_TAG(obj) == JS_TAG_OBJECT) {
         JSObject *p = JS_VALUE_GET_OBJ(obj);
         if (p->class_id == JS_CLASS_ARRAY && p->fast_array) {
@@ -14210,12 +14030,7 @@ static __exception int js_append_enumerate(JSContext *ctx, JSValue *sp)
 
     pos = JS_VALUE_GET_INT(sp[-2]);
 
-    /* XXX: further optimisations:
-       - use ctx->array_proto_values?
-       - check if array_iterator_prototype next method is built-in and
-         avoid constructing actual iterator object?
-       - build this into js_for_of_start and use in all `for (x of o)` loops
-     */
+    /*  XXX：进一步优化：-使用CTX-&gt;ARRAY_PROTO_VALUES？-检查是否内置了ARRAY_Iterator_Prototype Next方法和避免构造实际的迭代器对象？-将其构建到js_for_of_start中，并在所有`for(X Of O)`循环中使用。 */ 
     iterator = JS_GetProperty(ctx, sp[-1], JS_ATOM_Symbol_iterator);
     if (JS_IsException(iterator))
         return -1;
@@ -14236,7 +14051,7 @@ static __exception int js_append_enumerate(JSContext *ctx, JSValue *sp)
     &&  JS_IsCFunction(ctx, method, (JSCFunction *)js_array_iterator_next, 0)
     &&  js_get_fast_array(ctx, sp[-1], &arrp, &count32)) {
         int64_t len;
-        /* Handle fast arrays explicitly */
+        /*  显式处理FAST阵列。 */ 
         if (js_get_length64(ctx, &len, sp[-1]))
             goto exception;
         for (i = 0; i < count32; i++) {
@@ -14245,9 +14060,7 @@ static __exception int js_append_enumerate(JSContext *ctx, JSValue *sp)
                 goto exception;
         }
         if (len > count32) {
-            /* This is not strictly correct because the trailing elements are
-               empty instead of undefined. Append undefined entries instead.
-             */
+            /*  严格来说，这并不正确，因为尾随元素是空的而不是未定义的。而是追加未定义的条目。 */ 
             pos += len - count32;
             if (JS_SetProperty(ctx, sp[-3], JS_ATOM_length, JS_NewUint32(ctx, pos)) < 0)
                 goto exception;
@@ -14259,7 +14072,7 @@ static __exception int js_append_enumerate(JSContext *ctx, JSValue *sp)
             if (JS_IsException(value))
                 goto exception;
             if (done) {
-                /* value is JS_UNDEFINED */
+                /*  值为JS_未定义。 */ 
                 break;
             }
             if (JS_DefinePropertyValueUint32(ctx, sp[-3], pos++, value, JS_PROP_C_W_E) < 0)
@@ -14331,7 +14144,7 @@ static __exception int JS_CopyDataProperties(JSContext *ctx,
     return ret;
 }
 
-/* only valid inside C functions */
+/*  仅在C函数内部有效。 */ 
 static JSValueConst JS_GetActiveFunction(JSContext *ctx)
 {
     return ctx->current_stack_frame->cur_func;
@@ -14350,7 +14163,7 @@ static JSVarRef *get_var_ref(JSContext *ctx, JSStackFrame *sf,
             return var_ref;
         }
     }
-    /* create a new one */
+    /*  创建一个新的。 */ 
     var_ref = js_malloc(ctx, sizeof(JSVarRef));
     if (!var_ref)
         return NULL;
@@ -14389,7 +14202,7 @@ static JSValue js_closure2(JSContext *ctx, JSValue func_obj,
             JSClosureVar *cv = &b->closure_var[i];
             JSVarRef *var_ref;
             if (cv->is_local) {
-                /* reuse the existing variable reference if it already exists */
+                /*  如果现有变量引用已存在，则重新使用该变量引用。 */ 
                 var_ref = get_var_ref(ctx, sf, cv->var_idx, cv->is_arg);
                 if (!var_ref)
                     goto fail;
@@ -14402,7 +14215,7 @@ static JSValue js_closure2(JSContext *ctx, JSValue func_obj,
     }
     return func_obj;
  fail:
-    /* bfunc is freed when func_obj is freed */
+    /*  释放func_obj时释放bfunc。 */ 
     JS_FreeValue(ctx, func_obj);
     return JS_EXCEPTION;
 }
@@ -14448,7 +14261,7 @@ static JSValue js_closure(JSContext *ctx, JSValue bfunc,
     }
     func_obj = js_closure2(ctx, func_obj, b, cur_var_refs, sf);
     if (JS_IsException(func_obj)) {
-        /* bfunc has been freed */
+        /*  Bfunc已经被释放了。 */ 
         goto fail;
     }
     name_atom = b->func_name;
@@ -14460,8 +14273,7 @@ static JSValue js_closure(JSContext *ctx, JSValue bfunc,
     if (b->func_kind & JS_FUNC_GENERATOR) {
         JSValue proto;
         int proto_class_id;
-        /* generators have a prototype field which is used as
-           prototype for the generator object */
+        /*  生成器有一个原型字段，用作生成器对象的原型。 */ 
         if (b->func_kind == JS_FUNC_ASYNC_GENERATOR)
             proto_class_id = JS_CLASS_ASYNC_GENERATOR;
         else
@@ -14472,9 +14284,7 @@ static JSValue js_closure(JSContext *ctx, JSValue bfunc,
         JS_DefinePropertyValue(ctx, func_obj, JS_ATOM_prototype, proto,
                                JS_PROP_WRITABLE);
     } else if (b->has_prototype) {
-        /* add the 'prototype' property: delay instantiation to avoid
-           creating cycles for every javascript function. The prototype
-           object is created on the fly when first accessed */
+        /*  添加‘Prototype’属性：延迟实例化以避免为每个Java脚本函数创建循环。原型机对象是在第一次访问时动态创建的。 */ 
         JS_SetConstructorBit(ctx, func_obj, TRUE);
         JS_DefineAutoInitProperty(ctx, func_obj, JS_ATOM_prototype,
                                   js_instantiate_prototype, NULL,
@@ -14482,7 +14292,7 @@ static JSValue js_closure(JSContext *ctx, JSValue bfunc,
     }
     return func_obj;
  fail:
-    /* bfunc is freed when func_obj is freed */
+    /*  释放func_obj时释放bfunc。 */ 
     JS_FreeValue(ctx, func_obj);
     return JS_EXCEPTION;
 }
@@ -14519,7 +14329,7 @@ static int js_op_define_class(JSContext *ctx, JSValue *sp,
             }
         }
     } else {
-        /* parent_class is JS_UNDEFINED in this case */
+        /*  在本例中，Parent_CLASS为JS_UNDEFINED。 */ 
         parent_proto = JS_DupValue(ctx, ctx->class_proto[JS_CLASS_OBJECT]);
         parent_class = JS_DupValue(ctx, ctx->function_proto);
     }
@@ -14553,14 +14363,13 @@ static int js_op_define_class(JSContext *ctx, JSValue *sp,
             goto fail;
     }
 
-    /* the constructor property must be first. It can be overriden by
-       computed property names */
+    /*  构造函数属性必须是第一个。它可以通过以下方式覆盖计算的属性名称。 */ 
     if (JS_DefinePropertyValue(ctx, proto, JS_ATOM_constructor,
                                JS_DupValue(ctx, ctor),
                                JS_PROP_CONFIGURABLE |
                                JS_PROP_WRITABLE | JS_PROP_THROW) < 0)
         goto fail;
-    /* set the prototype property */
+    /*  设置Prototype属性。 */ 
     if (JS_DefinePropertyValue(ctx, ctor, JS_ATOM_prototype,
                                JS_DupValue(ctx, proto), JS_PROP_THROW) < 0)
         goto fail;
@@ -14598,8 +14407,7 @@ static void close_var_refs(JSRuntime *rt, JSStackFrame *sf)
         else
             var_ref->value = JS_DupValueRT(rt, sf->var_buf[var_idx]);
         var_ref->pvalue = &var_ref->value;
-        var_ref->link.prev = NULL; /* the reference is no longer to a
-                                      local variable */
+        var_ref->link.prev = NULL; /*  该引用不再是对局部变量。 */ 
     }
 }
 
@@ -14615,8 +14423,7 @@ static void close_lexical_var(JSContext *ctx, JSStackFrame *sf, int idx, int is_
             var_ref->value = JS_DupValue(ctx, sf->var_buf[var_idx]);
             var_ref->pvalue = &var_ref->value;
             list_del(&var_ref->link);
-            var_ref->link.prev = NULL; /* the reference is no longer to a
-                                          local variable */
+            var_ref->link.prev = NULL; /*  该引用不再是对局部变量。 */ 
         }
     }
 }
@@ -14641,7 +14448,7 @@ static JSValue js_call_c_function(JSContext *ctx, JSValueConst func_obj,
     cproto = p->u.cfunc.cproto;
     arg_count = p->u.cfunc.length;
 
-    /* better to always check stack overflow */
+    /*  最好始终检查堆栈溢出。 */ 
     if (js_check_stack_overflow(ctx, sizeof(arg_buf[0]) * arg_count))
         return JS_ThrowStackOverflow(ctx);
 
@@ -14649,8 +14456,7 @@ static JSValue js_call_c_function(JSContext *ctx, JSValueConst func_obj,
     sf->prev_frame = prev_sf;
     ctx->current_stack_frame = sf;
 #ifdef CONFIG_BIGNUM
-    /* we only propagate the bignum mode as some runtime functions
-       test it */
+    /*  我们只将bignum模式作为一些运行时函数进行传播试试看。 */ 
     if (prev_sf)
         sf->js_mode = prev_sf->js_mode & JS_MODE_BIGINT;
     else
@@ -14663,7 +14469,7 @@ static JSValue js_call_c_function(JSContext *ctx, JSValueConst func_obj,
     arg_buf = argv;
 
     if (unlikely(argc < arg_count)) {
-        /* ensure that at least argc_count arguments are readable */
+        /*  确保至少ARGC_COUNT参数是可读的。 */ 
         arg_buf = alloca(sizeof(arg_buf[0]) * arg_count);
         for(i = 0; i < argc; i++)
             arg_buf[i] = argv[i];
@@ -14686,8 +14492,8 @@ static JSValue js_call_c_function(JSContext *ctx, JSValueConst func_obj,
                 this_obj = JS_UNDEFINED;
             }
         }
-        /* here this_obj is new_target */
-        /* fall thru */
+        /*  这里，this_obj是new_Target。 */ 
+        /*  失败。 */ 
     case JS_CFUNC_generic:
         ret_val = func.generic(ctx, this_obj, argc, arg_buf);
         break;
@@ -14700,7 +14506,7 @@ static JSValue js_call_c_function(JSContext *ctx, JSValueConst func_obj,
                 this_obj = JS_UNDEFINED;
             }
         }
-        /* fall thru */
+        /*  失败。 */ 
     case JS_CFUNC_generic_magic:
         ret_val = func.generic_magic(ctx, this_obj, argc, arg_buf,
                                      p->u.cfunc.magic);
@@ -14800,7 +14606,7 @@ static no_inline __exception int __js_poll_interrupts(JSContext *ctx)
     ctx->interrupt_counter = JS_INTERRUPT_COUNTER_INIT;
     if (rt->interrupt_handler) {
         if (rt->interrupt_handler(rt, rt->interrupt_opaque)) {
-            /* XXX: should set a specific flag to avoid catching */
+            /*  XXX：应设置特定标志以避免捕获。 */ 
             JS_ThrowInternalError(ctx, "interrupted");
             JS_SetUncatchableError(ctx, ctx->current_exception, TRUE);
             return -1;
@@ -14818,7 +14624,7 @@ static inline __exception int js_poll_interrupts(JSContext *ctx)
     }
 }
 
-/* argument of OP_special_object */
+/*  Op_Special_Object的参数。 */ 
 typedef enum {
     OP_SPECIAL_OBJECT_ARGUMENTS,
     OP_SPECIAL_OBJECT_MAPPED_ARGUMENTS,
@@ -14833,7 +14639,7 @@ typedef enum {
 #define FUNC_RET_YIELD      1
 #define FUNC_RET_YIELD_STAR 2
 
-/* argv[] is modified if (flags & CALL_FLAG_COPY_ARGV) = 0. */
+/*  如果(FLAGS&CALL_FLAG_COPY_ARGV)=0，则修改argv[]。 */ 
 static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                                JSValueConst this_obj, JSValueConst new_target,
                                int argc, JSValue *argv, int flags)
@@ -14874,8 +14680,8 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
     if (unlikely(JS_VALUE_GET_TAG(func_obj) != JS_TAG_OBJECT)) {
         if (flags & CALL_FLAG_GENERATOR) {
             JSAsyncFunctionState *s = JS_VALUE_GET_PTR(func_obj);
-            /* func_obj get contains a pointer to JSFuncAsyncState */
-            /* the stack frame is already allocated */
+            /*  Func_obj get包含指向JSFuncAsyncState的指针。 */ 
+            /*  堆栈帧已分配。 */ 
             sf = &s->frame;
             p = JS_VALUE_GET_OBJ(sf->cur_func);
             b = p->u.func.function_bytecode;
@@ -14884,7 +14690,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
             var_buf = sf->var_buf;
             stack_buf = sf->var_buf + b->var_count;
             sp = sf->cur_sp;
-            sf->cur_sp = NULL; /* cur_sp is NULL if the function is running */
+            sf->cur_sp = NULL; /*  如果函数正在运行，则cur_sp为NULL。 */ 
             pc = sf->cur_pc;
             sf->prev_frame = ctx->current_stack_frame;
             ctx->current_stack_frame = sf;
@@ -15028,7 +14834,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
             *sp++ = JS_NULL;
             BREAK;
         CASE(OP_push_this):
-            /* OP_push_this is only called at the start of a function */
+            /*  OP_PUSH_This仅在函数开始时调用。 */ 
             {
                 JSValue val;
                 if (!(b->js_mode & JS_MODE_STRICT)) {
@@ -15125,7 +14931,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
             sp[-2] = sp[-1];
             sp--;
             BREAK;
-        CASE(OP_nip1): /* a b c -> b c */
+        CASE(OP_nip1): /*  A b c-&gt;b c。 */ 
             JS_FreeValue(ctx, sp[-3]);
             sp[-3] = sp[-2];
             sp[-2] = sp[-1];
@@ -15135,36 +14941,36 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
             sp[0] = JS_DupValue(ctx, sp[-1]);
             sp++;
             BREAK;
-        CASE(OP_dup2): /* a b -> a b a b */
+        CASE(OP_dup2): /*  A b-&gt;a b a b b。 */ 
             sp[0] = JS_DupValue(ctx, sp[-2]);
             sp[1] = JS_DupValue(ctx, sp[-1]);
             sp += 2;
             BREAK;
-        CASE(OP_dup3): /* a b c -> a b c a b c */
+        CASE(OP_dup3): /*  A b c-&gt;a b c a b c。 */ 
             sp[0] = JS_DupValue(ctx, sp[-3]);
             sp[1] = JS_DupValue(ctx, sp[-2]);
             sp[2] = JS_DupValue(ctx, sp[-1]);
             sp += 3;
             BREAK;
-        CASE(OP_dup1): /* a b -> a a b */
+        CASE(OP_dup1): /*  A b-&gt;a a b。 */ 
             sp[0] = sp[-1];
             sp[-1] = JS_DupValue(ctx, sp[-2]);
             sp++;
             BREAK;
-        CASE(OP_insert2): /* obj a -> a obj a (dup_x1) */
+        CASE(OP_insert2): /*  对象a-&gt;对象a(Dup_X1)。 */ 
             sp[0] = sp[-1];
             sp[-1] = sp[-2];
             sp[-2] = JS_DupValue(ctx, sp[0]);
             sp++;
             BREAK;
-        CASE(OP_insert3): /* obj prop a -> a obj prop a (dup_x2) */
+        CASE(OP_insert3): /*  对象道具a-&gt;对象道具a(Dup_X2)。 */ 
             sp[0] = sp[-1];
             sp[-1] = sp[-2];
             sp[-2] = sp[-3];
             sp[-3] = JS_DupValue(ctx, sp[0]);
             sp++;
             BREAK;
-        CASE(OP_insert4): /* this obj prop a -> a this obj prop a */
+        CASE(OP_insert4): /*  这个对象道具-&gt;这个对象道具a。 */ 
             sp[0] = sp[-1];
             sp[-1] = sp[-2];
             sp[-2] = sp[-3];
@@ -15172,7 +14978,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
             sp[-4] = JS_DupValue(ctx, sp[0]);
             sp++;
             BREAK;
-        CASE(OP_perm3): /* obj a b -> a obj b (213) */
+        CASE(OP_perm3): /*  Obj a b-&gt;a obj b(213)。 */ 
             {
                 JSValue tmp;
                 tmp = sp[-2];
@@ -15180,7 +14986,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                 sp[-3] = tmp;
             }
             BREAK;
-        CASE(OP_rot3l): /* x a b -> a b x (231) */
+        CASE(OP_rot3l): /*  X a b-&gt;a b x(231)。 */ 
             {
                 JSValue tmp;
                 tmp = sp[-3];
@@ -15189,7 +14995,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                 sp[-1] = tmp;
             }
             BREAK;
-        CASE(OP_rot4l): /* x a b c -> a b c x */
+        CASE(OP_rot4l): /*  X a b c-&gt;a b c x。 */ 
             {
                 JSValue tmp;
                 tmp = sp[-4];
@@ -15199,7 +15005,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                 sp[-1] = tmp;
             }
             BREAK;
-        CASE(OP_rot5l): /* x a b c d -> a b c d x */
+        CASE(OP_rot5l): /*  X a b c d-&gt;a b c d x。 */ 
             {
                 JSValue tmp;
                 tmp = sp[-5];
@@ -15210,7 +15016,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                 sp[-1] = tmp;
             }
             BREAK;
-        CASE(OP_rot3r): /* a b x -> x a b (312) */
+        CASE(OP_rot3r): /*  A b x-&gt;x a b(312)。 */ 
             {
                 JSValue tmp;
                 tmp = sp[-1];
@@ -15219,7 +15025,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                 sp[-3] = tmp;
             }
             BREAK;
-        CASE(OP_perm4): /* obj prop a b -> a obj prop b */
+        CASE(OP_perm4): /*  Obj道具a b-&gt;obj道具b。 */ 
             {
                 JSValue tmp;
                 tmp = sp[-2];
@@ -15228,7 +15034,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                 sp[-4] = tmp;
             }
             BREAK;
-        CASE(OP_perm5): /* this obj prop a b -> a this obj prop b */
+        CASE(OP_perm5): /*  这个道具b-&gt;a这个道具b。 */ 
             {
                 JSValue tmp;
                 tmp = sp[-2];
@@ -15238,7 +15044,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                 sp[-5] = tmp;
             }
             BREAK;
-        CASE(OP_swap): /* a b -> b a */
+        CASE(OP_swap): /*  A b-&gt;b a。 */ 
             {
                 JSValue tmp;
                 tmp = sp[-2];
@@ -15246,7 +15052,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                 sp[-1] = tmp;
             }
             BREAK;
-        CASE(OP_swap2): /* a b c d -> c d a b */
+        CASE(OP_swap2): /*  A b c d-&gt;c d a b。 */ 
             {
                 JSValue tmp1, tmp2;
                 tmp1 = sp[-4];
@@ -15380,7 +15186,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
             goto done;
 
         CASE(OP_check_ctor_return):
-            /* return TRUE if 'this' should be returned */
+            /*  如果应返回‘This’，则返回True。 */ 
             if (!JS_IsObject(sp[-1])) {
                 if (!JS_IsUndefined(sp[-1])) {
                     JS_ThrowTypeError(ctx, "derived class constructor must return an object or undefined");
@@ -15469,7 +15275,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                 *sp++ = ret_val;
             }
             BREAK;
-            /* could merge with OP_apply */
+            /*  可以与op_Apply合并。 */ 
         CASE(OP_apply_eval):
             {
                 int scope_idx;
@@ -15600,7 +15406,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                 atom = get_u32(pc);
                 pc += 4;
 
-                /* sp[-2] is JS_TRUE or JS_FALSE */
+                /*  SP[-2]是JS_TRUE还是JS_FALSE。 */ 
                 if (unlikely(!JS_VALUE_GET_INT(sp[-2]))) {
                     JS_ThrowReferenceErrorNotDefined(ctx, atom);
                     goto exception;
@@ -16025,7 +15831,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
             {
                 int32_t diff;
                 diff = get_u32(pc);
-                /* XXX: should have a different tag to avoid security flaw */
+                /*  XXX：应使用不同的标记以避免安全缺陷。 */ 
                 sp[0] = JS_NewInt32(ctx, pc + 4 - b->byte_code_buf);
                 sp++;
                 pc += diff;
@@ -16091,8 +15897,8 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
             BREAK;
 
         CASE(OP_iterator_close):
-            sp--; /* drop the catch offset to avoid getting caught by exception */
-            JS_FreeValue(ctx, sp[-1]); /* drop the next method */
+            sp--; /*  删除捕获偏移量以避免被异常捕获。 */ 
+            JS_FreeValue(ctx, sp[-1]); /*  丢弃下一个方法。 */ 
             sp--;
             if (!JS_IsUndefined(sp[-1])) {
                 if (JS_IteratorClose(ctx, sp[-1], FALSE))
@@ -16104,8 +15910,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
         CASE(OP_iterator_close_return):
             {
                 JSValue ret_val;
-                /* iter_obj next catch_offset ... ret_val ->
-                   ret_eval iter_obj next catch_offset */
+                /*  ITER_OBJ下一个捕获偏移量...。RET_VAL-&gt;检索下一个捕获偏移量(_E)。 */ 
                 ret_val = *--sp;
                 while (sp > stack_buf &&
                        JS_VALUE_GET_TAG(sp[-1]) != JS_TAG_CATCH_OFFSET) {
@@ -16125,7 +15930,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
             BREAK;
 
         CASE(OP_async_iterator_close):
-            /* iter_obj next catch_offset -> value flag */
+            /*  ITER_OBJ下一个CATCH_OFFSET-&gt;值标志。 */ 
             {
                 JSValue ret, method;
                 int ret_flag;
@@ -16151,7 +15956,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
             BREAK;
 
         CASE(OP_async_iterator_next):
-            /* stack: iter_obj next catch_offset val */
+            /*  堆栈：ITER_OBJ下一个CATCH_OFFSET值。 */ 
             {
                 JSValue ret;
                 ret = JS_Call(ctx, sp[-3], sp[-4],
@@ -16164,7 +15969,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
             BREAK;
 
         CASE(OP_async_iterator_get):
-            /* stack: iter_obj next catch_offset val */
+            /*  堆栈：ITER_OBJ下一个CATCH_OFFSET值。 */ 
             {
                 JSValue method, ret;
                 BOOL ret_flag;
@@ -16563,7 +16368,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
             }
             BREAK;
 
-        CASE(OP_append):    /* array pos enumobj -- array pos */
+        CASE(OP_append):    /*  数组位置枚举对象--数组位置。 */ 
             {
                 if (js_append_enumerate(ctx, sp))
                     goto exception;
@@ -16571,12 +16376,9 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
             }
             BREAK;
 
-        CASE(OP_copy_data_properties):    /* target source excludeList */
+        CASE(OP_copy_data_properties):    /*  目标源排除列表。 */ 
             {
-                /* stack offsets (-1 based):
-                   2 bits for target,
-                   3 bits for source,
-                   2 bits for exclusionList */
+                /*  堆叠偏移量(基于-1)：2比特用于目标，3比特用于源，排除列表的2位。 */ 
                 int mask;
 
                 mask = *pc++;
@@ -16633,8 +16435,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                     if (JS_IsException(ops[1])) {
                         goto exception;
                     }
-                    /* XXX: should not modify the variable in case of
-                       exception */
+                    /*  XXX：在以下情况下不应修改变量例外情况。 */ 
                     ops[0] = JS_ConcatString(ctx, ops[0], ops[1]);
                     if (JS_IsException(ops[0])) {
                         var_buf[idx] = JS_UNDEFINED;
@@ -16643,12 +16444,10 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                     var_buf[idx] = ops[0];
                 } else {
                 add_loc_slow:
-                    /* XXX: should not modify the variable in case of
-                       exception */
+                    /*  XXX：在以下情况下不应修改变量例外情况。 */ 
                     sp--;
-                    /* In case of exception, js_add_slow frees ops[0]
-                       and ops[1]. */
-                    /* XXX: change API */
+                    /*  在出现异常的情况下，js_add_low释放操作[0]和OPS[1]。 */ 
+                    /*  XXX：更改接口。 */ 
                     if (js_add_slow(ctx, ops + 2)) {
                         var_buf[idx] = JS_UNDEFINED;
                         goto exception;
@@ -16698,7 +16497,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                         d = (double)r;
                         goto mul_fp_res;
                     }
-                    /* need to test zero case for -0 result */
+                    /*  需要为-0结果测试零案例。 */ 
                     if (unlikely(r == 0 && (v1 | v2) < 0)) {
                         d = -0.0;
                         goto mul_fp_res;
@@ -16752,8 +16551,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                     int v1, v2, r;
                     v1 = JS_VALUE_GET_INT(op1);
                     v2 = JS_VALUE_GET_INT(op2);
-                    /* We must avoid v2 = 0, v1 = INT32_MIN and v2 =
-                       -1 and the cases where the result is -0. */
+                    /*  我们必须避免v2=0、v1=INT32_MIN和v2=以及结果为-0的情况。 */ 
                     if (unlikely(v1 < 0 || v2 <= 0))
                         goto binary_arith_slow;
                     r = v1 % v2;
@@ -16802,7 +16600,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                         (val == 0 && !is_bignum_mode(ctx)))
                         goto slow_neg;
 #else
-                    /* Note: -0 cannot be expressed as integer */
+                    /*  注：-0不能表示为I */ 
                     if (unlikely(val == 0)) {
                         d = -0.0;
                         goto neg_fp_res;
@@ -16968,7 +16766,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                 if (likely(JS_VALUE_IS_BOTH_INT(op1, op2))) {
                     uint32_t v2;
                     v2 = JS_VALUE_GET_INT(op2);
-                    /* v1 >>> v2 retains its JS semantics if CONFIG_BIGNUM */
+                    /*   */ 
                     v2 &= 0x1f;
                     sp[-2] = JS_NewUint32(ctx,
                                           (uint32_t)JS_VALUE_GET_INT(op1) >>
@@ -17166,7 +16964,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
             BREAK;
 
         CASE(OP_to_propkey2):
-            /* must be tested first */
+            /*   */ 
             if (unlikely(JS_IsUndefined(sp[-2]) || JS_IsNull(sp[-2]))) {
                 JS_ThrowTypeError(ctx, "value has no property");
                 goto exception;
@@ -17247,18 +17045,18 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                         sp[-1] = JS_NewBool(ctx, ret);
                         break;
                     case OP_with_make_ref:
-                        /* produce a pair object/propname on the stack */
+                        /*   */ 
                         *sp++ = JS_AtomToValue(ctx, atom);
                         break;
                     case OP_with_get_ref:
-                        /* produce a pair object/method on the stack */
+                        /*  在堆栈上生成一对对象/方法。 */ 
                         val = JS_GetProperty(ctx, obj, atom);
                         if (unlikely(JS_IsException(val)))
                             goto exception;
                         *sp++ = val;
                         break;
                     case OP_with_get_ref_undef:
-                        /* produce a pair undefined/function on the stack */
+                        /*  在堆栈上生成一对未定义的/函数。 */ 
                         val = JS_GetProperty(ctx, obj, atom);
                         if (unlikely(JS_IsException(val)))
                             goto exception;
@@ -17270,7 +17068,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
                     pc += diff - 5;
                 } else {
                 no_with:
-                    /* if not jumping, drop the object argument */
+                    /*  如果不跳转，则删除对象参数。 */ 
                     JS_FreeValue(ctx, sp[-1]);
                     sp--;
                 }
@@ -17332,9 +17130,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
     }
  exception:
     if (ctx->exception_needs_backtrace) {
-        /* add the backtrace information now (it is not done
-           before if the exception happens in a bytecode
-           operation */
+        /*  现在添加回溯信息(尚未完成如果异常发生在字节码中，则在运营。 */ 
         build_backtrace(ctx, ctx->current_exception, NULL, 0, pc);
     }
     if (!JS_IsUncatchableError(ctx, ctx->current_exception)) {
@@ -17344,8 +17140,8 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
             if (JS_VALUE_GET_TAG(val) == JS_TAG_CATCH_OFFSET) {
                 int pos = JS_VALUE_GET_INT(val);
                 if (pos == 0) {
-                    /* enumerator: close it with a throw */
-                    JS_FreeValue(ctx, sp[-1]); /* drop the next method */
+                    /*  枚举器：抛出结束它。 */ 
+                    JS_FreeValue(ctx, sp[-1]); /*  丢弃下一个方法。 */ 
                     sp--;
                     JS_IteratorClose(ctx, sp[-1], TRUE);
                 } else {
@@ -17358,9 +17154,7 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
         }
     }
     ret_val = JS_EXCEPTION;
-    /* the local variables are freed by the caller in the generator
-       case. Hence the label 'done' should never be reached in a
-       generator function. */
+    /*  局部变量由生成器中的调用方释放凯斯。因此，标签‘Done’永远不应在生成函数。 */ 
     if (b->func_kind != JS_FUNC_NORMAL) {
     done_generator:
         sf->cur_pc = pc;
@@ -17368,10 +17162,10 @@ static JSValue JS_CallInternal(JSContext *ctx, JSValueConst func_obj,
     } else {
     done:
         if (unlikely(!list_empty(&sf->var_ref_list))) {
-            /* variable references reference the stack: must close them */
+            /*  变量引用引用堆栈：必须关闭它们。 */ 
             close_var_refs(ctx->rt, sf);
         }
-        /* free the local variables and stack */
+        /*  释放局部变量和堆栈。 */ 
         for(pval = local_buf; pval < sp; pval++) {
             JS_FreeValue(ctx, *pval);
         }
@@ -17422,13 +17216,13 @@ static JSValue js_create_from_ctor(JSContext *ctx, JSValueConst ctor,
             return proto;
         if (!JS_IsObject(proto)) {
             JS_FreeValue(ctx, proto);
-            /* check if revoked proxy */
+            /*  检查是否已撤销代理。 */ 
             {
                 JSProxyData *s = JS_GetOpaque(ctor, JS_CLASS_PROXY);
                 if (s && s->is_revoked)
                     return JS_ThrowTypeErrorRevokedProxy(ctx);
             }
-            /* XXX: should use the ctor realm instead of 'ctx' */
+            /*  Xxx：应使用ctor领域而不是‘ctx’ */ 
             proto = JS_DupValue(ctx, ctx->class_proto[class_id]);
         }
     }
@@ -17437,7 +17231,7 @@ static JSValue js_create_from_ctor(JSContext *ctx, JSValueConst ctor,
     return obj;
 }
 
-/* argv[] is modified if (flags & CALL_FLAG_COPY_ARGV) = 0. */
+/*  如果(FLAGS&CALL_FLAG_COPY_ARGV)=0，则修改argv[]。 */ 
 static JSValue JS_CallConstructorInternal(JSContext *ctx,
                                           JSValueConst func_obj,
                                           JSValueConst new_target,
@@ -17476,7 +17270,7 @@ static JSValue JS_CallConstructorInternal(JSContext *ctx,
         return JS_CallInternal(ctx, func_obj, JS_UNDEFINED, new_target, argc, argv, flags);
     } else {
         JSValue obj, ret;
-        /* legacy constructor behavior */
+        /*  传统构造函数行为。 */ 
         obj = js_create_from_ctor(ctx, new_target, JS_CLASS_OBJECT);
         if (JS_IsException(obj))
             return JS_EXCEPTION;
@@ -17527,7 +17321,7 @@ static JSValue JS_InvokeFree(JSContext *ctx, JSValue this_val, JSAtom atom,
     return res;
 }
 
-/* JSAsyncFunctionState (used by generator and async functions) */
+/*  JSAsyncFunctionState(由生成器和异步函数使用)。 */ 
 static __exception int async_func_init(JSContext *ctx, JSAsyncFunctionState *s,
                                        JSValueConst func_obj, JSValueConst this_obj,
                                        int argc, JSValueConst *argv)
@@ -17572,10 +17366,7 @@ static void async_func_mark(JSRuntime *rt, JSAsyncFunctionState *s,
     JS_MarkValue(rt, sf->cur_func, mark_func);
     JS_MarkValue(rt, s->this_val, mark_func);
     if (sf->cur_sp) {
-        /* if the function is running, cur_sp is not known so we
-           cannot mark the stack. Marking the variables is not needed
-           because a running function cannot be part of a removable
-           cycle */
+        /*  如果函数正在运行，则cur_sp未知，因此我们无法标记堆栈。不需要标记变量因为正在运行的函数不能是可移除的循环。 */ 
         for(sp = sf->arg_buf; sp < sf->cur_sp; sp++)
             JS_MarkValue(rt, *sp, mark_func);
     }
@@ -17588,11 +17379,11 @@ static void async_func_free(JSRuntime *rt, JSAsyncFunctionState *s)
 
     sf = &s->frame;
 
-    /* close the closure variables. */
+    /*  关闭闭合变量。 */ 
     close_var_refs(rt, sf);
     
     if (sf->arg_buf) {
-        /* cannot free the function if it is running */
+        /*  如果函数正在运行，则无法释放该函数。 */ 
         assert(sf->cur_sp != NULL);
         for(sp = sf->arg_buf; sp < sf->cur_sp; sp++) {
             JS_FreeValueRT(rt, *sp);
@@ -17607,14 +17398,14 @@ static JSValue async_func_resume(JSContext *ctx, JSAsyncFunctionState *s)
 {
     JSValue func_obj;
 
-    /* the tag does not matter provided it is not an object */
+    /*  如果标记不是对象，则无关紧要。 */ 
     func_obj = JS_MKPTR(JS_TAG_INT, s);
     return JS_CallInternal(ctx, func_obj, s->this_val, JS_UNDEFINED,
                            s->argc, s->frame.arg_buf, CALL_FLAG_GENERATOR);
 }
 
 
-/* Generators */
+/*  发电机。 */ 
 
 typedef enum JSGeneratorStateEnum {
     JS_GENERATOR_STATE_SUSPENDED_START,
@@ -17663,7 +17454,7 @@ static void js_generator_mark(JSRuntime *rt, JSValueConst val,
     async_func_mark(rt, &s->func_state, mark_func);
 }
 
-/* XXX: use enum */
+/*  XXX：使用枚举。 */ 
 #define GEN_MAGIC_NEXT   0
 #define GEN_MAGIC_RETURN 1
 #define GEN_MAGIC_THROW  2
@@ -17709,7 +17500,7 @@ static JSValue js_generator_next(JSContext *ctx, JSValueConst this_val,
             }
             if (magic != GEN_MAGIC_NEXT &&
                 (JS_IsUndefined(method) || JS_IsNull(method))) {
-                /* default action */
+                /*  默认操作。 */ 
                 if (magic == GEN_MAGIC_RETURN) {
                     ret = JS_DupValue(ctx, argv[0]);
                     goto iter_done;
@@ -17726,8 +17517,7 @@ static JSValue js_generator_next(JSContext *ctx, JSValueConst this_val,
             iter_exception:
                 goto exec_throw;
             }
-            /* if not done, the iterator returns the exact object
-               returned by 'method' */
+            /*  如果未完成，迭代器将返回确切的对象由“方法”返回。 */ 
             if (done == 2) {
                 JSValue done_val, value;
                 done_val = JS_GetProperty(ctx, ret, JS_ATOM_done);
@@ -17748,7 +17538,7 @@ static JSValue js_generator_next(JSContext *ctx, JSValueConst this_val,
                 }
             } else {
                 if (done) {
-                    /* 'yield *' returns the value associated to done = true */
+                    /*  ‘Year*’返回与DONE=TRUE关联的值。 */ 
                 iter_done:
                     JS_FreeValue(ctx, sf->cur_sp[-2]);
                     JS_FreeValue(ctx, sf->cur_sp[-1]);
@@ -17762,7 +17552,7 @@ static JSValue js_generator_next(JSContext *ctx, JSValueConst this_val,
         }
         break;
     case JS_GENERATOR_STATE_SUSPENDED_YIELD:
-        /* cur_sp[-1] was set to JS_UNDEFINED in the previous call */
+        /*  Cur_sp[-1]在上一次调用中设置为JS_UNDEFINED。 */ 
         ret = JS_DupValue(ctx, argv[0]);
         if (magic == GEN_MAGIC_THROW) {
             JS_Throw(ctx, ret);
@@ -17780,26 +17570,26 @@ static JSValue js_generator_next(JSContext *ctx, JSValueConst this_val,
         func_ret = async_func_resume(ctx, &s->func_state);
         s->state = JS_GENERATOR_STATE_SUSPENDED_YIELD;
         if (JS_IsException(func_ret)) {
-            /* finalize the execution in case of exception */
+            /*  在出现异常的情况下完成执行。 */ 
             free_generator_stack(ctx, s);
             return func_ret;
         }
         if (JS_VALUE_GET_TAG(func_ret) == JS_TAG_INT) {
             if (JS_VALUE_GET_INT(func_ret) == FUNC_RET_YIELD_STAR) {
-                /* 'yield *' */
+                /*  “收益率*” */ 
                 s->state = JS_GENERATOR_STATE_SUSPENDED_YIELD_STAR;
                 iter_args[0] = JS_UNDEFINED;
                 argc = 1;
                 argv = iter_args;
                 goto redo;
             } else {
-                /* get the return the yield value at the top of the stack */
+                /*  获取堆栈顶部的收益率值的返回值。 */ 
                 ret = sf->cur_sp[-1];
                 sf->cur_sp[-1] = JS_UNDEFINED;
                 *pdone = FALSE;
             }
         } else {
-            /* end of iterator */
+            /*  迭代器结束。 */ 
             ret = sf->cur_sp[-1];
             sf->cur_sp[-1] = JS_UNDEFINED;
             JS_FreeValue(ctx, func_ret);
@@ -17808,7 +17598,7 @@ static JSValue js_generator_next(JSContext *ctx, JSValueConst this_val,
         break;
     case JS_GENERATOR_STATE_COMPLETED:
     done:
-        /* execution is finished */
+        /*  执行完毕。 */ 
         switch(magic) {
         default:
         case GEN_MAGIC_NEXT:
@@ -17845,7 +17635,7 @@ static JSValue js_generator_function_call(JSContext *ctx, JSValueConst func_obj,
         goto fail;
     }
 
-    /* execute the function up to 'OP_initial_yield' */
+    /*  执行该函数直到‘op_Initial_Year’为止。 */ 
     func_ret = async_func_resume(ctx, &s->func_state);
     if (JS_IsException(func_ret))
         goto fail;
@@ -17862,7 +17652,7 @@ static JSValue js_generator_function_call(JSContext *ctx, JSValueConst func_obj,
     return JS_EXCEPTION;
 }
 
-/* AsyncFunction */
+/*  异步函数。 */ 
 
 static void js_async_function_terminate(JSRuntime *rt, JSContext *ctx,
                                         JSAsyncFunctionData *s)
@@ -17873,7 +17663,7 @@ static void js_async_function_terminate(JSRuntime *rt, JSContext *ctx,
     }
 }
 
-/* ctx can be NULL */
+/*  CTX可以为空。 */ 
 static void js_async_function_free(JSRuntime *rt, JSContext *ctx,
                                    JSAsyncFunctionData *s)
 {
@@ -17940,24 +17730,24 @@ static void js_async_function_resume(JSContext *ctx, JSAsyncFunctionData *s)
                        1, (JSValueConst *)&error);
         JS_FreeValue(ctx, error);
         js_async_function_terminate(ctx->rt, ctx, s);
-        JS_FreeValue(ctx, ret2); /* XXX: what to do if exception ? */
+        JS_FreeValue(ctx, ret2); /*  XXX：如果出现异常怎么办？ */ 
     } else {
         JSValue value;
         value = s->func_state.frame.cur_sp[-1];
         s->func_state.frame.cur_sp[-1] = JS_UNDEFINED;
         if (JS_IsUndefined(func_ret)) {
-            /* function returned */
+            /*  返回的函数。 */ 
             ret2 = JS_Call(ctx, s->resolving_funcs[0], JS_UNDEFINED,
                            1, (JSValueConst *)&value);
-            JS_FreeValue(ctx, ret2); /* XXX: what to do if exception ? */
+            JS_FreeValue(ctx, ret2); /*  XXX：如果出现异常怎么办？ */ 
             JS_FreeValue(ctx, value);
             js_async_function_terminate(ctx->rt, ctx, s);
         } else {
             JSValue promise, resolving_funcs[2], resolving_funcs1[2];
             int i, res;
 
-            /* await */
-            JS_FreeValue(ctx, func_ret); /* not used */
+            /*  等待。 */ 
+            JS_FreeValue(ctx, func_ret); /*  未使用。 */ 
             promise = js_promise_resolve(ctx, ctx->promise_ctor,
                                          1, (JSValueConst *)&value, 0);
             JS_FreeValue(ctx, value);
@@ -17968,8 +17758,7 @@ static void js_async_function_resume(JSContext *ctx, JSAsyncFunctionData *s)
                 goto fail;
             }
 
-            /* Note: no need to create 'thrownawayCapability' as in
-               the spec */
+            /*  注意：不需要像在中那样创建‘thrownawayCapability’规格说明。 */ 
             for(i = 0; i < 2; i++)
                 resolving_funcs1[i] = JS_UNDEFINED;
             res = perform_promise_then(ctx, promise,
@@ -18002,7 +17791,7 @@ static JSValue js_async_function_resolve_call(JSContext *ctx,
     if (is_reject) {
         JS_Throw(ctx, JS_DupValue(ctx, arg));
     } else {
-        /* return value of await */
+        /*  等待的返回值。 */ 
         s->func_state.frame.cur_sp[-1] = JS_DupValue(ctx, arg);
     }
     js_async_function_resume(ctx, s);
@@ -18044,7 +17833,7 @@ static JSValue js_async_function_call(JSContext *ctx, JSValueConst func_obj,
     return promise;
 }
 
-/* AsyncGenerator */
+/*  异步生成器。 */ 
 
 typedef enum JSAsyncGeneratorStateEnum {
     JS_ASYNC_GENERATOR_STATE_SUSPENDED_START,
@@ -18057,19 +17846,19 @@ typedef enum JSAsyncGeneratorStateEnum {
 
 typedef struct JSAsyncGeneratorRequest {
     struct list_head link;
-    /* completion */
-    int completion_type; /* GEN_MAGIC_x */
+    /*  完工。 */ 
+    int completion_type; /*  Gen_Magic_x。 */ 
     JSValue result;
-    /* promise capability */
+    /*  承诺能力。 */ 
     JSValue promise;
     JSValue resolving_funcs[2];
 } JSAsyncGeneratorRequest;
 
 typedef struct JSAsyncGeneratorData {
-    JSObject *generator; /* back pointer to the object (const) */
+    JSObject *generator; /*  指向对象的后向指针(常量)。 */ 
     JSAsyncGeneratorStateEnum state;
     JSAsyncFunctionState func_state;
-    struct list_head queue; /* list of JSAsyncGeneratorRequest.link */
+    struct list_head queue; /*  JSAsyncGeneratorRequest.link列表。 */ 
 } JSAsyncGeneratorData;
 
 static void js_async_generator_free(JSRuntime *rt,
@@ -18167,8 +17956,7 @@ static int js_async_generator_await(JSContext *ctx,
         goto fail;
     }
 
-    /* Note: no need to create 'thrownawayCapability' as in
-       the spec */
+    /*  注意：不需要像在中那样创建‘thrownawayCapability’规格说明。 */ 
     for(i = 0; i < 2; i++)
         resolving_funcs1[i] = JS_UNDEFINED;
     res = perform_promise_then(ctx, promise,
@@ -18211,7 +17999,7 @@ static void js_async_generator_resolve(JSContext *ctx,
 {
     JSValue result;
     result = js_create_iterator_result(ctx, JS_DupValue(ctx, value), done);
-    /* XXX: better exception handling ? */
+    /*  XXX：更好的异常处理？ */ 
     js_async_generator_resolve_or_reject(ctx, s, result, 0);
     JS_FreeValue(ctx, result);
  }
@@ -18273,7 +18061,7 @@ static void js_async_generator_resume_next(JSContext *ctx,
         next = list_entry(s->queue.next, JSAsyncGeneratorRequest, link);
         switch(s->state) {
         case JS_ASYNC_GENERATOR_STATE_EXECUTING:
-            /* only happens when restarting execution after await() */
+            /*  仅在等待()后重新启动执行时才会发生。 */ 
             goto resume_exec;
         case JS_ASYNC_GENERATOR_STATE_AWAITING_RETURN:
             goto done;
@@ -18303,8 +18091,7 @@ static void js_async_generator_resume_next(JSContext *ctx,
                 JS_Throw(ctx, value);
                 s->func_state.throw_flag = TRUE;
             } else {
-                /* 'yield' returns a value. 'yield *' also returns a value
-                   in case the 'throw' method is called */
+                /*  ‘Year’返回值。‘Year*’也返回值如果调用了“Throw”方法。 */ 
                 s->func_state.frame.cur_sp[-1] = value;
                 s->func_state.frame.cur_sp[0] =
                     JS_NewInt32(ctx, next->completion_type);
@@ -18344,7 +18131,7 @@ static void js_async_generator_resume_next(JSContext *ctx,
                 }
             } else {
                 assert(JS_IsUndefined(func_ret));
-                /* end of function */
+                /*  函数结束。 */ 
                 value = s->func_state.frame.cur_sp[-1];
                 s->func_state.frame.cur_sp[-1] = JS_UNDEFINED;
                 js_async_generator_complete(ctx, s);
@@ -18368,10 +18155,10 @@ static JSValue js_async_generator_resolve_function(JSContext *ctx,
     JSAsyncGeneratorData *s = JS_GetOpaque(func_data[0], JS_CLASS_ASYNC_GENERATOR);
     JSValueConst arg = argv[0];
 
-    /* XXX: what if s == NULL */
+    /*  Xxx：如果s==空怎么办。 */ 
 
     if (magic >= 2) {
-        /* resume next case in AWAITING_RETURN state */
+        /*  在等待返回状态下继续下一个案例。 */ 
         assert(s->state == JS_ASYNC_GENERATOR_STATE_AWAITING_RETURN ||
                s->state == JS_ASYNC_GENERATOR_STATE_COMPLETED);
         s->state = JS_ASYNC_GENERATOR_STATE_COMPLETED;
@@ -18381,13 +18168,13 @@ static JSValue js_async_generator_resolve_function(JSContext *ctx,
             js_async_generator_resolve(ctx, s, arg, TRUE);
         }
     } else {
-        /* restart function execution after await() */
+        /*  等待后重新启动函数执行()。 */ 
         assert(s->state == JS_ASYNC_GENERATOR_STATE_EXECUTING);
         s->func_state.throw_flag = is_reject;
         if (is_reject) {
             JS_Throw(ctx, JS_DupValue(ctx, arg));
         } else {
-            /* return value of await */
+            /*  等待的返回值。 */ 
             s->func_state.frame.cur_sp[-1] = JS_DupValue(ctx, arg);
         }
         js_async_generator_resume_next(ctx, s);
@@ -18395,7 +18182,7 @@ static JSValue js_async_generator_resolve_function(JSContext *ctx,
     return JS_UNDEFINED;
 }
 
-/* magic = GEN_MAGIC_x */
+/*  魔术=Gen_Magic_x。 */ 
 static JSValue js_async_generator_next(JSContext *ctx, JSValueConst this_val,
                                        int argc, JSValueConst *argv,
                                        int magic)
@@ -18456,8 +18243,7 @@ static JSValue js_async_generator_function_call(JSContext *ctx, JSValueConst fun
         goto fail;
     }
 
-    /* execute the function up to 'OP_initial_yield' (no yield nor
-       await are possible) */
+    /*  执行该函数直到‘op_Initial_Year’(无Year或等待是可能的)。 */ 
     func_ret = async_func_resume(ctx, &s->func_state);
     if (JS_IsException(func_ret))
         goto fail;
@@ -18474,7 +18260,7 @@ static JSValue js_async_generator_function_call(JSContext *ctx, JSValueConst fun
     return JS_EXCEPTION;
 }
 
-/* JS parser */
+/*  JS解析器。 */ 
 
 enum {
     TOK_NUMBER = -128,
@@ -18482,7 +18268,7 @@ enum {
     TOK_TEMPLATE,
     TOK_IDENT,
     TOK_REGEXP,
-    /* warning: order matters (see js_parse_assign_expr) */
+    /*  警告：顺序很重要(请参阅js_parse_assign_expr)。 */ 
     TOK_MUL_ASSIGN,
     TOK_DIV_ASSIGN,
     TOK_MOD_ASSIGN,
@@ -18522,8 +18308,8 @@ enum {
     TOK_ERROR,
     TOK_PRIVATE_NAME,
     TOK_EOF,
-    /* keywords: WARNING: same order as atoms */
-    TOK_NULL, /* must be first */
+    /*  关键词：警告：与原子顺序相同。 */ 
+    TOK_NULL, /*  必须是第一名。 */ 
     TOK_FALSE,
     TOK_TRUE,
     TOK_IF,
@@ -18552,7 +18338,7 @@ enum {
     TOK_FUNCTION,
     TOK_DEBUGGER,
     TOK_WITH,
-    /* FutureReservedWord */
+    /*  未来保留字。 */ 
     TOK_CLASS,
     TOK_CONST,
     TOK_ENUM,
@@ -18560,7 +18346,7 @@ enum {
     TOK_EXTENDS,
     TOK_IMPORT,
     TOK_SUPER,
-    /* FutureReservedWords when parsing strict mode code */
+    /*  分析严格模式代码时的FutureReserve字。 */ 
     TOK_IMPLEMENTS,
     TOK_INTERFACE,
     TOK_LET,
@@ -18570,14 +18356,14 @@ enum {
     TOK_PUBLIC,
     TOK_STATIC,
     TOK_YIELD,
-    TOK_AWAIT, /* must be last */
-    TOK_OF,     /* only used for js_parse_skip_parens_token() */
+    TOK_AWAIT, /*  必须是最后一位。 */ 
+    TOK_OF,     /*  仅用于js_parse_skip_parens_Token()。 */ 
 };
 
 #define TOK_FIRST_KEYWORD   TOK_NULL
 #define TOK_LAST_KEYWORD    TOK_AWAIT
 
-/* unicode code points */
+/*  Unicode代码点。 */ 
 #define CP_NBSP 0x00a0
 #define CP_BOM  0xfeff
 
@@ -18586,29 +18372,29 @@ enum {
 
 typedef struct BlockEnv {
     struct BlockEnv *prev;
-    JSAtom label_name; /* JS_ATOM_NULL if none */
-    int label_break; /* -1 if none */
-    int label_cont; /* -1 if none */
-    int drop_count; /* number of stack elements to drop */
-    int label_finally; /* -1 if none */
+    JSAtom label_name; /*  如果没有，则为JS_ATOM_NULL。 */ 
+    int label_break; /*  -1，如果没有。 */ 
+    int label_cont; /*  -1，如果没有。 */ 
+    int drop_count; /*  要删除的堆栈元素数。 */ 
+    int label_finally; /*  -1，如果没有。 */ 
     int scope_level;
     int has_iterator;
 } BlockEnv;
 
 typedef struct JSHoistedDef {
-    int cpool_idx; /* -1 means variable global definition */
-    uint8_t force_init : 1; /* initialize to undefined */
-    uint8_t is_lexical : 1; /* global let/const definition */
-    uint8_t is_const   : 1; /* const definition */
-    int var_idx;   /* function object index if cpool_idx >= 0 */
-    int scope_level;    /* scope of definition */
-    JSAtom var_name;  /* variable name if cpool_idx < 0 */
+    int cpool_idx; /*  表示变量全局清晰度。 */ 
+    uint8_t force_init : 1; /*  初始化为未定义。 */ 
+    uint8_t is_lexical : 1; /*  全局字母/常量定义。 */ 
+    uint8_t is_const   : 1; /*  常量定义。 */ 
+    int var_idx;   /*  如果cpool_idx&gt;=0，则函数对象索引。 */ 
+    int scope_level;    /*  定义的范围。 */ 
+    JSAtom var_name;  /*  如果cpool_idx&lt;0，则变量名。 */ 
 } JSHoistedDef;
 
 typedef struct RelocEntry {
     struct RelocEntry *next;
-    uint32_t addr; /* address to patch */
-    int size;   /* address size: 1, 2 or 4 bytes */
+    uint32_t addr; /*  要修补的地址。 */ 
+    int size;   /*  地址大小：1、2或4字节。 */ 
 } RelocEntry;
 
 typedef struct JumpSlot {
@@ -18620,9 +18406,9 @@ typedef struct JumpSlot {
 
 typedef struct LabelSlot {
     int ref_count;
-    int pos;    /* phase 1 address, -1 means not resolved yet */
-    int pos2;   /* phase 2 address, -1 means not resolved yet */
-    int addr;   /* phase 3 address, -1 means not resolved yet */
+    int pos;    /*  阶段1地址，-1表示尚未解析。 */ 
+    int pos2;   /*  阶段2地址，-1表示尚未解析。 */ 
+    int addr;   /*  阶段3地址，-1表示尚未解析。 */ 
     RelocEntry *first_reloc;
 } LabelSlot;
 
@@ -18652,60 +18438,54 @@ typedef enum JSParseExportEnum {
 typedef struct JSFunctionDef {
     JSContext *ctx;
     struct JSFunctionDef *parent;
-    int parent_cpool_idx; /* index in the constant pool of the parent
-                             or -1 if none */
-    int parent_scope_level; /* scope level in parent at point of definition */
-    struct list_head child_list; /* list of JSFunctionDef.link */
+    int parent_cpool_idx; /*  父级的常量池中的索引如果没有，则为-1。 */ 
+    int parent_scope_level; /*  定义点处父级中的范围级别。 */ 
+    struct list_head child_list; /*  JSFunctionDef.link列表。 */ 
     struct list_head link;
 
-    BOOL is_eval; /* TRUE if eval code */
-    int eval_type; /* only valid if is_eval = TRUE */
-    BOOL is_global_var; /* TRUE if variables are not defined locally:
-                           eval global, eval module or non strict eval */
-    BOOL is_func_expr; /* TRUE if function expression */
-    BOOL has_home_object; /* TRUE if the home object is available */
-    BOOL has_prototype; /* true if a prototype field is necessary */
+    BOOL is_eval; /*  如果计算代码为True。 */ 
+    int eval_type; /*  仅当is_eval=TRUE时有效。 */ 
+    BOOL is_global_var; /*  如果变量未在本地定义，则为True：评估全局、评估模块或非严格评估。 */ 
+    BOOL is_func_expr; /*  True If函数表达式。 */ 
+    BOOL has_home_object; /*  如果Home对象可用，则为True。 */ 
+    BOOL has_prototype; /*  如果需要Prototype字段，则为True。 */ 
     BOOL has_simple_parameter_list;
-    BOOL has_use_strict; /* to reject directive in special cases */
-    BOOL has_eval_call; /* true if the function contains a call to eval() */
-    BOOL has_arguments_binding; /* true if the 'arguments' binding is
-                                   available in the function */
-    BOOL has_this_binding; /* true if the 'this' and new.target binding are
-                              available in the function */
-    BOOL new_target_allowed; /* true if the 'new.target' does not
-                                throw a syntax error */
-    BOOL super_call_allowed; /* true if super() is allowed */
-    BOOL super_allowed; /* true if super. or super[] is allowed */
-    BOOL arguments_allowed; /* true if the 'arguments' identifier is allowed */
+    BOOL has_use_strict; /*  在特殊情况下拒绝指令。 */ 
+    BOOL has_eval_call; /*  如果函数包含对val()的调用，则为True。 */ 
+    BOOL has_arguments_binding; /*  如果“Arguments”绑定是在函数中可用。 */ 
+    BOOL has_this_binding; /*  如果‘this’和new.Target绑定为在函数中可用。 */ 
+    BOOL new_target_allowed; /*  如果‘new.Target’不存在，则为True抛出语法错误。 */ 
+    BOOL super_call_allowed; /*  如果允许使用Super()，则为True。 */ 
+    BOOL super_allowed; /*  如果是超级的，那就是真的。或超级[]被允许。 */ 
+    BOOL arguments_allowed; /*  如果允许使用“Arguments”标识符，则为True。 */ 
     BOOL is_derived_class_constructor;
     BOOL in_function_body;
     JSFunctionKindEnum func_kind : 8;
     JSParseFunctionEnum func_type : 8;
-    uint8_t js_mode; /* bitmap of JS_MODE_x */
-    JSAtom func_name; /* JS_ATOM_NULL if no name */
+    uint8_t js_mode; /*  JS_MODE_x的位图。 */ 
+    JSAtom func_name; /*  如果没有名称，则为JS_ATOM_NULL。 */ 
 
     JSVarDef *vars;
-    int var_size; /* allocated size for vars[] */
+    int var_size; /*  为变量分配的大小[]。 */ 
     int var_count;
     JSVarDef *args;
-    int arg_size; /* allocated size for args[] */
-    int arg_count; /* number of arguments */
+    int arg_size; /*  为参数分配的大小[]。 */ 
+    int arg_count; /*  参数数量。 */ 
     int defined_arg_count;
-    int var_object_idx; /* -1 if none */
-    int arguments_var_idx; /* -1 if none */
-    int func_var_idx; /* variable containing the current function (-1
-                         if none, only used if is_func_expr is true) */
-    int eval_ret_idx; /* variable containing the return value of the eval, -1 if none */
-    int this_var_idx; /* variable containg the 'this' value, -1 if none */
-    int new_target_var_idx; /* variable containg the 'new.target' value, -1 if none */
-    int this_active_func_var_idx; /* variable containg the 'this.active_func' value, -1 if none */
+    int var_object_idx; /*  -1，如果没有。 */ 
+    int arguments_var_idx; /*  -1，如果没有。 */ 
+    int func_var_idx; /*  包含当前函数的变量(-1如果无，则仅在is_func_expr为TRUE时使用)。 */ 
+    int eval_ret_idx; /*  包含评估返回值的变量，如果没有返回值，则为-1。 */ 
+    int this_var_idx; /*  包含‘this’值的变量，如果没有，则返回-1。 */ 
+    int new_target_var_idx; /*  变量包含‘new.Target’值，如果没有，则返回-1。 */ 
+    int this_active_func_var_idx; /*  包含‘this.active_func’值的变量，如果没有，则返回-1。 */ 
     int home_object_var_idx;
     BOOL need_home_object;
     
-    int scope_level;    /* index into fd->scopes if the current lexical scope */
-    int scope_first;    /* index into vd->vars of first lexically scoped variable */
-    int scope_size;     /* allocated size of fd->scopes array */
-    int scope_count;    /* number of entries used in the fd->scopes array */
+    int scope_level;    /*  如果当前词法作用域。 */ 
+    int scope_first;    /*  索引到第一个词汇作用域变量的vd-&gt;vars。 */ 
+    int scope_size;     /*  分配的fd-&gt;范围数组大小。 */ 
+    int scope_count;    /*  Fd-&gt;范围数组中使用的条目数。 */ 
     JSVarScope *scopes;
     JSVarScope def_scope_array[4];
 
@@ -18714,21 +18494,21 @@ typedef struct JSFunctionDef {
     JSHoistedDef *hoisted_def;
 
     DynBuf byte_code;
-    int last_opcode_pos; /* -1 if no last opcode */
+    int last_opcode_pos; /*  如果没有最后一个操作码。 */ 
     int last_opcode_line_num;
-    BOOL use_short_opcodes; /* true if short opcodes are used in byte_code */
+    BOOL use_short_opcodes; /*  如果在byte_code中使用短操作码，则为True。 */ 
     
     LabelSlot *label_slots;
-    int label_size; /* allocated size for label_slots[] */
+    int label_size; /*  为LABEL_SLOTS[]分配的大小。 */ 
     int label_count;
-    BlockEnv *top_break; /* break/continue label stack */
+    BlockEnv *top_break; /*  中断/继续标签堆栈。 */ 
 
-    /* constant pool (strings, functions, numbers) */
+    /*  常量池(字符串、函数、数字)。 */ 
     JSValue *cpool;
     uint32_t cpool_count;
     uint32_t cpool_size;
 
-    /* list of variables in the closure */
+    /*  闭包中的变量列表。 */ 
     int closure_var_count;
     int closure_var_size;
     JSClosureVar *closure_var;
@@ -18743,20 +18523,20 @@ typedef struct JSFunctionDef {
     int line_number_last;
     int line_number_last_pc;
 
-    /* pc2line table */
+    /*  PC2line表。 */ 
     JSAtom filename;
     int line_num;
     DynBuf pc2line;
 
-    char *source;  /* raw source, utf-8 encoded */
+    char *source;  /*  原始源，UTF-8编码。 */ 
     int source_len;
 
-    JSModuleDef *module; /* != NULL when parsing a module */
+    JSModuleDef *module; /*  ！=解析模块时为空。 */ 
 } JSFunctionDef;
 
 typedef struct JSToken {
     int val;
-    int line_num;   /* line number of token start */
+    int line_num;   /*  令牌阶段的行数 */ 
     const uint8_t *ptr;
     union {
         struct {
@@ -18766,7 +18546,7 @@ typedef struct JSToken {
         struct {
             JSValue val;
 #ifdef CONFIG_BIGNUM
-            slimb_t exponent; /* may be != 0 only if val is a float */
+            slimb_t exponent; /*   */ 
 #endif
         } num;
         struct {
@@ -18783,18 +18563,18 @@ typedef struct JSToken {
 
 typedef struct JSParseState {
     JSContext *ctx;
-    int last_line_num;  /* line number of last token */
-    int line_num;       /* line number of current offset */
+    int last_line_num;  /*   */ 
+    int line_num;       /*   */ 
     const char *filename;
     JSToken token;
-    BOOL got_lf; /* true if got line feed before the current token */
+    BOOL got_lf; /*   */ 
     const uint8_t *last_ptr;
     const uint8_t *buf_ptr;
     const uint8_t *buf_end;
 
-    /* current function code */
+    /*  当前功能代码。 */ 
     JSFunctionDef *cur_func;
-    BOOL is_module; /* parsing a module */
+    BOOL is_module; /*  解析模块。 */ 
     BOOL allow_html_comments;
 } JSParseState;
 
@@ -18802,9 +18582,8 @@ typedef struct JSOpCode {
 #ifdef DUMP_BYTECODE
     const char *name;
 #endif
-    uint8_t size; /* in bytes */
-    /* the opcodes remove n_pop items from the top of the stack, then
-       pushes n_push items */
+    uint8_t size; /*  单位：字节。 */ 
+    /*  操作码从堆栈顶部删除n_op项，然后推送N_PUSH项目。 */ 
     uint8_t n_pop;
     uint8_t n_push;
     uint8_t fmt;
@@ -18823,10 +18602,7 @@ static const JSOpCode opcode_info[OP_COUNT + (OP_TEMP_END - OP_TEMP_START)] = {
 };
 
 #if SHORT_OPCODES
-/* After the final compilation pass, short opcodes are used. Their
-   opcodes overlap with the temporary opcodes which cannot appear in
-   the final bytecode. Their description is after the temporary
-   opcodes in opcode_info[]. */
+/*  在最终编译通过后，使用短操作码。他们的操作码与临时操作码重叠，临时操作码不能出现在最后一个字节码。他们的描述是在临时Opcode_info[]中的操作码。 */ 
 #define short_opcode_info(op)           \
     opcode_info[(op) >= OP_TEMP_START ? \
                 (op) + (OP_TEMP_END - OP_TEMP_START) : (op)]
@@ -18908,14 +18684,14 @@ static void free_token(JSParseState *s, JSToken *token)
 }
 
 #if 0
-static void /*__attribute((unused))*/ dump_token(JSParseState *s,
+static void /*  __属性((未使用))。 */  dump_token(JSParseState *s,
                                              const JSToken *token)
 {
     switch(token->val) {
     case TOK_NUMBER:
         {
             double d;
-            JS_ToFloat64(s->ctx, &d, token->u.num.val);  /* no exception possible */
+            JS_ToFloat64(s->ctx, &d, token->u.num.val);  /*  不可能有例外。 */ 
             printf("number: %.14g\n", d);
         }
         break;
@@ -18930,7 +18706,7 @@ static void /*__attribute((unused))*/ dump_token(JSParseState *s,
     case TOK_STRING:
         {
             const char *str;
-            /* XXX: quote the string */
+            /*  Xxx：将字符串引起来。 */ 
             str = JS_ToCString(s->ctx, token->u.str.str);
             printf("string: '%s'\n", str);
             JS_FreeCString(s->ctx, str);
@@ -18986,7 +18762,7 @@ int __js_printf_like(2, 3) js_parse_error(JSParseState *s, const char *fmt, ...)
 static int js_parse_expect(JSParseState *s, int tok)
 {
     if (s->token.val != tok) {
-        /* XXX: dump token correctly in all cases */
+        /*  XXX：在所有情况下都正确转储令牌。 */ 
         return js_parse_error(s, "expecting '%c'", tok);
     }
     return next_token(s);
@@ -18995,7 +18771,7 @@ static int js_parse_expect(JSParseState *s, int tok)
 static int js_parse_expect_semi(JSParseState *s)
 {
     if (s->token.val != ';') {
-        /* automatic insertion of ';' */
+        /*  自动插入‘；’ */ 
         if (s->token.val == TOK_EOF || s->token.val == '}' || s->got_lf) {
             return 0;
         }
@@ -19017,7 +18793,7 @@ static __exception int js_parse_template_part(JSParseState *s, const uint8_t *p)
     uint32_t c;
     StringBuffer b_s, *b = &b_s;
 
-    /* p points to the first byte of the template part */
+    /*  P指向模板部件的第一个字节。 */ 
     if (string_buffer_init(s->ctx, b, 32))
         goto fail;
     for(;;) {
@@ -19025,11 +18801,11 @@ static __exception int js_parse_template_part(JSParseState *s, const uint8_t *p)
             goto unexpected_eof;
         c = *p++;
         if (c == '`') {
-            /* template end part */
+            /*  模板端面零件。 */ 
             break;
         }
         if (c == '$' && *p == '{') {
-            /* template start or middle part */
+            /*  模板开始部分或中间部分。 */ 
             p++;
             break;
         }
@@ -19040,7 +18816,7 @@ static __exception int js_parse_template_part(JSParseState *s, const uint8_t *p)
                 goto unexpected_eof;
             c = *p++;
         }
-        /* newline sequences are normalized as single '\n' bytes */
+        /*  换行符序列被标准化为单‘\n’字节。 */ 
         if (c == '\r') {
             if (*p == '\n')
                 p++;
@@ -19081,7 +18857,7 @@ static __exception int js_parse_string(JSParseState *s, int sep,
     uint32_t c;
     StringBuffer b_s, *b = &b_s;
 
-    /* string */
+    /*  细绳。 */ 
     if (string_buffer_init(s->ctx, b, 32))
         goto fail;
     for(;;) {
@@ -19100,7 +18876,7 @@ static __exception int js_parse_string(JSParseState *s, int sep,
                         p++;
                     c = '\n';
                 }
-                /* do not update s->line_num */
+                /*  不更新s-&gt;line_num。 */ 
             } else if (c == '\n' || c == '\r')
                 goto invalid_char;
         }
@@ -19108,7 +18884,7 @@ static __exception int js_parse_string(JSParseState *s, int sep,
         if (c == sep)
             break;
         if (c == '$' && *p == '{' && sep == '`') {
-            /* template start or middle part */
+            /*  模板开始部分或中间部分。 */ 
             p++;
             break;
         }
@@ -19125,13 +18901,13 @@ static __exception int js_parse_string(JSParseState *s, int sep,
             case '\\':
                 p++;
                 break;
-            case '\r':  /* accept DOS and MAC newline sequences */
+            case '\r':  /*  接受DOS和MAC换行符序列。 */ 
                 if (p[1] == '\n') {
                     p++;
                 }
-                /* fall thru */
+                /*  失败。 */ 
             case '\n':
-                /* ignore escaped newline sequence */
+                /*  忽略转义换行符序列。 */ 
                 p++;
                 if (sep != '`')
                     s->line_num++;
@@ -19139,7 +18915,7 @@ static __exception int js_parse_string(JSParseState *s, int sep,
             default:
                 if (c >= '0' && c <= '7') {
                     if (!s->cur_func)
-                        goto invalid_octal; /* JSON case */
+                        goto invalid_octal; /*  JSON案例。 */ 
                     if (!(s->cur_func->js_mode & JS_MODE_STRICT) && sep != '`')
                         goto parse_escape;
                     if (c == '0' && !(p[1] >= '0' && p[1] <= '9')) {
@@ -19158,7 +18934,7 @@ static __exception int js_parse_string(JSParseState *s, int sep,
                         goto invalid_utf8;
                     }
                     p = p_next;
-                    /* LS or PS are skipped */
+                    /*  跳过LS或PS。 */ 
                     if (c == CP_LS || c == CP_PS)
                         continue;
                 } else {
@@ -19169,7 +18945,7 @@ static __exception int js_parse_string(JSParseState *s, int sep,
                             js_parse_error(s, "malformed escape sequence in string literal");
                         goto fail;
                     } else if (ret < 0) {
-                        /* ignore the '\' (could output a warning) */
+                        /*  忽略‘\’(可能会输出警告)。 */ 
                         p++;
                     } else {
                         c = ret;
@@ -19240,7 +19016,7 @@ static __exception int js_parse_regexp(JSParseState *s)
         } else if (c == '[') {
             in_class = TRUE;
         } else if (c == ']') {
-            /* XXX: incorrect as the first character in a class */
+            /*  XXX：作为类中的第一个字符不正确。 */ 
             in_class = FALSE;
         } else if (c == '\\') {
             if (string_buffer_putc8(b, c))
@@ -19269,7 +19045,7 @@ static __exception int js_parse_regexp(JSParseState *s)
                 goto fail;
             }
             p = p_next;
-            /* LS or PS are considered as line terminator */
+            /*  LS或PS被视为线路终止符。 */ 
             if (c == CP_LS || c == CP_PS) {
             eol_error:
                 js_parse_error(s, "unexpected line terminator in regexp");
@@ -19280,7 +19056,7 @@ static __exception int js_parse_regexp(JSParseState *s)
             goto fail;
     }
 
-    /* flags */
+    /*  旗子。 */ 
     for(;;) {
         const uint8_t *p_next = p;
         c = *p_next++;
@@ -19330,7 +19106,7 @@ static __exception int next_token(JSParseState *s)
         break;
     case '`':
         if (!s->cur_func) {
-            /* JSON does not accept templates */
+            /*  JSON不接受模板。 */ 
             goto def_token;
         }
         if (js_parse_template_part(s, p + 1))
@@ -19339,19 +19115,19 @@ static __exception int next_token(JSParseState *s)
         break;
     case '\'':
         if (!s->cur_func) {
-            /* JSON does not accept single quoted strings */
+            /*  JSON不接受单引号字符串。 */ 
             goto def_token;
         }
-        /* fall through */
+        /*  失败了。 */ 
     case '\"':
         if (js_parse_string(s, c, TRUE, p + 1, &s->token, &p))
             goto fail;
         break;
-    case '\r':  /* accept DOS and MAC newline sequences */
+    case '\r':  /*  接受DOS和MAC换行符序列。 */ 
         if (p[1] == '\n') {
             p++;
         }
-        /* fall thru */
+        /*  失败。 */ 
     case '\n':
         p++;
     line_terminator:
@@ -19361,17 +19137,17 @@ static __exception int next_token(JSParseState *s)
     case '\f':
     case '\v':
         if (!s->cur_func) {
-            /* JSONWhitespace does not match <VT>, nor <FF> */
+            /*  JSON白色空格与&lt;VT&gt;或&lt;FF&gt;不匹配。 */ 
             goto def_token;
         }
-        /* fall through */
+        /*  失败了。 */ 
     case ' ':
     case '\t':
         p++;
         goto redo;
     case '/':
         if (p[1] == '*') {
-            /* comment */
+            /*  评论。 */ 
             p += 2;
             for(;;) {
                 if (*p == '\0' && p >= s->buf_end) {
@@ -19384,15 +19160,15 @@ static __exception int next_token(JSParseState *s)
                 }
                 if (*p == '\n') {
                     s->line_num++;
-                    s->got_lf = TRUE; /* considered as LF for ASI */
+                    s->got_lf = TRUE; /*  被视为ASI的LF。 */ 
                     p++;
                 } else if (*p == '\r') {
-                    s->got_lf = TRUE; /* considered as LF for ASI */
+                    s->got_lf = TRUE; /*  被视为ASI的LF。 */ 
                     p++;
                 } else if (*p >= 0x80) {
                     c = unicode_from_utf8(p, UTF8_CHAR_LEN_MAX, &p);
                     if (c == CP_LS || c == CP_PS) {
-                        s->got_lf = TRUE; /* considered as LF for ASI */
+                        s->got_lf = TRUE; /*  被视为ASI的LF。 */ 
                     }
                 } else {
                     p++;
@@ -19400,7 +19176,7 @@ static __exception int next_token(JSParseState *s)
             }
             goto redo;
         } else if (p[1] == '/') {
-            /* line comment */
+            /*  行注释。 */ 
             p += 2;
         skip_line_comment:
             for(;;) {
@@ -19410,7 +19186,7 @@ static __exception int next_token(JSParseState *s)
                     break;
                 if (*p >= 0x80) {
                     c = unicode_from_utf8(p, UTF8_CHAR_LEN_MAX, &p);
-                    /* LS or PS are considered as line terminator */
+                    /*  LS或PS被视为线路终止符。 */ 
                     if (c == CP_LS || c == CP_PS)
                         break;
                 } else {
@@ -19436,7 +19212,7 @@ static __exception int next_token(JSParseState *s)
                 ident_has_escape = TRUE;
                 goto has_ident;
             } else {
-                /* XXX: syntax error? */
+                /*  XXX：语法错误？ */ 
             }
         }
         goto def_token;
@@ -19444,7 +19220,7 @@ static __exception int next_token(JSParseState *s)
     case 'A':case 'B':case 'C':case 'D':case 'E':case 'F':case 'G':case 'H':case 'I':case 'J':case 'K':case 'L':case 'M':case 'N':case 'O':case 'P':case 'Q':case 'R':case 'S':case 'T':case 'U':case 'V':case 'W':case 'X':case 'Y':case 'Z':
     case '_':
     case '$':
-        /* identifier */
+        /*  识别符。 */ 
         p++;
         ident_has_escape = FALSE;
     has_ident:
@@ -19464,7 +19240,7 @@ static __exception int next_token(JSParseState *s)
             } else if (c >= 128) {
                 c = unicode_from_utf8(p, UTF8_CHAR_LEN_MAX, &p1);
             }
-            /* XXX: check if c >= 0 and c <= 0x10FFFF */
+            /*  Xxx：检查c&gt;=0和c&lt;=0x10FFFF。 */ 
             if (!lre_js_is_ident_next(c))
                 break;
             p = p1;
@@ -19496,7 +19272,7 @@ static __exception int next_token(JSParseState *s)
                       s->token.u.ident.is_reserved = TRUE;
                       s->token.val = TOK_IDENT;
                   } else {
-                      /* The keywords atoms are pre allocated */
+                      /*  关键字ATOM是预先分配的。 */ 
                       s->token.val = s->token.u.ident.atom - 1 + TOK_FIRST_KEYWORD;
                   }
         } else {
@@ -19504,7 +19280,7 @@ static __exception int next_token(JSParseState *s)
         }
         break;
     case '#':
-        /* private name */
+        /*  专用名称。 */ 
         {
             const uint8_t *p1;
             p++;
@@ -19536,7 +19312,7 @@ static __exception int next_token(JSParseState *s)
                 } else if (c >= 128) {
                     c = unicode_from_utf8(p, UTF8_CHAR_LEN_MAX, &p1);
                 }
-                /* XXX: check if c >= 0 and c <= 0x10FFFF */
+                /*  Xxx：检查c&gt;=0和c&lt;=0x10FFFF。 */ 
                 if (!lre_js_is_ident_next(c))
                     break;
                 p = p1;
@@ -19563,7 +19339,7 @@ static __exception int next_token(JSParseState *s)
         }
         break;
     case '0':
-        /* in strict or JSON parsing mode, octal literals are not accepted */
+        /*  在严格或JSON解析模式下，不接受八进制文字。 */ 
         if (is_digit(p[1]) && (!s->cur_func ||
                                (s->cur_func->js_mode & JS_MODE_STRICT))) {
             js_parse_error(s, "octal literals are deprecated in strict mode");
@@ -19571,7 +19347,7 @@ static __exception int next_token(JSParseState *s)
         }
         goto parse_number;
     case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9':
-        /* number */
+        /*  数。 */ 
     parse_number:
 #ifdef CONFIG_BIGNUM
         {
@@ -19584,7 +19360,7 @@ static __exception int next_token(JSParseState *s)
             s->token.u.num.val = JS_UNDEFINED;
             s->token.u.num.exponent = 0;
             if (!s->cur_func) {
-                /* JSON: use current float precision */
+                /*  JSON：使用当前浮点精度。 */ 
                 flags = BF_ATOF_THROW;
                 if (is_bignum_mode(s->ctx))
                     flags |= BF_ATOF_INT_PREC_INF;
@@ -19628,15 +19404,14 @@ static __exception int next_token(JSParseState *s)
                 }
                 if ((res & BF_ATOF_ST_INTEGER) && !is_bigfloat &&
                     (bigint_mode || is_bigint)) {
-                    /* in bigint mode: small integer or bigint
-                       in legacy mode: always a bigint */
+                    /*  在Bigint模式中：小整数或Bigint在传统模式下：始终是大块头。 */ 
                     val = JS_NewBigInt2(s->ctx, r, bigint_mode ^ 1);
                 } else {
-                    /* `n` suffix is implied in math mode */
+                    /*  数学模式中隐含`N‘后缀。 */ 
                     if (s->cur_func->js_mode & JS_MODE_MATH)
                         is_bigfloat = TRUE;
                     if (is_bigfloat) {
-                        /* infinite precision */
+                        /*  无限精度。 */ 
                         val = JS_NewBigFloat(s->ctx, r);
                         s->token.u.num.exponent = exponent;
                     } else {
@@ -19669,7 +19444,7 @@ static __exception int next_token(JSParseState *s)
             }
             ret = js_atod(s->ctx, (const char *)p, (const char **)&p, radix,
                           flags);
-            /* reject `10instanceof Number` */
+            /*  拒绝`10instanceof Number`。 */ 
             if (JS_IsException(ret) ||
                 lre_js_is_ident_next(unicode_from_utf8(p, UTF8_CHAR_LEN_MAX, &p1))) {
                 js_parse_error(s, "invalid number literal");
@@ -19722,9 +19497,7 @@ static __exception int next_token(JSParseState *s)
         } else if (p[1] == '-') {
             if (s->allow_html_comments &&
                 p[2] == '>' && s->last_line_num != s->line_num) {
-                /* Annex B: `-->` at beginning of line is an html comment end.
-                   It extends to the end of the line.
-                 */
+                /*  附件B：`--&gt;`行首为html注释结尾。它一直延伸到这条线的尽头。 */ 
                 goto skip_line_comment;
             }
             p += 2;
@@ -19747,7 +19520,7 @@ static __exception int next_token(JSParseState *s)
             }
         } else if (s->allow_html_comments &&
                    p[1] == '!' && p[2] == '-' && p[3] == '-') {
-            /* Annex B: handle `<!--` single line html comments */
+            /*  附件B：处理`&lt;！--`单行html评论。 */ 
             goto skip_line_comment;
         } else {
             goto def_token;
@@ -19818,8 +19591,7 @@ static __exception int next_token(JSParseState *s)
         }
         break;
 #ifdef CONFIG_BIGNUM
-        /* in math mode, '^' is the power operator. '^^' is always the
-           xor operator and '**' is always the power operator */
+        /*  在数学模式中，‘^’是幂运算符。“^^”始终是XOR运算符和‘**’始终是幂运算符。 */ 
     case '^':
         if (p[1] == '=') {
             p += 2;
@@ -19866,23 +19638,22 @@ static __exception int next_token(JSParseState *s)
         break;
     default:
         if (c >= 128) {
-            /* unicode value */
+            /*  Unicode值。 */ 
             c = unicode_from_utf8(p, UTF8_CHAR_LEN_MAX, &p);
             switch(c) {
             case CP_PS:
             case CP_LS:
                 if (!s->cur_func) {
-                    /* <PS> and <LS> are not JSONWhitespace */
+                    /*  &lt;PS&gt;和&lt;LS&gt;不是JSON空白。 */ 
                     goto def_token;
                 } else {
-                    /* XXX: should avoid incrementing line_number, but
-                       needed to handle HTML comments */
+                    /*  Xxx：应避免递增line_number，但是需要处理HTML注释。 */ 
                     goto line_terminator; 
                 }
             default:
                 if (lre_is_space(c)) {
                     if (!s->cur_func) {
-                        /* category z spaces are not JSONWhitespace */
+                        /*  类别z空格不是JSON空格。 */ 
                         goto def_token;
                     } else {
                         goto redo;
@@ -19903,7 +19674,7 @@ static __exception int next_token(JSParseState *s)
     }
     s->buf_ptr = p;
 
-    //    dump_token(s, &s->token);
+    //  Dump_Token(s，&s-&gt;Token)；
     return 0;
 
  fail:
@@ -19911,15 +19682,14 @@ static __exception int next_token(JSParseState *s)
     return -1;
 }
 
-/* only used for ':' and '=>', 'let' or 'function' look-ahead. *pp is
-   only set if TOK_IMPORT is returned */
-/* XXX: handle all unicode cases */
+/*  仅用于‘：’和‘=&gt;’、‘let’或‘Function’前瞻。*PP是仅在返回TOK_IMPORT时设置。 */ 
+/*  XXX：处理所有Unicode案例。 */ 
 static int simple_next_token(const uint8_t **pp, BOOL no_line_terminator)
 {
     const uint8_t *p;
     uint32_t c;
     
-    /* skip spaces and comments */
+    /*  跳过空格和注释。 */ 
     p = *pp;
     for (;;) {
         switch(c = *p++) {
@@ -19990,12 +19760,7 @@ static int peek_token(JSParseState *s, BOOL no_line_terminator)
     return simple_next_token(&p, no_line_terminator);
 }
 
-/* return true if 'input' contains the source of a module
-   (heuristic). 'input' must be a zero terminated.
-
-   Heuristic: skip comments and expect 'import' keyword not followed
-   by '(' or '.'
-*/
+/*  如果‘Input’包含模块的源代码，则返回True(启发式)。“Input”必须是以零结尾的。启发式：跳过注释并期望后面不跟‘IMPORT’关键字按“(”或“”)。 */ 
 BOOL JS_DetectModule(const char *input, size_t input_len)
 {
     const uint8_t *p = (const uint8_t *)input;
@@ -20054,9 +19819,7 @@ static void emit_op(JSParseState *s, uint8_t val)
     JSFunctionDef *fd = s->cur_func;
     DynBuf *bc = &fd->byte_code;
 
-    /* Use the line number of the last token used, not the next token,
-       nor the current offset in the source file.
-     */
+    /*  使用上一个令牌的行号，而不是下一个令牌，也不包括源文件中的当前偏移量。 */ 
     if (unlikely(fd->last_opcode_line_num != s->last_line_num)) {
         dbuf_putc(bc, OP_line_num);
         dbuf_put_u32(bc, s->last_line_num);
@@ -20092,7 +19855,7 @@ static int new_label_fd(JSFunctionDef *fd, int label)
             size_t slack;
             LabelSlot *new_tab;
 
-            /* XXX: potential arithmetic overflow */
+            /*  XXX：潜在的算术溢出。 */ 
             new_size = fd->label_size * 3 / 2 + 4;
             new_tab = js_realloc2(fd->ctx, fd->label_slots, new_size * sizeof(*new_tab), &slack);
             if (!new_tab)
@@ -20117,7 +19880,7 @@ static int new_label(JSParseState *s)
     return new_label_fd(s->cur_func, -1);
 }
 
-/* return the label ID offset */
+/*  返回标签ID偏移量。 */ 
 static int emit_label(JSParseState *s, int label)
 {
     if (label >= 0) {
@@ -20130,7 +19893,7 @@ static int emit_label(JSParseState *s, int label)
     }
 }
 
-/* return label or -1 if dead code */
+/*  如果代码无效，则返回标签或-1。 */ 
 static int emit_goto(JSParseState *s, int opcode, int label)
 {
     if (js_is_live_code(s)) {
@@ -20144,7 +19907,7 @@ static int emit_goto(JSParseState *s, int opcode, int label)
     return -1;
 }
 
-/* return the constant pool index. 'val' is not duplicated. */
+/*  返回常量池索引。“val”不重复。 */ 
 static int cpool_add(JSParseState *s, JSValue val)
 {
     JSFunctionDef *fd = s->cur_func;
@@ -20152,7 +19915,7 @@ static int cpool_add(JSParseState *s, JSValue val)
         int new_size;
         size_t slack;
         JSValue *new_tab;
-        /* XXX: potential arithmetic overflow */
+        /*  XXX：潜在的算术溢出。 */ 
         new_size = max_int(fd->cpool_count + 1, fd->cpool_size * 3 / 2);
         new_tab = js_realloc2(s->ctx, fd->cpool, new_size * sizeof(JSValue), &slack);
         if (!new_tab)
@@ -20172,7 +19935,7 @@ static __exception int emit_push_const(JSParseState *s, JSValueConst val,
 
     if (JS_VALUE_GET_TAG(val) == JS_TAG_STRING && as_atom) {
         JSAtom atom;
-        /* warning: JS_NewAtomStr frees the string value */
+        /*  警告：JS_NewAerStr释放字符串值。 */ 
         JS_DupValue(s->ctx, val);
         atom = JS_NewAtomStr(s->ctx, JS_VALUE_GET_STRING(val));
         if (atom != JS_ATOM_NULL && !__JS_AtomIsTaggedInt(atom)) {
@@ -20190,8 +19953,7 @@ static __exception int emit_push_const(JSParseState *s, JSValueConst val,
     return 0;
 }
 
-/* return the variable index or -1 if not found,
-   add ARGUMENT_VAR_OFFSET for argument variables */
+/*  如果未找到，则返回变量INDEX或-1，为参数变量添加ARGUMENT_VAR_OFFSET。 */ 
 static int find_arg(JSContext *ctx, JSFunctionDef *fd, JSAtom name)
 {
     int i;
@@ -20212,8 +19974,7 @@ static int find_var(JSContext *ctx, JSFunctionDef *fd, JSAtom name)
     return find_arg(ctx, fd, name);
 }
 
-/* return true if scope == parent_scope or if scope is a child of
-   parent_scope */
+/*  如果Scope==Parent_Scope或Scope是的子级，则返回TRUE父级作用域。 */ 
 static BOOL is_child_scope(JSContext *ctx, JSFunctionDef *fd,
                            int scope, int parent_scope)
 {
@@ -20225,7 +19986,7 @@ static BOOL is_child_scope(JSContext *ctx, JSFunctionDef *fd,
     return FALSE;
 }
 
-/* find a 'var' declaration in the same scope or a child scope */
+/*  在同一作用域或子作用域中查找“var”声明。 */ 
 static int find_var_in_child_scope(JSContext *ctx, JSFunctionDef *fd,
                                    JSAtom name, int scope_level)
 {
@@ -20286,12 +20047,12 @@ static int push_scope(JSParseState *s) {
     if (s->cur_func) {
         JSFunctionDef *fd = s->cur_func;
         int scope = fd->scope_count;
-        /* XXX: should check for scope overflow */
+        /*  XXX：应检查作用域溢出。 */ 
         if ((fd->scope_count + 1) > fd->scope_size) {
             int new_size;
             size_t slack;
             JSVarScope *new_buf;
-            /* XXX: potential arithmetic overflow */
+            /*  XXX：潜在的算术溢出。 */ 
             new_size = max_int(fd->scope_count + 1, fd->scope_size * 3 / 2);
             if (fd->scopes == fd->def_scope_array) {
                 new_buf = js_realloc2(s->ctx, NULL, new_size * sizeof(*fd->scopes), &slack);
@@ -20330,7 +20091,7 @@ static int get_first_lexical_var(JSFunctionDef *fd, int scope)
 
 static void pop_scope(JSParseState *s) {
     if (s->cur_func) {
-        /* disable scoped variables */
+        /*  禁用作用域变量。 */ 
         JSFunctionDef *fd = s->cur_func;
         int scope = fd->scope_level;
         emit_op(s, OP_leave_scope);
@@ -20349,12 +20110,12 @@ static void close_scopes(JSParseState *s, int scope, int scope_stop)
     }
 }
 
-/* return the variable index or -1 if error */
+/*  如果错误，则返回变量INDEX或-1。 */ 
 static int add_var(JSContext *ctx, JSFunctionDef *fd, JSAtom name)
 {
     JSVarDef *vd;
 
-    /* the local variable indexes are currently stored on 16 bits */
+    /*  局部变量索引目前存储在16位上。 */ 
     if (fd->var_count >= JS_MAX_LOCAL_VARS) {
         JS_ThrowInternalError(ctx, "too many local variables");
         return -1;
@@ -20417,7 +20178,7 @@ static int add_arg(JSContext *ctx, JSFunctionDef *fd, JSAtom name)
 {
     JSVarDef *vd;
 
-    /* the local variable indexes are currently stored on 16 bits */
+    /*  局部变量索引目前存储在16位上。 */ 
     if (fd->arg_count >= JS_MAX_LOCAL_VARS) {
         JS_ThrowInternalError(ctx, "too many arguments");
         return -1;
@@ -20440,8 +20201,7 @@ static int add_arg(JSContext *ctx, JSFunctionDef *fd, JSAtom name)
     return fd->arg_count - 1;
 }
 
-/* add a Hoisted definition for a function (cpool_idx >= 0) or a
-   global variable (cpool_idx = -1) */
+/*  为函数(cpool_idx&gt;=0)或全局变量(CPOOL_IDX=-1)。 */ 
 static JSHoistedDef *add_hoisted_def(JSContext *ctx,
                                      JSFunctionDef *s, int cpool_idx,
                                      JSAtom name, int var_idx, BOOL is_lexical)
@@ -20479,8 +20239,8 @@ typedef enum {
     JS_VAR_DEF_WITH,
     JS_VAR_DEF_LET,
     JS_VAR_DEF_CONST,
-    JS_VAR_DEF_FUNCTION_DECL, /* function declaration */
-    JS_VAR_DEF_NEW_FUNCTION_DECL, /* async/generator function declaration */
+    JS_VAR_DEF_FUNCTION_DECL, /*  函数声明。 */ 
+    JS_VAR_DEF_NEW_FUNCTION_DECL, /*  异步/生成器函数声明。 */ 
     JS_VAR_DEF_CATCH,
     JS_VAR_DEF_VAR,
 } JSVarDefEnum;
@@ -20505,8 +20265,7 @@ static int define_var(JSParseState *s, JSFunctionDef *fd, JSAtom name,
         if (idx >= 0) {
             if (idx < GLOBAL_VAR_OFFSET) {
                 if (fd->vars[idx].scope_level == fd->scope_level) {
-                    /* same scope: in non strict mode, functions
-                       can be redefined (annex B.3.3.4). */
+                    /*  相同作用域：在非严格模式下，函数可以重新定义(附件B.3.3.4)。 */ 
                     if (!(!(fd->js_mode & JS_MODE_STRICT) &&
                           var_def_type == JS_VAR_DEF_FUNCTION_DECL &&
                           fd->vars[idx].var_kind == JS_VAR_FUNCTION_DECL)) {
@@ -20518,7 +20277,7 @@ static int define_var(JSParseState *s, JSFunctionDef *fd, JSAtom name,
             } else {
                 if (fd->scope_level == 1) {
                 redef_lex_error:
-                    /* redefining a scoped var in the same scope: error */
+                    /*  在同一作用域中重新定义作用域变量：错误。 */ 
                     return js_parse_error(s, "invalid redefinition of lexical identifier");
                 }
             }
@@ -20531,7 +20290,7 @@ static int define_var(JSParseState *s, JSFunctionDef *fd, JSAtom name,
              fd->func_type == JS_PARSE_FUNC_METHOD ||
              fd->scope_level == 1) &&
             find_arg(ctx, fd, name) >= 0) {
-            /* lexical variable redefines a parameter name */
+            /*  词法变量重新定义参数名称。 */ 
             return js_parse_error(s, "invalid redefinition of parameter name");
         }
 
@@ -20583,7 +20342,7 @@ static int define_var(JSParseState *s, JSFunctionDef *fd, JSAtom name,
         if (find_lexical_decl(ctx, fd, name, fd->scope_first,
                               FALSE) >= 0) {
        invalid_lexical_redefinition:
-            /* error to redefine a var that inside a lexical scope */
+            /*  重新定义词法范围内的变量时出错。 */ 
             return js_parse_error(s, "invalid redefinition of lexical identifier");
         }
         if (fd->is_global_var) {
@@ -20598,7 +20357,7 @@ static int define_var(JSParseState *s, JSFunctionDef *fd, JSAtom name,
                 return -1;
             idx = GLOBAL_VAR_OFFSET;
         } else {
-            /* if the variable already exists, don't add it again  */
+            /*  如果该变量已存在，则不要再次添加它。 */ 
             idx = find_var(ctx, fd, name);
             if (idx >= 0)
                 break;
@@ -20616,7 +20375,7 @@ static int define_var(JSParseState *s, JSFunctionDef *fd, JSAtom name,
     return idx;
 }
 
-/* add a private field variable in the current scope */
+/*  在当前作用域中添加私有字段变量。 */ 
 static int add_private_class_field(JSParseState *s, JSFunctionDef *fd,
                                    JSAtom name, JSVarKindEnum var_kind)
 {
@@ -20659,7 +20418,7 @@ static JSExportEntry *add_export_entry(JSParseState *s, JSModuleDef *m,
                                        JSAtom local_name, JSAtom export_name,
                                        JSExportTypeEnum export_type);
 
-/* Note: all the fields are already sealed except length */
+/*  注意：除长度外，所有字段均已封存。 */ 
 static int seal_template_obj(JSContext *ctx, JSValueConst obj)
 {
     JSObject *p;
@@ -20683,15 +20442,15 @@ static __exception int js_parse_template(JSParseState *s, int call, int *argc)
     JSToken cooked;
     int depth, ret;
 
-    raw_array = JS_UNDEFINED; /* avoid warning */
-    template_object = JS_UNDEFINED; /* avoid warning */
+    raw_array = JS_UNDEFINED; /*  避免警告。 */ 
+    template_object = JS_UNDEFINED; /*  避免警告。 */ 
     if (call) {
-        /* Create a template object: an array of cooked strings */
-        /* Create an array of raw strings and store it to the raw property */
+        /*  创建模板对象：一组熟透的字符串数组。 */ 
+        /*  创建原始字符串数组并将其存储到RAW属性。 */ 
         template_object = JS_NewArray(ctx);
         if (JS_IsException(template_object))
             return -1;
-        //        pool_idx = s->cur_func->cpool_count;
+        //  Pool_idx=s-&gt;cur_func-&gt;cpool_count；
         ret = emit_push_const(s, template_object, 0);
         JS_FreeValue(ctx, template_object);
         if (ret)
@@ -20715,9 +20474,7 @@ static __exception int js_parse_template(JSParseState *s, int call, int *argc)
                                              JS_PROP_ENUMERABLE | JS_PROP_THROW) < 0) {
                 return -1;
             }
-            /* re-parse the string with escape sequences but do not throw a
-               syntax error if it contains invalid sequences
-             */
+            /*  使用转义序列重新分析字符串，但不要引发如果它包含无效序列，则出现语法错误。 */ 
             if (js_parse_string(s, '`', FALSE, p, &cooked, &p)) {
                 cooked.u.str.str = JS_UNDEFINED;
             }
@@ -20728,9 +20485,7 @@ static __exception int js_parse_template(JSParseState *s, int call, int *argc)
             }
         } else {
             JSString *str;
-            /* re-parse the string with escape sequences and throw a
-               syntax error if it contains invalid sequences
-             */
+            /*  使用转义序列重新分析字符串，并抛出如果它包含无效序列，则出现语法错误。 */ 
             JS_FreeValue(ctx, s->token.u.str.str);
             s->token.u.str.str = JS_UNDEFINED;
             if (js_parse_string(s, '`', TRUE, p, &cooked, &p))
@@ -20762,9 +20517,9 @@ static __exception int js_parse_template(JSParseState *s, int call, int *argc)
         if (s->token.val != '}') {
             return js_parse_error(s, "expected '}' after template expression");
         }
-        /* XXX: should convert to string at this stage? */
+        /*  XXX：在此阶段是否应转换为字符串？ */ 
         free_token(s, &s->token);
-        /* Resume TOK_TEMPLATE parsing (s->token.line_num and s->token.ptr are OK) */
+        /*  继续TOK_TEMPLATE解析(s-&gt;token.line_num和s-&gt;token.ptr可以)。 */ 
         s->got_lf = FALSE;
         s->last_line_num = s->token.line_num;
         if (js_parse_template_part(s, s->buf_ptr))
@@ -20774,7 +20529,7 @@ static __exception int js_parse_template(JSParseState *s, int call, int *argc)
 
  done:
     if (call) {
-        /* Seal the objects */
+        /*  封存物品。 */ 
         seal_template_obj(ctx, raw_array);
         seal_template_obj(ctx, template_object);
         *argc = depth + 1;
@@ -20799,13 +20554,13 @@ static __exception int js_parse_template(JSParseState *s, int call, int *argc)
 
 static BOOL token_is_ident(int tok)
 {
-    /* Accept keywords and reserved words as property names */
+    /*  接受关键字和保留字作为属性名称。 */ 
     return (tok == TOK_IDENT ||
             (tok >= TOK_FIRST_KEYWORD &&
              tok <= TOK_LAST_KEYWORD));
 }
 
-/* if the property is an expression, name = JS_ATOM_NULL */
+/*  如果属性是表达式，则名称=JS_ATOM_NULL。 */ 
 static int __exception js_parse_property_name(JSParseState *s,
                                               JSAtom *pname,
                                               BOOL allow_method, BOOL allow_var,
@@ -20820,7 +20575,7 @@ static int __exception js_parse_property_name(JSParseState *s,
     if (allow_method) {
         if (token_is_pseudo_keyword(s, JS_ATOM_get)
         ||  token_is_pseudo_keyword(s, JS_ATOM_set)) {
-            /* get x(), set x() */
+            /*  获取x()，设置x()。 */ 
             name = JS_DupAtom(s->ctx, s->token.u.ident.atom);
             if (next_token(s))
                 goto fail1;
@@ -20857,10 +20612,10 @@ static int __exception js_parse_property_name(JSParseState *s,
     }
 
     if (token_is_ident(s->token.val)) {
-        /* variable can only be a non-reserved identifier */
+        /*  变量只能是非保留标识符。 */ 
         is_non_reserved_ident =
             (s->token.val == TOK_IDENT && !s->token.u.ident.is_reserved);
-        /* keywords and reserved words have a valid atom */
+        /*  关键字和保留字具有有效的原子。 */ 
         name = JS_DupAtom(s->ctx, s->token.u.ident.atom);
         if (next_token(s))
             goto fail1;
@@ -20956,7 +20711,7 @@ static __exception int js_parse_seek_token(JSParseState *s, const JSParsePos *sp
     return next_token(s);
 }
 
-/* return TRUE if a regexp literal is allowed after this token */
+/*  如果此内标识后允许regexp文本，则返回TRUE。 */ 
 static BOOL is_regexp_allowed(int tok)
 {
     switch (tok) {
@@ -20971,7 +20726,7 @@ static BOOL is_regexp_allowed(int tok)
     case TOK_THIS:
     case ')':
     case ']':
-    case '}': /* XXX: regexp may occur after */
+    case '}': /*  XXX：regexp可能在以下时间之后发生。 */ 
     case TOK_IDENT:
         return FALSE;
     default:
@@ -20982,9 +20737,8 @@ static BOOL is_regexp_allowed(int tok)
 #define SKIP_HAS_SEMI      (1 << 0)
 #define SKIP_HAS_ELLIPSIS  (1 << 1)
 
-/* XXX: improve speed with early bailout */
-/* XXX: no longer works if regexps are present. Could use previous
-   regexp parsing heuristics to handle most cases */
+/*  XXX：通过及早纾困提高速度。 */ 
+/*  XXX：如果存在正则表达式，则不再起作用。可以使用以前的使用regexp语法分析启发式规则来处理m */ 
 static int js_parse_skip_parens_token(JSParseState *s, int *pbits, BOOL no_line_terminator)
 {
     char state[256];
@@ -20993,7 +20747,7 @@ static int js_parse_skip_parens_token(JSParseState *s, int *pbits, BOOL no_line_
     int last_tok, tok = TOK_EOF;
     int tok_len, bits = 0;
 
-    /* protect from underflow */
+    /*   */ 
     state[level++] = 0;
 
     js_parse_get_pos(s, &pos);
@@ -21041,13 +20795,13 @@ static int js_parse_skip_parens_token(JSParseState *s, int *pbits, BOOL no_line_
             if (is_regexp_allowed(last_tok)) {
                 s->buf_ptr -= tok_len;
                 if (js_parse_regexp(s)) {
-                    /* XXX: should clear the exception */
+                    /*   */ 
                     goto done;
                 }
             }
             break;
         }
-        /* last_tok is only used to recognize regexps */
+        /*   */ 
         if (s->token.val == TOK_IDENT &&
             (token_is_pseudo_keyword(s, JS_ATOM_of) ||
              token_is_pseudo_keyword(s, JS_ATOM_yield))) {
@@ -21056,7 +20810,7 @@ static int js_parse_skip_parens_token(JSParseState *s, int *pbits, BOOL no_line_
             last_tok = s->token.val;
         }
         if (next_token(s)) {
-            /* XXX: should clear the exception generated by next_token() */
+            /*   */ 
             break;
         }
         if (level <= 1) {
@@ -21084,7 +20838,7 @@ static void set_object_name(JSParseState *s, JSAtom name)
 
     opcode = get_prev_opcode(fd);
     if (opcode == OP_set_name) {
-        /* XXX: should free atom after OP_set_name? */
+        /*  Xxx：应该在op_set_name之后释放ATOM吗？ */ 
         fd->byte_code.size = fd->last_opcode_pos;
         fd->last_opcode_pos = -1;
         emit_op(s, OP_set_name);
@@ -21095,8 +20849,7 @@ static void set_object_name(JSParseState *s, JSAtom name)
         define_class_pos = fd->last_opcode_pos + 1 -
             get_u32(fd->byte_code.buf + fd->last_opcode_pos + 1);
         assert(fd->byte_code.buf[define_class_pos] == OP_define_class);
-        /* for consistency we free the previous atom which is
-           JS_ATOM_empty_string */
+        /*  为了保持一致性，我们释放前一个原子，即JS_ATOM_空字符串。 */ 
         atom = get_u32(fd->byte_code.buf + define_class_pos + 1);
         JS_FreeAtom(s->ctx, atom);
         put_u32(fd->byte_code.buf + define_class_pos + 1,
@@ -21112,7 +20865,7 @@ static void set_object_name_computed(JSParseState *s)
 
     opcode = get_prev_opcode(fd);
     if (opcode == OP_set_name) {
-        /* XXX: should free atom after OP_set_name? */
+        /*  Xxx：应该在op_set_name之后释放ATOM吗？ */ 
         fd->byte_code.size = fd->last_opcode_pos;
         fd->last_opcode_pos = -1;
         emit_op(s, OP_set_name_computed);
@@ -21135,11 +20888,11 @@ static __exception int js_parse_object_literal(JSParseState *s)
 
     if (next_token(s))
         goto fail;
-    /* XXX: add an initial length that will be patched back */
+    /*  XXX：添加要修补的初始长度。 */ 
     emit_op(s, OP_object);
     has_proto = FALSE;
     while (s->token.val != '}') {
-        /* specific case for getter/setter */
+        /*  Getter/Setter的特殊情况。 */ 
         start_ptr = s->token.ptr;
         start_line = s->token.line_num;
 
@@ -21148,11 +20901,11 @@ static __exception int js_parse_object_literal(JSParseState *s)
                 return -1;
             if (js_parse_assign_expr(s, TRUE))
                 return -1;
-            emit_op(s, OP_null);  /* dummy excludeList */
+            emit_op(s, OP_null);  /*  虚拟排除列表。 */ 
             emit_op(s, OP_copy_data_properties);
             emit_u8(s, 2 | (1 << 2) | (0 << 5));
-            emit_op(s, OP_drop); /* pop excludeList */
-            emit_op(s, OP_drop); /* pop src object */
+            emit_op(s, OP_drop); /*  流行音乐排除列表。 */ 
+            emit_op(s, OP_drop); /*  POP源对象。 */ 
             goto next;
         }
 
@@ -21161,7 +20914,7 @@ static __exception int js_parse_object_literal(JSParseState *s)
             goto fail;
 
         if (prop_type == PROP_TYPE_VAR) {
-            /* shortcut for x: x */
+            /*  X：x的快捷方式。 */ 
             emit_op(s, OP_scope_get_var);
             emit_atom(s, name);
             emit_u16(s, s->cur_func->scope_level);
@@ -21243,7 +20996,7 @@ static __exception int js_parse_object_literal(JSParseState *s)
 static __exception int js_parse_postfix_expr(JSParseState *s,
                                              BOOL accept_lparen);
 
-/* XXX: is there is nicer solution ? */
+/*  XXX：有没有更好的解决方案？ */ 
 static __exception int js_parse_class_default_ctor(JSParseState *s,
                                                    BOOL has_super,
                                                    JSFunctionDef **pfd)
@@ -21277,7 +21030,7 @@ static __exception int js_parse_class_default_ctor(JSParseState *s,
     return ret;
 }
 
-/* find field in the current scope */
+/*  在当前范围内查找字段。 */ 
 static int find_private_class_field(JSContext *ctx, JSFunctionDef *fd,
                                     JSAtom name, int scope_level)
 {
@@ -21293,9 +21046,7 @@ static int find_private_class_field(JSContext *ctx, JSFunctionDef *fd,
     return -1;
 }
 
-/* initialize the class fields, called by the constructor. Note:
-   super() can be called in an arrow function, so <this> and
-   <class_fields_init> can be variable references */
+/*  初始化类字段，由构造函数调用。注：Super()可以在箭头函数中调用，因此&lt;this&gt;和&lt;CLASS_FIELS_INIT&gt;可以是变量引用。 */ 
 static void emit_class_field_init(JSParseState *s)
 {
     int label_next;
@@ -21304,7 +21055,7 @@ static void emit_class_field_init(JSParseState *s)
     emit_atom(s, JS_ATOM_class_fields_init);
     emit_u16(s, s->cur_func->scope_level);
 
-    /* no need to call the class field initializer if not defined */
+    /*  如果未定义，则不需要调用类字段初始值设定项。 */ 
     emit_op(s, OP_dup);
     label_next = emit_goto(s, OP_if_false, -1);
     
@@ -21321,7 +21072,7 @@ static void emit_class_field_init(JSParseState *s)
     emit_op(s, OP_drop);
 }
 
-/* build a private setter function name from the private getter name */
+/*  从私有的getter名称构建私有的setter函数名。 */ 
 static JSAtom get_private_setter_name(JSContext *ctx, JSAtom name)
 {
     return js_atom_concat_str(ctx, name, "<set>");
@@ -21345,9 +21096,8 @@ static __exception int emit_class_init_start(JSParseState *s,
 
     s->cur_func = cf->fields_init_fd;
     
-    /* XXX: would be better to add the code only if needed, maybe in a
-       later pass */
-    emit_op(s, OP_push_false); /* will be patched later */
+    /*  XXX：最好只在需要时才添加代码，可能是在稍后的传球。 */ 
+    emit_op(s, OP_push_false); /*  将在以后打补丁。 */ 
     cf->brand_push_pos = cf->fields_init_fd->last_opcode_pos;
     label_add_brand = emit_goto(s, OP_if_false, -1);
     
@@ -21370,12 +21120,12 @@ static __exception int emit_class_init_start(JSParseState *s,
 static __exception int add_brand(JSParseState *s, ClassFieldsDef *cf)
 {
     if (!cf->has_brand) {
-        /* define the brand field in 'this' of the initializer */
+        /*  在初始值设定项的‘this’中定义品牌字段。 */ 
         if (!cf->fields_init_fd) {
             if (emit_class_init_start(s, cf))
                 return -1;
         }
-        /* patch the start of the function to enable the OP_add_brand code */
+        /*  修补函数的开头以启用op_add_brand代码。 */ 
         cf->fields_init_fd->byte_code.buf[cf->brand_push_pos] = OP_push_true;
         
         cf->has_brand = TRUE;
@@ -21414,7 +21164,7 @@ static __exception int js_parse_class(JSParseState *s, BOOL is_class_expr,
     const uint8_t *start_ptr;
     ClassFieldsDef class_fields[2];
         
-    /* classes are parsed and executed in strict mode */
+    /*  类在严格模式下被解析和执行。 */ 
     saved_js_mode = fd->js_mode;
     fd->js_mode |= JS_MODE_STRICT;
     if (next_token(s))
@@ -21433,7 +21183,7 @@ static __exception int js_parse_class(JSParseState *s, BOOL is_class_expr,
     }
     if (!is_class_expr) {
         if (class_name == JS_ATOM_NULL)
-            class_var_name = JS_ATOM__default_; /* export default */
+            class_var_name = JS_ATOM__default_; /*  导出默认设置。 */ 
         else
             class_var_name = class_name;
         class_var_name = JS_DupAtom(ctx, class_var_name);
@@ -21445,14 +21195,14 @@ static __exception int js_parse_class(JSParseState *s, BOOL is_class_expr,
         class_flags = JS_DEFINE_CLASS_HAS_HERITAGE;
         if (next_token(s))
             goto fail;
-        /* XXX: the grammar only allows LeftHandSideExpression */
+        /*  XXX：语法只允许LeftHandSideExpression。 */ 
         if (js_parse_postfix_expr(s, TRUE))
             goto fail;
     } else {
         emit_op(s, OP_undefined);
     }
 
-    /* add a 'const' definition for the class name */
+    /*  为类名添加‘const’定义。 */ 
     if (class_name != JS_ATOM_NULL) {
         class_name_var_idx = define_var(s, fd, class_name, JS_VAR_DEF_CONST);
         if (class_name_var_idx < 0)
@@ -21462,12 +21212,12 @@ static __exception int js_parse_class(JSParseState *s, BOOL is_class_expr,
     if (js_parse_expect(s, '{'))
         goto fail;
 
-    /* this scope contains the private fields */
+    /*  此范围包含私有字段。 */ 
     push_scope(s);
 
     emit_op(s, OP_push_const);
     ctor_cpool_offset = fd->byte_code.size;
-    emit_u32(s, 0); /* will be patched at the end of the class parsing */
+    emit_u32(s, 0); /*  将在类分析结束时打补丁。 */ 
 
     if (class_name == JS_ATOM_NULL) {
         if (class_var_name != JS_ATOM_NULL)
@@ -21549,9 +21299,9 @@ static __exception int js_parse_class(JSParseState *s, BOOL is_class_expr,
                                         JS_PARSE_EXPORT_NONE, &method_fd))
                 goto fail;
             if (is_private) {
-                method_fd->need_home_object = TRUE; /* needed for brand check */
+                method_fd->need_home_object = TRUE; /*  品牌检查所需。 */ 
                 emit_op(s, OP_set_home_object);
-                /* XXX: missing function name */
+                /*  XXX：缺少函数名。 */ 
                 emit_op(s, OP_scope_put_var_init);
                 if (is_set) {
                     JSAtom setter_name;
@@ -21583,9 +21333,9 @@ static __exception int js_parse_class(JSParseState *s, BOOL is_class_expr,
             ClassFieldsDef *cf = &class_fields[is_static];
             JSAtom field_var_name = JS_ATOM_NULL;
             
-            /* class field */
+            /*  类字段。 */ 
 
-            /* XXX: spec: not consistent with method name checks */
+            /*  Xxx：规范：与方法名称检查不一致。 */ 
             if (name == JS_ATOM_constructor || name == JS_ATOM_prototype) {
                 js_parse_error(s, "invalid field name");
                 goto fail;
@@ -21611,7 +21361,7 @@ static __exception int js_parse_class(JSParseState *s, BOOL is_class_expr,
                     goto fail;
             }
             if (name == JS_ATOM_NULL ) {
-                /* save the computed field name into a variable */
+                /*  将计算的字段名称保存到变量中。 */ 
                 field_var_name = js_atom_concat_num(ctx, JS_ATOM_computed_field + is_static, cf->computed_fields_count);
                 if (field_var_name == JS_ATOM_NULL)
                     goto fail;
@@ -21696,7 +21446,7 @@ static __exception int js_parse_class(JSParseState *s, BOOL is_class_expr,
                 func_type == JS_PARSE_FUNC_CLASS_CONSTRUCTOR) {
                 ctor_fd = method_fd;
             } else if (is_private) {
-                method_fd->need_home_object = TRUE; /* needed for brand check */
+                method_fd->need_home_object = TRUE; /*  品牌检查所需。 */ 
                 if (find_private_class_field(ctx, fd, name,
                                              fd->scope_level) >= 0) {
                 private_field_already_defined:
@@ -21737,10 +21487,10 @@ static __exception int js_parse_class(JSParseState *s, BOOL is_class_expr,
         if (js_parse_class_default_ctor(s, class_flags & JS_DEFINE_CLASS_HAS_HERITAGE, &ctor_fd))
             goto fail;
     }
-    /* patch the constant pool index for the constructor */
+    /*  修补构造函数的常量池索引。 */ 
     put_u32(fd->byte_code.buf + ctor_cpool_offset, ctor_fd->parent_cpool_idx);
 
-    /* store the class source code in the constructor. */
+    /*  将类源代码存储在构造函数中。 */ 
     if (!(fd->js_mode & JS_MODE_STRIP)) {
         js_free(ctx, ctor_fd->source);
         ctor_fd->source_len = s->buf_ptr - class_start_ptr;
@@ -21750,12 +21500,11 @@ static __exception int js_parse_class(JSParseState *s, BOOL is_class_expr,
             goto fail;
     }
 
-    /* consume the '}' */
+    /*  消费‘}’ */ 
     if (next_token(s))
         goto fail;
 
-    /* store the function to initialize the fields to that it can be
-       referenced by the constructor */
+    /*  存储函数以将字段初始化为它可以设置的值由构造函数引用。 */ 
     {
         ClassFieldsDef *cf = &class_fields[0];
         int var_idx;
@@ -21774,10 +21523,10 @@ static __exception int js_parse_class(JSParseState *s, BOOL is_class_expr,
         emit_u16(s, s->cur_func->scope_level);
     }
 
-    /* drop the prototype */
+    /*  放弃原型机。 */ 
     emit_op(s, OP_drop);
 
-    /* initialize the static fields */
+    /*  初始化静态字段。 */ 
     if (class_fields[1].fields_init_fd != NULL) {
         ClassFieldsDef *cf = &class_fields[1];
         emit_op(s, OP_dup);
@@ -21788,9 +21537,7 @@ static __exception int js_parse_class(JSParseState *s, BOOL is_class_expr,
     }
     
     if (class_name != JS_ATOM_NULL) {
-        /* store the class name in the scoped class name variable (it
-           is independent from the class statement variable
-           definition) */
+        /*  将类名存储在限定了作用域的类名变量(它独立于CLASS语句变量定义)。 */ 
         emit_op(s, OP_dup);
         emit_op(s, OP_scope_put_var_init);
         emit_atom(s, class_name);
@@ -21799,7 +21546,7 @@ static __exception int js_parse_class(JSParseState *s, BOOL is_class_expr,
     pop_scope(s);
     pop_scope(s);
 
-    /* the class statements have a block level scope */
+    /*  类语句具有块级作用域。 */ 
     if (class_var_name != JS_ATOM_NULL) {
         if (define_var(s, fd, class_var_name, JS_VAR_DEF_LET) < 0)
             goto fail;
@@ -21808,9 +21555,7 @@ static __exception int js_parse_class(JSParseState *s, BOOL is_class_expr,
         emit_u16(s, fd->scope_level);
     } else {
         if (class_name == JS_ATOM_NULL) {
-            /* cannot use OP_set_name because the name of the class
-               must be defined before the static initializers are
-               executed */
+            /*  无法使用op_set_name，因为类的名称必须在静态初始值设定项执行。 */ 
             emit_op(s, OP_set_class_name);
             emit_u32(s, fd->last_opcode_pos + 1 - define_class_offset);
         }
@@ -21843,7 +21588,7 @@ static __exception int js_parse_array_literal(JSParseState *s)
 
     if (next_token(s))
         return -1;
-    /* small regular arrays are created on the stack */
+    /*  在堆栈上创建小的规则数组。 */ 
     idx = 0;
     while (s->token.val != ']' && idx < 32) {
         if (s->token.val == ',' || s->token.val == TOK_ELLIPSIS)
@@ -21851,7 +21596,7 @@ static __exception int js_parse_array_literal(JSParseState *s)
         if (js_parse_assign_expr(s, TRUE))
             return -1;
         idx++;
-        /* accept trailing comma */
+        /*  接受尾随逗号。 */ 
         if (s->token.val == ',') {
             if (next_token(s))
                 return -1;
@@ -21862,7 +21607,7 @@ static __exception int js_parse_array_literal(JSParseState *s)
     emit_op(s, OP_array_from);
     emit_u16(s, idx);
 
-    /* larger arrays and holes are handled with explicit indices */
+    /*  使用显式索引处理较大的数组和孔。 */ 
     need_length = FALSE;
     while (s->token.val != ']' && idx < 0x7fffffff) {
         if (s->token.val == TOK_ELLIPSIS)
@@ -21876,7 +21621,7 @@ static __exception int js_parse_array_literal(JSParseState *s)
             need_length = FALSE;
         }
         idx++;
-        /* accept trailing comma */
+        /*  接受尾随逗号。 */ 
         if (s->token.val == ',') {
             if (next_token(s))
                 return -1;
@@ -21884,8 +21629,7 @@ static __exception int js_parse_array_literal(JSParseState *s)
     }
     if (s->token.val == ']') {
         if (need_length) {
-            /* Set the length: Cannot use OP_define_field because
-               length is not configurable */
+            /*  设置长度：无法使用op_Define_field，因为长度不可配置。 */ 
             emit_op(s, OP_dup);
             emit_op(s, OP_push_i32);
             emit_u32(s, idx);
@@ -21895,11 +21639,11 @@ static __exception int js_parse_array_literal(JSParseState *s)
         goto done;
     }
 
-    /* huge arrays and spread elements require a dynamic index on the stack */
+    /*  大型数组和扩展元素需要堆栈上的动态索引。 */ 
     emit_op(s, OP_push_i32);
     emit_u32(s, idx);
 
-    /* stack has array, index */
+    /*  堆栈有数组、索引。 */ 
     while (s->token.val != ']') {
         if (s->token.val == TOK_ELLIPSIS) {
             if (next_token(s))
@@ -21912,24 +21656,24 @@ static __exception int js_parse_array_literal(JSParseState *s)
             int label_next, label_done;
             label_next = new_label(s);
             label_done = new_label(s);
-            /* enumerate object */
+            /*  枚举对象。 */ 
             emit_op(s, OP_for_of_start);
             emit_op(s, OP_rot5l);
             emit_op(s, OP_rot5l);
             emit_label(s, label_next);
-            /* on stack: enum_rec array idx */
+            /*  堆栈上：enum_rec数组idx。 */ 
             emit_op(s, OP_for_of_next);
             emit_u8(s, 2);
             emit_goto(s, OP_if_true, label_done);
-            /* append element */
-            /* enum_rec array idx val -> enum_rec array new_idx */
+            /*  追加元素。 */ 
+            /*  Enum_rec数组idx val-&gt;enum_rec数组new_idx。 */ 
             emit_op(s, OP_define_array_el);
             emit_op(s, OP_inc);
             emit_goto(s, OP_goto, label_next);
             emit_label(s, label_done);
-            /* close enumeration */
-            emit_op(s, OP_drop); /* drop undef val */
-            emit_op(s, OP_nip1); /* drop enum_rec */
+            /*  关闭枚举。 */ 
+            emit_op(s, OP_drop); /*  丢弃Undef值。 */ 
+            emit_op(s, OP_nip1); /*  删除枚举记录(_R)。 */ 
             emit_op(s, OP_nip1);
             emit_op(s, OP_nip1);
 #endif
@@ -21938,7 +21682,7 @@ static __exception int js_parse_array_literal(JSParseState *s)
             if (s->token.val != ',') {
                 if (js_parse_assign_expr(s, TRUE))
                     return -1;
-                /* a idx val */
+                /*  A IDX值。 */ 
                 emit_op(s, OP_define_array_el);
                 need_length = FALSE;
             }
@@ -21950,22 +21694,21 @@ static __exception int js_parse_array_literal(JSParseState *s)
             return -1;
     }
     if (need_length) {
-        /* Set the length: cannot use OP_define_field because
-           length is not configurable */
-        emit_op(s, OP_dup1);    /* array length - array array length */
+        /*  设置长度：无法使用op_Define_field，因为长度不可配置。 */ 
+        emit_op(s, OP_dup1);    /*  ARRAY LENGTH-阵列长度。 */ 
         emit_op(s, OP_put_field);
         emit_atom(s, JS_ATOM_length);
     } else {
-        emit_op(s, OP_drop);    /* array length - array */
+        emit_op(s, OP_drop);    /*  数组长度-数组。 */ 
     }
 done:
     return js_parse_expect(s, ']');
 }
 
-/* XXX: remove */
+/*  XXX：删除。 */ 
 static BOOL has_with_scope(JSFunctionDef *s, int scope_level)
 {
-    /* check if scope chain contains a with statement */
+    /*  检查作用域链是否包含With语句。 */ 
     while (s) {
         int scope_idx = s->scopes[scope_level].first;
         while (scope_idx >= 0) {
@@ -21975,7 +21718,7 @@ static BOOL has_with_scope(JSFunctionDef *s, int scope_level)
                 return TRUE;
             scope_idx = vd->scope_next;
         }
-        /* check parent scopes */
+        /*  检查父作用域。 */ 
         scope_level = s->parent_scope_level;
         s = s->parent;
     }
@@ -21999,7 +21742,7 @@ static __exception int get_lvalue(JSParseState *s, int *popcode, int *pscope,
     int opcode, scope, label, depth;
     JSAtom name;
 
-    /* we check the last opcode to get the lvalue type */
+    /*  我们检查最后一个操作码以获得左值类型。 */ 
     fd = s->cur_func;
     scope = 0;
     name = JS_ATOM_NULL;
@@ -22015,7 +21758,7 @@ static __exception int get_lvalue(JSParseState *s, int *popcode, int *pscope,
         }
         if (name == JS_ATOM_this || name == JS_ATOM_new_target)
             goto invalid_lvalue;
-        depth = 2;  /* will generate OP_get_ref_value */
+        depth = 2;  /*  将生成op_get_ref_Value。 */ 
         break;
     case OP_get_field:
         name = get_u32(fd->byte_code.buf + fd->last_opcode_pos + 1);
@@ -22044,12 +21787,12 @@ static __exception int get_lvalue(JSParseState *s, int *popcode, int *pscope,
             return js_parse_error(s, "invalid assignment left-hand side");
         }
     }
-    /* remove the last opcode */
+    /*  删除最后一个操作码。 */ 
     fd->byte_code.size = fd->last_opcode_pos;
     fd->last_opcode_pos = -1;
 
     if (keep) {
-        /* get the value but keep the object/fields on the stack */
+        /*  获取值，但将对象/字段保留在堆栈上。 */ 
         switch(opcode) {
         case OP_scope_get_var:
             label = new_label(s);
@@ -22071,7 +21814,7 @@ static __exception int get_lvalue(JSParseState *s, int *popcode, int *pscope,
             emit_u16(s, scope);
             break;
         case OP_get_array_el:
-            /* XXX: replace by a single opcode ? */
+            /*  XXX：是否替换为单个操作码？ */ 
             emit_op(s, OP_to_propkey2);
             emit_op(s, OP_dup2);
             emit_op(s, OP_get_array_el);
@@ -22106,8 +21849,7 @@ static __exception int get_lvalue(JSParseState *s, int *popcode, int *pscope,
 
     *popcode = opcode;
     *pscope = scope;
-    /* name has refcount for OP_get_field and OP_get_ref_value,
-       and JS_ATOM_NULL for other opcodes */
+    /*  名称具有OP_GET_FIELD和OP_GET_REF_VALUE的引用计数，和其他操作码的JS_ATOM_NULL。 */ 
     *pname = name;
     *plabel = label;
     if (pdepth)
@@ -22115,50 +21857,50 @@ static __exception int get_lvalue(JSParseState *s, int *popcode, int *pscope,
     return 0;
 }
 
-/* if special = TRUE: specific post inc/dec case */
-/* name has a live reference */
+/*  如果特殊=TRUE：特定的POST INC/DEC案例。 */ 
+/*  名称有一个实时引用。 */ 
 static void put_lvalue(JSParseState *s, int opcode, int scope,
                        JSAtom name, int label, BOOL special)
 {
     switch(opcode) {
     case OP_get_field:
         if (!special)
-            emit_op(s, OP_insert2); /* obj v -> v obj v */
+            emit_op(s, OP_insert2); /*  对象v-&gt;v对象v。 */ 
         else
-            emit_op(s, OP_perm3); /* obj v0 v -> v0 obj v */
+            emit_op(s, OP_perm3); /*  对象对象v0 v-&gt;v0对象v。 */ 
         emit_op(s, OP_put_field);
-        emit_u32(s, name);  /* name has refcount */
+        emit_u32(s, name);  /*  名称有引用计数。 */ 
         break;
     case OP_scope_get_private_field:
         if (!special)
-            emit_op(s, OP_insert2); /* obj v -> v obj v */
+            emit_op(s, OP_insert2); /*  对象v-&gt;v对象v。 */ 
         else
-            emit_op(s, OP_perm3); /* obj v0 v -> v0 obj v */
+            emit_op(s, OP_perm3); /*  对象对象v0 v-&gt;v0对象v。 */ 
         emit_op(s, OP_scope_put_private_field);
-        emit_u32(s, name);  /* name has refcount */
+        emit_u32(s, name);  /*  名称有引用计数。 */ 
         emit_u16(s, scope);
         break;
     case OP_get_array_el:
         if (!special)
-            emit_op(s, OP_insert3); /* obj prop v -> v obj prop v */
+            emit_op(s, OP_insert3); /*  对象道具v-&gt;v对象道具v。 */ 
         else
-            emit_op(s, OP_perm4); /* obj prop v0 v -> v0 obj prop v */
+            emit_op(s, OP_perm4); /*  对象道具v0 v-&gt;v0对象道具v。 */ 
         emit_op(s, OP_put_array_el);
         break;
     case OP_get_ref_value:
         JS_FreeAtom(s->ctx, name);
         emit_label(s, label);
         if (!special)
-            emit_op(s, OP_insert3); /* obj prop v -> v obj prop v */
+            emit_op(s, OP_insert3); /*  对象道具v-&gt;v对象道具v。 */ 
         else
-            emit_op(s, OP_perm4); /* obj prop v0 v -> v0 obj prop v */
+            emit_op(s, OP_perm4); /*  对象道具v0 v-&gt;v0对象道具v。 */ 
         emit_op(s, OP_put_ref_value);
         break;
     case OP_get_super_value:
         if (!special)
-            emit_op(s, OP_insert4); /* this obj prop v -> v this obj prop v */
+            emit_op(s, OP_insert4); /*  这个道具v-&gt;v这个道具v。 */ 
         else
-            emit_op(s, OP_perm5); /* this obj prop v0 v -> v0 this obj prop v */
+            emit_op(s, OP_perm5); /*  此对象属性v0 v-&gt;v0此对象属性v。 */ 
         emit_op(s, OP_put_super_value);
         break;
     default:
@@ -22170,29 +21912,29 @@ static void put_lvalue_nokeep(JSParseState *s, int opcode, int scope,
                               JSAtom name, int label, int var_tok)
 {
     switch(opcode) {
-    case OP_scope_get_var:  /* val -- */
+    case OP_scope_get_var:  /*  瓦尔。 */ 
         emit_op(s, (var_tok == TOK_CONST || var_tok == TOK_LET) ?
                 OP_scope_put_var_init : OP_scope_put_var);
-        emit_u32(s, name);  /* has refcount */
+        emit_u32(s, name);  /*  有引用计数。 */ 
         emit_u16(s, scope);
         break;
-    case OP_get_field:      /* obj val -- */
+    case OP_get_field:      /*  OBJ Val--。 */ 
         emit_op(s, OP_put_field);
-        emit_u32(s, name);  /* has refcount */
+        emit_u32(s, name);  /*  有引用计数。 */ 
         break;
     case OP_scope_get_private_field:
         emit_op(s, OP_scope_put_private_field);
-        emit_u32(s, name);  /* has refcount */
+        emit_u32(s, name);  /*  有引用计数。 */ 
         emit_u16(s, scope);
         break;
-    case OP_get_array_el:   /* obj prop val -- */
+    case OP_get_array_el:   /*  OBJ道具Val--。 */ 
         emit_op(s, OP_put_array_el);
         break;
-    case OP_get_ref_value:   /* obj prop val -- */
-        /* XXX: currently this reference is never optimized */
+    case OP_get_ref_value:   /*  OBJ道具Val--。 */ 
+        /*  XXX：当前此引用从未优化过。 */ 
         JS_FreeAtom(s->ctx, name);
         emit_label(s, label);
-        //emit_op(s, OP_nop);   /* emit 2 bytes for optimizer */
+        //  为优化器发出2个字节。
         emit_op(s, OP_put_ref_value);
         break;
     case OP_get_super_value:
@@ -22262,10 +22004,8 @@ static void js_emit_spread_code(JSParseState *s, int depth)
 {
     int label_rest_next, label_rest_done;
 
-    /* XXX: could check if enum object is an actual array and optimize
-       slice extraction. enumeration record and target array are in a
-       different order from OP_append case. */
-    /* enum_rec xxx -- enum_rec xxx array 0 */
+    /*  XXX：可以检查枚举对象是否为实际数组并进行优化切片提取。枚举记录和目标数组位于与op_append大小写的顺序不同。 */ 
+    /*  Enum_rec xxx--enum_rec xxx数组0。 */ 
     emit_op(s, OP_array_from);
     emit_u16(s, 0);
     emit_op(s, OP_push_i32);
@@ -22274,19 +22014,19 @@ static void js_emit_spread_code(JSParseState *s, int depth)
     emit_op(s, OP_for_of_next);
     emit_u8(s, 2 + depth);
     label_rest_done = emit_goto(s, OP_if_true, -1);
-    /* array idx val -- array idx */
+    /*  数组IDX值--数组IDX。 */ 
     emit_op(s, OP_define_array_el);
     emit_op(s, OP_inc);
     emit_goto(s, OP_goto, label_rest_next);
     emit_label(s, label_rest_done);
-    /* enum_rec xxx array idx undef -- enum_rec xxx array */
+    /*  Enum_rec xxx数组idx undef--enum_rec xxx数组。 */ 
     emit_op(s, OP_drop);
     emit_op(s, OP_drop);
 }
 
 static int js_parse_check_duplicate_parameter(JSParseState *s, JSAtom name)
 {
-    /* Check for duplicate parameter names */
+    /*  检查是否有重复的参数名称。 */ 
     JSFunctionDef *fd = s->cur_func;
     int i;
     for (i = 0; i < fd->arg_count; i++) {
@@ -22335,7 +22075,7 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
     int opcode, scope, tok1, skip_bits;
 
     if (has_ellipsis < 0) {
-        /* pre-parse destructuration target for spread detection */
+        /*  用于传播检测的预解析破坏目标。 */ 
         js_parse_skip_parens_token(s, &skip_bits, FALSE);
         has_ellipsis = skip_bits & SKIP_HAS_ELLIPSIS;
     }
@@ -22345,7 +22085,7 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
 
     start_addr = s->cur_func->byte_code.size;
     if (hasval) {
-        /* consume value from the stack */
+        /*  消耗堆栈中的价值。 */ 
         emit_op(s, OP_dup);
         emit_op(s, OP_undefined);
         emit_op(s, OP_strict_eq);
@@ -22354,17 +22094,17 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
     } else {
         emit_goto(s, OP_goto, label_parse);
         emit_label(s, label_assign);
-        /* leave value on the stack */
+        /*  将值保留在堆栈上。 */ 
         emit_op(s, OP_dup);
     }
     assign_addr = s->cur_func->byte_code.size;
     if (s->token.val == '{') {
         if (next_token(s))
             return -1;
-        /* throw an exception if the value cannot be converted to an object */
+        /*  如果值无法转换为对象，则引发异常。 */ 
         emit_op(s, OP_to_object);
         if (has_ellipsis) {
-            /* add excludeList on stack just below src object */
+            /*  在堆栈上将excludeList添加到src对象下面。 */ 
             emit_op(s, OP_object);
             emit_op(s, OP_swap);
         }
@@ -22397,7 +22137,7 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
                     js_parse_error(s, "assignment rest property must be last");
                     goto var_error;
                 }
-                emit_op(s, OP_object);  /* target */
+                emit_op(s, OP_object);  /*  目标。 */ 
                 emit_op(s, OP_copy_data_properties);
                 emit_u8(s, 0 | ((depth_lvalue + 1) << 2) | ((depth_lvalue + 2) << 5));
                 goto set_val;
@@ -22417,28 +22157,28 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
                     &&  ((tok1 = js_parse_skip_parens_token(s, &skip_bits, FALSE)) == ',' ||
                          tok1 == '=' || tok1 == '}')) {
                     if (prop_name == JS_ATOM_NULL) {
-                        /* computed property name on stack */
+                        /*  堆栈上的计算属性名称。 */ 
                         if (has_ellipsis) {
-                            /* define the property in excludeList */
-                            emit_op(s, OP_to_propkey); /* avoid calling ToString twice */
-                            emit_op(s, OP_perm3); /* TOS: src excludeList prop */
-                            emit_op(s, OP_null); /* TOS: src excludeList prop null */
-                            emit_op(s, OP_define_array_el); /* TOS: src excludeList prop */
-                            emit_op(s, OP_perm3); /* TOS: excludeList src prop */
+                            /*  在ExcludeList中定义属性。 */ 
+                            emit_op(s, OP_to_propkey); /*  避免两次调用ToString。 */ 
+                            emit_op(s, OP_perm3); /*  TOS：SRC排除列表道具。 */ 
+                            emit_op(s, OP_null); /*  ToS：SRC ExcludeList属性为空。 */ 
+                            emit_op(s, OP_define_array_el); /*  TOS：SRC排除列表道具。 */ 
+                            emit_op(s, OP_perm3); /*  TOS：排除列表资源属性。 */ 
                         }
-                        /* get the computed property from the source object */
+                        /*  从源对象获取计算属性。 */ 
                         emit_op(s, OP_get_array_el2);
                     } else {
-                        /* named property */
+                        /*  命名属性。 */ 
                         if (has_ellipsis) {
-                            /* define the property in excludeList */
-                            emit_op(s, OP_swap); /* TOS: src excludeList */
-                            emit_op(s, OP_null); /* TOS: src excludeList null */
-                            emit_op(s, OP_define_field); /* TOS: src excludeList */
+                            /*  在ExcludeList中定义属性。 */ 
+                            emit_op(s, OP_swap); /*  TOS：SRC排除列表。 */ 
+                            emit_op(s, OP_null); /*  TOS：SRC排除列表为空。 */ 
+                            emit_op(s, OP_define_field); /*  TOS：SRC排除列表。 */ 
                             emit_atom(s, prop_name);
-                            emit_op(s, OP_swap); /* TOS: excludeList src */
+                            emit_op(s, OP_swap); /*  TOS：排除列表资源。 */ 
                         }
-                        /* get the named property from the source object */
+                        /*  从源对象获取命名属性。 */ 
                         emit_op(s, OP_get_field2);
                         emit_u32(s, prop_name);
                     }
@@ -22446,7 +22186,7 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
                         return -1;
                     if (s->token.val == '}')
                         break;
-                    /* accept a trailing comma before the '}' */
+                    /*  接受‘}’前的尾随逗号。 */ 
                     if (js_parse_expect(s, ','))
                         return -1;
                     continue;
@@ -22454,24 +22194,24 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
                 if (prop_name == JS_ATOM_NULL) {
                     emit_op(s, OP_to_propkey2);
                     if (has_ellipsis) {
-                        /* define the property in excludeList */
+                        /*  在ExcludeList中定义属性。 */ 
                         emit_op(s, OP_perm3);
                         emit_op(s, OP_null);
                         emit_op(s, OP_define_array_el);
                         emit_op(s, OP_perm3);
                     }
-                    /* source prop -- source source prop */
+                    /*  震源道具--震源道具。 */ 
                     emit_op(s, OP_dup1);
                 } else {
                     if (has_ellipsis) {
-                        /* define the property in excludeList */
+                        /*  在ExcludeList中定义属性。 */ 
                         emit_op(s, OP_swap);
                         emit_op(s, OP_null);
                         emit_op(s, OP_define_field);
                         emit_atom(s, prop_name);
                         emit_op(s, OP_swap);
                     }
-                    /* source -- source source */
+                    /*  来源--来源来源。 */ 
                     emit_op(s, OP_dup);
                 }
                 if (tok) {
@@ -22485,19 +22225,19 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
                     if (get_lvalue(s, &opcode, &scope, &var_name,
                                    &label_lvalue, &depth_lvalue, FALSE, '{'))
                         goto prop_error;
-                    /* swap ref and lvalue object if any */
+                    /*  交换参照和左值对象(如果有)。 */ 
                     if (prop_name == JS_ATOM_NULL) {
                         switch(depth_lvalue) {
                         case 1:
-                            /* source prop x -> x source prop */
+                            /*  源道具x-&gt;x源道具。 */ 
                             emit_op(s, OP_rot3r);
                             break;
                         case 2:
-                            /* source prop x y -> x y source prop */
-                            emit_op(s, OP_swap2);   /* t p2 s p1 */
+                            /*  源道具x y-&gt;x y源道具。 */ 
+                            emit_op(s, OP_swap2);   /*  T p2 s p1。 */ 
                             break;
                         case 3:
-                            /* source prop x y z -> x y z source prop */
+                            /*  源道具x y z-&gt;x y z源道具。 */ 
                             emit_op(s, OP_rot5l);
                             emit_op(s, OP_rot5l);
                             break;
@@ -22505,34 +22245,34 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
                     } else {
                         switch(depth_lvalue) {
                         case 1:
-                            /* source x -> x source */
+                            /*  源x-&gt;x源。 */ 
                             emit_op(s, OP_swap);
                             break;
                         case 2:
-                            /* source x y -> x y source */
+                            /*  源x y-&gt;x y源。 */ 
                             emit_op(s, OP_rot3l);
                             break;
                         case 3:
-                            /* source x y z -> x y z source */
+                            /*  源x y z-&gt;x y z源。 */ 
                             emit_op(s, OP_rot4l);
                             break;
                         }
                     }
                 }
                 if (prop_name == JS_ATOM_NULL) {
-                    /* computed property name on stack */
-                    /* XXX: should have OP_get_array_el2x with depth */
-                    /* source prop -- val */
+                    /*  堆栈上的计算属性名称。 */ 
+                    /*  Xxx：应具有具有深度的op_get_array_el2x。 */ 
+                    /*  来源道具--VAL。 */ 
                     emit_op(s, OP_get_array_el);
                 } else {
-                    /* named property */
-                    /* XXX: should have OP_get_field2x with depth */
-                    /* source -- val */
+                    /*  命名属性。 */ 
+                    /*  XXX：应该有 */ 
+                    /*   */ 
                     emit_op(s, OP_get_field);
                     emit_u32(s, prop_name);
                 }
             } else {
-                /* prop_type = PROP_TYPE_VAR, cannot be a computed property */
+                /*   */ 
                 if (is_arg && js_parse_check_duplicate_parameter(s, prop_name))
                     goto prop_error;
                 if ((s->cur_func->js_mode & JS_MODE_STRICT) &&
@@ -22541,7 +22281,7 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
                     goto prop_error;
                 }
                 if (has_ellipsis) {
-                    /* define the property in excludeList */
+                    /*   */ 
                     emit_op(s, OP_swap);
                     emit_op(s, OP_null);
                     emit_op(s, OP_define_field);
@@ -22549,8 +22289,8 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
                     emit_op(s, OP_swap);
                 }
                 if (!tok || tok == TOK_VAR) {
-                    /* generate reference */
-                    /* source -- source source */
+                    /*   */ 
+                    /*  来源--来源来源。 */ 
                     emit_op(s, OP_dup);
                     emit_op(s, OP_scope_get_var);
                     emit_atom(s, prop_name);
@@ -22558,7 +22298,7 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
                     goto lvalue;
                 }
                 var_name = JS_DupAtom(s->ctx, prop_name);
-                /* source -- source val */
+                /*  来源--源值。 */ 
                 emit_op(s, OP_get_field2);
                 emit_u32(s, prop_name);
             }
@@ -22568,7 +22308,7 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
                     goto var_error;
                 scope = s->cur_func->scope_level;
             }
-            if (s->token.val == '=') {  /* handle optional default value */
+            if (s->token.val == '=') {  /*  处理可选的缺省值。 */ 
                 int label_hasval;
                 emit_op(s, OP_dup);
                 emit_op(s, OP_undefined);
@@ -22583,18 +22323,18 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
                     set_object_name(s, var_name);
                 emit_label(s, label_hasval);
             }
-            /* store value into lvalue object */
+            /*  将值存储到左值对象中。 */ 
             put_lvalue_nokeep(s, opcode, scope, var_name, label_lvalue, tok);
             if (s->token.val == '}')
                 break;
-            /* accept a trailing comma before the '}' */
+            /*  接受‘}’前的尾随逗号。 */ 
             if (js_parse_expect(s, ','))
                 return -1;
         }
-        /* drop the source object */
+        /*  删除源对象。 */ 
         emit_op(s, OP_drop);
         if (has_ellipsis) {
-            emit_op(s, OP_drop); /* pop excludeList */
+            emit_op(s, OP_drop); /*  流行音乐排除列表。 */ 
         }
         if (next_token(s))
             return -1;
@@ -22605,15 +22345,14 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
 
         if (next_token(s))
             return -1;
-        /* the block environment is only needed in generators in case
-           'yield' triggers a 'return' */
+        /*  数据块环境仅在以下情况下需要在发电机中使用“让步”触发“回报” */ 
         push_break_entry(s->cur_func, &block_env,
                          JS_ATOM_NULL, -1, -1, 2);
         block_env.has_iterator = TRUE;
         emit_op(s, OP_for_of_start);
         has_spread = FALSE;
         while (s->token.val != ']') {
-            /* get the next value */
+            /*  获取下一个值。 */ 
             if (s->token.val == TOK_ELLIPSIS) {
                 if (next_token(s))
                     return -1;
@@ -22622,7 +22361,7 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
                 has_spread = TRUE;
             }
             if (s->token.val == ',') {
-                /* do nothing, skip the value, has_spread is false */
+                /*  不执行任何操作，跳过该值，HAS_SISPLE为FALSE。 */ 
                 emit_op(s, OP_for_of_next);
                 emit_u8(s, 0);
                 emit_op(s, OP_drop);
@@ -22668,7 +22407,7 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
                     emit_op(s, OP_drop);
                 }
                 if (s->token.val == '=' && !has_spread) {
-                    /* handle optional default value */
+                    /*  处理可选的缺省值。 */ 
                     int label_hasval;
                     emit_op(s, OP_dup);
                     emit_op(s, OP_undefined);
@@ -22683,7 +22422,7 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
                         set_object_name(s, var_name);
                     emit_label(s, label_hasval);
                 }
-                /* store value into lvalue object */
+                /*  将值存储到左值对象中。 */ 
                 put_lvalue_nokeep(s, opcode, scope, var_name,
                                   label_lvalue, tok);
             }
@@ -22691,12 +22430,11 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
                 break;
             if (has_spread)
                 return js_parse_error(s, "rest element must be the last one");
-            /* accept a trailing comma before the ']' */
+            /*  接受‘]’前的逗号。 */ 
             if (js_parse_expect(s, ','))
                 return -1;
         }
-        /* close iterator object:
-           if completed, enum_obj has been replaced by undefined */
+        /*  关闭迭代器对象：如果已完成，则enum_obj已替换为未定义。 */ 
         emit_op(s, OP_iterator_close);
         pop_break_entry(s->cur_func);
         if (next_token(s))
@@ -22717,7 +22455,7 @@ static int js_parse_destructing_element(JSParseState *s, int tok, int is_arg,
         emit_label(s, label_done);
     } else {
         assert(hasval);
-        /* remove test and decrement label ref count */
+        /*  删除测试并减少标签参考计数。 */ 
         memset(s->cur_func->byte_code.buf + start_addr, OP_nop,
                assign_addr - start_addr);
         s->cur_func->label_slots[label_parse].ref_count--;
@@ -22759,9 +22497,8 @@ static __exception int js_parse_postfix_expr(JSParseState *s, BOOL accept_lparen
                 slimb_t e;
                 int ret;
 
-                /* need a runtime conversion */
-                /* XXX: could add a cache and/or do it once at
-                   the start of the function */
+                /*  需要运行时转换。 */ 
+                /*  XXX：可以在以下时间添加缓存和/或执行一次函数的开始。 */ 
                 if (emit_push_const(s, val, 0) < 0)
                     return -1;
                 e = s->token.u.num.exponent;
@@ -22810,14 +22547,14 @@ static __exception int js_parse_postfix_expr(JSParseState *s, BOOL accept_lparen
             int ret;
             if (!s->ctx->compile_regexp)
                 return js_parse_error(s, "RegExp are not supported");
-            /* the previous token is '/' or '/=', so no need to free */
+            /*  前一个内标识是‘/’或‘/=’，因此不需要释放。 */ 
             if (js_parse_regexp(s))
                 return -1;
             ret = emit_push_const(s, s->token.u.regexp.body, 0);
             str = s->ctx->compile_regexp(s->ctx, s->token.u.regexp.body,
                                          s->token.u.regexp.flags);
             if (JS_IsException(str)) {
-                /* add the line number info */
+                /*  添加行号信息。 */ 
                 build_backtrace(s->ctx, s->ctx->current_exception,
                                 s->filename, s->token.line_num, NULL);
                 return -1;
@@ -22826,9 +22563,7 @@ static __exception int js_parse_postfix_expr(JSParseState *s, BOOL accept_lparen
             JS_FreeValue(s->ctx, str);
             if (ret)
                 return -1;
-            /* we use a specific opcode to be sure the correct
-               function is called (otherwise the bytecode would have
-               to be verified by the RegExp constructor) */
+            /*  我们使用特定的操作码来确保正确函数被调用(否则字节码将具有由RegExp构造函数验证)。 */ 
             emit_op(s, OP_regexp);
             if (next_token(s))
                 return -1;
@@ -22921,7 +22656,7 @@ static __exception int js_parse_postfix_expr(JSParseState *s, BOOL accept_lparen
                     return -1;
                 }
                 name = JS_DupAtom(s->ctx, s->token.u.ident.atom);
-                if (next_token(s))  /* update line number before emitting code */
+                if (next_token(s))  /*  在发出代码之前更新行号。 */ 
                     return -1;
             do_get_var:
                 emit_op(s, OP_scope_get_var);
@@ -22968,7 +22703,7 @@ static __exception int js_parse_postfix_expr(JSParseState *s, BOOL accept_lparen
                 return -1;
             accept_lparen = TRUE;
             if (s->token.val != '(') {
-                /* new operator on an object */
+                /*  对象上的新运算符。 */ 
                 emit_op(s, OP_dup);
                 emit_op(s, OP_call_constructor);
                 emit_u16(s, 0);
@@ -23040,7 +22775,7 @@ static __exception int js_parse_postfix_expr(JSParseState *s, BOOL accept_lparen
             int opcode;
             int arg_count;
 
-            /* function call */
+            /*  函数调用。 */ 
             if (next_token(s))
                 return -1;
 
@@ -23048,15 +22783,15 @@ static __exception int js_parse_postfix_expr(JSParseState *s, BOOL accept_lparen
             parse_func_call:
                 switch(opcode = get_prev_opcode(fd)) {
                 case OP_get_field:
-                    /* keep the object on the stack */
+                    /*  将对象保留在堆栈上。 */ 
                     fd->byte_code.buf[fd->last_opcode_pos] = OP_get_field2;
                     break;
                 case OP_scope_get_private_field:
-                    /* keep the object on the stack */
+                    /*  将对象保留在堆栈上。 */ 
                     fd->byte_code.buf[fd->last_opcode_pos] = OP_scope_get_private_field2;
                     break;
                 case OP_get_array_el:
-                    /* keep the object on the stack */
+                    /*  将对象保留在堆栈上。 */ 
                     fd->byte_code.buf[fd->last_opcode_pos] = OP_get_array_el2;
                     break;
                 case OP_scope_get_var:
@@ -23066,17 +22801,11 @@ static __exception int js_parse_postfix_expr(JSParseState *s, BOOL accept_lparen
                         name = get_u32(fd->byte_code.buf + fd->last_opcode_pos + 1);
                         scope = get_u16(fd->byte_code.buf + fd->last_opcode_pos + 5);
                         if (name == JS_ATOM_eval && call_type == FUNC_CALL_NORMAL) {
-                            /* direct 'eval' */
+                            /*  直接‘评估’ */ 
                             opcode = OP_eval;
                         } else {
-                            /* verify if function name resolves to a simple
-                               get_loc/get_arg: a function call inside a `with`
-                               statement can resolve to a method call of the
-                               `with` context object
-                             */
-                            /* XXX: always generate the OP_scope_get_ref
-                               and remove it in variable resolution
-                               pass ? */
+                            /*  验证函数名是否解析为简单的Get_loc/get_arg：`with`内部的函数调用语句可以解析为`with`上下文对象。 */ 
+                            /*  XXX：始终生成OP_SCOPE_GET_REF并以可变分辨率将其移除通过？ */ 
                             if (has_with_scope(fd, scope)) {
                                 opcode = OP_scope_get_ref;
                                 fd->byte_code.buf[fd->last_opcode_pos] = opcode;
@@ -23086,7 +22815,7 @@ static __exception int js_parse_postfix_expr(JSParseState *s, BOOL accept_lparen
                     break;
                 case OP_get_super_value:
                     fd->byte_code.buf[fd->last_opcode_pos] = OP_get_array_el;
-                    /* on stack: this func_obj */
+                    /*  堆栈上：此函数_obj。 */ 
                     opcode = OP_get_array_el;
                     break;
                 default:
@@ -23112,10 +22841,10 @@ static __exception int js_parse_postfix_expr(JSParseState *s, BOOL accept_lparen
                 emit_atom(s, JS_ATOM_new_target);
                 emit_u16(s, 0);
             } else if (call_type == FUNC_CALL_NEW) {
-                emit_op(s, OP_dup); /* new.target = function */
+                emit_op(s, OP_dup); /*  New.Target=函数。 */ 
             }
 
-            /* parse arguments */
+            /*  解析参数。 */ 
             arg_count = 0;
             while (s->token.val != ')') {
                 if (arg_count >= 65535) {
@@ -23128,7 +22857,7 @@ static __exception int js_parse_postfix_expr(JSParseState *s, BOOL accept_lparen
                 arg_count++;
                 if (s->token.val == ')')
                     break;
-                /* accept a trailing comma before the ')' */
+                /*  接受‘)’前的逗号。 */ 
                 if (js_parse_expect(s, ','))
                     return -1;
             }
@@ -23138,7 +22867,7 @@ static __exception int js_parse_postfix_expr(JSParseState *s, BOOL accept_lparen
                 emit_op(s, OP_push_i32);
                 emit_u32(s, arg_count);
 
-                /* on stack: array idx */
+                /*  堆叠：数组IDX。 */ 
                 while (s->token.val != ')') {
                     if (s->token.val == TOK_ELLIPSIS) {
                         if (next_token(s))
@@ -23146,58 +22875,58 @@ static __exception int js_parse_postfix_expr(JSParseState *s, BOOL accept_lparen
                         if (js_parse_assign_expr(s, TRUE))
                             return -1;
 #if 1
-                        /* XXX: could pass is_last indicator? */
+                        /*  XXX：可以传递IS_LAST指示符吗？ */ 
                         emit_op(s, OP_append);
 #else
                         int label_next, label_done;
                         label_next = new_label(s);
                         label_done = new_label(s);
-                        /* push enumerate object below array/idx pair */
+                        /*  将枚举对象推送到数组/idx对下方。 */ 
                         emit_op(s, OP_for_of_start);
                         emit_op(s, OP_rot5l);
                         emit_op(s, OP_rot5l);
                         emit_label(s, label_next);
-                        /* on stack: enum_rec array idx */
+                        /*  堆栈上：enum_rec数组idx。 */ 
                         emit_op(s, OP_for_of_next);
                         emit_u8(s, 2);
                         emit_goto(s, OP_if_true, label_done);
-                        /* append element */
-                        /* enum_rec array idx val -> enum_rec array new_idx */
+                        /*  追加元素。 */ 
+                        /*  Enum_rec数组idx val-&gt;enum_rec数组new_idx。 */ 
                         emit_op(s, OP_define_array_el);
                         emit_op(s, OP_inc);
                         emit_goto(s, OP_goto, label_next);
                         emit_label(s, label_done);
-                        /* close enumeration, drop enum_rec and idx */
-                        emit_op(s, OP_drop); /* drop undef */
-                        emit_op(s, OP_nip1); /* drop enum_rec */
+                        /*  关闭枚举，删除enum_rec和idx。 */ 
+                        emit_op(s, OP_drop); /*  丢弃未定义。 */ 
+                        emit_op(s, OP_nip1); /*  删除枚举记录(_R)。 */ 
                         emit_op(s, OP_nip1);
                         emit_op(s, OP_nip1);
 #endif
                     } else {
                         if (js_parse_assign_expr(s, TRUE))
                             return -1;
-                        /* array idx val */
+                        /*  阵列IDX值。 */ 
                         emit_op(s, OP_define_array_el);
                         emit_op(s, OP_inc);
                     }
                     if (s->token.val == ')')
                         break;
-                    /* accept a trailing comma before the ')' */
+                    /*  接受‘)’前的逗号。 */ 
                     if (js_parse_expect(s, ','))
                         return -1;
                 }
                 if (next_token(s))
                     return -1;
-                /* drop the index */
+                /*  删除索引。 */ 
                 emit_op(s, OP_drop);
 
-                /* apply function call */
+                /*  应用函数调用。 */ 
                 switch(opcode) {
                 case OP_get_field:
                 case OP_scope_get_private_field:
                 case OP_get_array_el:
                 case OP_scope_get_ref:
-                    /* obj func array -> func obj array */
+                    /*  OBJ函数数组-&gt;函数对象数组。 */ 
                     emit_op(s, OP_perm3);
                     emit_op(s, OP_apply);
                     emit_u16(s, call_type == FUNC_CALL_NEW);
@@ -23211,7 +22940,7 @@ static __exception int js_parse_postfix_expr(JSParseState *s, BOOL accept_lparen
                     if (call_type == FUNC_CALL_SUPER_CTOR) {
                         emit_op(s, OP_apply);
                         emit_u16(s, 1);
-                        /* set the 'this' value */
+                        /*  设置‘This’值。 */ 
                         emit_op(s, OP_dup);
                         emit_op(s, OP_scope_put_var_init);
                         emit_atom(s, JS_ATOM_this);
@@ -23219,12 +22948,12 @@ static __exception int js_parse_postfix_expr(JSParseState *s, BOOL accept_lparen
 
                         emit_class_field_init(s);
                     } else if (call_type == FUNC_CALL_NEW) {
-                        /* obj func array -> func obj array */
+                        /*  OBJ函数数组-&gt;函数对象数组。 */ 
                         emit_op(s, OP_perm3);
                         emit_op(s, OP_apply);
                         emit_u16(s, 1);
                     } else {
-                        /* func array -> func undef array */
+                        /*  函数数组-&gt;函数未定义数组。 */ 
                         emit_op(s, OP_undefined);
                         emit_op(s, OP_swap);
                         emit_op(s, OP_apply);
@@ -23255,7 +22984,7 @@ static __exception int js_parse_postfix_expr(JSParseState *s, BOOL accept_lparen
                         emit_op(s, OP_call_constructor);
                         emit_u16(s, arg_count);
 
-                        /* set the 'this' value */
+                        /*  设置‘This’值。 */ 
                         emit_op(s, OP_dup);
                         emit_op(s, OP_scope_put_var_init);
                         emit_atom(s, JS_ATOM_this);
@@ -23277,7 +23006,7 @@ static __exception int js_parse_postfix_expr(JSParseState *s, BOOL accept_lparen
             if (next_token(s))
                 return -1;
             if (s->token.val == TOK_PRIVATE_NAME) {
-                /* private class field */
+                /*  私有类字段。 */ 
                 if (get_prev_opcode(fd) == OP_get_super) {
                     return js_parse_error(s, "private class field forbidden after super");
                 }
@@ -23369,7 +23098,7 @@ static __exception int js_parse_delete(JSParseState *s)
         emit_op(s, OP_delete);
         break;
     case OP_scope_get_var:
-        /* 'delete this': this is not a reference */
+        /*  ‘Delete This’：这不是引用。 */ 
         name = get_u32(fd->byte_code.buf + fd->last_opcode_pos + 1);
         if (name == JS_ATOM_this || name == JS_ATOM_new_target)
             goto ret_true;
@@ -23440,7 +23169,7 @@ static __exception int js_parse_unary(JSParseState *s, int exponentiation_flag)
             op = s->token.val;
             if (next_token(s))
                 return -1;
-            /* XXX: should parse LeftHandSideExpression */
+            /*  XXX：应分析LeftHandSideExpression。 */ 
             if (js_parse_unary(s, 0))
                 return -1;
             if (get_lvalue(s, &opcode, &scope, &name, &label, NULL, TRUE, op))
@@ -23456,8 +23185,7 @@ static __exception int js_parse_unary(JSParseState *s, int exponentiation_flag)
                 return -1;
             if (js_parse_unary(s, -1))
                 return -1;
-            /* reference access should not return an exception, so we
-               patch the get_var */
+            /*  引用访问不应返回异常，因此我们修补get_var。 */ 
             fd = s->cur_func;
             if (get_prev_opcode(fd) == OP_scope_get_var) {
                 fd->byte_code.buf[fd->last_opcode_pos] = OP_scope_get_var_undef;
@@ -23491,9 +23219,7 @@ static __exception int js_parse_unary(JSParseState *s, int exponentiation_flag)
     if (exponentiation_flag) {
 #ifdef CONFIG_BIGNUM
         if (s->token.val == TOK_POW || s->token.val == TOK_MATH_POW) {
-            /* Extended exponentiation syntax rules: we extend the ES7
-               grammar in order to have more intuitive semantics:
-               -2**2 evaluates to -4. */
+            /*  扩展的求幂语法规则：我们扩展ES7语法以获得更直观的语义：-2**2的计算结果为-4。 */ 
             if (!(s->cur_func->js_mode & JS_MODE_MATH)) {
                 if (exponentiation_flag < 0) {
                     JS_ThrowSyntaxError(s->ctx, "unparenthesized unary expression can't appear on the left-hand side of '**'");
@@ -23511,11 +23237,7 @@ static __exception int js_parse_unary(JSParseState *s, int exponentiation_flag)
         }
 #else
         if (s->token.val == TOK_POW) {
-            /* Strict ES7 exponentiation syntax rules: To solve
-               conficting semantics between different implementations
-               regarding the precedence of prefix operators and the
-               postifx exponential, ES7 specifies that -2**2 is a
-               syntax error. */
+            /*  严格的ES7求幂语法规则：要解决混淆不同实现之间的语义关于前缀运算符的优先级和Potifx指数，ES7指定-2**2是一个语法错误。 */ 
             if (exponentiation_flag < 0) {
                 JS_ThrowSyntaxError(s->ctx, "unparenthesized unary expression can't appear on the left-hand side of '**'");
                 return -1;
@@ -23763,8 +23485,7 @@ static __exception int js_parse_assign_expr(JSParseState *s, BOOL in_accepted)
             return js_parse_error(s, "yield in default expression");
         if (next_token(s))
             return -1;
-        /* XXX: is there a better method to detect 'yield' without
-           parameters ? */
+        /*  XXX：有没有更好的方法来检测‘产量’而不是参数呢？ */ 
         if (s->token.val != ';' && s->token.val != ')' &&
             s->token.val != ']' && s->token.val != '}' &&
             s->token.val != ',' && s->token.val != ':' && !s->got_lf) {
@@ -23789,18 +23510,17 @@ static __exception int js_parse_assign_expr(JSParseState *s, BOOL in_accepted)
 
                 emit_op(s, OP_for_await_of_start);
 
-                /* remove the catch offset (XXX: could avoid pushing back
-                   undefined) */
+                /*  删除捕获偏移量(XXX：可以避免回推未定义)。 */ 
                 emit_op(s, OP_drop);
                 emit_op(s, OP_undefined);
 
-                emit_op(s, OP_undefined); /* initial value */
+                emit_op(s, OP_undefined); /*  初值。 */ 
 
                 emit_label(s, label_loop);
                 emit_op(s, OP_async_iterator_next);
                 emit_op(s, OP_await);
                 emit_op(s, OP_iterator_get_value_done);
-                label_next = emit_goto(s, OP_if_true, -1); /* end of loop */
+                label_next = emit_goto(s, OP_if_true, -1); /*  循环结束。 */ 
                 emit_op(s, OP_await);
                 emit_label(s, label_yield);
                 emit_op(s, OP_async_yield_star);
@@ -23815,15 +23535,14 @@ static __exception int js_parse_assign_expr(JSParseState *s, BOOL in_accepted)
                 emit_op(s, OP_strict_eq);
                 label_throw = emit_goto(s, OP_if_true, -1);
 
-                /* return handling */
+                /*  退货处理。 */ 
                 emit_op(s, OP_await);
                 emit_op(s, OP_async_iterator_get);
                 emit_u8(s, 0);
                 label_return1 = emit_goto(s, OP_if_true, -1);
                 emit_op(s, OP_await);
                 emit_op(s, OP_iterator_get_value_done);
-                /* XXX: the spec does not indicate that an await should be
-                   performed in case done = true, but the tests assume it */
+                /*  Xxx：该规范未指示等待应为在Case Done=True的情况下执行，但测试假定为真。 */ 
                 emit_goto(s, OP_if_false, label_yield);
 
                 emit_label(s, label_return1);
@@ -23832,7 +23551,7 @@ static __exception int js_parse_assign_expr(JSParseState *s, BOOL in_accepted)
                 emit_op(s, OP_nip);
                 emit_return(s, TRUE);
 
-                /* throw handling */
+                /*  投掷处理。 */ 
                 emit_label(s, label_throw);
                 emit_op(s, OP_async_iterator_get);
                 emit_u8(s, 1);
@@ -23840,11 +23559,10 @@ static __exception int js_parse_assign_expr(JSParseState *s, BOOL in_accepted)
                 emit_op(s, OP_await);
                 emit_op(s, OP_iterator_get_value_done);
                 emit_goto(s, OP_if_false, label_yield);
-                /* XXX: the spec does not indicate that an await should be
-                   performed in case done = true, but the tests assume it */
+                /*  Xxx：该规范未指示等待应为在Case Done=True的情况下执行，但测试假定为真。 */ 
                 emit_op(s, OP_await);
                 emit_goto(s, OP_goto, label_next);
-                /* close the iterator and throw a type error exception */
+                /*  关闭迭代器并引发类型错误异常。 */ 
                 emit_label(s, label_throw1);
                 emit_op(s, OP_async_iterator_get);
                 emit_u8(s, 0);
@@ -23852,12 +23570,11 @@ static __exception int js_parse_assign_expr(JSParseState *s, BOOL in_accepted)
                 emit_op(s, OP_await);
                 emit_label(s, label_throw2);
                 emit_op(s, OP_async_iterator_get);
-                emit_u8(s, 2); /* throw the type error exception */
-                emit_op(s, OP_drop); /* never reached */
+                emit_u8(s, 2); /*  引发类型错误异常。 */ 
+                emit_op(s, OP_drop); /*  从未到达。 */ 
 
                 emit_label(s, label_next);
-                emit_op(s, OP_nip); /* keep the value associated with
-                                       done = true */
+                emit_op(s, OP_nip); /*  保留与关联的值完成=真。 */ 
                 emit_op(s, OP_nip);
                 emit_op(s, OP_nip);
             } else {
@@ -23871,7 +23588,7 @@ static __exception int js_parse_assign_expr(JSParseState *s, BOOL in_accepted)
             int label_next;
             if (is_star) {
                 emit_op(s, OP_for_of_start);
-                emit_op(s, OP_drop);    /* drop the catch offset */
+                emit_op(s, OP_drop);    /*  删除渔获量偏移量。 */ 
                 emit_op(s, OP_yield_star);
             } else {
                 emit_op(s, OP_yield);
@@ -23883,7 +23600,7 @@ static __exception int js_parse_assign_expr(JSParseState *s, BOOL in_accepted)
         return 0;
     }
     if (s->token.val == TOK_IDENT) {
-        /* name0 is used to check for OP_set_name pattern, not duplicated */
+        /*  Name0用于检查op_set_name模式，不是重复的。 */ 
         name0 = s->token.u.ident.atom;
     }
     if (js_parse_cond_expr(s, in_accepted))
@@ -23940,11 +23657,7 @@ static __exception int js_parse_expr2(JSParseState *s, BOOL in_accepted)
         if (js_parse_assign_expr(s, in_accepted))
             return -1;
         if (comma) {
-            /* prevent get_lvalue from using the last expression
-               as an lvalue. This also prevents the conversion of
-               of get_var to get_ref for method lookup in function
-               call inside `with` statement.
-             */
+            /*  阻止get_lvalue使用最后一个表达式作为一种左值。这还可以防止将函数中方法查找的get_var到get_ref的在`with`语句内部调用。 */ 
             s->cur_func->last_opcode_pos = -1;
         }
         if (s->token.val != ',')
@@ -23998,7 +23711,7 @@ static __exception int emit_break(JSParseState *s, JSAtom name, int is_cont)
         if (is_cont &&
             top->label_cont != -1 &&
             (name == JS_ATOM_NULL || top->label_name == name)) {
-            /* continue stays inside the same block */
+            /*  继续停留在同一块内。 */ 
             emit_goto(s, OP_goto, top->label_cont);
             return 0;
         }
@@ -24016,7 +23729,7 @@ static __exception int emit_break(JSParseState *s, JSAtom name, int is_cont)
         for(; i < top->drop_count; i++)
             emit_op(s, OP_drop);
         if (top->label_finally != -1) {
-            /* must push dummy value to keep same stack depth */
+            /*  必须推送虚值以保持相同的堆栈深度。 */ 
             emit_op(s, OP_undefined);
             emit_goto(s, OP_gosub, top->label_finally);
             emit_op(s, OP_drop);
@@ -24033,7 +23746,7 @@ static __exception int emit_break(JSParseState *s, JSAtom name, int is_cont)
     }
 }
 
-/* execute the finally blocks before return */
+/*  在返回前执行Finally块。 */ 
 static void emit_return(JSParseState *s, BOOL hasval)
 {
     BlockEnv *top;
@@ -24042,13 +23755,9 @@ static void emit_return(JSParseState *s, BOOL hasval)
     drop_count = 0;
     top = s->cur_func->top_break;
     while (top != NULL) {
-        /* XXX: emit the appropriate OP_leave_scope opcodes? Probably not
-           required as all local variables will be closed upon returning
-           from JS_CallInternal, but not in the same order. */
+        /*  XXX：是否发出适当的OP_LEVE_SCOPE操作码？大概不必填项，因为返回时将关闭所有局部变量来自JS_CallInternal，但顺序不同。 */ 
         if (top->has_iterator) {
-            /* with 'yield', the exact number of OP_drop to emit is
-               unknown, so we use a specific operation to look for
-               the catch offset */
+            /*  使用‘Year’，要发出的op_drop的确切数量是未知，所以我们使用特定的操作来查找渔获量补偿。 */ 
             if (!hasval) {
                 emit_op(s, OP_undefined);
                 hasval = TRUE;
@@ -24069,12 +23778,12 @@ static void emit_return(JSParseState *s, BOOL hasval)
         drop_count += top->drop_count;
         if (top->label_finally != -1) {
             while(drop_count) {
-                /* must keep the stack top if hasval */
+                /*  如果有，则必须保持堆栈顶部。 */ 
                 emit_op(s, hasval ? OP_nip : OP_drop);
                 drop_count--;
             }
             if (!hasval) {
-                /* must push return value to keep same stack size */
+                /*  必须推送返回值以保持相同的堆栈大小。 */ 
                 emit_op(s, OP_undefined);
                 hasval = TRUE;
             }
@@ -24085,8 +23794,7 @@ static void emit_return(JSParseState *s, BOOL hasval)
     if (s->cur_func->is_derived_class_constructor) {
         int label_return;
 
-        /* 'this' can be uninitialized, so it may be accessed only if
-           the derived class constructor does not return an object */
+        /*  “This”可以取消初始化，因此只有在以下情况下才能访问它派生类构造函数不返回对象。 */ 
         if (hasval) {
             emit_op(s, OP_check_ctor_return);
             label_return = emit_goto(s, OP_if_false, -1);
@@ -24113,9 +23821,9 @@ static void emit_return(JSParseState *s, BOOL hasval)
     }
 }
 
-#define DECL_MASK_FUNC  (1 << 0) /* allow normal function declaration */
-#define DECL_MASK_LABEL (1 << 1) /* allow labelled statement */
-#define DECL_MASK_OTHER (1 << 2) /* all other declarations */
+#define DECL_MASK_FUNC  (1 << 0) /*  允许正常的函数声明。 */ 
+#define DECL_MASK_LABEL (1 << 1) /*  允许带标签的语句。 */ 
+#define DECL_MASK_OTHER (1 << 2) /*  所有其他声明。 */ 
 #define DECL_MASK_ALL   (DECL_MASK_FUNC | DECL_MASK_LABEL | DECL_MASK_OTHER)
 
 static __exception int js_parse_statement_or_decl(JSParseState *s,
@@ -24176,7 +23884,7 @@ static __exception int js_parse_var(JSParseState *s, BOOL in_accepted, int tok,
                 if (next_token(s))
                     goto var_error;
                 if (tok == TOK_VAR) {
-                    /* Must make a reference for proper `with` semantics */
+                    /*  必须引用正确的“with”语义。 */ 
                     int opcode, scope, label;
                     JSAtom name1;
 
@@ -24207,7 +23915,7 @@ static __exception int js_parse_var(JSParseState *s, BOOL in_accepted, int tok,
                     goto var_error;
                 }
                 if (tok == TOK_LET) {
-                    /* initialize lexical variable upon entering its scope */
+                    /*  在进入词法变量的作用域时对其进行初始化。 */ 
                     emit_op(s, OP_undefined);
                     emit_op(s, OP_scope_put_var_init);
                     emit_atom(s, name);
@@ -24238,14 +23946,14 @@ static __exception int js_parse_var(JSParseState *s, BOOL in_accepted, int tok,
     return -1;
 }
 
-/* test if the current token is a label. Use simplistic look-ahead scanner */
+/*  测试当前令牌是否为标签。使用简单化的前瞻扫描仪。 */ 
 static BOOL is_label(JSParseState *s)
 {
     return (s->token.val == TOK_IDENT && !s->token.u.ident.is_reserved &&
             peek_token(s, FALSE) == ':');
 }
 
-/* test if the current token is a let keyword. Use simplistic look-ahead scanner */
+/*  测试当前令牌是否为let关键字。使用简单化的前瞻扫描仪。 */ 
 static int is_let(JSParseState *s, int decl_mask)
 {
     int res = FALSE;
@@ -24260,8 +23968,7 @@ static int is_let(JSParseState *s, int decl_mask)
                 break;
             }
             if (s->token.val == '[') {
-                /* let [ is a syntax restriction:
-                   it never introduces an ExpressionStatement */
+                /*  Let[是语法限制：它从不引入ExpressionStatement。 */ 
                 res = TRUE;
                 break;
             }
@@ -24270,9 +23977,8 @@ static int is_let(JSParseState *s, int decl_mask)
                 s->token.val == TOK_LET ||
                 s->token.val == TOK_YIELD ||
                 s->token.val == TOK_AWAIT) {
-                /* Check for possible ASI if not scanning for Declaration */
-                /* XXX: should also check that `{` introduces a BindingPattern,
-                   but Firefox does not and rejects eval("let=1;let\n{if(1)2;}") */
+                /*  如果未扫描声明，则检查可能的ASI。 */ 
+                /*  Xxx：还应该检查`{`引入了BindingPattern，但是菲 */ 
                 if (s->last_line_num == s->token.line_num || (decl_mask & DECL_MASK_OTHER)) {
                     res = TRUE;
                     break;
@@ -24294,8 +24000,7 @@ static int is_let(JSParseState *s, int decl_mask)
     return res;
 }
 
-/* XXX: handle IteratorClose when exiting the loop before the
-   enumeration is done */
+/*   */ 
 static __exception int js_parse_for_in_of(JSParseState *s, int label_name,
                                           BOOL is_async)
 {
@@ -24317,13 +24022,10 @@ static __exception int js_parse_for_in_of(JSParseState *s, int label_name,
     label_break = new_label(s);
     label_next = new_label(s);
 
-    /* create scope for the lexical variables declared in the enumeration
-       expressions. XXX: Not completely correct because of weird capturing
-       semantics in `for (i of o) a.push(function(){return i})` */
+    /*  为枚举中声明的词法变量创建作用域表情。XXX：由于捕获异常，所以不完全正确`for(I Of O)a.ush(Function(){Return i})`中的语义。 */ 
     push_scope(s);
 
-    /* local for_in scope starts here so individual elements
-       can be closed in statement. */
+    /*  本地for_in作用域从此处开始，因此各个元素可以在语句中关闭。 */ 
     push_break_entry(s->cur_func, &break_entry,
                      label_name, label_break, label_cont, 1);
     break_entry.scope_level = block_scope_level;
@@ -24384,8 +24086,8 @@ static __exception int js_parse_for_in_of(JSParseState *s, int label_name,
             if (get_lvalue(s, &opcode, &scope, &var_name, &lvalue_label,
                            &depth, FALSE, TOK_FOR))
                 return -1;
-            /* swap value and lvalue object and store it into lvalue object */
-            /* enum_rec val [depth] -- enum_rec */
+            /*  交换Value和LValue对象并将其存储到LValue对象。 */ 
+            /*  枚举记录值[深度]--枚举记录。 */ 
             switch(depth) {
             case 1:
                 emit_op(s, OP_swap);
@@ -24400,7 +24102,7 @@ static __exception int js_parse_for_in_of(JSParseState *s, int label_name,
                 abort();
             }
             put_lvalue_nokeep(s, opcode, scope, var_name, lvalue_label,
-                              TOK_FOR /* not used */);
+                              TOK_FOR /*  未使用。 */ );
         }
         var_name = JS_ATOM_NULL;
     }
@@ -24409,11 +24111,9 @@ static __exception int js_parse_for_in_of(JSParseState *s, int label_name,
     pos_expr = s->cur_func->byte_code.size;
     emit_label(s, label_expr);
     if (s->token.val == '=') {
-        /* XXX: potential scoping issue if inside `with` statement */
+        /*  XXX：如果在`with`语句中，可能会出现作用域问题。 */ 
         has_initializer = TRUE;
-        /* parse and evaluate initializer prior to evaluating the
-           object (only used with "for in" with a non lexical variable
-           in non strict mode */
+        /*  方法之前分析和计算初始值设定项。对象(仅与带有非词法变量的“for in”一起使用在非严格模式下。 */ 
         if (next_token(s) || js_parse_assign_expr(s, FALSE)) {
             JS_FreeAtom(ctx, var_name);
             return -1;
@@ -24453,18 +24153,17 @@ static __exception int js_parse_for_in_of(JSParseState *s, int label_name,
         if (js_parse_expr(s))
             return -1;
     }
-    /* close the scope after having evaluated the expression so that
-       the TDZ values are in the closures */
+    /*  计算完表达式后关闭作用域，以便TDZ值在闭包中。 */ 
     close_scopes(s, s->cur_func->scope_level, block_scope_level);
     if (is_for_of) {
         if (is_async)
             emit_op(s, OP_for_await_of_start);
         else
             emit_op(s, OP_for_of_start);
-        /* on stack: enum_rec */
+        /*  堆栈上：enum_rec。 */ 
     } else {
         emit_op(s, OP_for_in_start);
-        /* on stack: enum_obj */
+        /*  堆栈上：enum_obj。 */ 
     }
     emit_goto(s, OP_goto, label_cont);
 
@@ -24472,7 +24171,7 @@ static __exception int js_parse_for_in_of(JSParseState *s, int label_name,
         return -1;
 
     if (OPTIMIZE) {
-        /* move the `next` code here */
+        /*  将`next`代码移至此处。 */ 
         DynBuf *bc = &s->cur_func->byte_code;
         int chunk_size = pos_expr - pos_next;
         int offset = bc->size - pos_next;
@@ -24480,9 +24179,9 @@ static __exception int js_parse_for_in_of(JSParseState *s, int label_name,
         dbuf_realloc(bc, bc->size + chunk_size);
         dbuf_put(bc, bc->buf + pos_next, chunk_size);
         memset(bc->buf + pos_next, OP_nop, chunk_size);
-        /* `next` part ends with a goto */
+        /*  ‘Next’部分以GoTo结尾。 */ 
         s->cur_func->last_opcode_pos = bc->size - 5;
-        /* relocate labels */
+        /*  重新定位标签。 */ 
         for (i = label_cont; i < s->cur_func->label_count; i++) {
             LabelSlot *ls = &s->cur_func->label_slots[i];
             if (ls->pos >= pos_next && ls->pos < pos_expr)
@@ -24499,11 +24198,11 @@ static __exception int js_parse_for_in_of(JSParseState *s, int label_name,
     emit_label(s, label_cont);
     if (is_for_of) {
         if (is_async) {
-            /* call the next method */
+            /*  调用下一个方法。 */ 
             emit_op(s, OP_for_await_of_next);
-            /* get the result of the promise */
+            /*  得到承诺的结果。 */ 
             emit_op(s, OP_await);
-            /* unwrap the value and done values */
+            /*  展开值和完成值。 */ 
             emit_op(s, OP_iterator_get_value_done);
         } else {
             emit_op(s, OP_for_of_next);
@@ -24512,14 +24211,14 @@ static __exception int js_parse_for_in_of(JSParseState *s, int label_name,
     } else {
         emit_op(s, OP_for_in_next);
     }
-    /* on stack: enum_rec / enum_obj value bool */
+    /*  堆栈上：enum_rec/enum_obj值bool。 */ 
     emit_goto(s, OP_if_false, label_next);
-    /* drop the undefined value from for_xx_next */
+    /*  从for_xx_Next中删除未定义的值。 */ 
     emit_op(s, OP_drop);
 
     emit_label(s, label_break);
     if (is_for_of) {
-        /* close and drop enum_rec */
+        /*  关闭并删除enum_rec。 */ 
         emit_op(s, OP_iterator_close);
     } else {
         emit_op(s, OP_drop);
@@ -24545,8 +24244,8 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
     JSAtom label_name;
     int tok;
 
-    /* specific label handling */
-    /* XXX: support multiple labels on loop statements */
+    /*  特定标签处理。 */ 
+    /*  XXX：循环语句支持多标签。 */ 
     label_name = JS_ATOM_NULL;
     if (is_label(s)) {
         BlockEnv *be;
@@ -24571,7 +24270,7 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
         if (s->token.val != TOK_FOR
         &&  s->token.val != TOK_DO
         &&  s->token.val != TOK_WHILE) {
-            /* labelled regular statement */
+            /*  标记的常规语句。 */ 
             int label_break, mask;
             BlockEnv break_entry;
 
@@ -24633,7 +24332,7 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
             js_parse_error(s, "lexical declarations can't appear in single-statement context");
             goto fail;
         }
-        /* fall thru */
+        /*  失败。 */ 
     case TOK_VAR:
         if (next_token(s))
             goto fail;
@@ -24647,7 +24346,7 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
             int label1, label2, mask;
             if (next_token(s))
                 goto fail;
-            /* create a new scope for `let f;if(1) function f(){}` */
+            /*  为`let f；if(1)函数f(){}`创建新作用域。 */ 
             push_scope(s);
             set_eval_ret_undefined(s);
             if (js_parse_expr_paren(s))
@@ -24656,7 +24355,7 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
             if (s->cur_func->js_mode & JS_MODE_STRICT)
                 mask = 0;
             else
-                mask = DECL_MASK_FUNC; /* Annex B.3.4 */
+                mask = DECL_MASK_FUNC; /*  附件B.3.4。 */ 
 
             if (js_parse_statement_or_decl(s, mask))
                 goto fail;
@@ -24733,7 +24432,7 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
                 goto fail;
             if (js_parse_expr_paren(s))
                 goto fail;
-            /* Insert semicolon if missing */
+            /*  插入分号(如果缺少)。 */ 
             if (s->token.val == ';') {
                 if (next_token(s))
                     goto fail;
@@ -24774,17 +24473,16 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
                 goto fail;
 
             if (!(bits & SKIP_HAS_SEMI)) {
-                /* parse for/in or for/of */
+                /*  分析For/In或For/Of。 */ 
                 if (js_parse_for_in_of(s, label_name, is_async))
                     goto fail;
                 break;
             }
             block_scope_level = s->cur_func->scope_level;
 
-            /* create scope for the lexical variables declared in the initial,
-               test and increment expressions */
+            /*  中声明的词汇变量创建作用域，测试和增量表达式。 */ 
             push_scope(s);
-            /* initial expression */
+            /*  初始表达式。 */ 
             tok = s->token.val;
             if (tok != ';') {
                 switch (is_let(s, DECL_MASK_OTHER)) {
@@ -24807,7 +24505,7 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
                     emit_op(s, OP_drop);
                 }
 
-                /* close the closures before the first iteration */
+                /*  在第一次迭代之前关闭闭包。 */ 
                 close_scopes(s, s->cur_func->scope_level, block_scope_level);
             }
             if (js_parse_expect(s, ';'))
@@ -24821,9 +24519,9 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
             push_break_entry(s->cur_func, &break_entry,
                              label_name, label_break, label_cont, 0);
 
-            /* test expression */
+            /*  测试表达式。 */ 
             if (s->token.val == ';') {
-                /* no test expression */
+                /*  没有测试表达式。 */ 
                 label_test = label_body;
             } else {
                 emit_label(s, label_test);
@@ -24835,11 +24533,11 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
                 goto fail;
 
             if (s->token.val == ')') {
-                /* no end expression */
+                /*  没有结束表达式。 */ 
                 break_entry.label_cont = label_cont = label_test;
-                pos_cont = 0; /* avoid warning */
+                pos_cont = 0; /*  避免警告。 */ 
             } else {
-                /* skip the end expression */
+                /*  跳过结束表达式。 */ 
                 emit_goto(s, OP_goto, label_body);
 
                 pos_cont = s->cur_func->byte_code.size;
@@ -24858,12 +24556,12 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
             if (js_parse_statement(s))
                 goto fail;
 
-            /* close the closures before the next iteration */
-            /* XXX: check continue case */
+            /*  在下一次迭代之前关闭闭包。 */ 
+            /*  XXX：检查继续大小写。 */ 
             close_scopes(s, s->cur_func->scope_level, block_scope_level);
 
             if (OPTIMIZE && label_test != label_body && label_cont != label_test) {
-                /* move the increment code here */
+                /*  将增量代码移至此处。 */ 
                 DynBuf *bc = &s->cur_func->byte_code;
                 int chunk_size = pos_body - pos_cont;
                 int offset = bc->size - pos_cont;
@@ -24871,9 +24569,9 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
                 dbuf_realloc(bc, bc->size + chunk_size);
                 dbuf_put(bc, bc->buf + pos_cont, chunk_size);
                 memset(bc->buf + pos_cont, OP_nop, chunk_size);
-                /* increment part ends with a goto */
+                /*  增量部分以GoTo结尾。 */ 
                 s->cur_func->last_opcode_pos = bc->size - 5;
-                /* relocate labels */
+                /*  重新定位标签。 */ 
                 for (i = label_cont; i < s->cur_func->label_count; i++) {
                     LabelSlot *ls = &s->cur_func->label_slots[i];
                     if (ls->pos >= pos_cont && ls->pos < pos_body)
@@ -24938,13 +24636,13 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
                 if (s->token.val == TOK_CASE) {
                     label1 = -1;
                     if (label_case >= 0) {
-                        /* skip the case if needed */
+                        /*  如果需要，请跳过案例。 */ 
                         label1 = emit_goto(s, OP_goto, -1);
                     }
                     emit_label(s, label_case);
                     label_case = -1;
                     for (;;) {
-                        /* parse a sequence of case clauses */
+                        /*  解析一系列CASE子句。 */ 
                         if (next_token(s))
                             goto fail;
                         emit_op(s, OP_dup);
@@ -24971,20 +24669,16 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
                         goto fail;
                     }
                     if (label_case < 0) {
-                        /* falling thru direct from switch expression */
+                        /*  从Switch表达式直接落空。 */ 
                         label_case = emit_goto(s, OP_goto, -1);
                     }
-                    /* Emit a dummy label opcode. Label will be patched after
-                       the end of the switch body. Do not use emit_label(s, 0)
-                       because it would clobber label 0 address, preventing
-                       proper optimizer operation.
-                     */
+                    /*  发出一个伪标签操作码。标签将在以下位置补丁开关主体的末端。请勿使用emit_Label(s，0)因为它会破坏标签0地址，从而阻止正确的优化器操作。 */ 
                     emit_op(s, OP_label);
                     emit_u32(s, 0);
                     default_label_pos = s->cur_func->byte_code.size - 4;
                 } else {
                     if (label_case < 0) {
-                        /* falling thru direct from switch expression */
+                        /*  从Switch表达式直接落空。 */ 
                         js_parse_error(s, "invalid switch statement");
                         goto fail;
                     }
@@ -24995,7 +24689,7 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
             if (js_parse_expect(s, '}'))
                 goto fail;
             if (default_label_pos >= 0) {
-                /* Ugly patch for the the `default` label, shameful and risky */
+                /*  “默认”标签的丑陋补丁，可耻和危险。 */ 
                 put_u32(s->cur_func->byte_code.buf + default_label_pos,
                         label_case);
                 s->cur_func->label_slots[label_case].pos = default_label_pos + 4;
@@ -25003,7 +24697,7 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
                 emit_label(s, label_case);
             }
             emit_label(s, label_break);
-            emit_op(s, OP_drop); /* drop the switch expression */
+            emit_op(s, OP_drop); /*  删除开关表达式。 */ 
 
             pop_break_entry(s->cur_func);
             pop_scope(s);
@@ -25035,9 +24729,9 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
             pop_break_entry(s->cur_func);
 
             if (js_is_live_code(s)) {
-                /* drop the catch offset */
+                /*  删除渔获量偏移量。 */ 
                 emit_op(s, OP_drop);
-                /* must push dummy value to keep same stack size */
+                /*  必须推送虚值以保持相同的堆栈大小。 */ 
                 emit_op(s, OP_undefined);
                 emit_goto(s, OP_gosub, label_finally);
                 emit_op(s, OP_drop);
@@ -25049,18 +24743,18 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
                 if (next_token(s))
                     goto fail;
 
-                push_scope(s);  /* catch variable */
+                push_scope(s);  /*  捕捉变量。 */ 
                 emit_label(s, label_catch);
 
                 if (s->token.val == '{') {
-                    /* support optional-catch-binding feature */
-                    emit_op(s, OP_drop);    /* pop the exception object */
+                    /*  支持可选的捕获绑定功能。 */ 
+                    emit_op(s, OP_drop);    /*  弹出异常对象。 */ 
                 } else {
                     if (js_parse_expect(s, '('))
                         goto fail;
                     if (!(s->token.val == TOK_IDENT && !s->token.u.ident.is_reserved)) {
                         if (s->token.val == '[' || s->token.val == '{') {
-                            /* XXX: TOK_LET is not completely correct */
+                            /*  Xxx：tok_let不完全正确。 */ 
                             if (js_parse_destructing_element(s, TOK_LET, 0, TRUE, -1, TRUE))
                                 goto fail;
                         } else {
@@ -25074,7 +24768,7 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
                             JS_FreeAtom(ctx, name);
                             goto fail;
                         }
-                        /* store the exception value in the catch variable */
+                        /*  将异常值存储在Catch变量中。 */ 
                         emit_op(s, OP_scope_put_var);
                         emit_u32(s, name);
                         emit_u16(s, s->cur_func->scope_level);
@@ -25082,10 +24776,10 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
                     if (js_parse_expect(s, ')'))
                         goto fail;
                 }
-                /* XXX: should keep the address to nop it out if there is no finally block */
+                /*  Xxx：如果没有Finish块，则应保留地址以不将其删除。 */ 
                 emit_goto(s, OP_catch, label_catch2);
 
-                push_scope(s);  /* catch block */
+                push_scope(s);  /*  抓地块。 */ 
                 push_break_entry(s->cur_func, &block_env, JS_ATOM_NULL,
                                  -1, -1, 1);
                 block_env.label_finally = label_finally;
@@ -25094,31 +24788,29 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
                     goto fail;
 
                 pop_break_entry(s->cur_func);
-                pop_scope(s);  /* catch block */
-                pop_scope(s);  /* catch variable */
+                pop_scope(s);  /*  抓地块。 */ 
+                pop_scope(s);  /*  捕捉变量。 */ 
 
                 if (js_is_live_code(s)) {
-                    /* drop the catch2 offset */
+                    /*  删除Catch2偏移量。 */ 
                     emit_op(s, OP_drop);
-                    /* XXX: should keep the address to nop it out if there is no finally block */
-                    /* must push dummy value to keep same stack size */
+                    /*  Xxx：如果没有Finish块，则应保留地址以不将其删除。 */ 
+                    /*  必须推送虚值以保持相同的堆栈大小。 */ 
                     emit_op(s, OP_undefined);
                     emit_goto(s, OP_gosub, label_finally);
                     emit_op(s, OP_drop);
                     emit_goto(s, OP_goto, label_end);
                 }
-                /* catch exceptions thrown in the catch block to execute the
-                 * finally clause and rethrow the exception */
+                /*  捕捉在CATCH块中引发的异常，以执行*Finally子句并重新引发异常。 */ 
                 emit_label(s, label_catch2);
-                /* catch value is at TOS, no need to push undefined */
+                /*  Catch值为TOS，无需推送未定义。 */ 
                 emit_goto(s, OP_gosub, label_finally);
                 emit_op(s, OP_throw);
 
             } else if (s->token.val == TOK_FINALLY) {
-                /* finally without catch : execute the finally clause
-                 * and rethrow the exception */
+                /*  最终不带CATCH：执行Finally子句*并重新引发异常。 */ 
                 emit_label(s, label_catch);
-                /* catch value is at TOS, no need to push undefined */
+                /*  Catch值为TOS，无需推送未定义。 */ 
                 emit_goto(s, OP_gosub, label_finally);
                 emit_op(s, OP_throw);
             } else {
@@ -25130,12 +24822,12 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
                 int saved_eval_ret_idx;
                 if (next_token(s))
                     goto fail;
-                /* on the stack: ret_value gosub_ret_value */
+                /*  在堆栈上：RET_VALUE goub_ret_Value。 */ 
                 push_break_entry(s->cur_func, &block_env, JS_ATOM_NULL,
                                  -1, -1, 2);
                 saved_eval_ret_idx = s->cur_func->eval_ret_idx;
                 s->cur_func->eval_ret_idx = -1;
-                /* 'finally' does not update eval_ret */
+                /*  ‘Finally’不更新val_ret。 */ 
                 if (js_parse_block(s))
                     goto fail;
                 s->cur_func->eval_ret_idx = saved_eval_ret_idx;
@@ -25146,7 +24838,7 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
         }
         break;
     case ';':
-        /* empty statement */
+        /*  空语句。 */ 
         if (next_token(s))
             goto fail;
         break;
@@ -25176,12 +24868,12 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
             if (js_parse_statement(s))
                 goto fail;
 
-            /* Popping scope drops lexical context for the with object variable */
+            /*  弹出作用域删除with对象变量的词法上下文。 */ 
             pop_scope(s);
         }
         break;
     case TOK_FUNCTION:
-        /* ES6 Annex B.3.2 and B.3.3 semantics */
+        /*  ES6附件B.3.2和B.3.3语义。 */ 
         if (!(decl_mask & DECL_MASK_FUNC))
             goto func_decl_error;
         if (!(decl_mask & DECL_MASK_OTHER) && peek_token(s, FALSE) == '*')
@@ -25192,7 +24884,7 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
             js_parse_error_reserved_identifier(s);
             goto fail;
         }
-        /* Determine if `let` introduces a Declaration or an ExpressionStatement */
+        /*  确定`let`是引入声明还是引入ExpressionStatement。 */ 
         switch (is_let(s, decl_mask)) {
         case TRUE:
             tok = TOK_LET;
@@ -25228,7 +24920,7 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
         break;
 
     case TOK_DEBUGGER:
-        /* currently no debugger, so just skip the keyword */
+        /*  当前没有调试器，因此只需跳过关键字。 */ 
         if (next_token(s))
             goto fail;
         if (js_parse_expect_semi(s))
@@ -25246,12 +24938,11 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
         if (js_parse_expr(s))
             goto fail;
         if (s->cur_func->eval_ret_idx >= 0) {
-            /* store the expression value so that it can be returned
-               by eval() */
+            /*  存储表达式值，以便可以返回按评估()。 */ 
             emit_op(s, OP_put_loc);
             emit_u16(s, s->cur_func->eval_ret_idx);
         } else {
-            emit_op(s, OP_drop); /* drop the result */
+            emit_op(s, OP_drop); /*  丢弃结果。 */ 
         }
         if (js_parse_expect_semi(s))
             goto fail;
@@ -25265,7 +24956,7 @@ fail:
     return -1;
 }
 
-/* 'name' is freed */
+/*  “姓名”是自由的。 */ 
 static JSModuleDef *js_new_module_def(JSContext *ctx, JSAtom name)
 {
     JSModuleDef *m;
@@ -25328,7 +25019,7 @@ static int js_resize_array(JSContext *ctx, void **parray, int elem_size,
         int new_size;
         size_t slack;
         void *new_array;
-        /* XXX: potential arithmetic overflow */
+        /*  XXX：潜在的算术溢出。 */ 
         new_size = max_int(new_count, *psize * 3 / 2);
         new_array = js_realloc2(ctx, *parray, new_size * elem_size, &slack);
         if (!new_array)
@@ -25347,7 +25038,7 @@ static int add_req_module_entry(JSContext *ctx, JSModuleDef *m,
     JSReqModuleEntry *rme;
     int i;
 
-    /* no need to add the module request if it is already present */
+    /*  如果模块请求已经存在，则不需要添加它。 */ 
     for(i = 0; i < m->req_module_entries_count; i++) {
         rme = &m->req_module_entries[i];
         if (rme->module_name == module_name)
@@ -25434,7 +25125,7 @@ static int add_star_export_entry(JSContext *ctx, JSModuleDef *m,
     return 0;
 }
 
-/* create a C module */
+/*  创建一个C模块。 */ 
 JSModuleDef *JS_NewCModule(JSContext *ctx, const char *name_str,
                            JSModuleInitFunc *func)
 {
@@ -25492,7 +25183,7 @@ void JS_SetModuleLoaderFunc(JSRuntime *rt,
     rt->module_loader_opaque = opaque;
 }
 
-/* default module filename normalizer */
+/*  默认模块文件名规格化程序。 */ 
 static char *js_default_module_normalize_name(JSContext *ctx,
                                               const char *base_name,
                                               const char *name)
@@ -25502,7 +25193,7 @@ static char *js_default_module_normalize_name(JSContext *ctx,
     int len;
 
     if (name[0] != '.') {
-        /* if no initial dot, the module name is not modified */
+        /*  如果没有首字母点，则不修改模块名称。 */ 
         return js_strdup(ctx, name);
     }
 
@@ -25518,14 +25209,13 @@ static char *js_default_module_normalize_name(JSContext *ctx,
     memcpy(filename, base_name, len);
     filename[len] = '\0';
 
-    /* we only normalize the leading '..' or '.' */
+    /*  我们只把主要的‘..’正常化。或‘.’ */ 
     r = name;
     for(;;) {
         if (r[0] == '.' && r[1] == '/') {
             r += 2;
         } else if (r[0] == '.' && r[1] == '.' && r[2] == '/') {
-            /* remove the last path element of filename, except if "."
-               or ".." */
+            /*  删除文件名的最后一个路径元素，但“.”除外。或“..” */ 
             if (filename[0] == '\0')
                 break;
             p = strrchr(filename, '/');
@@ -25546,7 +25236,7 @@ static char *js_default_module_normalize_name(JSContext *ctx,
     if (filename[0] != '\0')
         strcat(filename, "/");
     strcat(filename, r);
-    //    printf("normalize: %s %s -> %s\n", base_name, name, filename);
+    //  Printf(“Normize：%s%s-&gt;%s\n”，base_name，name，filename)；
     return filename;
 }
 
@@ -25555,7 +25245,7 @@ static JSModuleDef *js_find_loaded_module(JSContext *ctx, JSAtom name)
     struct list_head *el;
     JSModuleDef *m;
     
-    /* first look at the loaded modules */
+    /*  首先查看已加载的模块。 */ 
     list_for_each(el, &ctx->loaded_modules) {
         m = list_entry(el, JSModuleDef, link);
         if (m->module_name == name)
@@ -25564,7 +25254,7 @@ static JSModuleDef *js_find_loaded_module(JSContext *ctx, JSAtom name)
     return NULL;
 }
 
-/* return NULL in case of exception (e.g. module could not be loaded) */
+/*  在异常情况下返回NULL(例如，无法加载模块)。 */ 
 static JSModuleDef *js_host_resolve_imported_module(JSContext *ctx,
                                                     JSAtom base_module_name,
                                                     JSAtom module_name1)
@@ -25601,7 +25291,7 @@ static JSModuleDef *js_host_resolve_imported_module(JSContext *ctx,
         return NULL;
     }
 
-    /* first look at the loaded modules */
+    /*  首先查看已加载的模块。 */ 
     m = js_find_loaded_module(ctx, module_name);
     if (m) {
         js_free(ctx, cname);
@@ -25611,9 +25301,9 @@ static JSModuleDef *js_host_resolve_imported_module(JSContext *ctx,
 
     JS_FreeAtom(ctx, module_name);
 
-    /* load the module */
+    /*  加载模块。 */ 
     if (!rt->module_loader_func) {
-        /* XXX: use a syntax error ? */
+        /*  XXX：使用语法错误？ */ 
         JS_ThrowReferenceError(ctx, "could not load module '%s'",
                                cname);
         js_free(ctx, cname);
@@ -25665,7 +25355,7 @@ static int add_resolve_entry(JSContext *ctx, JSResolveState *s,
 }
 
 typedef enum JSResolveResultEnum {
-    JS_RESOLVE_RES_EXCEPTION = -1, /* memory alloc error */
+    JS_RESOLVE_RES_EXCEPTION = -1, /*  内存分配错误。 */ 
     JS_RESOLVE_RES_FOUND = 0,
     JS_RESOLVE_RES_NOT_FOUND,
     JS_RESOLVE_RES_CIRCULAR,
@@ -25690,16 +25380,16 @@ static JSResolveResultEnum js_resolve_export1(JSContext *ctx,
     me = find_export_entry(ctx, m, export_name);
     if (me) {
         if (me->export_type == JS_EXPORT_TYPE_LOCAL) {
-            /* local export */
+            /*  本地出口。 */ 
             *pmodule = m;
             *pme = me;
             return JS_RESOLVE_RES_FOUND;
         } else {
-            /* indirect export */
+            /*  间接出口。 */ 
             JSModuleDef *m1;
             m1 = m->req_module_entries[me->u.req_module_idx].module;
             if (me->local_name == JS_ATOM__star_) {
-                /* export ns from */
+                /*  从以下位置导出%n。 */ 
                 *pmodule = m;
                 *pme = me;
                 return JS_RESOLVE_RES_FOUND;
@@ -25710,7 +25400,7 @@ static JSResolveResultEnum js_resolve_export1(JSContext *ctx,
         }
     } else {
         if (export_name != JS_ATOM_default) {
-            /* not found in direct or indirect exports: try star exports */
+            /*  在直接或间接导出中找不到：尝试明星导出。 */ 
             int i;
 
             for(i = 0; i < m->star_export_entries_count; i++) {
@@ -25746,9 +25436,7 @@ static JSResolveResultEnum js_resolve_export1(JSContext *ctx,
     }
 }
 
-/* If the return value is JS_RESOLVE_RES_FOUND, return the module
-  (*pmodule) and the corresponding local export entry
-  (*pme). Otherwise return (NULL, NULL) */
+/*  如果返回值为JS_RESOLE_RES_FOUND，则返回模块(*p模块)和对应的本地导出条目(*PME)。否则返回(NULL，NULL)。 */ 
 static JSResolveResultEnum js_resolve_export(JSContext *ctx,
                                              JSModuleDef **pmodule,
                                              JSExportEntry **pme,
@@ -25811,9 +25499,9 @@ typedef struct ExportedNameEntry {
     JSAtom export_name;
     ExportedNameEntryEnum export_type;
     union {
-        JSExportEntry *me; /* using when the list is built */
-        JSVarRef *var_ref; /* EXPORTED_NAME_NORMAL */
-        JSModuleDef *module; /* for EXPORTED_NAME_NS */
+        JSExportEntry *me; /*  在构建列表时使用。 */ 
+        JSVarRef *var_ref; /*  已导出名称_普通。 */ 
+        JSModuleDef *module; /*  对于导出的名称_NS。 */ 
     } u;
 } ExportedNameEntry;
 
@@ -25844,7 +25532,7 @@ static __exception int get_exported_names(JSContext *ctx,
     ExportedNameEntry *en;
     int i, j;
 
-    /* check circular reference */
+    /*  检查循环引用。 */ 
     for(i = 0; i < s->modules_count; i++) {
         if (s->modules[i] == m)
             return 0;
@@ -25865,7 +25553,7 @@ static __exception int get_exported_names(JSContext *ctx,
                 return -1;
             en = &s->exported_names[s->exported_names_count - 1];
             en->export_name = me->export_name;
-            /* avoid a second lookup for simple module exports */
+            /*  避免对简单模块导出进行第二次查找。 */ 
             if (from_star || me->export_type != JS_EXPORT_TYPE_LOCAL)
                 en->u.me = NULL;
             else
@@ -25885,7 +25573,7 @@ static __exception int get_exported_names(JSContext *ctx,
     return 0;
 }
 
-/* Unfortunately, the spec gives a different behavior from GetOwnProperty ! */
+/*  不幸的是，该规范提供了与GetOwnProperty不同的行为！ */ 
 static int js_module_ns_has(JSContext *ctx, JSValueConst obj, JSAtom atom)
 {
     return (find_own_property1(JS_VALUE_GET_OBJ(obj), atom) != NULL);
@@ -25903,11 +25591,11 @@ static int exported_names_cmp(const void *p1, const void *p2, void *opaque)
     JSValue str1, str2;
     int ret;
 
-    /* XXX: should avoid allocation memory in atom comparison */
+    /*  XXX：应避免在ATOM比较中分配内存。 */ 
     str1 = JS_AtomToString(ctx, me1->export_name);
     str2 = JS_AtomToString(ctx, me2->export_name);
     if (JS_IsException(str1) || JS_IsException(str2)) {
-        /* XXX: raise an error ? */
+        /*  XXX：引发错误？ */ 
         ret = 0;
     } else {
         ret = js_string_compare(ctx, JS_VALUE_GET_STRING(str1),
@@ -25954,7 +25642,7 @@ static JSValue js_build_module_ns(JSContext *ctx, JSModuleDef *m)
     if (ret)
         goto fail;
 
-    /* Resolve the exported names. The ambiguous exports are removed */
+    /*  解析导出的名称。将删除不明确的导出。 */ 
     for(i = 0; i < s->exported_names_count; i++) {
         ExportedNameEntry *en = &s->exported_names[i];
         JSResolveResultEnum res;
@@ -25962,7 +25650,7 @@ static JSValue js_build_module_ns(JSContext *ctx, JSModuleDef *m)
         JSModuleDef *res_m;
 
         if (en->u.me) {
-            res_me = en->u.me; /* fast case: no resolution needed */
+            res_me = en->u.me; /*  快速案例：不需要解决问题。 */ 
             res_m = m;
             res = JS_RESOLVE_RES_FOUND;
         } else {
@@ -25992,7 +25680,7 @@ static JSValue js_build_module_ns(JSContext *ctx, JSModuleDef *m)
         }
     }
 
-    /* sort the exported names */
+    /*  对导出的名称进行排序。 */ 
     rqsort(s->exported_names, s->exported_names_count,
            sizeof(s->exported_names[0]), exported_names_cmp, ctx);
 
@@ -26012,7 +25700,7 @@ static JSValue js_build_module_ns(JSContext *ctx, JSModuleDef *m)
             }
             break;
         case EXPORTED_NAME_NS:
-            /* the exported namespace must be created on demand */
+            /*  导出的命名空间必须按需创建。 */ 
             if (JS_DefineAutoInitProperty(ctx, obj,
                                           en->export_name,
                                           js_module_ns_autoinit,
@@ -26050,7 +25738,7 @@ static JSValue js_get_module_ns(JSContext *ctx, JSModuleDef *m)
     return JS_DupValue(ctx, m->module_ns);
 }
 
-/* Load all the required modules for module 'm' */
+/*  加载模块‘m’所需的所有模块。 */ 
 static int js_resolve_module(JSContext *ctx, JSModuleDef *m)
 {
     int i;
@@ -26065,7 +25753,7 @@ static int js_resolve_module(JSContext *ctx, JSModuleDef *m)
     }
 #endif
     m->resolved = TRUE;
-    /* resolve each requested module */
+    /*  解析每个请求的模块。 */ 
     for(i = 0; i < m->req_module_entries_count; i++) {
         JSReqModuleEntry *rme = &m->req_module_entries[i];
         m1 = js_host_resolve_imported_module(ctx, m->module_name,
@@ -26073,8 +25761,7 @@ static int js_resolve_module(JSContext *ctx, JSModuleDef *m)
         if (!m1)
             return -1;
         rme->module = m1;
-        /* already done in js_host_resolve_imported_module() except if
-           the module was loaded with JS_EvalBinary() */
+        /*  已在js_host_Resolve_Imported_MODULE()中完成，除非该模块使用JS_EvalBinary()加载。 */ 
         if (js_resolve_module(ctx, m1) < 0)
             return -1;
     }
@@ -26099,7 +25786,7 @@ static JSVarRef *js_create_module_var(JSContext *ctx, BOOL is_lexical)
     return var_ref;
 }
 
-/* Create the <eval> function associated with the module */
+/*  创建与该模块关联的&lt;eval&gt;函数。 */ 
 static int js_create_module_function(JSContext *ctx, JSModuleDef *m)
 {
     JSFunctionBytecode *b;
@@ -26127,8 +25814,7 @@ static int js_create_module_function(JSContext *ctx, JSModuleDef *m)
             goto fail;
         p->u.func.var_refs = var_refs;
 
-        /* create the global variables. The other variables are
-           imported from other modules */
+        /*  创建全局变量。其他变量包括从其他位置导入 */ 
         for(i = 0; i < b->closure_var_count; i++) {
             JSClosureVar *cv = &b->closure_var[i];
             JSVarRef *var_ref;
@@ -26151,8 +25837,7 @@ static int js_create_module_function(JSContext *ctx, JSModuleDef *m)
     return -1;
 }
 
-/* Prepare a module to be executed by resolving all the imported
-   variables. */
+/*   */ 
 static int js_instantiate_module(JSContext *ctx, JSModuleDef *m)
 {
     int i;
@@ -26169,7 +25854,7 @@ static int js_instantiate_module(JSContext *ctx, JSModuleDef *m)
     is_c_module = (m->init_func != NULL);
 
     if (is_c_module) {
-        /* initialize the exported variables */
+        /*   */ 
         for(i = 0; i < m->export_entries_count; i++) {
             JSExportEntry *me = &m->export_entries[i];
             if (me->export_type == JS_EXPORT_TYPE_LOCAL) {
@@ -26196,7 +25881,7 @@ static int js_instantiate_module(JSContext *ctx, JSModuleDef *m)
         printf("instantiating module '%s':\n", JS_AtomGetStr(ctx, buf1, sizeof(buf1), m->module_name));
     }
 #endif
-    /* check the indirect exports */
+    /*  检查间接出口。 */ 
     for(i = 0; i < m->export_entries_count; i++) {
         JSExportEntry *me = &m->export_entries[i];
         if (me->export_type == JS_EXPORT_TYPE_INDIRECT &&
@@ -26239,7 +25924,7 @@ static int js_instantiate_module(JSContext *ctx, JSModuleDef *m)
             m1 = m->req_module_entries[mi->req_module_idx].module;
             if (mi->import_name == JS_ATOM__star_) {
                 JSValue val;
-                /* name space import */
+                /*  名称空间导入。 */ 
                 val = js_get_module_ns(ctx, m1);
                 if (JS_IsException(val))
                     goto fail;
@@ -26262,7 +25947,7 @@ static int js_instantiate_module(JSContext *ctx, JSModuleDef *m)
                 if (res_me->local_name == JS_ATOM__star_) {
                     JSValue val;
                     JSModuleDef *m2;
-                    /* name space import from */
+                    /*  名称空间导入自。 */ 
                     m2 = res_m->req_module_entries[res_me->u.req_module_idx].module;
                     val = js_get_module_ns(ctx, m2);
                     if (JS_IsException(val))
@@ -26292,9 +25977,7 @@ static int js_instantiate_module(JSContext *ctx, JSModuleDef *m)
             }
         }
 
-        /* keep the exported variables in the module export entries (they
-           are used when the eval function is deleted and cannot be
-           initialized before in case imports are exported) */
+        /*  将导出的变量保留在模块导出条目中(它们在删除评估函数时使用，并且无法在此之前进行了初始化，以防导出导入)。 */ 
         for(i = 0; i < m->export_entries_count; i++) {
             JSExportEntry *me = &m->export_entries[i];
             if (me->export_type == JS_EXPORT_TYPE_LOCAL) {
@@ -26313,15 +25996,13 @@ static int js_instantiate_module(JSContext *ctx, JSModuleDef *m)
     return -1;
 }
 
-/* warning: the returned atom is not allocated */
+/*  警告：未分配返回的原子。 */ 
 static JSAtom js_get_script_or_module_name(JSContext *ctx)
 {
     JSStackFrame *sf;
     JSFunctionBytecode *b;
     JSObject *p;
-    /* XXX: currently we just use the filename of the englobing
-       function. It does not work for eval(). Need to add a
-       ScriptOrModule info in JSFunctionBytecode */
+    /*  Xxx：目前我们只使用englobing的文件名功能。它不适用于val()。需要添加一个JSFunctionBytecode中的ScriptOrModule信息。 */ 
     sf = ctx->current_stack_frame;
     assert(sf != NULL);
     assert(JS_VALUE_GET_TAG(sf->cur_func) == JS_TAG_OBJECT);
@@ -26341,7 +26022,7 @@ JSAtom JS_GetModuleName(JSContext *ctx, JSModuleDef *m)
 JSValue JS_GetImportMeta(JSContext *ctx, JSModuleDef *m)
 {
     JSValue obj;
-    /* allocate meta_obj only if requested to save memory */
+    /*  仅在请求节省内存时才分配meta_obj。 */ 
     obj = m->meta_obj;
     if (JS_IsUndefined(obj)) {
         obj = JS_NewObjectProto(ctx, JS_NULL);
@@ -26361,8 +26042,7 @@ static JSValue js_import_meta(JSContext *ctx)
     if (filename == JS_ATOM_NULL)
         goto fail;
 
-    /* XXX: inefficient, need to add a module or script pointer in
-       JSFunctionBytecode */
+    /*  XXX：效率低下，需要在中添加模块或脚本指针JSFunctionBytecode。 */ 
     m = js_find_loaded_module(ctx, filename);
     if (!m) {
     fail:
@@ -26408,21 +26088,21 @@ static JSValue js_dynamic_import(JSContext *ctx, JSValueConst specifier)
         goto exception;
     }
 
-    /* Evaluate the module code */
+    /*  评估模块代码。 */ 
     func_obj = JS_DupValue(ctx, JS_MKPTR(JS_TAG_MODULE, m));
     ret = JS_EvalFunction(ctx, func_obj);
     if (JS_IsException(ret))
         goto exception;
     JS_FreeValue(ctx, ret);
 
-    /* return the module namespace */
+    /*  返回模块命名空间。 */ 
     ns = js_get_module_ns(ctx, m);
     if (JS_IsException(ret))
         goto exception;
 
     ret = JS_Call(ctx, resolving_funcs[0], JS_UNDEFINED,
                    1, (JSValueConst *)&ns);
-    JS_FreeValue(ctx, ret); /* XXX: what to do if exception ? */
+    JS_FreeValue(ctx, ret); /*  XXX：如果出现异常怎么办？ */ 
     JS_FreeValue(ctx, ns);
     JS_FreeValue(ctx, resolving_funcs[0]);
     JS_FreeValue(ctx, resolving_funcs[1]);
@@ -26432,15 +26112,14 @@ static JSValue js_dynamic_import(JSContext *ctx, JSValueConst specifier)
     err = JS_GetException(ctx);
     ret = JS_Call(ctx, resolving_funcs[1], JS_UNDEFINED,
                    1, (JSValueConst *)&err);
-    JS_FreeValue(ctx, ret); /* XXX: what to do if exception ? */
+    JS_FreeValue(ctx, ret); /*  XXX：如果出现异常怎么办？ */ 
     JS_FreeValue(ctx, err);
     JS_FreeValue(ctx, resolving_funcs[0]);
     JS_FreeValue(ctx, resolving_funcs[1]);
     return promise;
 }
 
-/* Run the <eval> function of the module and of all its requested
-   modules. */
+/*  运行该模块及其所有请求的函数模块。 */ 
 static JSValue js_evaluate_module(JSContext *ctx, JSModuleDef *m)
 {
     JSModuleDef *m1;
@@ -26448,11 +26127,10 @@ static JSValue js_evaluate_module(JSContext *ctx, JSModuleDef *m)
     JSValue ret_val;
 
     if (m->eval_mark)
-        return JS_UNDEFINED; /* avoid cycles */
+        return JS_UNDEFINED; /*  避免循环。 */ 
 
     if (m->evaluated) {
-        /* if the module was already evaluated, rethrow the exception
-           it raised */
+        /*  如果该模块已经求值，则重新引发异常它引发了。 */ 
         if (m->eval_has_exception) {
             return JS_Throw(ctx, JS_DupValue(ctx, m->eval_exception));
         } else {
@@ -26476,7 +26154,7 @@ static JSValue js_evaluate_module(JSContext *ctx, JSModuleDef *m)
     }
 
     if (m->init_func) {
-        /* C module init */
+        /*  C模块初始化。 */ 
         if (m->init_func(ctx, m) < 0)
             ret_val = JS_EXCEPTION;
         else
@@ -26486,7 +26164,7 @@ static JSValue js_evaluate_module(JSContext *ctx, JSModuleDef *m)
         m->func_obj = JS_UNDEFINED;
     }
     if (JS_IsException(ret_val)) {
-        /* save the thrown exception value */
+        /*  保存抛出的异常值。 */ 
         m->eval_has_exception = TRUE;
         m->eval_exception = JS_DupValue(ctx, ctx->current_exception);
     }
@@ -26605,7 +26283,7 @@ static __exception int js_parse_export(JSParseState *s)
         break;
     case '*':
         if (token_is_pseudo_keyword(s, JS_ATOM_as)) {
-            /* export ns from */
+            /*  从以下位置导出%n。 */ 
             if (next_token(s))
                 return -1;
             if (!token_is_ident(s->token.val)) {
@@ -26654,11 +26332,10 @@ static __exception int js_parse_export(JSParseState *s)
             if (js_parse_assign_expr(s, TRUE))
                 return -1;
         }
-        /* set the name of anonymous functions */
+        /*  设置匿名函数的名称。 */ 
         set_object_name(s, JS_ATOM_default);
 
-        /* store the value in the _default_ global variable and export
-           it */
+        /*  将值存储在_DEFAULT_GLOBAL变量中并导出它。 */ 
         local_name = JS_ATOM__default_;
         if (define_var(s, s->cur_func, local_name, JS_VAR_DEF_LET) < 0)
             return -1;
@@ -26745,7 +26422,7 @@ static __exception int js_parse_import(JSParseState *s)
             if (s->token.u.ident.is_reserved) {
                 return js_parse_error_reserved_identifier(s);
             }
-            /* "default" import */
+            /*  “默认”导入。 */ 
             local_name = JS_DupAtom(ctx, s->token.u.ident.atom);
             import_name = JS_ATOM_default;
             if (next_token(s))
@@ -26761,7 +26438,7 @@ static __exception int js_parse_import(JSParseState *s)
         }
 
         if (s->token.val == '*') {
-            /* name space import */
+            /*  名称空间导入。 */ 
             if (next_token(s))
                 return -1;
             if (!token_is_pseudo_keyword(s, JS_ATOM_as))
@@ -26849,8 +26526,7 @@ static __exception int js_parse_source_element(JSParseState *s)
             return -1;
     } else if (s->token.val == TOK_IMPORT && fd->module &&
                ((tok = peek_token(s, FALSE)) != '(' && tok != '.'))  {
-        /* the peek_token is needed to avoid confusion with ImportCall
-           (dynamic import) or import.meta */
+        /*  需要peek_内标识以避免与ImportCall混淆(动态导入)或导入.meta。 */ 
         if (js_parse_import(s))
             return -1;
     } else {
@@ -26875,7 +26551,7 @@ static JSFunctionDef *js_new_function_def(JSContext *ctx,
     fd->ctx = ctx;
     init_list_head(&fd->child_list);
 
-    /* insert in parent list */
+    /*  在父列表中插入。 */ 
     fd->parent = parent;
     fd->parent_cpool_idx = -1;
     if (parent) {
@@ -26898,8 +26574,8 @@ static JSFunctionDef *js_new_function_def(JSContext *ctx,
     fd->this_active_func_var_idx = -1;
     fd->home_object_var_idx = -1;
 
-    /* XXX: should distinguish arg, var and var object and body scopes */
-    fd->scope_level = 0;  /* 0: var/arg scope, 1:body scope */
+    /*  Xxx：应区分arg、var和var对象和Body作用域。 */ 
+    fd->scope_level = 0;  /*  0：var/arg范围，1：Body范围。 */ 
     fd->scope_first = -1;
     fd->scopes = fd->def_scope_array;
     fd->scope_size = countof(fd->def_scope_array);
@@ -26911,8 +26587,8 @@ static JSFunctionDef *js_new_function_def(JSContext *ctx,
     fd->line_num = line_num;
 
     js_dbuf_init(ctx, &fd->pc2line);
-    //fd->pc2line_last_line_num = line_num;
-    //fd->pc2line_last_pc = 0;
+    //  Fd-&gt;pc2line_last_line_num=line_num；
+    //  Fd-&gt;pc2line_last_pc=0；
     fd->last_opcode_line_num = line_num;
 
     return fd;
@@ -26956,7 +26632,7 @@ static void js_free_function_def(JSContext *ctx, JSFunctionDef *fd)
     int i;
     struct list_head *el, *el1;
 
-    /* free the child functions */
+    /*  释放子函数。 */ 
     list_for_each_safe(el, el1, &fd->child_list) {
         JSFunctionDef *fd1;
         fd1 = list_entry(el, JSFunctionDef, link);
@@ -27006,7 +26682,7 @@ static void js_free_function_def(JSContext *ctx, JSFunctionDef *fd)
     js_free(ctx, fd->source);
 
     if (fd->parent) {
-        /* remove in parent list */
+        /*  在父列表中删除。 */ 
         list_del(&fd->link);
     }
     js_free(ctx, fd);
@@ -27051,7 +26727,7 @@ static void dump_byte_code(JSContext *ctx, int pass,
     uint8_t *bits = js_mallocz(ctx, len * sizeof(*bits));
     BOOL use_short_opcodes = (b != NULL);
 
-    /* scan for jump targets */
+    /*  扫描跳跃目标。 */ 
     for (pos = 0; pos < len; pos = pos_next) {
         op = tab[pos];
         if (use_short_opcodes)
@@ -27074,7 +26750,7 @@ static void dump_byte_code(JSContext *ctx, int pass,
             case OP_FMT_atom_label_u8:
             case OP_FMT_atom_label_u16:
                 pos += 4;
-                /* fall thru */
+                /*  失败。 */ 
             case OP_FMT_label:
             case OP_FMT_label_u16:
                 pos++;
@@ -27095,7 +26771,7 @@ static void dump_byte_code(JSContext *ctx, int pass,
     }
     in_source = 0;
     if (source) {
-        /* Always print first line: needed if single line */
+        /*  始终打印第一行：如果单行，则需要。 */ 
         print_lines(source, 0, 1);
         in_source = 1;
     }
@@ -27115,7 +26791,7 @@ static void dump_byte_code(JSContext *ctx, int pass,
                 in_source = 1;
                 print_lines(source, line, line1);
                 line = line1;
-                //bits[pos] |= 2;
+                //  位[位置]|=2；
             }
         }
         if (in_source)
@@ -27436,7 +27112,7 @@ static int add_closure_var(JSContext *ctx, JSFunctionDef *s,
 {
     JSClosureVar *cv;
 
-    /* the closure variable indexes are currently stored on 16 bits */
+    /*  闭合变量索引目前存储在16位。 */ 
     if (s->closure_var_count >= JS_MAX_LOCAL_VARS) {
         JS_ThrowInternalError(ctx, "too many closure variables");
         return -1;
@@ -27479,9 +27155,7 @@ static int find_closure_var(JSContext *ctx, JSFunctionDef *s,
     return -1;
 }
 
-/* 'fd' must be a parent of 's'. Create in 's' a closure referencing a
-   local variable (is_local = TRUE) or a closure (is_local = FALSE) in
-   'fd' */
+/*  “fd”必须是“%s”的父级。在“%s”中创建引用中的局部变量(is_local=TRUE)或闭包(IS_LOCAL=FALSE‘fd’ */ 
 static int get_closure_var2(JSContext *ctx, JSFunctionDef *s,
                             JSFunctionDef *fd, BOOL is_local,
                             BOOL is_arg, int var_idx, JSAtom var_name,
@@ -27533,7 +27207,7 @@ static BOOL can_opt_put_ref_value(const uint8_t *bc_buf, int pos)
     return (bc_buf[pos + 1] == OP_put_ref_value &&
             (opcode == OP_insert3 ||
              opcode == OP_perm4 ||
-             //opcode == OP_nop ||
+             //  OPCODE==OP_NOP||。
              opcode == OP_rot3l));
 }
 
@@ -27543,7 +27217,7 @@ static BOOL can_opt_put_global_ref_value(const uint8_t *bc_buf, int pos)
     return (bc_buf[pos + 1] == OP_put_ref_value &&
             (opcode == OP_insert3 ||
              opcode == OP_perm4 ||
-             //opcode == OP_nop ||
+             //  OPCODE==OP_NOP||。
              opcode == OP_rot3l));
 }
 
@@ -27554,38 +27228,27 @@ static int optimize_scope_make_ref(JSContext *ctx, JSFunctionDef *s,
 {
     int label_pos, end_pos, pos;
 
-    /* XXX: should optimize `loc(a) += expr` as `expr add_loc(a)`
-       but only if expr does not modify `a`.
-       should scan the code between pos_next and label_pos
-       for operations that can potentially change `a`:
-       OP_scope_make_ref(a), function calls, jumps and gosub.
-     */
-    /* replace the reference get/put with normal variable
-       accesses */
+    /*  Xxx：应将`loc(A)+=expr`优化为`expr add_loc(A)`但前提是expr不修改`a`。应扫描POS_NEXT和LABEL_POS之间的代码对于可能更改`a`的操作：Op_cope_make_ref(A)、函数调用、跳转和goub。 */ 
+    /*  用普通变量替换引用的GET/PUT访问。 */ 
     if (bc_buf[pos_next] == OP_get_ref_value) {
         dbuf_putc(bc, get_op);
         dbuf_put_u16(bc, var_idx);
         pos_next++;
     }
-    /* remove the OP_label to make room for replacement */
-    /* label should have a refcount of 0 anyway */
-    /* XXX: should avoid this patch by inserting nops in phase 1 */
+    /*  删除op_Label以腾出空间进行替换。 */ 
+    /*  无论如何，标签的引用计数都应该为0。 */ 
+    /*  XXX：应通过在阶段1中插入NOP来避免此修补程序。 */ 
     label_pos = ls->pos;
     pos = label_pos - 5;
     assert(bc_buf[pos] == OP_label);
-    /* label points to an instruction pair:
-       - insert3 / put_ref_value
-       - perm4 / put_ref_value
-       - rot3l / put_ref_value
-       - nop / put_ref_value
-     */
+    /*  标签指向指令对：-插入3/PUT_REF_VALUE-perm4/Put_REF_Value-rot3l/PUT_REF_VALUE-NOP/Put_REF_Value。 */ 
     end_pos = label_pos + 2;
     if (bc_buf[label_pos] == OP_insert3)
         bc_buf[pos++] = OP_dup;
     bc_buf[pos] = get_op + 1;
     put_u16(bc_buf + pos + 1, var_idx);
     pos += 3;
-    /* pad with OP_nop */
+    /*  带OP_NOP的焊盘。 */ 
     while (pos < end_pos)
         bc_buf[pos++] = OP_nop;
     return pos_next;
@@ -27600,25 +27263,23 @@ static int optimize_scope_make_global_ref(JSContext *ctx, JSFunctionDef *s,
     BOOL is_strict;
     is_strict = ((s->js_mode & JS_MODE_STRICT) != 0);
 
-    /* replace the reference get/put with normal variable
-       accesses */
+    /*  用普通变量替换引用的GET/PUT访问。 */ 
     if (is_strict) {
-        /* need to check if the variable exists before evaluating the right
-           expression */
-        /* XXX: need an extra OP_true if destructuring an array */
+        /*  在计算正确之前，需要检查变量是否存在表达式。 */ 
+        /*  XXX：如果要析构数组，则需要额外的op_true。 */ 
         dbuf_putc(bc, OP_check_var);
         dbuf_put_u32(bc, JS_DupAtom(ctx, var_name));
     } else {
-        /* XXX: need 2 extra OP_true if destructuring an array */
+        /*  XXX：如果要析构数组，则需要额外的2个op_true。 */ 
     }
     if (bc_buf[pos_next] == OP_get_ref_value) {
         dbuf_putc(bc, OP_get_var);
         dbuf_put_u32(bc, JS_DupAtom(ctx, var_name));
         pos_next++;
     }
-    /* remove the OP_label to make room for replacement */
-    /* label should have a refcount of 0 anyway */
-    /* XXX: should have emitted several OP_nop to avoid this kludge */
+    /*  删除op_Label以腾出空间进行替换。 */ 
+    /*  无论如何，标签的引用计数都应该为0。 */ 
+    /*  XXX：应该发出几个OP_NOP以避免这种杂乱无章。 */ 
     label_pos = ls->pos;
     pos = label_pos - 5;
     assert(bc_buf[pos] == OP_label);
@@ -27645,14 +27306,14 @@ static int optimize_scope_make_global_ref(JSContext *ctx, JSFunctionDef *s,
     }
     if (is_strict) {
         bc_buf[pos] = OP_put_var_strict;
-        /* XXX: need 1 extra OP_drop if destructuring an array */
+        /*  XXX：如果要析构数组，则需要额外的1个op_drop。 */ 
     } else {
         bc_buf[pos] = OP_put_var;
-        /* XXX: need 2 extra OP_drop if destructuring an array */
+        /*  XXX：如果要析构数组，则需要额外的2个op_drop。 */ 
     }
     put_u32(bc_buf + pos + 1, JS_DupAtom(ctx, var_name));
     pos += 5;
-    /* pad with OP_nop */
+    /*  带OP_NOP的焊盘。 */ 
     while (pos < end_pos)
         bc_buf[pos++] = OP_nop;
     return pos_next;
@@ -27664,9 +27325,8 @@ static int add_var_this(JSContext *ctx, JSFunctionDef *fd)
     idx = add_var(ctx, fd, JS_ATOM_this);
     if (idx >= 0 && fd->is_derived_class_constructor) {
         JSVarDef *vd = &fd->vars[idx];
-        /* XXX: should have is_this flag or var type */
-        vd->is_lexical = 1; /* used to trigger 'uninitialized' checks
-                               in a derived class constructor */
+        /*  Xxx：应具有is_this标志或var类型。 */ 
+        vd->is_lexical = 1; /*  用于触发“未初始化”检查在派生类构造函数中。 */ 
     }
     return idx;
 }
@@ -27680,19 +27340,19 @@ static int resolve_pseudo_var(JSContext *ctx, JSFunctionDef *s,
         return -1;
     switch(var_name) {
     case JS_ATOM_home_object:
-        /* 'home_object' pseudo variable */
+        /*  “Home_Object”伪变量。 */ 
         var_idx = s->home_object_var_idx = add_var(ctx, s, var_name);
         break;
     case JS_ATOM_this_active_func:
-        /* 'this.active_func' pseudo variable */
+        /*  ‘this.active_func’伪变量。 */ 
         var_idx = s->this_active_func_var_idx = add_var(ctx, s, var_name);
         break;
     case JS_ATOM_new_target:
-        /* 'new.target' pseudo variable */
+        /*  “new.Target”伪变量。 */ 
         var_idx = s->new_target_var_idx = add_var(ctx, s, var_name);
         break;
     case JS_ATOM_this:
-        /* 'this' pseudo variable */
+        /*  ‘This’伪变量。 */ 
         var_idx = s->this_var_idx = add_var_this(ctx, s);
         break;
     default:
@@ -27702,7 +27362,7 @@ static int resolve_pseudo_var(JSContext *ctx, JSFunctionDef *s,
     return var_idx;
 }
 
-/* return the position of the next opcode */
+/*  返回下一个操作码的位置。 */ 
 static int resolve_scope_var(JSContext *ctx, JSFunctionDef *s,
                              JSAtom var_name, int scope_level, int op,
                              DynBuf *bc, uint8_t *bc_buf,
@@ -27717,14 +27377,13 @@ static int resolve_scope_var(JSContext *ctx, JSFunctionDef *s,
 
     label_done = -1;
 
-    /* XXX: could be simpler to use a specific function to
-       resolve the pseudo variables */
+    /*  XXX：使用特定函数可以更简单地执行以下操作解析伪变量。 */ 
     is_pseudo_var = (var_name == JS_ATOM_home_object ||
                      var_name == JS_ATOM_this_active_func ||
                      var_name == JS_ATOM_new_target ||
                      var_name == JS_ATOM_this);
 
-    /* resolve local scoped variables */
+    /*  解析局部作用域变量。 */ 
     var_idx = -1;
     for (idx = s->scopes[scope_level].first; idx >= 0;) {
         vd = &s->vars[idx];
@@ -27755,16 +27414,13 @@ static int resolve_scope_var(JSContext *ctx, JSFunctionDef *s,
         idx = vd->scope_next;
     }
     if (var_idx < 0) {
-        /* XXX: scoping issues:
-           should not resolve vars from the function body during argument parse,
-           `arguments` and function-name should not be hidden by later vars.
-         */
+        /*  XXX：作用域问题：不应在参数分析期间从函数体解析变量，`参数`和函数名不应被以后的var隐藏。 */ 
         var_idx = find_var(ctx, s, var_name);
         if (var_idx >= 0) {
             if (scope_level == 0
             &&  (var_idx & ARGUMENT_VAR_OFFSET)
             &&  (var_idx - ARGUMENT_VAR_OFFSET) >= arg_valid) {
-                /* referring to an uninitialized argument */
+                /*  引用未初始化的参数。 */ 
                 dbuf_putc(bc, OP_throw_var);
                 dbuf_put_u32(bc, JS_DupAtom(ctx, var_name));
                 dbuf_putc(bc, JS_THROW_VAR_UNINITIALIZED);
@@ -27778,23 +27434,21 @@ static int resolve_scope_var(JSContext *ctx, JSFunctionDef *s,
 
         if (var_idx < 0 && var_name == JS_ATOM_arguments &&
             s->has_arguments_binding) {
-            /* 'arguments' pseudo variable */
+            /*  ‘Arguments’伪变量。 */ 
             var_idx = add_arguments_var(ctx, s, var_name);
         }
         if (var_idx < 0 && s->is_func_expr && var_name == s->func_name) {
-            /* add a new variable with the function name */
+            /*  添加一个具有函数名的新变量。 */ 
             var_idx = add_func_var(ctx, s, var_name);
             is_func_var = TRUE;
         }
     }
     if (var_idx >= 0) {
-        /* OP_scope_put_var_init is only used to initialize a
-           lexical variable, so it is never used in a with or var object. It
-           can be used with a closure (module global variable case). */
+        /*  Op_cope_put_var_init仅用于初始化词法变量，所以它永远不会用在with或var对象中。它可以与闭包(模块全局变量大小写)一起使用。 */ 
         switch (op) {
         case OP_scope_make_ref:
             if (is_func_var) {
-                /* Create a dummy object reference for the func_var */
+                /*  为func_var创建一个虚拟对象引用。 */ 
                 dbuf_putc(bc, OP_object);
                 dbuf_putc(bc, OP_get_loc);
                 dbuf_put_u16(bc, var_idx);
@@ -27817,8 +27471,7 @@ static int resolve_scope_var(JSContext *ctx, JSFunctionDef *s,
                 pos_next = optimize_scope_make_ref(ctx, s, bc, bc_buf, ls,
                                                    pos_next, get_op, var_idx);
             } else {
-                /* Create a dummy object with a named slot that is
-                   a reference to the local variable */
+                /*  创建一个虚拟对象，其命名窗为对局部变量的引用。 */ 
                 if (var_idx & ARGUMENT_VAR_OFFSET) {
                     dbuf_putc(bc, OP_make_arg_ref);
                     dbuf_put_u32(bc, JS_DupAtom(ctx, var_name));
@@ -27832,7 +27485,7 @@ static int resolve_scope_var(JSContext *ctx, JSFunctionDef *s,
             break;
         case OP_scope_get_ref:
             dbuf_putc(bc, OP_undefined);
-            /* fall thru */
+            /*  失败。 */ 
         case OP_scope_get_var_undef:
         case OP_scope_get_var:
         case OP_scope_put_var:
@@ -27841,12 +27494,12 @@ static int resolve_scope_var(JSContext *ctx, JSFunctionDef *s,
             if (var_idx & ARGUMENT_VAR_OFFSET) {
                 dbuf_putc(bc, OP_get_arg + is_put);
                 dbuf_put_u16(bc, var_idx - ARGUMENT_VAR_OFFSET);
-                /* XXX: should test if argument reference needs TDZ check */
+                /*  XXX：应测试参数引用是否需要TDZ检查。 */ 
             } else {
                 if (is_put) {
                     if (s->vars[var_idx].is_lexical) {
                         if (op == OP_scope_put_var_init) {
-                            /* 'this' can only be initialized once */
+                            /*  “This”只能初始化一次。 */ 
                             if (var_name == JS_ATOM_this)
                                 dbuf_putc(bc, OP_put_loc_check_init);
                             else
@@ -27873,7 +27526,7 @@ static int resolve_scope_var(JSContext *ctx, JSFunctionDef *s,
         }
         goto done;
     }
-    /* check eval object */
+    /*  检查评估对象。 */ 
     if (s->var_object_idx >= 0 && !is_pseudo_var) {
         dbuf_putc(bc, OP_get_loc);
         dbuf_put_u16(bc, s->var_object_idx);
@@ -27885,16 +27538,12 @@ static int resolve_scope_var(JSContext *ctx, JSFunctionDef *s,
         update_label(s, label_done, 1);
         s->jump_size++;
     }
-    /* check parent scopes */
+    /*  检查父作用域。 */ 
     for (fd = s; fd->parent;) {
         scope_level = fd->parent_scope_level;
         fd = fd->parent;
         if (scope_level == 0) {
-            /* function is defined as part of the argument parsing: hide vars
-               from the function body.
-               XXX: variables created from argument destructuring might need
-               to be visible, should refine this method.
-             */
+            /*  函数被定义为参数解析的一部分：隐藏变量从函数体。XXX：通过参数析构创建的变量可能需要要使其可见，应优化此方法。 */ 
             var_idx = find_arg(ctx, fd, var_name);
             goto check_idx;
         }
@@ -27949,13 +27598,13 @@ static int resolve_scope_var(JSContext *ctx, JSFunctionDef *s,
             break;
         }
         if (fd->is_func_expr && fd->func_name == var_name) {
-            /* add a new variable with the function name */
+            /*  添加一个具有函数名的新变量。 */ 
             var_idx = add_func_var(ctx, fd, var_name);
             is_func_var = TRUE;
             break;
         }
 
-        /* check eval object */
+        /*  检查评估对象。 */ 
         if (fd->var_object_idx >= 0 && !is_pseudo_var) {
             fd->vars[fd->var_object_idx].is_captured = 1;
             idx = get_closure_var(ctx, s, fd, FALSE,
@@ -27973,11 +27622,10 @@ static int resolve_scope_var(JSContext *ctx, JSFunctionDef *s,
         }
 
         if (fd->is_eval)
-            break; /* it it necessarily the top level function */
+            break; /*  它必须是顶层函数。 */ 
     }
 
-    /* check direct eval scope (in the closure of the eval function
-       which is necessarily at the top level) */
+    /*  检查直接评估范围(在评估函数的闭包中这必然是最高级别的)。 */ 
     if (!fd)
         fd = s;
     if (var_idx < 0 && fd->is_eval) {
@@ -28021,7 +27669,7 @@ static int resolve_scope_var(JSContext *ctx, JSFunctionDef *s,
     }
 
     if (var_idx >= 0) {
-        /* find the corresponding closure variable */
+        /*  查找对应的闭包变量。 */ 
         if (var_idx & ARGUMENT_VAR_OFFSET) {
             fd->args[var_idx - ARGUMENT_VAR_OFFSET].is_captured = 1;
             idx = get_closure_var(ctx, s, fd,
@@ -28048,7 +27696,7 @@ static int resolve_scope_var(JSContext *ctx, JSFunctionDef *s,
             switch (op) {
             case OP_scope_make_ref:
                 if (is_func_var) {
-                    /* Create a dummy object reference for the func_var */
+                    /*  为func_var创建一个虚拟对象引用。 */ 
                     dbuf_putc(bc, OP_object);
                     dbuf_putc(bc, OP_get_var_ref);
                     dbuf_put_u16(bc, idx);
@@ -28068,18 +27716,16 @@ static int resolve_scope_var(JSContext *ctx, JSFunctionDef *s,
                                                        pos_next,
                                                        get_op, idx);
                 } else {
-                    /* Create a dummy object with a named slot that is
-                       a reference to the closure variable */
+                    /*  创建一个虚拟对象，其命名窗为对闭合变量的引用。 */ 
                     dbuf_putc(bc, OP_make_var_ref_ref);
                     dbuf_put_u32(bc, JS_DupAtom(ctx, var_name));
                     dbuf_put_u16(bc, idx);
                 }
                 break;
             case OP_scope_get_ref:
-                /* XXX: should create a dummy object with a named slot that is
-                   a reference to the closure variable */
+                /*  XXX：应创建一个虚拟对象，其命名槽为对闭合变量的引用。 */ 
                 dbuf_putc(bc, OP_undefined);
-                /* fall thru */
+                /*  失败。 */ 
             case OP_scope_get_var_undef:
             case OP_scope_get_var:
             case OP_scope_put_var:
@@ -28089,7 +27735,7 @@ static int resolve_scope_var(JSContext *ctx, JSFunctionDef *s,
                 if (is_put) {
                     if (s->closure_var[idx].is_lexical) {
                         if (op == OP_scope_put_var_init) {
-                            /* 'this' can only be initialized once */
+                            /*  “This”只能初始化一次。 */ 
                             if (var_name == JS_ATOM_this)
                                 dbuf_putc(bc, OP_put_var_ref_check_init);
                             else
@@ -28117,7 +27763,7 @@ static int resolve_scope_var(JSContext *ctx, JSFunctionDef *s,
         }
     }
 
-    /* global variable access */
+    /*  总帐 */ 
 
     switch (op) {
     case OP_scope_make_ref:
@@ -28130,8 +27776,7 @@ static int resolve_scope_var(JSContext *ctx, JSFunctionDef *s,
         }
         break;
     case OP_scope_get_ref:
-        /* XXX: should create a dummy object with a named slot that is
-           a reference to the global variable */
+        /*   */ 
         dbuf_putc(bc, OP_undefined);
         dbuf_putc(bc, OP_get_var);
         dbuf_put_u32(bc, JS_DupAtom(ctx, var_name));
@@ -28160,7 +27805,7 @@ done:
     return pos_next;
 }
 
-/* search in all scopes */
+/*  在所有范围内搜索。 */ 
 static int find_private_class_field_all(JSContext *ctx, JSFunctionDef *fd,
                                         JSAtom name, int scope_level)
 {
@@ -28177,8 +27822,7 @@ static int find_private_class_field_all(JSContext *ctx, JSFunctionDef *fd,
 
 static void get_loc_or_ref(DynBuf *bc, BOOL is_ref, int idx)
 {
-    /* Note: the private field can be uninitialized, so the _check is
-       necessary */
+    /*  注意：私有字段可以取消初始化，因此_check为必要。 */ 
     if (is_ref) 
         dbuf_putc(bc, OP_get_var_ref_check);
     else
@@ -28214,7 +27858,7 @@ static int resolve_scope_private_field1(JSContext *ctx,
             char buf[ATOM_GET_STR_BUF_SIZE];
 
             if (fd->is_eval) {
-                /* closure of the eval function (top level) */
+                /*  评估函数的关闭(顶层)。 */ 
                 for (idx = 0; idx < fd->closure_var_count; idx++) {
                     JSClosureVar *cv = &fd->closure_var[idx];
                     if (cv->var_name == var_name) {
@@ -28234,7 +27878,7 @@ static int resolve_scope_private_field1(JSContext *ctx,
                     }
                 }
             }
-            /* XXX: no line number info */
+            /*  XXX：无行号信息。 */ 
             JS_ThrowSyntaxError(ctx, "undefined private field %s",
                                 JS_AtomGetStr(ctx, buf, sizeof(buf), var_name));
             return -1;
@@ -28249,7 +27893,7 @@ static int resolve_scope_private_field1(JSContext *ctx,
     return idx;
 }
 
-/* return 0 if OK or -1 if the private field could not be resolved */
+/*  如果正常，则返回0；如果无法解析私有字段，则返回-1。 */ 
 static int resolve_scope_private_field(JSContext *ctx, JSFunctionDef *s,
                                        JSAtom var_name, int scope_level, int op,
                                        DynBuf *bc)
@@ -28288,7 +27932,7 @@ static int resolve_scope_private_field(JSContext *ctx, JSFunctionDef *s,
             dbuf_put_u16(bc, 0);
             break;
         case JS_VAR_PRIVATE_SETTER:
-            /* XXX: add clearer error message */
+            /*  XXX：添加更清晰的错误消息。 */ 
             dbuf_putc(bc, OP_throw_var);
             dbuf_put_u32(bc, JS_DupAtom(ctx, var_name));
             dbuf_putc(bc, JS_THROW_VAR_RO);
@@ -28305,7 +27949,7 @@ static int resolve_scope_private_field(JSContext *ctx, JSFunctionDef *s,
             break;
         case JS_VAR_PRIVATE_METHOD:
         case JS_VAR_PRIVATE_GETTER:
-            /* XXX: add clearer error message */
+            /*  XXX：添加更清晰的错误消息。 */ 
             dbuf_putc(bc, OP_throw_var);
             dbuf_put_u32(bc, JS_DupAtom(ctx, var_name));
             dbuf_putc(bc, JS_THROW_VAR_RO);
@@ -28325,12 +27969,12 @@ static int resolve_scope_private_field(JSContext *ctx, JSFunctionDef *s,
                 assert(var_kind == JS_VAR_PRIVATE_SETTER);
                 get_loc_or_ref(bc, is_ref, idx);
                 dbuf_putc(bc, OP_swap);
-                /* obj func value */
+                /*  OBJ函数值。 */ 
                 dbuf_putc(bc, OP_rot3r);
-                /* value obj func */
+                /*  值对象函数。 */ 
                 dbuf_putc(bc, OP_check_brand);
                 dbuf_putc(bc, OP_rot3l);
-                /* obj func value */
+                /*  OBJ函数值。 */ 
                 dbuf_putc(bc, OP_call_method);
                 dbuf_put_u16(bc, 1);
             }
@@ -28365,13 +28009,12 @@ static void add_eval_variables(JSContext *ctx, JSFunctionDef *s)
     int i, scope_level, scope_idx;
     BOOL has_arguments_binding, has_this_binding;
 
-    /* in non strict mode, variables are created in the caller's
-       environment object */
+    /*  在非严格模式下，变量是在调用方的环境对象。 */ 
     if (!s->is_eval && !(s->js_mode & JS_MODE_STRICT)) {
         s->var_object_idx = add_var(ctx, s, JS_ATOM__var_);
     }
 
-    /* eval can potentially use 'arguments' so we must define it */
+    /*  Eval可以潜在地使用‘参数’，所以我们必须定义它。 */ 
     has_this_binding = s->has_this_binding;
     if (has_this_binding) {
         if (s->this_var_idx < 0)
@@ -28389,13 +28032,10 @@ static void add_eval_variables(JSContext *ctx, JSFunctionDef *s)
     if (s->is_func_expr && s->func_name != JS_ATOM_NULL)
         add_func_var(ctx, s, s->func_name);
 
-    /* eval can use all the variables of the enclosing functions, so
-       they must be all put in the closure. The closure variables are
-       ordered by scope. It works only because no closure are created
-       before. */
+    /*  Eval可以使用封闭函数的所有变量，因此它们必须都放在封口里。闭合变量为按范围排序。只有在没有创建闭包的情况下才能工作在此之前。 */ 
     assert(s->is_eval || s->closure_var_count == 0);
 
-    /* XXX: inefficient, but eval performance is less critical */
+    /*  XXX：效率低下，但计算性能不那么关键。 */ 
     fd = s;
     for(;;) {
         scope_level = fd->parent_scope_level;
@@ -28403,7 +28043,7 @@ static void add_eval_variables(JSContext *ctx, JSFunctionDef *s)
         if (!fd)
             break;
         scope_idx = fd->scopes[scope_level].first;
-        /* add 'this' if it was not previously added */
+        /*  如果之前未添加，则添加‘This’ */ 
         if (!has_this_binding && fd->has_this_binding) {
             if (fd->this_var_idx < 0)
                 fd->this_var_idx = add_var_this(ctx, fd);
@@ -28415,16 +28055,16 @@ static void add_eval_variables(JSContext *ctx, JSFunctionDef *s)
                 fd->home_object_var_idx = add_var(ctx, fd, JS_ATOM_home_object);
             has_this_binding = TRUE;
         }
-        /* add 'arguments' if it was not previously added */
+        /*  如果之前未添加，则添加‘arguments。 */ 
         if (!has_arguments_binding && fd->has_arguments_binding) {
             add_arguments_var(ctx, fd, JS_ATOM_arguments);
             has_arguments_binding = TRUE;
         }
-        /* add function name */
+        /*  添加函数名。 */ 
         if (fd->is_func_expr && fd->func_name != JS_ATOM_NULL)
             add_func_var(ctx, fd, fd->func_name);
 
-        /* add lexical variables */
+        /*  添加词汇变量。 */ 
         while (scope_idx >= 0) {
             vd = &fd->vars[scope_idx];
             vd->is_captured = 1;
@@ -28432,7 +28072,7 @@ static void add_eval_variables(JSContext *ctx, JSFunctionDef *s)
                             vd->var_name, vd->is_const, vd->is_lexical, vd->var_kind);
             scope_idx = vd->scope_next;
         }
-        /* add unscoped variables */
+        /*  添加未限定作用域的变量。 */ 
         for(i = 0; i < fd->arg_count; i++) {
             vd = &fd->args[i];
             if (vd->var_name != JS_ATOM_NULL) {
@@ -28443,7 +28083,7 @@ static void add_eval_variables(JSContext *ctx, JSFunctionDef *s)
         }
         for(i = 0; i < fd->var_count; i++) {
             vd = &fd->vars[i];
-            /* do not close top level last result */
+            /*  不关闭顶级上一个结果。 */ 
             if (vd->scope_level == 0 &&
                 vd->var_name != JS_ATOM__ret_ &&
                 vd->var_name != JS_ATOM_NULL) {
@@ -28454,8 +28094,7 @@ static void add_eval_variables(JSContext *ctx, JSFunctionDef *s)
         }
         if (fd->is_eval) {
             int idx;
-            /* add direct eval variables (we are necessarily at the
-               top level) */
+            /*  添加直接求值变量(我们必须在顶级)。 */ 
             for (idx = 0; idx < fd->closure_var_count; idx++) {
                 JSClosureVar *cv = &fd->closure_var[idx];
                 get_closure_var2(ctx, s, fd,
@@ -28467,8 +28106,7 @@ static void add_eval_variables(JSContext *ctx, JSFunctionDef *s)
     }
 }
 
-/* for direct eval compilation: add references to the variables of the
-   calling function */
+/*  对于直接求值编译：添加对调用函数。 */ 
 static __exception int add_closure_variables(JSContext *ctx, JSFunctionDef *s,
                                              JSFunctionBytecode *b, int scope_idx)
 {
@@ -28484,7 +28122,7 @@ static __exception int add_closure_variables(JSContext *ctx, JSFunctionDef *s,
     s->closure_var = js_malloc(ctx, sizeof(s->closure_var[0]) * count);
     if (!s->closure_var)
         return -1;
-    /* Add lexical variables in scope at the point of evaluation */
+    /*  在评估点添加范围内的词汇变量。 */ 
     for (i = scope_idx; i >= 0;) {
         vd = &b->vardefs[b->arg_count + i];
         if (vd->scope_level > 0) {
@@ -28499,7 +28137,7 @@ static __exception int add_closure_variables(JSContext *ctx, JSFunctionDef *s,
         }
         i = vd->scope_next;
     }
-    /* Add argument variables */
+    /*  添加参数变量。 */ 
     for(i = 0; i < b->arg_count; i++) {
         JSClosureVar *cv = &s->closure_var[s->closure_var_count++];
         vd = &b->vardefs[i];
@@ -28511,7 +28149,7 @@ static __exception int add_closure_variables(JSContext *ctx, JSFunctionDef *s,
         cv->var_idx = i;
         cv->var_name = JS_DupAtom(ctx, vd->var_name);
     }
-    /* Add local non lexical variables */
+    /*  添加局部非词法变量。 */ 
     for(i = 0; i < b->var_count; i++) {
         vd = &b->vardefs[b->arg_count + i];
         if (vd->scope_level == 0 && vd->var_name != JS_ATOM__ret_) {
@@ -28540,10 +28178,10 @@ static __exception int add_closure_variables(JSContext *ctx, JSFunctionDef *s,
 }
 
 typedef struct CodeContext {
-    const uint8_t *bc_buf; /* code buffer */
-    int bc_len;   /* length of the code buffer */
-    int pos;      /* position past the matched code pattern */
-    int line_num; /* last visited OP_line_num parameter or -1 */
+    const uint8_t *bc_buf; /*  代码缓冲区。 */ 
+    int bc_len;   /*  代码缓冲区的长度。 */ 
+    int pos;      /*  位置在匹配的代码模式之后。 */ 
+    int line_num; /*  上次访问的op_line_num参数或-1。 */ 
     int op;
     int idx;
     int label;
@@ -28683,16 +28321,14 @@ static void instantiate_hoisted_definitions(JSContext *ctx, JSFunctionDef *s, Dy
 {
     int i, idx, var_idx;
 
-    /* add the hoisted functions and variables */
+    /*  添加提升的函数和变量。 */ 
     for(i = 0; i < s->hoisted_def_count; i++) {
         JSHoistedDef *hf = &s->hoisted_def[i];
         int has_closure = 0;
         BOOL force_init = hf->force_init;
         if (s->is_global_var && hf->var_name != JS_ATOM_NULL) {
-            /* we are in an eval, so the closure contains all the
-               enclosing variables */
-            /* If the outer function has a variable environment,
-               create a property for the variable there */
+            /*  我们正在进行评估，因此闭包包含所有封闭变量。 */ 
+            /*  如果外部函数具有可变环境，在那里为变量创建一个属性。 */ 
             for(idx = 0; idx < s->closure_var_count; idx++) {
                 JSClosureVar *cv = &s->closure_var[idx];
                 if (cv->var_name == hf->var_name) {
@@ -28715,7 +28351,7 @@ static void instantiate_hoisted_definitions(JSContext *ctx, JSFunctionDef *s, Dy
                 if (s->eval_type != JS_EVAL_TYPE_GLOBAL)
                     flags |= JS_PROP_CONFIGURABLE;
                 if (hf->cpool_idx >= 0 && !hf->is_lexical) {
-                    /* global function definitions need a specific handling */
+                    /*  全局函数定义需要特定的处理。 */ 
                     dbuf_putc(bc, OP_fclosure);
                     dbuf_put_u32(bc, hf->cpool_idx);
 
@@ -28741,7 +28377,7 @@ static void instantiate_hoisted_definitions(JSContext *ctx, JSFunctionDef *s, Dy
                 dbuf_putc(bc, OP_fclosure);
                 dbuf_put_u32(bc, hf->cpool_idx);
                 if (hf->var_name == JS_ATOM__default_) {
-                    /* set default export function name */
+                    /*  设置默认导出函数名称。 */ 
                     dbuf_putc(bc, OP_set_name);
                     dbuf_put_u32(bc, JS_DupAtom(ctx, JS_ATOM_default));
                 }
@@ -28757,7 +28393,7 @@ static void instantiate_hoisted_definitions(JSContext *ctx, JSFunctionDef *s, Dy
                     dbuf_put_u32(bc, JS_DupAtom(ctx, hf->var_name));
                     dbuf_putc(bc, OP_drop);
                 } else {
-                    /* XXX: Check if variable is writable and enumerable */
+                    /*  XXX：检查变量是否可写和可枚举。 */ 
                     dbuf_putc(bc, OP_put_var);
                     dbuf_put_u32(bc, JS_DupAtom(ctx, hf->var_name));
                 }
@@ -28804,7 +28440,7 @@ static int skip_dead_code(JSFunctionDef *s, const uint8_t *bc_buf, int bc_len,
 #endif
             assert(s->label_slots[label].first_reloc == NULL);
         } else {
-            /* XXX: output a warning for unreachable code? */
+            /*  XXX：是否为无法访问的代码输出警告？ */ 
             JSAtom atom;
             switch(opcode_info[op].fmt) {
             case OP_FMT_label:
@@ -28816,7 +28452,7 @@ static int skip_dead_code(JSFunctionDef *s, const uint8_t *bc_buf, int bc_len,
             case OP_FMT_atom_label_u16:
                 label = get_u32(bc_buf + pos + 5);
                 update_label(s, label, -1);
-                /* fall thru */
+                /*  失败。 */ 
             case OP_FMT_atom:
             case OP_FMT_atom_u8:
             case OP_FMT_atom_u16:
@@ -28854,8 +28490,7 @@ static int get_label_pos(JSFunctionDef *s, int label)
     return pos;
 }
 
-/* convert global variable accesses to local variables or closure
-   variables when necessary */
+/*  将全局变量访问转换为局部变量或闭包必要时的变量。 */ 
 static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
 {
     int pos, pos_next, bc_len, op, len, i, idx, arg_valid, line_num;
@@ -28869,25 +28504,20 @@ static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
     cc.bc_len = bc_len = s->byte_code.size;
     js_dbuf_init(ctx, &bc_out);
 
-    /* first pass for runtime checks (must be done before the
-       variables are created) */
+    /*  运行时检查的第一遍(必须在创建变量)。 */ 
     if (s->is_global_var) {
         for(i = 0; i < s->hoisted_def_count; i++) {
             JSHoistedDef *hf = &s->hoisted_def[i];
             int flags;
 
             if (hf->var_name != JS_ATOM_NULL) {
-                /* check if global variable (XXX: simplify) */
+                /*  检查全局变量(XXX：简化)。 */ 
                 for(idx = 0; idx < s->closure_var_count; idx++) {
                     JSClosureVar *cv = &s->closure_var[idx];
                     if (cv->var_name == hf->var_name) {
                         if (s->eval_type == JS_EVAL_TYPE_DIRECT &&
                             cv->is_lexical) {
-                            /* Check if a lexical variable is
-                               redefined as 'var'. XXX: Could abort
-                               compilation here, but for consistency
-                               with the other checks, we delay the
-                               error generation. */
+                            /*  检查词法变量是否为重新定义为“var”。Xxx：可以中止在这里编译，但为了保持一致性对于其他检查，我们延迟错误生成。 */ 
                             dbuf_putc(&bc_out, OP_throw_var);
                             dbuf_put_u32(&bc_out, JS_DupAtom(ctx, hf->var_name));
                             dbuf_putc(&bc_out, JS_THROW_VAR_REDECL);
@@ -28912,7 +28542,7 @@ static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
     }
 
     arg_valid = 0;
-    line_num = 0; /* avoid warning */
+    line_num = 0; /*  避免警告。 */ 
     for (pos = 0; pos < bc_len; pos = pos_next) {
         op = bc_buf[pos];
         len = opcode_info[op].size;
@@ -28926,7 +28556,7 @@ static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
         case OP_set_arg_valid_upto:
             arg_valid = get_u16(bc_buf + pos + 1);
             break;
-        case OP_eval: /* convert scope index to adjusted variable index */
+        case OP_eval: /*  将作用域索引转换为调整后的变量索引。 */ 
             {
                 int call_argc = get_u16(bc_buf + pos + 1);
                 scope = get_u16(bc_buf + pos + 1 + 2);
@@ -28936,7 +28566,7 @@ static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
                 dbuf_put_u16(&bc_out, s->scopes[scope].first + 1);
             }
             break;
-        case OP_apply_eval: /* convert scope index to adjusted variable index */
+        case OP_apply_eval: /*  将作用域索引转换为调整后的变量索引。 */ 
             scope = get_u16(bc_buf + pos + 1);
             mark_eval_captured_variables(ctx, s, scope);
             dbuf_putc(&bc_out, op);
@@ -28962,7 +28592,7 @@ static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
                 label = get_u32(bc_buf + pos + 5);
                 scope = get_u16(bc_buf + pos + 9);
                 ls = &s->label_slots[label];
-                ls->ref_count--;  /* always remove label reference */
+                ls->ref_count--;  /*  始终删除标签引用。 */ 
                 pos_next = resolve_scope_var(ctx, s, var_name, scope, op, &bc_out,
                                              bc_buf, ls, pos_next, arg_valid);
                 JS_FreeAtom(ctx, var_name);
@@ -28984,7 +28614,7 @@ static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
         case OP_gosub:
             s->jump_size++;
             if (OPTIMIZE) {
-                /* remove calls to empty finalizers  */
+                /*  删除对空终结器的调用。 */ 
                 int label;
                 LabelSlot *ls;
 
@@ -28999,9 +28629,8 @@ static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
             goto no_change;
         case OP_drop:
             if (0) {
-                /* remove drops before return_undef */
-                /* do not perform this optimization in pass2 because
-                   it breaks patterns recognised in resolve_labels */
+                /*  在Return_undef之前删除Drop。 */ 
+                /*  请勿在PASS 2中执行此优化，因为它打破了Resolve_Labels中识别的模式。 */ 
                 int pos1 = pos_next;
                 int line1 = line_num;
                 while (code_match(&cc, pos1, OP_drop, -1)) {
@@ -29022,7 +28651,7 @@ static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
             goto no_change;
         case OP_insert3:
             if (OPTIMIZE) {
-                /* Transformation: insert3 put_array_el|put_ref_value drop -> put_array_el|put_ref_value */
+                /*  转换：INSERT3PUT_ARRAY_EL|PUT_REF_VALUE DROP-&gt;PUT_ARRAY_EL|PUT_REF_VALUE。 */ 
                 if (code_match(&cc, pos_next, M2(OP_put_array_el, OP_put_ref_value), OP_drop, -1)) {
                     dbuf_putc(&bc_out, cc.op);
                     pos_next = cc.pos;
@@ -29039,7 +28668,7 @@ static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
 
         case OP_goto:
             s->jump_size++;
-            /* fall thru */
+            /*  失败。 */ 
         case OP_tail_call:
         case OP_tail_call_method:
         case OP_return:
@@ -29048,7 +28677,7 @@ static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
         case OP_throw_var:
         case OP_ret:
             if (OPTIMIZE) {
-                /* remove dead code */
+                /*  删除死代码。 */ 
                 int line = -1;
                 dbuf_put(&bc_out, bc_buf + pos, len);
                 pos = skip_dead_code(s, bc_buf, bc_len, pos + len, &line);
@@ -29088,14 +28717,13 @@ static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
                     if (vd->scope_level == scope) {
                         if (vd->var_kind == JS_VAR_FUNCTION_DECL ||
                             vd->var_kind == JS_VAR_NEW_FUNCTION_DECL) {
-                            /* Initialize lexical variable upon entering scope */
+                            /*  在进入作用域时初始化词法变量。 */ 
                             dbuf_putc(&bc_out, OP_fclosure);
                             dbuf_put_u32(&bc_out, vd->func_pool_or_scope_idx);
                             dbuf_putc(&bc_out, OP_put_loc);
                             dbuf_put_u16(&bc_out, scope_idx);
                         } else {
-                            /* XXX: should check if variable can be used
-                               before initialization */
+                            /*  XXX：应检查是否可以使用变量在初始化之前。 */ 
                             dbuf_putc(&bc_out, OP_set_loc_uninitialized);
                             dbuf_put_u16(&bc_out, scope_idx);
                         }
@@ -29128,7 +28756,7 @@ static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
 
         case OP_set_name:
             {
-                /* remove dummy set_name opcodes */
+                /*  删除伪set_name操作码。 */ 
                 JSAtom name = get_u32(bc_buf + pos + 1);
                 if (name == JS_ATOM_NULL)
                     break;
@@ -29143,8 +28771,8 @@ static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
 
         case OP_dup:
             if (OPTIMIZE) {
-                /* Transformation: dup if_false(l1) drop, l1: if_false(l2) -> if_false(l2) */
-                /* Transformation: dup if_true(l1) drop, l1: if_true(l2) -> if_true(l2) */
+                /*  转换：重复IF_FALSE(L1)DROP，L1：IF_FALSE(L2)-&gt;IF_FALSE(L2)。 */ 
+                /*  转换：DUP IF_TRUE(L1)DROP，L1：IF_TRUE(L2)-&gt;IF_TRUE(L2)。 */ 
                 if (code_match(&cc, pos_next, M2(OP_if_false, OP_if_true), OP_drop, -1)) {
                     int lab0, lab1, op1, pos1, line1, pos2;
                     lab0 = lab1 = cc.label;
@@ -29175,10 +28803,10 @@ static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
             goto no_change;
 
         case OP_nop:
-            /* remove erased code */
+            /*  删除已擦除的代码。 */ 
             break;
         case OP_set_class_name:
-            /* only used during parsing */
+            /*  仅在分析期间使用。 */ 
             break;
             
         default:
@@ -29188,7 +28816,7 @@ static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
         }
     }
 
-    /* set the new byte code */
+    /*  设置新的字节代码。 */ 
     dbuf_free(&s->byte_code);
     s->byte_code = bc_out;
     if (dbuf_error(&s->byte_code)) {
@@ -29197,8 +28825,8 @@ static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
     }
     return 0;
  fail:
-    /* continue the copy to keep the atom refcounts consistent */
-    /* XXX: find a better solution ? */
+    /*  继续复制以保持原子参考计数一致。 */ 
+    /*  XXX：找到更好的解决方案？ */ 
     for (; pos < bc_len; pos = pos_next) {
         op = bc_buf[pos];
         len = opcode_info[op].size;
@@ -29210,7 +28838,7 @@ static __exception int resolve_variables(JSContext *ctx, JSFunctionDef *s)
     return -1;
 }
 
-/* the pc2line table gives a line number for each PC value */
+/*  Pc2line表给出了每个PC值的行号。 */ 
 static void add_pc2line_info(JSFunctionDef *s, uint32_t pc, int line_num)
 {
     if (s->line_number_slots != NULL
@@ -29252,7 +28880,7 @@ static void compute_pc2line_info(JSFunctionDef *s)
                 dbuf_putc(&s->pc2line, (diff_line - PC2LINE_BASE) +
                           diff_pc * PC2LINE_RANGE + PC2LINE_OP_FIRST);
             } else {
-                /* longer encoding */
+                /*  更长的编码。 */ 
                 dbuf_putc(&s->pc2line, 0);
                 dbuf_put_leb128(&s->pc2line, diff_pc);
                 dbuf_put_sleb128(&s->pc2line, diff_line);
@@ -29301,9 +28929,7 @@ static BOOL code_has_label(CodeContext *s, int pos, int label)
     return FALSE;
 }
 
-/* return the target label, following the OP_goto jumps
-   the first opcode at destination is stored in *pop
- */
+/*  返回目标标签，跟随OP_GOTO跳转目的地的第一个操作码存储在*POP中。 */ 
 static int find_jump_target(JSFunctionDef *s, int label, int *pop, int *pline)
 {
     int i, pos, op;
@@ -29317,7 +28943,7 @@ static int find_jump_target(JSFunctionDef *s, int label, int *pop, int *pline)
             case OP_line_num:
                 if (pline)
                     *pline = get_u32(s->byte_code.buf + pos + 1);
-                /* fall thru */
+                /*  失败。 */ 
             case OP_label:
                 pos += opcode_info[op].size;
                 continue;
@@ -29325,19 +28951,19 @@ static int find_jump_target(JSFunctionDef *s, int label, int *pop, int *pline)
                 label = get_u32(s->byte_code.buf + pos + 1);
                 break;
             case OP_drop:
-                /* ignore drop opcodes if followed by OP_return_undef */
+                /*  如果后面跟OP_RETURN_UNDEF，则忽略丢弃操作码。 */ 
                 while (s->byte_code.buf[++pos] == OP_drop)
                     continue;
                 if (s->byte_code.buf[pos] == OP_return_undef)
                     op = OP_return_undef;
-                /* fall thru */
+                /*  失败。 */ 
             default:
                 goto done;
             }
             break;
         }
     }
-    /* cycle detected, could issue a warning */
+    /*  检测到循环，可能会发出警告。 */ 
  done:
     *pop = op;
     update_label(s, label, +1);
@@ -29424,7 +29050,7 @@ static void put_short_code(DynBuf *bc_out, int op, int idx)
     dbuf_put_u16(bc_out, idx);
 }
 
-/* peephole optimizations and resolve goto/labels */
+/*  窥视孔优化和解析转到/标签。 */ 
 static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
 {
     int pos, pos_next, bc_len, op, op1, len, i, line_num;
@@ -29453,7 +29079,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
             return -1;
     }
 #endif
-    /* XXX: Should skip this phase if not generating SHORT_OPCODES */
+    /*  XXX：如果不生成SHORT_OPCODE，则应跳过此阶段。 */ 
     if (s->line_number_size && !(s->js_mode & JS_MODE_STRIP)) {
         s->line_number_slots = js_mallocz(s->ctx, sizeof(*s->line_number_slots) * s->line_number_size);
         if (s->line_number_slots == NULL)
@@ -29462,26 +29088,25 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
         s->line_number_last_pc = 0;
     }
 
-    /* initialize the 'home_object' variable if needed */
+    /*  如果需要，初始化‘HOME_OBJECT’变量。 */ 
     if (s->home_object_var_idx >= 0) {
         dbuf_putc(&bc_out, OP_special_object);
         dbuf_putc(&bc_out, OP_SPECIAL_OBJECT_HOME_OBJECT);
         put_short_code(&bc_out, OP_put_loc, s->home_object_var_idx);
     }
-    /* initialize the 'this.active_func' variable if needed */
+    /*  如果需要，初始化‘this.active_func’变量。 */ 
     if (s->this_active_func_var_idx >= 0) {
         dbuf_putc(&bc_out, OP_special_object);
         dbuf_putc(&bc_out, OP_SPECIAL_OBJECT_THIS_FUNC);
         put_short_code(&bc_out, OP_put_loc, s->this_active_func_var_idx);
     }
-    /* initialize the 'new.target' variable if needed */
+    /*  如果需要，初始化‘new.Target’变量。 */ 
     if (s->new_target_var_idx >= 0) {
         dbuf_putc(&bc_out, OP_special_object);
         dbuf_putc(&bc_out, OP_SPECIAL_OBJECT_NEW_TARGET);
         put_short_code(&bc_out, OP_put_loc, s->new_target_var_idx);
     }
-    /* initialize the 'this' variable if needed. In a derived class
-       constructor, this is initially uninitialized. */
+    /*  如果需要，初始化‘this’变量。在派生类中构造函数，它最初是未初始化的。 */ 
     if (s->this_var_idx >= 0) {
         if (s->is_derived_class_constructor) {
             dbuf_putc(&bc_out, OP_set_loc_uninitialized);
@@ -29491,7 +29116,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
             put_short_code(&bc_out, OP_put_loc, s->this_var_idx);
         }
     }
-    /* initialize the 'arguments' variable if needed */
+    /*  如果需要，请初始化“Arguments”变量。 */ 
     if (s->arguments_var_idx >= 0) {
         if ((s->js_mode & JS_MODE_STRICT) || !s->has_simple_parameter_list) {
             dbuf_putc(&bc_out, OP_special_object);
@@ -29502,13 +29127,13 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
         }
         put_short_code(&bc_out, OP_put_loc, s->arguments_var_idx);
     }
-    /* initialize a reference to the current function if needed */
+    /*  如果需要，初始化对当前函数的引用。 */ 
     if (s->func_var_idx >= 0) {
         dbuf_putc(&bc_out, OP_special_object);
         dbuf_putc(&bc_out, OP_SPECIAL_OBJECT_THIS_FUNC);
         put_short_code(&bc_out, OP_put_loc, s->func_var_idx);
     }
-    /* initialize the variable environment object if needed */
+    /*  如果需要，初始化变量环境对象。 */ 
     if (s->var_object_idx >= 0) {
         dbuf_putc(&bc_out, OP_special_object);
         dbuf_putc(&bc_out, OP_SPECIAL_OBJECT_VAR_OBJECT);
@@ -29524,7 +29149,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
         case OP_close_var_object:
             {
                 if (s->var_object_idx >= 0) {
-                    /* close the var object and create a new one */
+                    /*  关闭var对象并创建一个新对象。 */ 
                     add_pc2line_info(s, bc_out.size, line_num);
                     dbuf_putc(&bc_out, OP_close_loc);
                     dbuf_put_u16(&bc_out, s->var_object_idx);
@@ -29536,9 +29161,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
             break;
 
         case OP_line_num:
-            /* line number info (for debug). We put it in a separate
-               compressed table to reduce memory usage and get better
-               performance */
+            /*  行号信息(用于调试)。我们把它放在一个单独的压缩表格以减少内存使用并变得更好性能。 */ 
             line_num = get_u32(bc_buf + pos + 1);
             break;
 
@@ -29549,7 +29172,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
                 ls = &label_slots[label];
                 assert(ls->addr == -1);
                 ls->addr = bc_out.size;
-                /* resolve the relocation entries */
+                /*  解析位置调整条目。 */ 
                 for(re = ls->first_reloc; re != NULL; re = re_next) {
                     int diff = ls->addr - re->addr;
                     re_next = re->next;
@@ -29575,7 +29198,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
         case OP_call:
         case OP_call_method:
             {
-                /* detect and transform tail calls */
+                /*  检测并转换尾部调用。 */ 
                 int argc;
                 argc = get_u16(bc_buf + pos + 1);
                 if (code_match(&cc, pos_next, OP_return, -1)) {
@@ -29604,29 +29227,25 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
         has_goto:
             if (OPTIMIZE) {
                 int line1 = -1;
-                /* Use custom matcher because multiple labels can follow */
+                /*  使用自定义匹配器，因为后面可以跟多个标签。 */ 
                 label = find_jump_target(s, label, &op1, &line1);
                 if (code_has_label(&cc, pos_next, label)) {
-                    /* jump to next instruction: remove jump */
+                    /*  跳转到下一个指令：删除跳转。 */ 
                     update_label(s, label, -1);
                     break;
                 }
                 if (op1 == OP_return || op1 == OP_return_undef || op1 == OP_throw) {
-                    /* jump to return/throw: remove jump, append return/throw */
-                    /* updating the line number obfuscates assembly listing */
-                    //if (line1 >= 0) line_num = line1;
+                    /*  跳转到返回/投掷：移除跳转，附加返回/投掷。 */ 
+                    /*  更新行号会混淆装配件列表。 */ 
+                    //  如果(line1&gt;=0)line_num=line1；
                     update_label(s, label, -1);
                     add_pc2line_info(s, bc_out.size, line_num);
                     dbuf_putc(&bc_out, op1);
                     pos_next = skip_dead_code(s, bc_buf, bc_len, pos_next, &line_num);
                     break;
                 }
-                /* XXX: should duplicate single instructions followed by goto or return */
-                /* For example, can match one of these followed by return:
-                   push_i32 / push_const / push_atom_value / get_var /
-                   undefined / null / push_false / push_true / get_ref_value /
-                   get_loc / get_arg / get_var_ref
-                 */
+                /*  XXX：应重复后面跟着GOTO或RETURN的单个指令。 */ 
+                /*  例如，可以匹配以下其中之一，后跟Return：PUSH_I32/PUSH_CONST/PUSH_ATOM_VALUE/GET_var/未定义/NULL/PUSH_FALSE/PUSH_TRUE/GET_REF_VALUE/Get_loc/Get_Arg/Get_var_ref。 */ 
             }
             goto has_label;
 
@@ -29636,7 +29255,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
                 label = find_jump_target(s, label, &op1, NULL);
                 if (op1 == OP_ret) {
                     update_label(s, label, -1);
-                    /* empty finally clause: remove gosub */
+                    /*  空的Finally子句：删除goub。 */ 
                     break;
                 }
             }
@@ -29651,13 +29270,13 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
             label = get_u32(bc_buf + pos + 1);
             if (OPTIMIZE) {
                 label = find_jump_target(s, label, &op1, NULL);
-                /* transform if_false/if_true(l1) label(l1) -> drop label(l1) */
+                /*  转换IF_FALSE/IF_TRUE(L1)标签(L1)-&gt;删除标签(L1)。 */ 
                 if (code_has_label(&cc, pos_next, label)) {
                     update_label(s, label, -1);
                     dbuf_putc(&bc_out, OP_drop);
                     break;
                 }
-                /* transform if_false(l1) goto(l2) label(l1) -> if_false(l2) label(l1) */
+                /*  转换IF_FALSE(L1)转到(L2)标签(L1)-&gt;IF_FALSE(L2)标签(L1)。 */ 
                 if (code_match(&cc, pos_next, OP_goto, -1)) {
                     int pos1 = cc.pos;
                     int line1 = cc.line_num;
@@ -29725,7 +29344,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
             dbuf_putc(&bc_out, op);
             dbuf_put_u32(&bc_out, ls->addr - bc_out.size);
             if (ls->addr == -1) {
-                /* unresolved yet: create a new relocation entry */
+                /*  尚未解决：创建 */ 
                 if (!add_reloc(ctx, ls, bc_out.size - 4, 4))
                     goto fail;
             }
@@ -29760,7 +29379,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
                 dbuf_put_u32(&bc_out, atom);
                 dbuf_put_u32(&bc_out, ls->addr - bc_out.size);
                 if (ls->addr == -1) {
-                    /* unresolved yet: create a new relocation entry */
+                    /*   */ 
                     if (!add_reloc(ctx, ls, bc_out.size - 4, 4))
                         goto fail;
                 }
@@ -29770,7 +29389,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
 
         case OP_drop:
             if (OPTIMIZE) {
-                /* remove useless drops before return */
+                /*   */ 
                 if (code_match(&cc, pos_next, OP_return_undef, -1)) {
                     if (cc.line_num >= 0) line_num = cc.line_num;
                     break;
@@ -29781,7 +29400,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
         case OP_null:
 #if SHORT_OPCODES
             if (OPTIMIZE) {
-                /* transform null strict_eq into is_null */
+                /*  将NULL STRIST_eQ转换为IS_NULL。 */ 
                 if (code_match(&cc, pos_next, OP_strict_eq, -1)) {
                     if (cc.line_num >= 0) line_num = cc.line_num;
                     add_pc2line_info(s, bc_out.size, line_num);
@@ -29789,7 +29408,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
                     pos_next = cc.pos;
                     break;
                 }
-                /* transform null strict_neq if_false/if_true -> is_null if_true/if_false */
+                /*  转换NULL STRICT_NEQ IF_FALSE/IF_TRUE-&gt;IS_NULL IF_TRUE/IF_FALSE。 */ 
                 if (code_match(&cc, pos_next, OP_strict_neq, M2(OP_if_false, OP_if_true), -1)) {
                     if (cc.line_num >= 0) line_num = cc.line_num;
                     add_pc2line_info(s, bc_out.size, line_num);
@@ -29801,7 +29420,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
                 }
             }
 #endif
-            /* fall thru */
+            /*  失败。 */ 
         case OP_push_false:
         case OP_push_true:
             if (OPTIMIZE) {
@@ -29810,17 +29429,17 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
                 has_constant_test:
                     if (cc.line_num >= 0) line_num = cc.line_num;
                     if (val == cc.op - OP_if_false) {
-                        /* transform null if_false(l1) -> goto l1 */
-                        /* transform false if_false(l1) -> goto l1 */
-                        /* transform true if_true(l1) -> goto l1 */
+                        /*  转换空值IF_FALSE(L1)-&gt;转到L1。 */ 
+                        /*  转换FALSE IF_FALSE(L1)-&gt;转到L1。 */ 
+                        /*  转换为True IF_TRUE(L1)-&gt;转到L1。 */ 
                         pos_next = cc.pos;
                         op = OP_goto;
                         label = cc.label;
                         goto has_goto;
                     } else {
-                        /* transform null if_true(l1) -> nop */
-                        /* transform false if_true(l1) -> nop */
-                        /* transform true if_false(l1) -> nop */
+                        /*  转换NULL IF_TRUE(L1)-&gt;NOP。 */ 
+                        /*  转换FALSE IF_TRUE(L1)-&gt;NOP。 */ 
+                        /*  转换TRUE IF_FALSE(L1)-&gt;NOP。 */ 
                         pos_next = cc.pos;
                         update_label(s, cc.label, -1);
                         break;
@@ -29831,7 +29450,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
 
         case OP_push_i32:
             if (OPTIMIZE) {
-                /* transform i32(val) neg -> i32(-val) */
+                /*  变换I32(Val)否定-&gt;I32(-val)。 */ 
                 val = get_i32(bc_buf + pos + 1);
                 if ((val != INT32_MIN && val != 0)
                 &&  code_match(&cc, pos_next, OP_neg, -1)) {
@@ -29845,13 +29464,13 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
                     pos_next = cc.pos;
                     break;
                 }
-                /* remove push/drop pairs generated by the parser */
+                /*  删除解析器生成的推送/丢弃对。 */ 
                 if (code_match(&cc, pos_next, OP_drop, -1)) {
                     if (cc.line_num >= 0) line_num = cc.line_num;
                     pos_next = cc.pos;
                     break;
                 }
-                /* Optimize constant tests: `if (0)`, `if (1)`, `if (!0)`... */
+                /*  优化常量测试：`If(0)`、`If(1)`、`If(！0)`...。 */ 
                 if (code_match(&cc, pos_next, M2(OP_if_false, OP_if_true), -1)) {
                     val = (val != 0);
                     goto has_constant_test;
@@ -29891,7 +29510,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
         case OP_push_atom_value:
             if (OPTIMIZE) {
                 JSAtom atom = get_u32(bc_buf + pos + 1);
-                /* remove push/drop pairs generated by the parser */
+                /*  删除解析器生成的推送/丢弃对。 */ 
                 if (code_match(&cc, pos_next, OP_drop, -1)) {
                     JS_FreeAtom(ctx, atom);
                     if (cc.line_num >= 0) line_num = cc.line_num;
@@ -29912,7 +29531,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
         case OP_to_propkey:
         case OP_to_propkey2:
             if (OPTIMIZE) {
-                /* remove redundant to_propkey/to_propkey2 opcodes when storing simple data */
+                /*  存储简单数据时，删除多余的to_propkey/to_p.key2操作码。 */ 
                 if (code_match(&cc, pos_next, M3(OP_get_loc, OP_get_arg, OP_get_var_ref), -1, OP_put_array_el, -1)
                 ||  code_match(&cc, pos_next, M3(OP_push_i32, OP_push_const, OP_push_atom_value), OP_put_array_el, -1)
                 ||  code_match(&cc, pos_next, M4(OP_undefined, OP_null, OP_push_true, OP_push_false), OP_put_array_el, -1)) {
@@ -29923,13 +29542,13 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
 
         case OP_undefined:
             if (OPTIMIZE) {
-                /* remove push/drop pairs generated by the parser */
+                /*  删除解析器生成的推送/丢弃对。 */ 
                 if (code_match(&cc, pos_next, OP_drop, -1)) {
                     if (cc.line_num >= 0) line_num = cc.line_num;
                     pos_next = cc.pos;
                     break;
                 }
-                /* transform undefined return -> return_undefined */
+                /*  转换未定义的返回-&gt;返回_未定义。 */ 
                 if (code_match(&cc, pos_next, OP_return, -1)) {
                     if (cc.line_num >= 0) line_num = cc.line_num;
                     add_pc2line_info(s, bc_out.size, line_num);
@@ -29937,13 +29556,13 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
                     pos_next = cc.pos;
                     break;
                 }
-                /* transform undefined if_true(l1)/if_false(l1) -> nop/goto(l1) */
+                /*  转换未定义的IF_TRUE(L1)/IF_FALSE(L1)-&gt;NOP/GOTO(L1)。 */ 
                 if (code_match(&cc, pos_next, M2(OP_if_false, OP_if_true), -1)) {
                     val = 0;
                     goto has_constant_test;
                 }
 #if SHORT_OPCODES
-                /* transform undefined strict_eq -> is_undefined */
+                /*  转换未定义严格_eq-&gt;未定义(_U)。 */ 
                 if (code_match(&cc, pos_next, OP_strict_eq, -1)) {
                     if (cc.line_num >= 0) line_num = cc.line_num;
                     add_pc2line_info(s, bc_out.size, line_num);
@@ -29951,7 +29570,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
                     pos_next = cc.pos;
                     break;
                 }
-                /* transform undefined strict_neq if_false/if_true -> is_undefined if_true/if_false */
+                /*  转换未定义的STRICT_NEQ IF_FALSE/IF_TRUE-&gt;IS_UNDEFINED IF_TRUE/IF_FALSE。 */ 
                 if (code_match(&cc, pos_next, OP_strict_neq, M2(OP_if_false, OP_if_true), -1)) {
                     if (cc.line_num >= 0) line_num = cc.line_num;
                     add_pc2line_info(s, bc_out.size, line_num);
@@ -29967,10 +29586,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
 
         case OP_insert2:
             if (OPTIMIZE) {
-                /* Transformation:
-                   insert2 put_field(a) drop -> put_field(a)
-                   insert2 put_var_strict(a) drop -> put_var_strict(a)
-                */
+                /*  转型：插入2放置字段(A)Drop-&gt;放置字段(A)插入2个Put_var_Strong(A)Drop-&gt;Put_var_Strong(A)。 */ 
                 if (code_match(&cc, pos_next, M2(OP_put_field, OP_put_var_strict), OP_drop, -1)) {
                     if (cc.line_num >= 0) line_num = cc.line_num;
                     add_pc2line_info(s, bc_out.size, line_num);
@@ -29984,20 +29600,20 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
 
         case OP_dup:
             if (OPTIMIZE) {
-                /* Transformation: dup put_x(n) drop -> put_x(n) */
+                /*  转换：DUP Put_x(N)Drop-&gt;Put_x(N)。 */ 
                 int op1, line2 = -1;
-                /* Transformation: dup put_x(n) -> set_x(n) */
+                /*  变换：Dup Put_x(N)-&gt;Set_x(N)。 */ 
                 if (code_match(&cc, pos_next, M3(OP_put_loc, OP_put_arg, OP_put_var_ref), -1, -1)) {
                     if (cc.line_num >= 0) line_num = cc.line_num;
-                    op1 = cc.op + 1;  /* put_x -> set_x */
+                    op1 = cc.op + 1;  /*  Put_x-&gt;Set_x。 */ 
                     pos_next = cc.pos;
                     if (code_match(&cc, cc.pos, OP_drop, -1)) {
                         if (cc.line_num >= 0) line_num = cc.line_num;
-                        op1 -= 1; /* set_x drop -> put_x */
+                        op1 -= 1; /*  Set_x Drop-&gt;Put_x。 */ 
                         pos_next = cc.pos;
                         if (code_match(&cc, cc.pos, op1 - 1, cc.idx, -1)) {
-                            line2 = cc.line_num; /* delay line number update */
-                            op1 += 1;   /* put_x(n) get_x(n) -> set_x(n) */
+                            line2 = cc.line_num; /*  延迟行号更新。 */ 
+                            op1 += 1;   /*  Put_x(N)Get_x(N)-&gt;Set_x(N)。 */ 
                             pos_next = cc.pos;
                         }
                     }
@@ -30011,12 +29627,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
 
         case OP_get_loc:
             if (OPTIMIZE) {
-                /* transformation:
-                   get_loc(n) post_dec put_loc(n) drop -> dec_loc(n)
-                   get_loc(n) post_inc put_loc(n) drop -> inc_loc(n)
-                   get_loc(n) dec dup put_loc(n) drop -> dec_loc(n)
-                   get_loc(n) inc dup put_loc(n) drop -> inc_loc(n)
-                 */
+                /*  转型：GET_LOC(N)POST_DEC PUT_LOC(N)DROP-&gt;DEC_LOC(N)GET_LOC(N)POST_INC PUT_LOC(N)DROP-&gt;INC_LOC(N)GET_LOC(N)DEC DUP PUT_LOC(N)DROP-&gt;DEC_LOC(N)Get_loc(N)Inc.。DUP PUT_LOC(N)DROP-&gt;INC_LOC(N)。 */ 
                 int idx;
                 idx = get_u16(bc_buf + pos + 1);
                 if (idx >= 256)
@@ -30030,9 +29641,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
                     pos_next = cc.pos;
                     break;
                 }
-                /* transformation:
-                   get_loc(n) push_atom_value(x) add dup put_loc(n) drop -> push_atom_value(x) add_loc(n)
-                 */
+                /*  转型：GET_LOC(N)PUSH_ATOM_VALUE(X)添加重复PUP PUT_LOC(N)DROP-&gt;PUSH_ATOM_VALUE(X)ADD_LOC(N)。 */ 
                 if (code_match(&cc, pos_next, OP_push_atom_value, OP_add, OP_dup, OP_put_loc, idx, OP_drop, -1)) {
                     if (cc.line_num >= 0) line_num = cc.line_num;
                     add_pc2line_info(s, bc_out.size, line_num);
@@ -30051,9 +29660,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
                     pos_next = cc.pos;
                     break;
                 }
-                /* transformation:
-                   get_loc(n) push_i32(x) add dup put_loc(n) drop -> push_i32(x) add_loc(n)
-                 */
+                /*  转型：GET_LOC(N)PUSH_I32(X)添加重复PUP PUT_LOC(N)DROP-&gt;PUSH_I32(X)ADD_LOC(N)。 */ 
                 if (code_match(&cc, pos_next, OP_push_i32, OP_add, OP_dup, OP_put_loc, idx, OP_drop, -1)) {
                     if (cc.line_num >= 0) line_num = cc.line_num;
                     add_pc2line_info(s, bc_out.size, line_num);
@@ -30063,11 +29670,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
                     pos_next = cc.pos;
                     break;
                 }
-                /* transformation: XXX: also do these:
-                   get_loc(n) get_loc(x) add dup put_loc(n) drop -> get_loc(x) add_loc(n)
-                   get_loc(n) get_arg(x) add dup put_loc(n) drop -> get_arg(x) add_loc(n)
-                   get_loc(n) get_var_ref(x) add dup put_loc(n) drop -> get_var_ref(x) add_loc(n)
-                 */
+                /*  转换：xxx：还要执行以下操作：Get_loc(N)get_loc(X)添加重复Put_loc(N)Drop-&gt;get_loc(X)add_loc(N)Get_loc(N)Get_Arg(X)添加重复PUP PUT_LOC(N)Drop-&gt;Get_Arg(X)Add_loc(N)Get_loc(N)get_var_ref(。X)添加DUP Put_loc(N)Drop-&gt;Get_var_ref(X)Add_loc(N)。 */ 
                 if (code_match(&cc, pos_next, M3(OP_get_loc, OP_get_arg, OP_get_var_ref), -1, OP_add, OP_dup, OP_put_loc, idx, OP_drop, -1)) {
                     if (cc.line_num >= 0) line_num = cc.line_num;
                     add_pc2line_info(s, bc_out.size, line_num);
@@ -30098,7 +29701,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
         case OP_put_arg:
         case OP_put_var_ref:
             if (OPTIMIZE) {
-                /* transformation: put_x(n) get_x(n) -> set_x(n) */
+                /*  变换：Put_x(N)Get_x(N)-&gt;Set_x(N)。 */ 
                 int idx;
                 idx = get_u16(bc_buf + pos + 1);
                 if (code_match(&cc, pos_next, op - 1, idx, -1)) {
@@ -30117,12 +29720,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
         case OP_post_inc:
         case OP_post_dec:
             if (OPTIMIZE) {
-                /* transformation:
-                   post_inc put_x drop -> inc put_x
-                   post_inc perm3 put_field drop -> inc put_field
-                   post_inc perm3 put_var_strict drop -> inc put_var_strict
-                   post_inc perm4 put_array_el drop -> inc put_array_el
-                 */
+                /*  转型：POST_INC PUT_x DROP-&gt;INC PUT_xPOST_INC PERM3 PUT_FIELD DROP-&gt;INC PUT_FIELDPOST_INC PERM3 PUT_var_STRIGN DROP-&gt;INC PUT_var_STRIGNPOST_INC perm4 PUT_ARRAY_EL DROP-&gt;INC PUT_ARRAY_EL。 */ 
                 int op1, idx;
                 if (code_match(&cc, pos_next, M3(OP_put_loc, OP_put_arg, OP_put_var_ref), -1, OP_drop, -1)) {
                     if (cc.line_num >= 0) line_num = cc.line_num;
@@ -30131,7 +29729,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
                     pos_next = cc.pos;
                     if (code_match(&cc, cc.pos, op1 - 1, idx, -1)) {
                         if (cc.line_num >= 0) line_num = cc.line_num;
-                        op1 += 1;   /* put_x(n) get_x(n) -> set_x(n) */
+                        op1 += 1;   /*  Put_x(N)Get_x(N)-&gt;Set_x(N)。 */ 
                         pos_next = cc.pos;
                     }
                     add_pc2line_info(s, bc_out.size, line_num);
@@ -30161,7 +29759,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
 
         case OP_typeof:
             if (OPTIMIZE) {
-                /* simplify typeof tests */
+                /*  简化测试类型。 */ 
                 if (code_match(&cc, pos_next, OP_push_atom_value, M4(OP_strict_eq, OP_strict_neq, OP_eq, OP_neq), -1)) {
                     if (cc.line_num >= 0) line_num = cc.line_num;
                     int op1 = (cc.op == OP_strict_eq || cc.op == OP_eq) ? OP_strict_eq : OP_strict_neq;
@@ -30176,7 +29774,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
                         break;
                     }
                     if (op2 >= 0) {
-                        /* transform typeof(s) == "<type>" into is_<type> */
+                        /*  将typeof==“&lt;type&gt;”转换为_&lt;type&gt;。 */ 
                         if (op1 == OP_strict_eq) {
                             add_pc2line_info(s, bc_out.size, line_num);
                             dbuf_putc(&bc_out, op2);
@@ -30185,7 +29783,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
                             break;
                         }
                         if (op1 == OP_strict_neq && code_match(&cc, cc.pos, OP_if_false, -1)) {
-                            /* transform typeof(s) != "<type>" if_false into is_<type> if_true */
+                            /*  将typeof！=“&lt;type&gt;”IF_FALSE转换为IS_&lt;type&gt;IF_TRUE。 */ 
                             if (cc.line_num >= 0) line_num = cc.line_num;
                             add_pc2line_info(s, bc_out.size, line_num);
                             dbuf_putc(&bc_out, op2);
@@ -30198,7 +29796,7 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
                     }
 #endif
                     if (cc.atom == JS_ATOM_undefined) {
-                        /* transform typeof(s) == "undefined" into s === void 0 */
+                        /*  转换类型OF==“未定义”到S=空0。 */ 
                         add_pc2line_info(s, bc_out.size, line_num);
                         dbuf_putc(&bc_out, OP_undefined);
                         dbuf_putc(&bc_out, op1);
@@ -30218,13 +29816,13 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
         }
     }
 
-    /* check that there were no missing labels */
+    /*  检查是否没有丢失的标签。 */ 
     for(i = 0; i < s->label_count; i++) {
         assert(label_slots[i].first_reloc == NULL);
     }
 #if SHORT_OPCODES
     if (OPTIMIZE) {
-        /* more jump optimizations */
+        /*  更多跳跃优化。 */ 
         int patch_offsets = 0;
         for (i = 0, jp = s->jump_slots; i < s->jump_count; i++, jp++) {
             LabelSlot *ls;
@@ -30235,14 +29833,14 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
             switch (op = jp->op) {
             case OP_goto16:
                 delta = 1;
-                /* fall thru */
+                /*  失败。 */ 
             case OP_if_false:
             case OP_if_true:
             case OP_goto:
                 pos = jp->pos;
                 diff = s->label_slots[jp->label].addr - pos;
                 if (diff >= -128 && diff <= 127 + delta) {
-                    //put_u8(bc_out.buf + pos, diff);
+                    //  Put_U8(BC_out.buf+pos，diff)；
                     jp->size = 1;
                     if (op == OP_goto16) {
                         bc_out.buf[pos - 1] = jp->op = OP_goto8;
@@ -30252,12 +29850,12 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
                     goto shrink;
                 } else
                 if (diff == (int16_t)diff && op == OP_goto) {
-                    //put_u16(bc_out.buf + pos, diff);
+                    //  Put_u16(bc_out.buf+pos，diff)；
                     jp->size = 2;
                     delta = 2;
                     bc_out.buf[pos - 1] = jp->op = OP_goto16;
                 shrink:
-                    /* XXX: should reduce complexity, using 2 finger copy scheme */
+                    /*  XXX：应该降低复杂性，使用两个手指复制方案。 */ 
                     memmove(bc_out.buf + pos + jp->size, bc_out.buf + pos + jp->size + delta,
                             bc_out.size - pos - jp->size - delta);
                     bc_out.size -= delta;
@@ -30303,11 +29901,11 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
 #endif
     js_free(ctx, s->label_slots);
     s->label_slots = NULL;
-    /* XXX: should delay until copying to runtime bytecode function */
+    /*  XXX：应延迟到复制到运行时字节码函数。 */ 
     compute_pc2line_info(s);
     js_free(ctx, s->line_number_slots);
     s->line_number_slots = NULL;
-    /* set the new byte code */
+    /*  设置新的字节代码。 */ 
     dbuf_free(&s->byte_code);
     s->byte_code = bc_out;
     s->use_short_opcodes = TRUE;
@@ -30317,12 +29915,12 @@ static __exception int resolve_labels(JSContext *ctx, JSFunctionDef *s)
     }
     return 0;
  fail:
-    /* XXX: not safe */
+    /*  XXX：不安全。 */ 
     dbuf_free(&bc_out);
     return -1;
 }
 
-/* compute the maximum stack size needed by the function */
+/*  计算函数所需的最大堆栈大小。 */ 
 
 typedef struct StackSizeState {
     int stack_len_max;
@@ -30352,7 +29950,7 @@ static __exception int compute_stack_size_rec(JSContext *ctx,
         printf("%5d: %d\n", pos, stack_len);
 #endif
         if (s->stack_level_tab[pos] != 0xffff) {
-            /* already explored: check that the stack size is consistent */
+            /*  已探索：检查堆栈大小是否一致。 */ 
             if (s->stack_level_tab[pos] != stack_len) {
                 JS_ThrowInternalError(ctx, "unconsistent stack size: %d %d (pc=%d)",
                                       s->stack_level_tab[pos], stack_len, pos);
@@ -30377,7 +29975,7 @@ static __exception int compute_stack_size_rec(JSContext *ctx,
             return -1;
         }
         n_pop = oi->n_pop;
-        /* call pops a variable number of arguments */
+        /*  调用弹出数量可变的参数。 */ 
         if (oi->fmt == OP_FMT_npop || oi->fmt == OP_FMT_npop_u16) {
             n_pop += get_u16(bc_buf + pos + 1);
         } else {
@@ -30480,7 +30078,7 @@ static __exception int compute_stack_size(JSContext *ctx,
     int bc_len, i, ret;
 
     bc_len = fd->byte_code.size;
-    /* bc_len > 0 */
+    /*  Bc_len&gt;0。 */ 
     s->stack_level_tab = js_malloc(ctx, sizeof(s->stack_level_tab[0]) * bc_len);
     if (!s->stack_level_tab)
         return -1;
@@ -30500,9 +30098,7 @@ static int add_module_variables(JSContext *ctx, JSFunctionDef *fd)
     JSExportEntry *me;
     JSHoistedDef *hf;
 
-    /* The imported global variables were added as closure variables
-       in js_parse_import(). We add here the module global
-       variables. */
+    /*  将导入的全局变量添加为闭包变量在js_parse_import()中。我们在这里添加模块global变量。 */ 
 
     for(i = 0; i < fd->hoisted_def_count; i++) {
         hf = &fd->hoisted_def[i];
@@ -30511,7 +30107,7 @@ static int add_module_variables(JSContext *ctx, JSFunctionDef *fd)
             return -1;
     }
 
-    /* resolve the variable names of the local exports */
+    /*  解析本地导出的变量名称。 */ 
     for(i = 0; i < m->export_entries_count; i++) {
         me = &m->export_entries[i];
         if (me->export_type == JS_EXPORT_TYPE_LOCAL) {
@@ -30528,9 +30124,7 @@ static int add_module_variables(JSContext *ctx, JSFunctionDef *fd)
     return 0;
 }
 
-/* create a function object from a function definition. The function
-   definition is freed. All the child functions are also created. It
-   must be done this way to resolve all the variables. */
+/*  从函数定义创建函数对象。该功能定义是自由的。还创建了所有子函数。它必须这样做才能解决所有的变量。 */ 
 static JSValue js_create_function(JSContext *ctx, JSFunctionDef *fd)
 {
     JSValue func_obj;
@@ -30540,7 +30134,7 @@ static JSValue js_create_function(JSContext *ctx, JSFunctionDef *fd)
     int function_size, byte_code_offset, cpool_offset;
     int closure_var_offset, vardefs_offset;
 
-    /* recompute scope linkage */
+    /*  重新计算作用域链接。 */ 
     for (scope = 0; scope < fd->scope_count; scope++) {
         fd->scopes[scope].first = -1;
     }
@@ -30562,20 +30156,17 @@ static JSValue js_create_function(JSContext *ctx, JSFunctionDef *fd)
         }
     }
 
-    /* if the function contains an eval call, the closure variables
-       are used to compile the eval and they must be ordered by scope,
-       so it is necessary to create the closure variables before any
-       other variable lookup is done. */
+    /*  如果函数包含val调用，则闭包变量用于编译评估，并且它们必须按范围排序，因此，有必要在创建闭包变量之前其他变量查找已完成。 */ 
     if (fd->has_eval_call)
         add_eval_variables(ctx, fd);
 
-    /* add the module global variables in the closure */
+    /*  在闭包中添加模块全局变量。 */ 
     if (fd->module) {
         if (add_module_variables(ctx, fd))
             goto fail;
     }
 
-    /* first create all the child functions */
+    /*  首先创建所有子函数。 */ 
     list_for_each_safe(el, el1, &fd->child_list) {
         JSFunctionDef *fd1;
         int cpool_idx;
@@ -30585,7 +30176,7 @@ static JSValue js_create_function(JSContext *ctx, JSFunctionDef *fd)
         func_obj = js_create_function(ctx, fd1);
         if (JS_IsException(func_obj))
             goto fail;
-        /* save it in the constant pool */
+        /*  将其保存在常量池中。 */ 
         assert(cpool_idx >= 0);
         fd->cpool[cpool_idx] = func_obj;
     }
@@ -30654,7 +30245,7 @@ static JSValue js_create_function(JSContext *ctx, JSFunctionDef *fd)
     b->func_name = fd->func_name;
     if (fd->arg_count + fd->var_count > 0) {
         if ((fd->js_mode & JS_MODE_STRIP) && !fd->has_eval_call) {
-            /* Strip variable definitions not needed at runtime */
+            /*  删除运行时不需要的变量定义。 */ 
             int i;
             for(i = 0; i < fd->var_count; i++) {
                 JS_FreeAtom(ctx, fd->vars[i].var_name);
@@ -30689,18 +30280,16 @@ static JSValue js_create_function(JSContext *ctx, JSFunctionDef *fd)
 
     if (fd->js_mode & JS_MODE_STRIP) {
         JS_FreeAtom(ctx, fd->filename);
-        dbuf_free(&fd->pc2line);    // probably useless
+        dbuf_free(&fd->pc2line);    //  可能毫无用处。
     } else {
-        /* XXX: source and pc2line info should be packed at the end of the
-           JSFunctionBytecode structure, avoiding allocation overhead
-         */
+        /*  Xxx：源代码和pc2line信息应打包在JSFunctionBytecode结构，避免分配开销。 */ 
         b->has_debug = 1;
         b->debug.filename = fd->filename;
         b->debug.line_num = fd->line_num;
 
-        //DynBuf pc2line;
-        //compute_pc2line_info(fd, &pc2line);
-        //js_free(ctx, fd->line_number_slots)
+        //  Dybuf pc2line；
+        //  COMPUTE_PC2line_INFO(fd，&pc2line)；
+        //  JS_FREE(CTX，FD-&gt;LINE_NUMBER_SLOTS)。
         b->debug.pc2line_buf = js_realloc(ctx, fd->pc2line.buf, fd->pc2line.size);
         if (!b->debug.pc2line_buf)
             b->debug.pc2line_buf = fd->pc2line.buf;
@@ -30738,7 +30327,7 @@ static JSValue js_create_function(JSContext *ctx, JSFunctionDef *fd)
 #endif
 
     if (fd->parent) {
-        /* remove from parent list */
+        /*  从父列表中删除。 */ 
         list_del(&fd->link);
     }
 
@@ -30796,7 +30385,7 @@ static __exception int js_parse_directives(JSParseState *s)
     js_parse_get_pos(s, &pos);
 
     while(s->token.val == TOK_STRING) {
-        /* Copy actual source string representation */
+        /*  复制实际的源字符串表示形式。 */ 
         snprintf(str, sizeof str, "%.*s",
                  (int)(s->buf_ptr - s->token.ptr - 2), s->token.ptr + 1);
 
@@ -30853,7 +30442,7 @@ static __exception int js_parse_directives(JSParseState *s)
         case TOK_PROTECTED:
         case TOK_PUBLIC:
         case TOK_STATIC:
-            /* automatic insertion of ';' */
+            /*  自动插入‘；’ */ 
             if (s->got_lf)
                 has_semi = TRUE;
             break;
@@ -30904,7 +30493,7 @@ static int js_parse_function_check_names(JSParseState *s, JSFunctionDef *fd,
             }
         }
     }
-    /* check async_generator case */
+    /*  检查异步生成器案例(_A)。 */ 
     if ((fd->js_mode & JS_MODE_STRICT)
     ||  !fd->has_simple_parameter_list
     ||  (fd->func_type == JS_PARSE_FUNC_METHOD && fd->func_kind == JS_FUNC_ASYNC)
@@ -30917,8 +30506,8 @@ static int js_parse_function_check_names(JSParseState *s, JSFunctionDef *fd,
                     if (fd->args[i].var_name == name)
                         goto duplicate;
                 }
-                /* Check if argument name duplicates a destructuring parameter */
-                /* XXX: should have a flag for such variables */
+                /*  检查参数名称是否与析构参数重复。 */ 
+                /*  XXX：应该有这样的变量的标志。 */ 
                 for (i = 0; i < fd->var_count; i++) {
                     if (fd->vars[i].var_name == name)
                         goto duplicate;
@@ -30932,7 +30521,7 @@ duplicate:
     return js_parse_error(s, "duplicate argument names not allowed in this context");
 }
 
-/* create a function to initialize class fields */
+/*  创建一个函数来初始化类字段。 */ 
 static JSFunctionDef *js_parse_function_class_fields_init(JSParseState *s)
 {
     JSFunctionDef *fd;
@@ -30958,8 +30547,7 @@ static JSFunctionDef *js_parse_function_class_fields_init(JSParseState *s)
     return fd;
 }
 
-/* func_name must be JS_ATOM_NULL for JS_PARSE_FUNC_STATEMENT and
-   JS_PARSE_FUNC_EXPR, JS_PARSE_FUNC_ARROW and JS_PARSE_FUNC_VAR */
+/*  对于JS_PARSE_FUNC_STATION和，FUNC_NAME必须为JS_ATOM_NULLJS_PARSE_FUNC_EXPR、JS_PARSE_FUNC_ARROW和JS_PARSE_FUNC_VAR。 */ 
 static __exception int js_parse_function_decl2(JSParseState *s,
                                                JSParseFunctionEnum func_type,
                                                JSFunctionKindEnum func_kind,
@@ -31031,7 +30619,7 @@ static __exception int js_parse_function_decl2(JSParseState *s,
         (func_type == JS_PARSE_FUNC_STATEMENT || func_type == JS_PARSE_FUNC_VAR)) {
         JSHoistedDef *hf;
         hf = find_hoisted_def(fd, func_name);
-        /* XXX: should check scope chain */
+        /*  XXX：应检查作用域链。 */ 
         if (hf && hf->scope_level == fd->scope_level) {
             js_parse_error(s, "invalid redefinition of global identifier in module code");
             JS_FreeAtom(ctx, func_name);
@@ -31040,7 +30628,7 @@ static __exception int js_parse_function_decl2(JSParseState *s,
     }
 
     if (func_type == JS_PARSE_FUNC_VAR) {
-        /* Create lexical name here so function closure contains it */
+        /*  在此处创建词法名称，以便函数闭包包含它。 */ 
         if (!(fd->js_mode & JS_MODE_STRICT)
         &&  find_lexical_decl(ctx, fd, func_name, fd->scope_first, FALSE) < 0
         &&  !((func_idx = find_var(ctx, fd, func_name)) >= 0 && (func_idx & ARGUMENT_VAR_OFFSET))
@@ -31051,20 +30639,18 @@ static __exception int js_parse_function_decl2(JSParseState *s,
             (fd->eval_type == JS_EVAL_TYPE_GLOBAL ||
              fd->eval_type == JS_EVAL_TYPE_MODULE) &&
             fd->scope_level == 1) {
-            /* avoid creating a lexical variable in the global
-               scope. XXX: check annex B */
+            /*  避免在全局范围。XXX：查看附件B。 */ 
             JSHoistedDef *hf;
             hf = find_hoisted_def(fd, func_name);
-            /* XXX: should check scope chain */
+            /*  XXX：应检查作用域链。 */ 
             if (hf && hf->scope_level == fd->scope_level) {
                 js_parse_error(s, "invalid redefinition of global identifier");
                 JS_FreeAtom(ctx, func_name);
                 return -1;
             }
         } else {
-            /* Always create a lexical name, fail if at the same scope as
-               existing name */
-            /* Lexical variable will be initialized upon entering scope */
+            /*  始终创建词法名称，如果在相同的作用域中现有名称。 */ 
+            /*  词法变量将在输入作用域时初始化。 */ 
             lexical_func_idx = define_var(s, fd, func_name,
                                           func_kind != JS_FUNC_NORMAL ?
                                           JS_VAR_DEF_NEW_FUNCTION_DECL :
@@ -31086,7 +30672,7 @@ static __exception int js_parse_function_decl2(JSParseState *s,
         *pfd = fd;
     s->cur_func = fd;
     fd->func_name = func_name;
-    /* XXX: test !fd->is_generator is always false */
+    /*  Xxx：测试！fd-&gt;IS_GENERATOR始终为假。 */ 
     fd->has_prototype = (func_type == JS_PARSE_FUNC_STATEMENT ||
                          func_type == JS_PARSE_FUNC_VAR ||
                          func_type == JS_PARSE_FUNC_EXPR) &&
@@ -31111,15 +30697,13 @@ static __exception int js_parse_function_decl2(JSParseState *s,
         fd->arguments_allowed = TRUE;
     }
 
-    /* fd->in_function_body == FALSE prevents yield/await during the parsing
-       of the arguments in generator/async functions. They are parsed as
-       regular identifiers for other function kinds. */
+    /*  Fd-&gt;In_Function_Body==FALSE防止在解析过程中放弃/等待关于g中的论点 */ 
     fd->func_kind = func_kind;
     fd->func_type = func_type;
 
     if (func_type == JS_PARSE_FUNC_CLASS_CONSTRUCTOR ||
         func_type == JS_PARSE_FUNC_DERIVED_CLASS_CONSTRUCTOR) {
-        /* error if not invoked as a constructor */
+        /*  如果未作为构造函数调用，则出错。 */ 
         emit_op(s, OP_check_ctor);
     }
 
@@ -31127,7 +30711,7 @@ static __exception int js_parse_function_decl2(JSParseState *s,
         emit_class_field_init(s);
     }
     
-    /* parse arguments */
+    /*  解析参数。 */ 
     fd->has_simple_parameter_list = TRUE;
     has_opt_arg = FALSE;
     if (func_type == JS_PARSE_FUNC_ARROW && s->token.val == TOK_IDENT) {
@@ -31161,19 +30745,14 @@ static __exception int js_parse_function_decl2(JSParseState *s,
                     emit_op(s, OP_rest);
                     emit_u16(s, fd->arg_count);
                 } else {
-                    /* unnamed arg for destructuring */
+                    /*  用于解构的未命名Arg。 */ 
                     idx = add_arg(ctx, fd, JS_ATOM_NULL);
                     emit_op(s, OP_get_arg);
                     emit_u16(s, idx);
                 }
                 if (js_parse_destructing_element(s, TOK_VAR, 1, TRUE, -1, TRUE))
                     goto fail;
-                /* Close var object: necessary if direct eval call
-                   occurred in the assignment expression or if any
-                   variable was captured and a later direct eval call
-                   may instantiate it in the var object.
-                   The next pass will generate the capture if required.
-                 */
+                /*  Close var对象：如果直接求值调用，则必需在赋值表达式中出现或(如果有变量被捕获，并在稍后进行了直接计算调用可以在var对象中实例化它。如果需要，下一遍将生成捕获。 */ 
                 emit_op(s, OP_close_var_object);
             } else if (s->token.val == TOK_IDENT) {
                 if (s->token.u.ident.is_reserved) {
@@ -31204,7 +30783,7 @@ static __exception int js_parse_function_decl2(JSParseState *s,
                     if (next_token(s))
                         goto fail;
 
-                    /* optimize `x = void 0` default value: no code needed */
+                    /*  优化`x=void 0`缺省值：不需要代码。 */ 
                     if (s->token.val == TOK_VOID) {
                         JSParsePos pos;
                         js_parse_get_pos(s, &pos);
@@ -31226,14 +30805,13 @@ static __exception int js_parse_function_decl2(JSParseState *s,
                             goto fail;
                     }
 #if 0
-                    /* XXX: not correct for eval code */
-                    /* Check for a default value of `undefined`
-                       to omit default argument processing */
+                    /*  Xxx：评估代码不正确。 */ 
+                    /*  检查缺省值是否为`unfined`省略默认参数处理。 */ 
                     if (s->token.val == TOK_IDENT &&
                         s->token.u.ident.atom == JS_ATOM_undefined &&
                         fd->parent == NULL &&
                         ((tok = peek_token(s, FALSE)) == ',' || tok == ')')) {
-                        if (next_token(s))  /* ignore undefined token */
+                        if (next_token(s))  /*  忽略未定义的令牌。 */ 
                             goto fail;
                     } else
 #endif
@@ -31253,7 +30831,7 @@ static __exception int js_parse_function_decl2(JSParseState *s,
                         set_object_name(s, name);
                         emit_op(s, OP_put_arg);
                         emit_u16(s, idx);
-                        /* Close var object: see above comment. */
+                        /*  Close var对象：参见上面的注释。 */ 
                         emit_op(s, OP_close_var_object);
                         emit_label(s, label);
                     }
@@ -31283,15 +30861,14 @@ static __exception int js_parse_function_decl2(JSParseState *s,
     if (next_token(s))
         goto fail;
 
-    /* generator function: yield after the parameters are evaluated */
+    /*  生成函数：参数求值后的收益率。 */ 
     if (func_kind == JS_FUNC_GENERATOR ||
         func_kind == JS_FUNC_ASYNC_GENERATOR)
         emit_op(s, OP_initial_yield);
 
-    /* in generators, yield expression is forbidden during the parsing
-       of the arguments */
+    /*  在生成器中，在分析过程中禁止使用屈服表达式在争论中。 */ 
     fd->in_function_body = TRUE;
-    push_scope(s);  /* enter body scope: fd->scope_level = 1 */
+    push_scope(s);  /*  输入正文作用域：fd-&gt;Scope_Level=1。 */ 
 
     if (s->token.val == TOK_ARROW) {
         if (next_token(s))
@@ -31310,9 +30887,8 @@ static __exception int js_parse_function_decl2(JSParseState *s,
                 emit_op(s, OP_return);
 
             if (!(fd->js_mode & JS_MODE_STRIP)) {
-                /* save the function source code */
-                /* the end of the function source code is after the last
-                   token of the function source stored into s->last_ptr */
+                /*  保存函数源代码。 */ 
+                /*  函数源代码的末尾是最后一个存储在s-&gt;last_ptr中的函数源内标识。 */ 
                 fd->source_len = s->last_ptr - ptr;
                 fd->source = js_strndup(ctx, (const char *)ptr, fd->source_len);
                 if (!fd->source)
@@ -31328,7 +30904,7 @@ static __exception int js_parse_function_decl2(JSParseState *s,
     if (js_parse_directives(s))
         goto fail;
 
-    /* in strict_mode, check function and argument names */
+    /*  在STRIGN_MODE中，检查函数名和参数名。 */ 
     if (js_parse_function_check_names(s, fd, func_name))
         goto fail;
 
@@ -31337,7 +30913,7 @@ static __exception int js_parse_function_decl2(JSParseState *s,
             goto fail;
     }
     if (!(fd->js_mode & JS_MODE_STRIP)) {
-        /* save the function source code */
+        /*  保存函数源代码。 */ 
         fd->source_len = s->buf_ptr - ptr;
         fd->source = js_strndup(ctx, (const char *)ptr, fd->source_len);
         if (!fd->source)
@@ -31345,32 +30921,31 @@ static __exception int js_parse_function_decl2(JSParseState *s,
     }
 
     if (next_token(s)) {
-        /* consume the '}' */
+        /*  消费‘}’ */ 
         goto fail;
     }
 
-    /* in case there is no return, add one */
+    /*  如果没有退货，请添加一个。 */ 
     if (js_is_live_code(s)) {
         emit_return(s, FALSE);
     }
 done:
     s->cur_func = fd->parent;
 
-    /* create the function object */
+    /*  创建函数对象。 */ 
     {
         int idx;
         JSAtom func_name = fd->func_name;
 
-        /* the real object will be set at the end of the compilation */
+        /*  实际对象将在编译结束时设置。 */ 
         idx = cpool_add(s, JS_NULL);
         fd->parent_cpool_idx = idx;
 
         if (is_expr) {
-            /* for constructors, no code needs to be generated here */
+            /*  对于构造函数，这里不需要生成任何代码。 */ 
             if (func_type != JS_PARSE_FUNC_CLASS_CONSTRUCTOR &&
                 func_type != JS_PARSE_FUNC_DERIVED_CLASS_CONSTRUCTOR) {
-                /* OP_fclosure creates the function object from the bytecode
-                   and adds the scope information */
+                /*  Op_f闭包从字节码创建函数对象并添加作用域信息。 */ 
                 emit_op(s, OP_fclosure);
                 emit_u32(s, idx);
                 if (func_name == JS_ATOM_NULL) {
@@ -31384,30 +30959,27 @@ done:
             if (create_func_var) {
                 if (s->cur_func->is_global_var) {
                     JSHoistedDef *hf;
-                    /* the global variable must be defined at the start of the
-                       function */
+                    /*  全局变量必须在功能。 */ 
                     hf = add_hoisted_def(ctx, s->cur_func, -1, func_name, -1, FALSE);
                     if (!hf)
                         goto fail;
-                    /* it is considered as defined at the top level
-                       (needed for annex B.3.3.4 and B.3.3.5
-                       checks) */
+                    /*  它被认为是在最高级别定义的(附件B.3.3.4和B.3.3.5需要检查)。 */ 
                     hf->scope_level = 0; 
                     hf->force_init = ((s->cur_func->js_mode & JS_MODE_STRICT) != 0);
-                    /* store directly into global var, bypass lexical scope */
+                    /*  直接存储到全局变量中，绕过词法范围。 */ 
                     emit_op(s, OP_dup);
                     emit_op(s, OP_scope_put_var);
                     emit_atom(s, func_name);
                     emit_u16(s, 0);
                 } else {
-                    /* do not call define_var to bypass lexical scope check */
+                    /*  不要调用Define_var来绕过词法范围检查。 */ 
                     func_idx = find_var(ctx, s->cur_func, func_name);
                     if (func_idx < 0) {
                         func_idx = add_var(ctx, s->cur_func, func_name);
                         if (func_idx < 0)
                             goto fail;
                     }
-                    /* store directly into local var, bypass lexical catch scope */
+                    /*  直接存储到本地变量中，绕过词法捕获范围。 */ 
                     emit_op(s, OP_dup);
                     emit_op(s, OP_scope_put_var);
                     emit_atom(s, func_name);
@@ -31415,12 +30987,12 @@ done:
                 }
             }
             if (lexical_func_idx >= 0) {
-                /* lexical variable will be initialized upon entering scope */
+                /*  词法变量将在输入作用域时初始化。 */ 
                 s->cur_func->vars[lexical_func_idx].func_pool_or_scope_idx = idx;
                 emit_op(s, OP_drop);
             } else {
-                /* store function object into its lexical name */
-                /* XXX: could use OP_put_loc directly */
+                /*  将函数对象存储到其词法名称中。 */ 
+                /*  Xxx：可以直接使用op_put_loc。 */ 
                 emit_op(s, OP_scope_put_var_init);
                 emit_atom(s, func_name);
                 emit_u16(s, s->cur_func->scope_level);
@@ -31431,16 +31003,16 @@ done:
 
                 if (var_idx < 0)
                     goto fail;
-                /* the variable will be assigned at the top of the function */
+                /*  变量将在函数的顶部赋值。 */ 
                 if (!add_hoisted_def(ctx, s->cur_func, idx, JS_ATOM_NULL, var_idx, FALSE))
                     goto fail;
             } else {
                 JSAtom func_var_name;
                 if (func_name == JS_ATOM_NULL)
-                    func_var_name = JS_ATOM__default_; /* export default */
+                    func_var_name = JS_ATOM__default_; /*  导出默认设置。 */ 
                 else
                     func_var_name = func_name;
-                /* the variable will be assigned at the top of the function */
+                /*  变量将在函数的顶部赋值。 */ 
                 if (!add_hoisted_def(ctx, s->cur_func, idx, func_var_name, -1, FALSE))
                     goto fail;
                 if (export_flag != JS_PARSE_EXPORT_NONE) {
@@ -31488,7 +31060,7 @@ static __exception int js_parse_program(JSParseState *s)
         !(fd->js_mode & JS_MODE_STRICT);
 
     if (!s->is_module) {
-        /* hidden variable for the return value */
+        /*  返回值的隐藏变量。 */ 
         fd->eval_ret_idx = idx = add_var(s->ctx, fd, JS_ATOM__ret_);
         if (idx < 0)
             return -1;
@@ -31500,7 +31072,7 @@ static __exception int js_parse_program(JSParseState *s)
     }
 
     if (!s->is_module) {
-        /* return the value of the hidden variable eval_ret_idx  */
+        /*  返回隐藏变量eval_ret_idx的值。 */ 
         emit_op(s, OP_get_loc);
         emit_u16(s, fd->eval_ret_idx);
 
@@ -31540,7 +31112,7 @@ static JSValue JS_EvalFunctionInternal(JSContext *ctx, JSValue fun_obj,
     } else if (tag == JS_TAG_MODULE) {
         JSModuleDef *m;
         m = JS_VALUE_GET_PTR(fun_obj);
-        /* the module refcount should be >= 2 */
+        /*  模块引用计数应大于等于2。 */ 
         JS_FreeValue(ctx, fun_obj);
         if (js_instantiate_module(ctx, m) < 0)
             goto fail;
@@ -31584,7 +31156,7 @@ static void skip_shebang(JSParseState *s)
     }
 }
 
-/* 'input' must be zero terminated i.e. input[input_len] = '\0'. */
+/*  ‘Input’必须以零结尾，即Input[Input_len]=‘\0’。 */ 
 static JSValue __JS_EvalInternal(JSContext *ctx, JSValueConst this_obj,
                                  const char *input, size_t input_len,
                                  const char *filename, int flags, int scope_idx)
@@ -31659,7 +31231,7 @@ static JSValue __JS_EvalInternal(JSContext *ctx, JSValueConst this_obj,
     s->is_module = (m != NULL);
     s->allow_html_comments = !s->is_module;
 
-    push_scope(s); /* body scope */
+    push_scope(s); /*  身体范围。 */ 
 
     err = js_parse_program(s);
     if (err) {
@@ -31669,11 +31241,11 @@ static JSValue __JS_EvalInternal(JSContext *ctx, JSValueConst this_obj,
         goto fail1;
     }
 
-    /* create the function object and all the enclosed functions */
+    /*  创建函数对象和所有包含的函数。 */ 
     fun_obj = js_create_function(ctx, fd);
     if (JS_IsException(fun_obj))
         goto fail1;
-    /* Could add a flag to avoid resolution if necessary */
+    /*  如有必要，可以添加标志以避免解析。 */ 
     if (m) {
         m->func_obj = fun_obj;
         if (js_resolve_module(ctx, m) < 0)
@@ -31687,13 +31259,13 @@ static JSValue __JS_EvalInternal(JSContext *ctx, JSValueConst this_obj,
     }
     return ret_val;
  fail1:
-    /* XXX: should free all the unresolved dependencies */
+    /*  XXX：应该释放所有未解析的依赖项。 */ 
     if (m)
         js_free_module_def(ctx, m);
     return JS_EXCEPTION;
 }
 
-/* the indirection is needed to make 'eval' optional */
+/*  需要使用间接地址才能使‘val’成为可选的。 */ 
 static JSValue JS_EvalInternal(JSContext *ctx, JSValueConst this_obj,
                                const char *input, size_t input_len,
                                const char *filename, int flags, int scope_idx)
@@ -31748,8 +31320,8 @@ int JS_ResolveModule(JSContext *ctx, JSValueConst obj)
     return 0;
 }
 
-/*******************************************************************/
-/* binary object writer & reader */
+/*  *****************************************************************。 */ 
+/*  二进制对象写入器和读取器。 */ 
 
 typedef enum BCTagEnum {
     BC_TAG_NULL = 1,
@@ -31871,7 +31443,7 @@ static int bc_atom_to_idx(BCWriterState *s, uint32_t *pres, JSAtom atom)
     if (atom >= s->atom_to_idx_size) {
         size_t new_size, i, slack;
         uint32_t *new_tab;
-        /* XXX: potential arithmetic overflow */
+        /*  XXX：潜在的算术溢出。 */ 
         new_size = s->atom_to_idx_size * 3 / 2;
         if ((atom + 1) > new_size)
             new_size = atom + 1;
@@ -32229,8 +31801,7 @@ static int JS_WriteObjectRec(BCWriterState *s, JSValueConst obj)
             p->tmp_mark = 1;
             if (p->class_id == JS_CLASS_ARRAY) {
                 if (s->allow_bytecode && !p->extensible) {
-                    /* not extensible array: we consider it is a
-                       template when we are saving bytecode */
+                    /*  不可扩展的数组：我们认为它是一个模板，当我们保存字节码时。 */ 
                     bc_put_u8(s, BC_TAG_TEMPLATE_OBJECT);
                     is_template = TRUE;
                 } else {
@@ -32320,10 +31891,9 @@ static int JS_WriteObjectRec(BCWriterState *s, JSValueConst obj)
                     JS_ThrowInternalError(s->ctx, "bignum is too large");
                     goto fail;
                 }
-                /* XXX: it would be slightly more efficient to put the
-                   sign in the MSB of the mantissa */
+                /*  XXX：如果将在尾数的MSB上签名。 */ 
                 bc_put_leb128(s, len * 2 + a->sign);
-                /* always saved in byte based little endian representation */
+                /*  始终以基于字节的小端表示形式保存。 */ 
                 for(j = 0; j < n1; j++) {
                     dbuf_putc(&s->dbuf, v >> (j * 8));
                 }
@@ -32349,9 +31919,9 @@ static int JS_WriteObjectRec(BCWriterState *s, JSValueConst obj)
 #endif
                 bc_put_sleb128(s, a->expn);
             } else {
-                bc_put_leb128(s, a->sign); /* length + sign */
+                bc_put_leb128(s, a->sign); /*  长度+符号。 */ 
                 if (tag == JS_TAG_BIG_FLOAT) {
-                    /* special numbers */
+                    /*  特殊号码。 */ 
                     if (a->expn == BF_EXP_ZERO) {
                         e = 0;
                     } else if (a->expn == BF_EXP_INF) {
@@ -32376,7 +31946,7 @@ static int JS_WriteObjectRec(BCWriterState *s, JSValueConst obj)
     return -1;
 }
 
-/* create the atom table */
+/*  创建原子表。 */ 
 static int JS_WriteObjectAtoms(BCWriterState *s)
 {
     JSRuntime *rt = s->ctx->rt;
@@ -32397,11 +31967,10 @@ static int JS_WriteObjectAtoms(BCWriterState *s)
         JSAtomStruct *p = rt->atom_array[s->idx_to_atom[i]];
         JS_WriteString(s, p);
     }
-    /* XXX: should check for OOM in above phase */
+    /*  XXX：应在上述阶段检查OOM。 */ 
 
-    /* move the atoms at the start */
-    /* XXX: could just append dbuf1 data, but it uses more memory if
-       dbuf1 is larger than dbuf */
+    /*  在开始时移动原子。 */ 
+    /*  XXX：只能追加dbuf1数据，但在以下情况下会占用更多内存Dbuf1大于dbuf。 */ 
     atoms_size = s->dbuf.size;
     if (dbuf_realloc(&dbuf1, dbuf1.size + atoms_size))
         goto fail;
@@ -32423,10 +31992,10 @@ uint8_t *JS_WriteObject(JSContext *ctx, size_t *psize, JSValueConst obj,
 
     memset(s, 0, sizeof(*s));
     s->ctx = ctx;
-    /* XXX: byte swapped output is untested */
+    /*  Xxx：未测试字节交换输出。 */ 
     s->byte_swap = ((flags & JS_WRITE_OBJ_BSWAP) != 0);
     s->allow_bytecode = ((flags & JS_WRITE_OBJ_BYTECODE) != 0);
-    /* XXX: could use a different version when bytecode is included */
+    /*  XXX：包含字节码时可以使用不同的版本。 */ 
     if (s->allow_bytecode)
         s->first_atom = JS_ATOM_END;
     else
@@ -32510,7 +32079,7 @@ static int bc_read_error_end(BCReaderState *s)
 static int bc_get_u8(BCReaderState *s, uint8_t *pval)
 {
     if (unlikely(s->buf_end - s->ptr < 1)) {
-        *pval = 0; /* avoid warning */
+        *pval = 0; /*  避免警告。 */ 
         return bc_read_error_end(s);
     }
     *pval = *s->ptr++;
@@ -32520,7 +32089,7 @@ static int bc_get_u8(BCReaderState *s, uint8_t *pval)
 static int bc_get_u16(BCReaderState *s, uint16_t *pval)
 {
     if (unlikely(s->buf_end - s->ptr < 2)) {
-        *pval = 0; /* avoid warning */
+        *pval = 0; /*  避免警告。 */ 
         return bc_read_error_end(s);
     }
     *pval = get_u16(s->ptr);
@@ -32531,7 +32100,7 @@ static int bc_get_u16(BCReaderState *s, uint16_t *pval)
 static __maybe_unused int bc_get_u32(BCReaderState *s, uint32_t *pval)
 {
     if (unlikely(s->buf_end - s->ptr < 4)) {
-        *pval = 0; /* avoid warning */
+        *pval = 0; /*  避免警告。 */ 
         return bc_read_error_end(s);
     }
     *pval = get_u32(s->ptr);
@@ -32542,7 +32111,7 @@ static __maybe_unused int bc_get_u32(BCReaderState *s, uint32_t *pval)
 static int bc_get_u64(BCReaderState *s, uint64_t *pval)
 {
     if (unlikely(s->buf_end - s->ptr < 8)) {
-        *pval = 0; /* avoid warning */
+        *pval = 0; /*  避免警告。 */ 
         return bc_read_error_end(s);
     }
     *pval = get_u64(s->ptr);
@@ -32570,7 +32139,7 @@ static int bc_get_sleb128(BCReaderState *s, int32_t *pval)
     return 0;
 }
 
-/* XXX: used to read an `int` with a positive value */
+/*  Xxx：用于读取带正值的`int`。 */ 
 static int bc_get_leb128_int(BCReaderState *s, int *pval)
 {
     return bc_get_leb128(s, (uint32_t *)pval);
@@ -32658,7 +32227,7 @@ static JSString *JS_ReadString(BCReaderState *s)
     memcpy(p->u.str8, s->ptr, size);
     s->ptr += size;
     if (!is_wide_char) {
-        p->u.str8[size] = '\0'; /* add the trailing zero for 8 bit strings */
+        p->u.str8[size] = '\0'; /*  为8位字符串添加尾随零。 */ 
     }
 #ifdef DUMP_READ_OBJECT
     bc_read_trace(s, "string: "); JS_DumpString(s->ctx->rt, p); printf("\n");
@@ -32669,7 +32238,7 @@ static JSString *JS_ReadString(BCReaderState *s)
 static uint32_t bc_get_flags(uint32_t flags, int *pidx, int n)
 {
     uint32_t val;
-    /* XXX: this does not work for n == 32 */
+    /*  XXX：这在n==32时不起作用。 */ 
     val = (flags >> *pidx) & ((1U << n) - 1);
     *pidx += n;
     return val;
@@ -32684,7 +32253,7 @@ static int JS_ReadFunctionBytecode(BCReaderState *s, JSFunctionBytecode *b,
     uint32_t idx;
 
     if (s->is_rom_data) {
-        /* directly use the input buffer */
+        /*  直接使用输入缓冲区。 */ 
         if (unlikely(s->buf_end - s->ptr < bc_len))
             return bc_read_error_end(s);
         bc_buf = (uint8_t *)s->ptr;
@@ -32708,11 +32277,11 @@ static int JS_ReadFunctionBytecode(BCReaderState *s, JSFunctionBytecode *b,
         case OP_FMT_atom_label_u16:
             idx = get_u32(bc_buf + pos + 1);
             if (s->is_rom_data) {
-                /* just increment the reference count of the atom */
+                /*  只需增加原子的引用计数。 */ 
                 JS_DupAtom(s->ctx, (JSAtom)idx);
             } else {
                 if (bc_idx_to_atom(s, &atom, idx)) {
-                    /* Note: the atoms will be freed up to this position */
+                    /*  注：原子将被释放到此位置。 */ 
                     b->byte_code_len = pos;
                     return -1;
                 }
@@ -32796,7 +32365,7 @@ static JSValue JS_ReadObjectRec(BCReaderState *s)
 
             memset(&bc, 0, sizeof(bc));
             bc.header.ref_count = 1;
-            //bc.gc_header.mark = 0;
+            //  Bc.gc_header.mark=0；
 
             if (bc_get_u16(s, &v16))
                 goto fail;
@@ -32815,7 +32384,7 @@ static JSValue JS_ReadObjectRec(BCReaderState *s)
             if (bc_get_u8(s, &v8))
                 goto fail;
             bc.js_mode = v8;
-            if (bc_get_atom(s, &bc.func_name))  //@ atom leak if failure
+            if (bc_get_atom(s, &bc.func_name))  //  @原子泄漏，如果失败。
                 goto fail;
             if (bc_get_leb128_u16(s, &bc.arg_count))
                 goto fail;
@@ -32924,7 +32493,7 @@ static JSValue JS_ReadObjectRec(BCReaderState *s)
                 bc_read_trace(s, "}\n");
             }
             if (b->has_debug) {
-                /* read optional debug information */
+                /*  读取可选的调试信息。 */ 
                 bc_read_trace(s, "debug {\n");
                 if (bc_get_atom(s, &b->debug.filename))
                     goto fail;
@@ -33237,7 +32806,7 @@ static int JS_ReadObjectAtoms(BCReaderState *s)
 
     if (bc_get_u8(s, &v8))
         return -1;
-    /* XXX: could support byte swapped input */
+    /*  XXX：可以支持字节交换输入。 */ 
     if (v8 != BC_VERSION) {
 #if !defined(_MSC_VER)
 		JS_ThrowSyntaxError(s->ctx, "invalid version (%d expected=%d)",
@@ -33267,7 +32836,7 @@ static int JS_ReadObjectAtoms(BCReaderState *s)
             return s->error_state = -1;
         s->idx_to_atom[i] = atom;
         if (s->is_rom_data && (atom != (i + s->first_atom)))
-            s->is_rom_data = FALSE; /* atoms must be relocated */
+            s->is_rom_data = FALSE; /*  原子必须重新定位。 */ 
     }
     bc_read_trace(s, "}\n");
     return 0;
@@ -33313,8 +32882,8 @@ JSValue JS_ReadObject(JSContext *ctx, const uint8_t *buf, size_t buf_len,
     return obj;
 }
 
-/*******************************************************************/
-/* runtime functions & objects */
+/*  *****************************************************************。 */ 
+/*  运行时函数和对象。 */ 
 
 static JSValue js_string_constructor(JSContext *ctx, JSValueConst this_val,
                                      int argc, JSValueConst *argv);
@@ -33345,8 +32914,7 @@ static JSAtom find_atom(JSContext *ctx, const char *name)
     if (*name == '[') {
         name++;
         len = strlen(name) - 1;
-        /* We assume 8 bit non null strings, which is the case for these
-           symbols */
+        /*  我们假设8位非空字符串，这就是以下情况符号。 */ 
         for(atom = JS_ATOM_Symbol_toPrimitive; atom < JS_ATOM_END; atom++) {
             JSAtomStruct *p = ctx->rt->atom_array[atom];
             JSString *str = p;
@@ -33393,10 +32961,10 @@ static int JS_InstantiateFunctionListItem(JSContext *ctx, JSObject *p,
                                e->name, e->u.func.length, e->u.func.cproto, e->magic);
     setval:
         if (atom == JS_ATOM_Symbol_toPrimitive) {
-            /* Symbol.toPrimitive functions are not writable */
+            /*  Symbol.toPrimitive函数不可写。 */ 
             prop_flags = JS_PROP_CONFIGURABLE;
         } else if (atom == JS_ATOM_Symbol_hasInstance) {
-            /* Function.prototype[Symbol.hasInstance] is not writable nor configurable */
+            /*  Function.Prototype[Symbol.hasInstance]不可写，也不可配置。 */ 
             prop_flags = 0;
         }
         break;
@@ -33532,7 +33100,7 @@ int JS_SetModuleExportList(JSContext *ctx, JSModuleDef *m,
     return 0;
 }
 
-/* Note: 'func_obj' is not necessarily a constructor */
+/*  注意：‘func_obj’不一定是构造函数。 */ 
 static void JS_SetConstructor2(JSContext *ctx,
                                JSValueConst func_obj,
                                JSValueConst proto,
@@ -33598,7 +33166,7 @@ static JSValue js_global_isNaN(JSContext *ctx, JSValueConst this_val,
 {
     double d;
 
-    /* XXX: does this work for bigfloat? */
+    /*  XXX：这对BigFloat有效吗？ */ 
     if (unlikely(JS_ToFloat64(ctx, &d, argv[0])))
         return JS_EXCEPTION;
     return JS_NewBool(ctx, isnan(d));
@@ -33650,7 +33218,7 @@ static JSValue js_global_isFinite(JSContext *ctx, JSValueConst this_val,
     return JS_NewBool(ctx, res);
 }
 
-/* Object class */
+/*  对象类。 */ 
 
 static JSValue JS_ToObject(JSContext *ctx, JSValueConst val)
 {
@@ -33688,7 +33256,7 @@ static JSValue JS_ToObject(JSContext *ctx, JSValueConst val)
         goto set_value;
 #endif
     case JS_TAG_STRING:
-        /* XXX: should call the string constructor */
+        /*  XXX：应调用字符串构造函数。 */ 
         {
             JSString *p1 = JS_VALUE_GET_STRING(val);
             obj = JS_NewObjectClass(ctx, JS_CLASS_STRING);
@@ -33899,8 +33467,7 @@ static JSValue js_object_getPrototypeOf(JSContext *ctx, JSValueConst this_val,
 
     val = argv[0];
     if (JS_VALUE_GET_TAG(val) != JS_TAG_OBJECT) {
-        /* ES6 feature non compatible with ES5.1: primitive types are
-           accepted */
+        /*  ES6功能与ES5.1不兼容：基本类型为接受。 */ 
         if (magic || JS_VALUE_GET_TAG(val) == JS_TAG_NULL ||
             JS_VALUE_GET_TAG(val) == JS_TAG_UNDEFINED)
             return JS_ThrowTypeErrorNotAnObject(ctx);
@@ -33918,7 +33485,7 @@ static JSValue js_object_setPrototypeOf(JSContext *ctx, JSValueConst this_val,
     return JS_DupValue(ctx, obj);
 }
 
-/* magic = 1 if called as Reflect.defineProperty */
+/*  Magic=1，如果作为Reflect.fineProperty调用。 */ 
 static JSValue js_object_defineProperty(JSContext *ctx, JSValueConst this_val,
                                         int argc, JSValueConst *argv, int magic)
 {
@@ -33952,7 +33519,7 @@ static JSValue js_object_defineProperty(JSContext *ctx, JSValueConst this_val,
 static JSValue js_object_defineProperties(JSContext *ctx, JSValueConst this_val,
                                           int argc, JSValueConst *argv)
 {
-    // defineProperties(obj, properties)
+    //  定义属性(obj，属性)。
     JSValueConst obj = argv[0];
 
     if (JS_ObjectDefineProperties(ctx, obj, argv[1]))
@@ -33961,7 +33528,7 @@ static JSValue js_object_defineProperties(JSContext *ctx, JSValueConst this_val,
         return JS_DupValue(ctx, obj);
 }
 
-/* magic = 1 if called as __defineSetter__ */
+/*  如果调用为__fineSetter__，则Magic=1。 */ 
 static JSValue js_object___defineGetter__(JSContext *ctx, JSValueConst this_val,
                                           int argc, JSValueConst *argv, int magic)
 {
@@ -34018,7 +33585,7 @@ static JSValue js_object_getOwnPropertyDescriptor(JSContext *ctx, JSValueConst t
     int res, flags;
 
     if (magic) {
-        /* Reflect.getOwnPropertyDescriptor case */
+        /*  Reflect.getOwnPropertyDescriptor大小写。 */ 
         if (JS_VALUE_GET_TAG(argv[0]) != JS_TAG_OBJECT)
             return JS_ThrowTypeErrorNotAnObject(ctx);
         obj = JS_DupValue(ctx, argv[0]);
@@ -34075,7 +33642,7 @@ exception:
 static JSValue js_object_getOwnPropertyDescriptors(JSContext *ctx, JSValueConst this_val,
                                                    int argc, JSValueConst *argv)
 {
-    //getOwnPropertyDescriptors(obj)
+    //  GetOwnPropertyDescriptors(Obj)。
     JSValue obj, r;
     JSObject *p;
     JSPropertyEnum *props;
@@ -34148,7 +33715,7 @@ static JSValue JS_GetOwnPropertyNames2(JSContext *ctx, JSValueConst obj1,
             JSPropertyDescriptor desc;
             int res;
 
-            /* Check if property is still enumerable */
+            /*  检查属性是否仍是可枚举的。 */ 
             res = JS_GetOwnPropertyInternal(ctx, &desc, p, atom);
             if (res < 0)
                 goto exception;
@@ -34273,7 +33840,7 @@ static JSValue js_object_hasOwnProperty(JSContext *ctx, JSValueConst this_val,
     JSObject *p;
     BOOL ret;
 
-    atom = JS_ValueToAtom(ctx, argv[0]); /* must be done first */
+    atom = JS_ValueToAtom(ctx, argv[0]); /*  必须先做好。 */ 
     if (unlikely(atom == JS_ATOM_NULL))
         return JS_EXCEPTION;
     obj = JS_ToObject(ctx, this_val);
@@ -34361,7 +33928,7 @@ static JSValue js_object_toLocaleString(JSContext *ctx, JSValueConst this_val,
 static JSValue js_object_assign(JSContext *ctx, JSValueConst this_val,
                                 int argc, JSValueConst *argv)
 {
-    // Object.assign(obj, source1)
+    //  对象.分配(obj，Source1)。
     JSValue obj, s;
     int i;
 
@@ -34483,8 +34050,7 @@ static JSValue js_object_fromEntries(JSContext *ctx, JSValueConst this_val,
     JSValueConst iterable;
     BOOL done;
 
-    /*  RequireObjectCoercible() not necessary because it is tested in
-        JS_GetIterator() by JS_GetProperty() */
+    /*  RequireObjectCoercible()不是必需的，因为它是在JS_GetProperty()的JS_GetIterator()。 */ 
     iterable = argv[0];
 
     obj = JS_NewObject(ctx);
@@ -34535,7 +34101,7 @@ static JSValue js_object_fromEntries(JSContext *ctx, JSValueConst this_val,
     return obj;
  fail:
     if (JS_IsObject(iter)) {
-        /* close the iterator object, preserving pending exception */
+        /*  关闭迭代器对象，保留挂起的异常。 */ 
         JS_IteratorClose(ctx, iter, TRUE);
     }
     JS_FreeValue(ctx, next_method);
@@ -34545,7 +34111,7 @@ static JSValue js_object_fromEntries(JSContext *ctx, JSValueConst this_val,
 }
 
 #if 0
-/* Note: corresponds to ECMA spec: CreateDataPropertyOrThrow() */
+/*  注：对应于ECMA规范：CreateDataPropertyOrThrow()。 */ 
 static JSValue js_object___setOwnProperty(JSContext *ctx, JSValueConst this_val,
                                           int argc, JSValueConst *argv)
 {
@@ -34577,7 +34143,7 @@ static JSValue js_object___toPrimitive(JSContext *ctx, JSValueConst this_val,
 }
 #endif
 
-/* return an empty string if not an object */
+/*  如果不是对象，则返回空字符串。 */ 
 static JSValue js_object___getClass(JSContext *ctx, JSValueConst this_val,
                                     int argc, JSValueConst *argv)
 {
@@ -34841,16 +34407,16 @@ static const JSCFunctionListEntry js_object_funcs[] = {
     JS_CFUNC_MAGIC_DEF("isSealed", 1, js_object_isSealed, 0 ),
     JS_CFUNC_MAGIC_DEF("isFrozen", 1, js_object_isSealed, 1 ),
     JS_CFUNC_DEF("__getClass", 1, js_object___getClass ),
-    //JS_CFUNC_DEF("__isObject", 1, js_object___isObject ),
-    //JS_CFUNC_DEF("__isConstructor", 1, js_object___isConstructor ),
-    //JS_CFUNC_DEF("__toObject", 1, js_object___toObject ),
-    //JS_CFUNC_DEF("__setOwnProperty", 3, js_object___setOwnProperty ),
-    //JS_CFUNC_DEF("__toPrimitive", 2, js_object___toPrimitive ),
-    //JS_CFUNC_DEF("__toPropertyKey", 1, js_object___toPropertyKey ),
-    //JS_CFUNC_DEF("__speciesConstructor", 2, js_object___speciesConstructor ),
-    //JS_CFUNC_DEF("__isSameValueZero", 2, js_object___isSameValueZero ),
-    //JS_CFUNC_DEF("__getObjectData", 1, js_object___getObjectData ),
-    //JS_CFUNC_DEF("__setObjectData", 2, js_object___setObjectData ),
+    //  Js_CFUNC_DEF(“__isObject”，1，js_Object_isObject)，
+    //  Js_CFUNC_DEF(“__isConstructor”，1，js_Object_isConstructor)，
+    //  Js_CFUNC_DEF(“__toObject”，1，js_Object_toObject)，
+    //  Js_CFUNC_DEF(“__setOwnProperty”，3，js_Object_setOwnProperty)，
+    //  Js_CFUNC_DEF(“__toPrimitive”，2，js_Object__toPrimitive)，
+    //  Js_CFUNC_DEF(“__toPropertyKey”，1，js_Object_toPropertyKey)，
+    //  
+    //  
+    //  Js_CFUNC_DEF(“__getObjectData”，1，js_Object_getObjectData)，
+    //  Js_CFUNC_DEF(“__setObjectData”，2，js_Object_setObjectData)，
     JS_CFUNC_DEF("fromEntries", 1, js_object_fromEntries ),
 };
 
@@ -34868,7 +34434,7 @@ static const JSCFunctionListEntry js_object_proto_funcs[] = {
     JS_CFUNC_MAGIC_DEF("__lookupSetter__", 1, js_object___lookupGetter__, 1 ),
 };
 
-/* Function class */
+/*  函数类。 */ 
 
 static JSValue js_function_proto(JSContext *ctx, JSValueConst this_val,
                                  int argc, JSValueConst *argv)
@@ -34876,8 +34442,7 @@ static JSValue js_function_proto(JSContext *ctx, JSValueConst this_val,
     return JS_UNDEFINED;
 }
 
-/* insert a '\n' at unicode character position 'pos' in the source of
-   'func_obj' */
+/*  在源文件中的Unicode字符位置‘pos’处插入‘\n’‘func_obj’ */ 
 static int patch_function_constructor_source(JSContext *ctx,
                                              JSValueConst func_obj,
                                              size_t pos)
@@ -34901,7 +34466,7 @@ static int patch_function_constructor_source(JSContext *ctx,
     idx = 0;
     while (r < r_end) {
         if (idx == pos) {
-            /* add the '\n' */
+            /*  添加‘\n’ */ 
             new_source = js_realloc(ctx, b->debug.source,
                                     b->debug.source_len + 2);
             if (!new_source)
@@ -34923,7 +34488,7 @@ static int patch_function_constructor_source(JSContext *ctx,
     return 0;
 }
                                              
-/* XXX: add a specific eval mode so that Function("}), ({") is rejected */
+/*  Xxx：添加特定的求值模式，以便拒绝函数(“})、({”)。 */ 
 static JSValue js_function_constructor(JSContext *ctx, JSValueConst new_target,
                                        int argc, JSValueConst *argv, int magic)
 {
@@ -34954,12 +34519,9 @@ static JSValue js_function_constructor(JSContext *ctx, JSValueConst new_target,
             goto fail;
     }
     string_buffer_puts8(b, "\n) {");
-    /* Annex B HTML comments: We don't add a '\n' after "{" so that
-       "-->" is not considered as an HTML comment. It is necessary
-       because in the spec the function body is parsed separately. */
-    /* XXX: find a simpler way or be deliberately incompatible to
-       simplify the code ? */
-    func_start_pos = b->len - 1; /* the leading '(' is not in the source */
+    /*  附件B HTML注释：我们不在“{”之后添加‘\n’，因此“--&gt;”不被视为HTML注释。这是必要的因为在规范中，函数体是单独解析的。 */ 
+    /*  XXX：找到一种更简单的方法，或者故意与简化代码？ */ 
+    func_start_pos = b->len - 1; /*  前导‘(’不在源代码中。 */ 
     if (n >= 0) {
         if (string_buffer_concat_value(b, argv[n]))
             goto fail;
@@ -34976,7 +34538,7 @@ static JSValue js_function_constructor(JSContext *ctx, JSValueConst new_target,
     if (patch_function_constructor_source(ctx, obj, func_start_pos) < 0)
         goto fail1;
     if (!JS_IsUndefined(new_target)) {
-        /* set the prototype */
+        /*  设定原型。 */ 
         proto = js_get_prototype_from_ctor(ctx, new_target, JS_UNDEFINED);
         if (JS_IsException(proto))
             goto fail1;
@@ -35029,7 +34591,7 @@ static void free_arg_list(JSContext *ctx, JSValue *tab, uint32_t len)
     js_free(ctx, tab);
 }
 
-/* XXX: should use ValueArray */
+/*  XXX：应使用Value数组。 */ 
 static JSValue *build_arg_list(JSContext *ctx, uint32_t *plen,
                                JSValueConst array_arg)
 {
@@ -35043,7 +34605,7 @@ static JSValue *build_arg_list(JSContext *ctx, uint32_t *plen,
     }
     if (js_get_length32(ctx, &len, array_arg))
         return NULL;
-    /* avoid allocating 0 bytes */
+    /*  避免分配0字节。 */ 
     tab = js_mallocz(ctx, sizeof(tab[0]) * max_uint32(1, len));
     if (!tab)
         return NULL;
@@ -35232,7 +34794,7 @@ static const JSCFunctionListEntry js_function_proto_funcs[] = {
     JS_CGETSET_DEF("lineNumber", js_function_proto_lineNumber, NULL ),
 };
 
-/* Error class */
+/*  错误类。 */ 
 
 static JSValue js_error_constructor(JSContext *ctx, JSValueConst new_target,
                                     int argc, JSValueConst *argv, int magic)
@@ -35297,7 +34859,7 @@ static const JSCFunctionListEntry js_error_proto_funcs[] = {
     JS_PROP_STRING_DEF("message", "", JS_PROP_WRITABLE | JS_PROP_CONFIGURABLE ),
 };
 
-/* Array */
+/*  数组。 */ 
 
 static int JS_CopySubArray(JSContext *ctx,
                            JSValueConst obj, int64_t to_pos,
@@ -35307,7 +34869,7 @@ static int JS_CopySubArray(JSContext *ctx,
     JSValue val;
     int fromPresent;
 
-    /* XXX: should special case fast arrays */
+    /*  XXX：是否应在特殊情况下快速阵列。 */ 
     for (i = 0; i < count; i++) {
         if (dir < 0) {
             from = from_pos + count - i - 1;
@@ -35364,7 +34926,7 @@ fail:
 static JSValue js_array_from(JSContext *ctx, JSValueConst this_val,
                              int argc, JSValueConst *argv)
 {
-    // from(items, mapfn = void 0, this_arg = void 0)
+    //  From(项目，mapfn=空0，this_arg=空0)。
     JSValueConst items = argv[0], mapfn, this_arg;
     JSValueConst args[2];
     JSValue stack[2];
@@ -35679,7 +35241,7 @@ static JSValue js_array_every(JSContext *ctx, JSValueConst this_val,
         ret = JS_FALSE;
         break;
     case special_map:
-        /* XXX: JS_ArraySpeciesCreate should take int64_t */
+        /*  Xxx：js_ArraySpeciesCreate应采用int64_t。 */ 
         ret = JS_ArraySpeciesCreate(ctx, obj, JS_NewInt64(ctx, len));
         if (JS_IsException(ret))
             goto exception;
@@ -35887,7 +35449,7 @@ static JSValue js_array_fill(JSContext *ctx, JSValueConst this_val,
             goto exception;
     }
 
-    /* XXX: should special case fast arrays */
+    /*  XXX：是否应在特殊情况下快速阵列。 */ 
     while (start < end) {
         if (JS_SetPropertyInt64(ctx, obj, start,
                                 JS_DupValue(ctx, argv[0])) < 0)
@@ -36017,7 +35579,7 @@ static JSValue js_array_lastIndexOf(JSContext *ctx, JSValueConst this_val,
             if (JS_ToInt64Clamp(ctx, &n, argv[1], -1, len - 1, len))
                 goto exception;
         }
-        /* XXX: should special case fast arrays */
+        /*  XXX：是否应在特殊情况下快速阵列。 */ 
         for (; n >= 0; n--) {
             present = JS_TryGetPropertyInt64(ctx, obj, n, &val);
             if (present < 0)
@@ -36113,7 +35675,7 @@ static JSValue js_array_toString(JSContext *ctx, JSValueConst this_val,
         ret = JS_EXCEPTION;
     } else
     if (!JS_IsFunction(ctx, method)) {
-        /* Use intrinsic Object.prototype.toString */
+        /*  使用内部对象。协议类型.to字符串。 */ 
         JS_FreeValue(ctx, method);
         ret = js_object_toString(ctx, obj, 0, NULL);
     } else {
@@ -36136,7 +35698,7 @@ static JSValue js_array_join(JSContext *ctx, JSValueConst this_val,
     if (js_get_length64(ctx, &n, obj))
         goto exception;
 
-    c = ',';    /* default separator */
+    c = ',';    /*  默认分隔符。 */ 
     if (!toLocaleString && argc > 0 && !JS_IsUndefined(argv[0])) {
         sep = JS_ToString(ctx, argv[0]);
         if (JS_IsException(sep))
@@ -36194,7 +35756,7 @@ static JSValue js_array_pop(JSContext *ctx, JSValueConst this_val,
     newLen = 0;
     if (len > 0) {
         newLen = len - 1;
-        /* Special case fast arrays */
+        /*  特殊情况下的快速阵列。 */ 
         if (js_get_fast_array(ctx, obj, &arrp, &count32) && count32 == len) {
             JSObject *p = JS_VALUE_GET_OBJ(obj);
             if (shift) {
@@ -36284,7 +35846,7 @@ static JSValue js_array_reverse(JSContext *ctx, JSValueConst this_val,
     if (js_get_length64(ctx, &len, obj))
         goto exception;
 
-    /* Special case fast arrays */
+    /*  特殊情况下的快速阵列。 */ 
     if (js_get_fast_array(ctx, obj, &arrp, &count32) && count32 == len) {
         uint32_t ll, hh;
 
@@ -36375,7 +35937,7 @@ static JSValue js_array_slice(JSContext *ctx, JSValueConst this_val,
         }
         count = del_count;
     } else {
-        item_count = 0; /* avoid warning */
+        item_count = 0; /*  避免警告。 */ 
         final = len;
         if (!JS_IsUndefined(argv[1])) {
             if (JS_ToInt64Clamp(ctx, &final, argv[1], 0, len, len))
@@ -36392,19 +35954,17 @@ static JSValue js_array_slice(JSContext *ctx, JSValueConst this_val,
     k = start;
     final = start + count;
     n = 0;
-    /* The fast array test on arr ensures that
-       JS_CreateDataPropertyUint32() won't modify obj in case arr is
-       an exotic object */
-    /* Special case fast arrays */
+    /*  ARR上的快速阵列测试确保了如果arr为，JS_CreateDataPropertyUint32()不会修改obj异国情调的物体。 */ 
+    /*  特殊情况下的快速阵列。 */ 
     if (js_get_fast_array(ctx, obj, &arrp, &count32) &&
         js_is_fast_array(ctx, arr)) {
-        /* XXX: should share code with fast array constructor */
+        /*  XXX：应与快速数组构造函数共享代码。 */ 
         for (; k < final && k < count32; k++, n++) {
             if (JS_CreateDataPropertyUint32(ctx, arr, n, JS_DupValue(ctx, arrp[k]), JS_PROP_THROW) < 0)
                 goto exception;
         }
     }
-    /* Copy the remaining elements if any (handle case of inherited properties) */
+    /*  复制其余元素(如果有)(处理继承属性的大小写)。 */ 
     for (; k < final; k++, n++) {
         kPresent = JS_TryGetPropertyInt64(ctx, obj, k, &val);
         if (kPresent < 0)
@@ -36581,7 +36141,7 @@ exception:
     return JS_EXCEPTION;
 }
 
-/* Array sort */
+/*  数组排序。 */ 
 
 typedef struct ValueSlot {
     JSValue val;
@@ -36609,9 +36169,7 @@ static int js_array_cmp_generic(const void *a, const void *b, void *opaque) {
         return 0;
 
     if (psc->has_method) {
-        /* custom sort function is specified as returning 0 for identical
-         * objects: avoid method call overhead.
-         */
+        /*  如果相同，则将自定义排序函数指定为返回0*对象：避免方法调用开销。 */ 
         if (!memcmp(&ap->val, &bp->val, sizeof(ap->val)))
             goto cmp_same;
         argv[0] = ap->val;
@@ -36629,9 +36187,7 @@ static int js_array_cmp_generic(const void *a, const void *b, void *opaque) {
             cmp = (val > 0) - (val < 0);
         }
     } else {
-        /* Not supposed to bypass ToString even for identical objects as
-         * tested in test262/test/built-ins/Array/prototype/sort/bug_596_1.js
-         */
+        /*  即使对于相同的对象，也不应绕过ToString*在test262/test/built-ins/Array/prototype/sort/bug_596_1.js中测试。 */ 
         if (!ap->str) {
             JSValue str = JS_ToString(ctx, ap->val);
             if (JS_IsException(str))
@@ -36649,7 +36205,7 @@ static int js_array_cmp_generic(const void *a, const void *b, void *opaque) {
     if (cmp != 0)
         return cmp;
 cmp_same:
-    /* make sort stable: compare array offsets */
+    /*  使排序稳定：比较数组偏移量。 */ 
     return (ap->pos > bp->pos) - (ap->pos < bp->pos);
 
 exception:
@@ -36676,7 +36232,7 @@ static JSValue js_array_sort(JSContext *ctx, JSValueConst this_val,
     if (js_get_length64(ctx, &len, obj))
         goto exception;
 
-    /* XXX: should special case fast arrays */
+    /*  XXX：是否应在特殊情况下快速阵列。 */ 
     for (i = 0; i < len; i++) {
         if (pos >= array_size) {
             size_t new_size, slack;
@@ -36706,7 +36262,7 @@ static JSValue js_array_sort(JSContext *ctx, JSValueConst this_val,
     if (asc.exception)
         goto exception;
 
-    /* XXX: should special case fast arrays */
+    /*  XXX：是否应在特殊情况下快速阵列。 */ 
     while (n < pos) {
         if (array[n].str)
             JS_FreeValue(ctx, JS_MKPTR(JS_TAG_STRING, array[n].str));
@@ -36796,7 +36352,7 @@ static JSValue js_create_array_iterator(JSContext *ctx, JSValueConst this_val,
 
     kind = magic & 3;
     if (magic & 4) {
-        /* string iterator case */
+        /*  字符串迭代器大小写。 */ 
         arr = JS_ToStringCheckObject(ctx, this_val);
         class_id = JS_CLASS_STRING_ITERATOR;
     } else {
@@ -36935,7 +36491,7 @@ static const JSCFunctionListEntry js_array_iterator_proto_funcs[] = {
     JS_PROP_STRING_DEF("[Symbol.toStringTag]", "Array Iterator", JS_PROP_CONFIGURABLE ),
 };
 
-/* Number */
+/*  数。 */ 
 
 static JSValue js_number_constructor(JSContext *ctx, JSValueConst new_target,
                                      int argc, JSValueConst *argv)
@@ -36964,7 +36520,7 @@ static JSValue js_number_constructor(JSContext *ctx, JSValueConst new_target,
             break;
         case JS_TAG_INT:
             if (is_bignum_mode(ctx)) {
-                /* always return a number in bignum mode */
+                /*  始终在bignum模式下返回数字。 */ 
                 val = __JS_NewFloat64(ctx, JS_VALUE_GET_INT(val));
             }
             break;
@@ -37011,7 +36567,7 @@ static JSValue js_number___toLength(JSContext *ctx, JSValueConst this_val,
 static JSValue js_number_isNaN(JSContext *ctx, JSValueConst this_val,
                                int argc, JSValueConst *argv)
 {
-    /* XXX: should just check for float and big_float */
+    /*  XXX：应该只检查FLOAT和BIG_FLOAT。 */ 
     if (!JS_IsNumber(argv[0]))
         return JS_FALSE;
     return js_global_isNaN(ctx, this_val, argc, argv);
@@ -37049,7 +36605,7 @@ static JSValue js_number_isSafeInteger(JSContext *ctx, JSValueConst this_val,
 }
 
 static const JSCFunctionListEntry js_number_funcs[] = {
-    /* global ParseInt and parseFloat should be defined already or delayed */
+    /*  全局ParseInt和parseFloat应已定义或延迟。 */ 
     JS_ALIAS_BASE_DEF("parseInt", "parseInt", 0 ),
     JS_ALIAS_BASE_DEF("parseFloat", "parseFloat", 0 ),
     JS_CFUNC_DEF("isNaN", 1, js_number_isNaN ),
@@ -37064,8 +36620,8 @@ static const JSCFunctionListEntry js_number_funcs[] = {
     JS_PROP_DOUBLE_DEF("EPSILON", 2.220446049250313e-16, 0 ), /* ES6 */
     JS_PROP_DOUBLE_DEF("MAX_SAFE_INTEGER", 9007199254740991.0, 0 ), /* ES6 */
     JS_PROP_DOUBLE_DEF("MIN_SAFE_INTEGER", -9007199254740991.0, 0 ), /* ES6 */
-    //JS_CFUNC_DEF("__toInteger", 1, js_number___toInteger ),
-    //JS_CFUNC_DEF("__toLength", 1, js_number___toLength ),
+    //  Js_CFUNC_DEF(“__toInteger”，1，js_number_toInteger)，
+    //  Js_CFUNC_DEF(“__toLength”，1，js_number_toLength)，
 };
 
 static JSValue js_thisNumberValue(JSContext *ctx, JSValueConst this_val)
@@ -37291,7 +36847,7 @@ static const JSCFunctionListEntry js_number_proto_funcs[] = {
     JS_CFUNC_DEF("valueOf", 0, js_number_valueOf ),
 };
 
-#else /* !CONFIG_BIGNUM */
+#else /*  ！CONFIG_BIGNUM。 */ 
 
 static JSValue js_number_toFixed(JSContext *ctx, JSValueConst this_val,
                                  int argc, JSValueConst *argv)
@@ -37379,7 +36935,7 @@ static const JSCFunctionListEntry js_number_proto_funcs[] = {
     JS_CFUNC_DEF("valueOf", 0, js_number_valueOf ),
 };
 
-#endif /* !CONFIG_BIGNUM */
+#endif /*  ！CONFIG_BIGNUM。 */ 
 
 
 static JSValue js_parseInt(JSContext *ctx, JSValueConst this_val,
@@ -37432,7 +36988,7 @@ static JSValue js_parseFloat(JSContext *ctx, JSValueConst this_val,
     return ret;
 }
 
-/* Boolean */
+/*  布尔型。 */ 
 static JSValue js_boolean_constructor(JSContext *ctx, JSValueConst new_target,
                                      int argc, JSValueConst *argv)
 {
@@ -37484,7 +37040,7 @@ static const JSCFunctionListEntry js_boolean_proto_funcs[] = {
     JS_CFUNC_DEF("valueOf", 0, js_boolean_valueOf ),
 };
 
-/* String */
+/*  细绳。 */ 
 
 static int js_string_get_own_property(JSContext *ctx,
                                       JSPropertyDescriptor *desc,
@@ -37494,7 +37050,7 @@ static int js_string_get_own_property(JSContext *ctx,
     JSString *p1;
     uint32_t idx, ch;
 
-    /* This is a class exotic method: obj class_id is JS_CLASS_STRING */
+    /*  这是一个奇特的类方法：OBJ CLASS_ID是JS_CLASS_STRING。 */ 
     if (__JS_AtomIsTaggedInt(prop)) {
         p = JS_VALUE_GET_OBJ(obj);
         if (JS_VALUE_GET_TAG(p->u.object_data) == JS_TAG_STRING) {
@@ -37525,7 +37081,7 @@ static uint32_t js_string_obj_get_length(JSContext *ctx,
     JSString *p1;
     uint32_t len = 0;
 
-    /* This is a class exotic method: obj class_id is JS_CLASS_STRING */
+    /*  这是一个奇特的类方法：OBJ CLASS_ID是JS_CLASS_STRING。 */ 
     p = JS_VALUE_GET_OBJ(obj);
     if (JS_VALUE_GET_TAG(p->u.object_data) == JS_TAG_STRING) {
         p1 = JS_VALUE_GET_STRING(p->u.object_data);
@@ -37545,7 +37101,7 @@ static int js_string_get_own_property_names(JSContext *ctx,
     len = js_string_obj_get_length(ctx, obj);
     tab = NULL;
     if (len > 0) {
-        /* do not allocate 0 bytes */
+        /*  不分配0字节。 */ 
         tab = js_malloc(ctx, sizeof(JSPropertyEnum) * len);
         if (!tab)
             return -1;
@@ -37572,7 +37128,7 @@ static int js_string_define_own_property(JSContext *ctx,
             goto def;
         if (!check_define_prop_flags(JS_PROP_ENUMERABLE, flags))
             return JS_ThrowTypeErrorOrFalse(ctx, flags, "property is not configurable");
-        /* XXX: should check if same value is configured */
+        /*  XXX：应检查是否配置了相同的值。 */ 
         return TRUE;
     } else {
     def:
@@ -37672,7 +37228,7 @@ static JSValue js_string_fromCodePoint(JSContext *ctx, JSValueConst this_val,
     int i, c;
     StringBuffer b_s, *b = &b_s;
 
-    /* XXX: could pre-compute string length if all arguments are JS_TAG_INT */
+    /*  XXX：如果所有参数都是JS_TAG_INT，则可以预计算字符串长度。 */ 
 
     if (string_buffer_init(ctx, b, argc))
         goto fail;
@@ -37702,7 +37258,7 @@ static JSValue js_string_fromCodePoint(JSContext *ctx, JSValueConst this_val,
 static JSValue js_string_raw(JSContext *ctx, JSValueConst this_val,
                              int argc, JSValueConst *argv)
 {
-    // raw(temp,...a)
+    //  原始(临时，...a)。
     JSValue cooked, val, raw;
     StringBuffer b_s, *b = &b_s;
     int64_t i, n;
@@ -37739,7 +37295,7 @@ exception:
     return JS_EXCEPTION;
 }
 
-/* only used in test262 */
+/*  仅在测试262中使用。 */ 
 JSValue js_string_codePointRange(JSContext *ctx, JSValueConst this_val,
                                  int argc, JSValueConst *argv)
 {
@@ -37864,9 +37420,9 @@ static JSValue js_string_concat(JSContext *ctx, JSValueConst this_val,
     JSValue r;
     int i;
 
-    /* XXX: Use more efficient method */
-    /* XXX: This method is OK if r has a single refcount */
-    /* XXX: should use string_buffer? */
+    /*  XXX：使用更高效的方法。 */ 
+    /*  Xxx：如果r具有单个引用计数，则此方法可以使用。 */ 
+    /*  XXX：是否应使用STRING_BUFFER？ */ 
     r = JS_ToStringCheckObject(ctx, this_val);
     for (i = 0; i < argc; i++) {
         if (JS_IsException(r))
@@ -37888,7 +37444,7 @@ static int string_cmp(JSString *p1, JSString *p2, int x1, int x2, int len)
 
 static int string_indexof_char(JSString *p, int c, int from)
 {
-    /* assuming 0 <= from <= p->len */
+    /*  假设0&lt;=从&lt;=p-&gt;长度。 */ 
     int i, len = p->len;
     if (p->is_wide_char) {
         for (i = from; i < len; i++) {
@@ -37908,7 +37464,7 @@ static int string_indexof_char(JSString *p, int c, int from)
 
 static int string_indexof(JSString *p1, JSString *p2, int from)
 {
-    /* assuming 0 <= from <= p1->len */
+    /*  假设0&lt;=从&lt;=p1-&gt;长度。 */ 
     int c, i, j, len1 = p1->len, len2 = p2->len;
     if (len2 == 0)
         return from;
@@ -37997,7 +37553,7 @@ fail:
     return JS_EXCEPTION;
 }
 
-/* return < 0 if exception or TRUE/FALSE */
+/*  如果异常或TRUE/FALSE，则返回&lt;0。 */ 
 static int js_is_regexp(JSContext *ctx, JSValueConst obj);
 
 static JSValue js_string_includes(JSContext *ctx, JSValueConst this_val,
@@ -38063,8 +37619,8 @@ fail:
 static JSValue js_string_match(JSContext *ctx, JSValueConst this_val,
                                int argc, JSValueConst *argv, int atom)
 {
-    // match(rx), search(rx), matchAll(rx)
-    // atom is JS_ATOM_Symbol_match, JS_ATOM_Symbol_search, or JS_ATOM_Symbol_matchAll
+    //  匹配(RX)、搜索(RX)、全部匹配(RX)。
+    //  ATOM是JS_ATOM_SYMBOL_MATCH、JS_ATOM_SYMBOL_SEARCH或JS_ATOM_SYMBOL_MATCHAll。
     JSValueConst O = this_val, regexp = argv[0], args[2];
     JSValue matcher, S, rx, result, str;
     int args_len;
@@ -38107,7 +37663,7 @@ static JSValue js_string_match(JSContext *ctx, JSValueConst this_val,
 static JSValue js_string___GetSubstitution(JSContext *ctx, JSValueConst this_val,
                                            int argc, JSValueConst *argv)
 {
-    // GetSubstitution(matched, str, position, captures, namedCaptures, rep)
+    //  GetSubstitution(匹配，字符串，位置，捕获，命名捕获，代表)。
     JSValueConst matched, str, captures, namedCaptures, rep;
     JSValue capture, name, s;
     uint32_t position, len, matched_len, captures_len;
@@ -38162,9 +37718,8 @@ static JSValue js_string___GetSubstitution(JSContext *ctx, JSValueConst this_val
             k = c - '0';
             c1 = string_get(rp, j);
             if (c1 >= '0' && c1 <= '9') {
-                /* This behavior is specified in ES6 and refined in ECMA 2019 */
-                /* ECMA 2019 does not have the extra test, but
-                   Test262 S15.5.4.11_A3_T1..3 require this behavior */
+                /*  此行为在ES6中进行了规定，并在ECMA 2019中进行了改进。 */ 
+                /*  ECMA 2019没有额外的测试，但测试262 S15.5.4.11_A3_T1..3需要此行为。 */ 
                 k1 = k * 10 + c1 - '0';
                 if (k1 >= 1 && k1 < captures_len) {
                     k = k1;
@@ -38213,7 +37768,7 @@ exception:
 static JSValue js_string_replace(JSContext *ctx, JSValueConst this_val,
                                  int argc, JSValueConst *argv)
 {
-    // replace(rx, rep)
+    //  更换(RX，REP)。
     JSValueConst O = this_val, searchValue = argv[0], replaceValue = argv[1];
     JSValueConst args[6];
     JSValue str, search_str, replaceValue_str, repl_str;
@@ -38300,7 +37855,7 @@ exception:
 static JSValue js_string_split(JSContext *ctx, JSValueConst this_val,
                                int argc, JSValueConst *argv)
 {
-    // split(sep, limit)
+    //  拆分(9月，限制)。
     JSValueConst O = this_val, separator = argv[0], limit = argv[1];
     JSValueConst args[2];
     JSValue S, A, R, T;
@@ -38624,7 +38179,7 @@ static JSValue js_string___quote(JSContext *ctx, JSValueConst this_val,
     return JS_ToQuotedString(ctx, this_val);
 }
 
-/* return 0 if before the first char */
+/*  如果在第一个字符之前返回0。 */ 
 static int string_prevc(JSString *p, int *pidx)
 {
     int idx, c, c1;
@@ -38653,8 +38208,7 @@ static BOOL test_final_sigma(JSString *p, int sigma_pos)
 {
     int k, c1;
 
-    /* before C: skip case ignorable chars and check there is
-       a cased letter */
+    /*  在C之前：跳过可忽略大小写的字符并检查是否存在一封有空格的信。 */ 
     k = sigma_pos;
     for(;;) {
         c1 = string_prevc(p, &k);
@@ -38664,8 +38218,7 @@ static BOOL test_final_sigma(JSString *p, int sigma_pos)
     if (!lre_is_cased(c1))
         return FALSE;
 
-    /* after C: skip case ignorable chars and check there is
-       no cased letter */
+    /*  在C之后：跳过可忽略大小写的字符并检查是否有无大小写字母。 */ 
     k = sigma_pos + 1;
     for(;;) {
         if (k >= p->len)
@@ -38717,7 +38270,7 @@ static JSValue js_string_toLowerCase(JSContext *ctx, JSValueConst this_val,
     for(i = 0; i < p->len;) {
         c = string_getc(p, &i);
         if (c == 0x3a3 && to_lower && test_final_sigma(p, i - 1)) {
-            res[0] = 0x3c2; /* final sigma */
+            res[0] = 0x3c2; /*  最终西格玛。 */ 
             l = 1;
         } else {
             l = lre_case_conv(res, c, to_lower);
@@ -38737,7 +38290,7 @@ static JSValue js_string_toLowerCase(JSContext *ctx, JSValueConst this_val,
 
 #ifdef CONFIG_ALL_UNICODE
 
-/* return (-1, NULL) if exception, otherwise (len, buf) */
+/*  如果异常，则返回(-1，NULL)，否则返回(len，buf)。 */ 
 static int JS_ToUTF32String(JSContext *ctx, uint32_t **pbuf, JSValueConst val1)
 {
     JSValue val;
@@ -38750,7 +38303,7 @@ static int JS_ToUTF32String(JSContext *ctx, uint32_t **pbuf, JSValueConst val1)
         return -1;
     p = JS_VALUE_GET_STRING(val);
     len = p->len;
-    /* UTF32 buffer length is len minus the number of correct surrogates pairs */
+    /*  UTF32缓冲区长度是len减去正确的代理对的数量。 */ 
     buf = js_malloc(ctx, sizeof(buf[0]) * max_int(len, 1));
     if (!buf) {
         JS_FreeValue(ctx, val);
@@ -38839,9 +38392,9 @@ static JSValue js_string_normalize(JSContext *ctx, JSValueConst this_val,
     js_free(ctx, out_buf);
     return val;
 }
-#endif /* CONFIG_ALL_UNICODE */
+#endif /*  CONFIG_ALL_Unicode。 */ 
 
-/* also used for String.prototype.valueOf */
+/*  也用于String.Prototype.valueOf。 */ 
 static JSValue js_string_toString(JSContext *ctx, JSValueConst this_val,
                                   int argc, JSValueConst *argv)
 {
@@ -38889,7 +38442,7 @@ static JSValue js_string___advanceStringIndex(JSContext *ctx, JSValueConst
 }
 #endif
 
-/* String Iterator */
+/*  字符串迭代器。 */ 
 
 static JSValue js_string_iterator_next(JSContext *ctx, JSValueConst this_val,
                                        int argc, JSValueConst *argv,
@@ -38927,7 +38480,7 @@ static JSValue js_string_iterator_next(JSContext *ctx, JSValueConst this_val,
     }
 }
 
-/* ES6 Annex B 2.3.2 etc. */
+/*  ES6附件B 2.3.2等。 */ 
 enum {
     magic_string_anchor,
     magic_string_big,
@@ -38964,7 +38517,7 @@ static JSValue js_string_CreateHTML(JSContext *ctx, JSValueConst this_val,
     string_buffer_putc8(b, '<');
     string_buffer_puts8(b, defs[magic].tag);
     if (defs[magic].attr) {
-        // r += " " + attr + "=\"" + value + "\"";
+        //  R+=“”+attr+“=\”“+值+”\“”；
         JSValue value;
         int i;
 
@@ -38989,7 +38542,7 @@ static JSValue js_string_CreateHTML(JSContext *ctx, JSValueConst this_val,
         JS_FreeValue(ctx, value);
         string_buffer_putc8(b, '\"');
     }
-    // return r + ">" + str + "</" + tag + ">";
+    //  返回r+“&gt;”+str+“&lt;/”+tag+“&gt;”；
     string_buffer_putc8(b, '>');
     string_buffer_concat_value_free(b, str);
     string_buffer_puts8(b, "</");
@@ -39002,11 +38555,11 @@ static const JSCFunctionListEntry js_string_funcs[] = {
     JS_CFUNC_DEF("fromCharCode", 1, js_string_fromCharCode ),
     JS_CFUNC_DEF("fromCodePoint", 1, js_string_fromCodePoint ),
     JS_CFUNC_DEF("raw", 1, js_string_raw ),
-    //JS_CFUNC_DEF("__toString", 1, js_string___toString ),
-    //JS_CFUNC_DEF("__isSpace", 1, js_string___isSpace ),
-    //JS_CFUNC_DEF("__toStringCheckObject", 1, js_string___toStringCheckObject ),
-    //JS_CFUNC_DEF("__advanceStringIndex", 3, js_string___advanceStringIndex ),
-    //JS_CFUNC_DEF("__GetSubstitution", 6, js_string___GetSubstitution ),
+    //  JS_CFUNC_DEF(“__to字符串”，1，js_字符串_to字符串)，
+    //  Js_CFUNC_DEF(“__isSpace”，1，js_字符串_isSpace)，
+    //  Js_CFUNC_DEF(“__toStringCheckObject”，1，js_STRING_to StringCheckObject)，
+    //  Js_CFUNC_DEF(“__AdvanceStringIndex”，3，js_STRING_AdvanceStringIndex)，
+    //  Js_CFUNC_DEF(“__GetSubstitution”，6，js_STRING_GetSubstitution)，
 };
 
 static const JSCFunctionListEntry js_string_proto_funcs[] = {
@@ -39045,7 +38598,7 @@ static const JSCFunctionListEntry js_string_proto_funcs[] = {
     JS_CFUNC_MAGIC_DEF("toLocaleLowerCase", 0, js_string_toLowerCase, 1 ),
     JS_CFUNC_MAGIC_DEF("toLocaleUpperCase", 0, js_string_toLowerCase, 0 ),
     JS_CFUNC_MAGIC_DEF("[Symbol.iterator]", 0, js_create_array_iterator, JS_ITERATOR_KIND_VALUE | 4 ),
-    /* ES6 Annex B 2.3.2 etc. */
+    /*  ES6附件B 2.3.2等。 */ 
     JS_CFUNC_MAGIC_DEF("anchor", 1, js_string_CreateHTML, magic_string_anchor ),
     JS_CFUNC_MAGIC_DEF("big", 0, js_string_CreateHTML, magic_string_big ),
     JS_CFUNC_MAGIC_DEF("blink", 0, js_string_CreateHTML, magic_string_blink ),
@@ -39080,9 +38633,9 @@ void JS_AddIntrinsicStringNormalize(JSContext *ctx)
 #endif
 }
 
-/* Math */
+/*  数学。 */ 
 
-/* precondition: a and b are not NaN */
+/*  前提条件：a和b不是NaN。 */ 
 static double js_fmin(double a, double b)
 {
     if (a == 0 && b == 0) {
@@ -39096,7 +38649,7 @@ static double js_fmin(double a, double b)
     }
 }
 
-/* precondition: a and b are not NaN */
+/*  前提条件：a和b不是NaN。 */ 
 static double js_fmax(double a, double b)
 {
     if (a == 0 && b == 0) {
@@ -39423,8 +38976,8 @@ static JSValue js_math_abs(JSContext *ctx, JSValueConst this_val,
 }
 
 #if 0
-/* XXX: should give exact rounding */
-/* XXX: correct NaN/Infinity handling */
+/*  XXX：应提供精确的舍入。 */ 
+/*  XXX：正确的NAN/无限处理。 */ 
 static JSValue js_math_hypot(JSContext *ctx, JSValueConst this_val,
                              int argc, JSValueConst *argv)
 {
@@ -39508,7 +39061,7 @@ static JSValue js_math_min_max(JSContext *ctx, JSValueConst this_val,
     }
 }
 
-#endif /* !CONFIG_BIGNUM */
+#endif /*  ！CONFIG_BIGNUM。 */ 
 
 static double js_math_sign(double a)
 {
@@ -39529,12 +39082,12 @@ static double js_math_round(double a)
     u.d = a;
     e = (u.u64 >> 52) & 0x7ff;
     if (e < 1023) {
-        /* abs(a) < 1 */
+        /*  ABS(A)&lt;1。 */ 
         if (e == (1023 - 1) && u.u64 != 0xbfe0000000000000) {
-            /* abs(a) > 0.5 or a = 0.5: return +/-1.0 */
+            /*  ABS(A)&gt;0.5或a=0.5：收益率+/-1.0。 */ 
             u.u64 = (u.u64 & ((uint64_t)1 << 63)) | ((uint64_t)1023 << 52);
         } else {
-            /* return +/-0.0 */
+            /*  返回+/-0.0。 */ 
             u.u64 &= (uint64_t)1 << 63;
         }
     } else if (e < (1023 + 52)) {
@@ -39542,9 +39095,9 @@ static double js_math_round(double a)
         one = (uint64_t)1 << (52 - (e - 1023));
         frac_mask = one - 1;
         u.u64 += (one >> 1) - s;
-        u.u64 &= ~frac_mask; /* truncate to an integer */
+        u.u64 &= ~frac_mask; /*  截断为整数。 */ 
     }
-    /* otherwise: abs(a) >= 2^52, or NaN, +/-Infinity: no change */
+    /*  否则：ABS(A)&gt;=2^52，或NaN，+/-无穷：不变。 */ 
     return u.d;
 }
 
@@ -39555,7 +39108,7 @@ static JSValue js_math_hypot(JSContext *ctx, JSValueConst this_val,
     int i;
 
     if (argc == 2) {
-        /* use the more precise built-in function when possible */
+        /*  尽可能使用更精确的内置函数。 */ 
         if (JS_ToFloat64(ctx, &a, argv[0]))
             return JS_EXCEPTION;
         if (JS_ToFloat64(ctx, &b, argv[1]))
@@ -39587,7 +39140,7 @@ static JSValue js_math_imul(JSContext *ctx, JSValueConst this_val,
         return JS_EXCEPTION;
     if (JS_ToInt32(ctx, &b, argv[1]))
         return JS_EXCEPTION;
-    /* purposely ignoring overflow */
+    /*  故意忽略溢出。 */ 
     return JS_NewInt32(ctx, a * b);
 }
 
@@ -39605,7 +39158,7 @@ static JSValue js_math_clz32(JSContext *ctx, JSValueConst this_val,
     return JS_NewInt32(ctx, r);
 }
 
-/* xorshift* random number generator by Marsaglia */
+/*  Marsaglia的XorShift*随机数生成器。 */ 
 static uint64_t xorshift64star(uint64_t *pstate)
 {
     uint64_t x;
@@ -39619,13 +39172,13 @@ static uint64_t xorshift64star(uint64_t *pstate)
 
 static void js_random_init(JSContext *ctx)
 {
-    //struct timeval tv;
-    //gettimeofday(&tv, NULL);
-    //ctx->random_state = ((int64_t)tv.tv_sec * 1000000) + tv.tv_usec;
-    ///* the state must be non zero */
-    //if (ctx->random_state == 0)
-    //    ctx->random_state = 1;
-    //we want predictable random
+    //  结构时效性电视；
+    //  Get time of day(&TV，NULL)；
+    //  Ctx-&gt;RANDOM_STATE=((Int64_T)TV.TV_SEC*1000000)+TV.TV_USEC；
+    //  状态必须为非零。
+    //  IF(CTX-&gt;RANDOM_STATE==0)。
+    //  CTX-&gt;RANDOM_STATE=1；
+    //  我们想要可预测的随机。
     ctx->random_state = 1;
 }
 
@@ -39636,7 +39189,7 @@ static JSValue js_math_random(JSContext *ctx, JSValueConst this_val,
     uint64_t v;
 
     v = xorshift64star(&ctx->random_state);
-    /* 1.0 <= u.d < 2 */
+    /*  1.0&lt;=U.D&lt;2。 */ 
     u.u64 = ((uint64_t)0x3ff << 52) | (v >> 12);
     return __JS_NewFloat64(ctx, u.d - 1.0);
 }
@@ -39664,7 +39217,7 @@ static const JSCFunctionListEntry js_math_funcs[] = {
     JS_CFUNC_SPECIAL_DEF("pow", 2, f_f_f, js_pow ),
     JS_CFUNC_SPECIAL_DEF("sin", 1, f_f, sin ),
     JS_CFUNC_SPECIAL_DEF("tan", 1, f_f, tan ),
-    /* ES6 */
+    /*  ES6。 */ 
     JS_CFUNC_SPECIAL_DEF("trunc", 1, f_f, trunc ),
     JS_CFUNC_SPECIAL_DEF("sign", 1, f_f, js_math_sign ),
     JS_CFUNC_SPECIAL_DEF("cosh", 1, f_f, cosh ),
@@ -39698,10 +39251,10 @@ static const JSCFunctionListEntry js_math_obj[] = {
     JS_OBJECT_DEF("Math", js_math_funcs, countof(js_math_funcs), JS_PROP_WRITABLE | JS_PROP_CONFIGURABLE ),
 };
 
-/* Date */
+/*  日期。 */ 
 
 #if 0
-/* OS dependent: return the UTC time in ms since 1970. */
+/*  依赖于操作系统：返回自1970年以来的UTC时间(毫秒)。 */ 
 static JSValue js___date_now(JSContext *ctx, JSValueConst this_val,
                              int argc, JSValueConst *argv)
 {
@@ -39725,12 +39278,12 @@ void duk__convert_systime_to_ularge(const SYSTEMTIME *st, ULARGE_INTEGER *res) {
 }
 #endif
 
-/* OS dependent: return the UTC time in microseconds since 1970. */
+/*  依赖于操作系统：返回1970年以来的UTC时间(以微秒为单位)。 */ 
 static JSValue js___date_clock(JSContext *ctx, JSValueConst this_val,
                                int argc, JSValueConst *argv)
 {
     #ifdef _MSC_VER
-    	//from duktape
+    	//  从DUKTAPE。
     	SYSTEMTIME st1, st2;
     	ULARGE_INTEGER tmp1, tmp2;
     	
@@ -39741,10 +39294,10 @@ static JSValue js___date_clock(JSContext *ctx, JSValueConst this_val,
     	
     	st2.wYear = 1970;
     	st2.wMonth = 1;
-    	st2.wDayOfWeek = 4;  /* not sure whether or not needed; Thursday */
+    	st2.wDayOfWeek = 4;  /*  不确定是否需要；周四。 */ 
     	st2.wDay = 1;
     	duk__convert_systime_to_ularge((const SYSTEMTIME *) &st2, &tmp2);
-    	/* Difference is in 100ns units, convert to microseconds */
+    	/*  差异以100 ns为单位，转换为微秒。 */ 
     	return JS_NewInt64(ctx, (int64_t) (((LONGLONG) tmp1.QuadPart - (LONGLONG) tmp2.QuadPart) / 10));
     #else
         int64_t d;
@@ -39755,23 +39308,18 @@ static JSValue js___date_clock(JSContext *ctx, JSValueConst this_val,
     #endif
 }
 
-/* OS dependent. d = argv[0] is in ms from 1970. Return the difference
-   between local time and UTC time 'd' in minutes */
+/*  取决于操作系统。D=argv[0]从1970年开始以毫秒为单位。退回差额本地时间和UTC时间“%d”之间的时间(分钟)。 */ 
 static int getTimezoneOffset(int64_t time) {
 #if defined(_WIN32)
-    /* XXX: TODO */
+    /*  XXX：待办事项。 */ 
     return 0;
 #else
     time_t ti;
     struct tm tm;
 
-    time /= 1000; /* convert to seconds */
+    time /= 1000; /*  转换为秒。 */ 
     if (sizeof(time_t) == 4) {
-        /* on 32-bit systems, we need to clamp the time value to the
-           range of `time_t`. This is better than truncating values to
-           32 bits and hopefully provides the same result as 64-bit
-           implementation of localtime_r.
-         */
+        /*  在32位系统上，我们需要将时间值限制为`time_t`的范围。这比将值截断为32位，希望是专业版 */ 
         if ((time_t)-1 < 0) {
             if (time < INT32_MIN) {
                 time = INT32_MIN;
@@ -39806,7 +39354,7 @@ static JSValue js___date_getTimezoneOffset(JSContext *ctx, JSValueConst this_val
         return JS_NewInt32(ctx, getTimezoneOffset((int64_t)dd));
 }
 
-/* create a new date object */
+/*   */ 
 static JSValue js___date_create(JSContext *ctx, JSValueConst this_val,
                                 int argc, JSValueConst *argv)
 {
@@ -39822,7 +39370,7 @@ static JSValue js___date_create(JSContext *ctx, JSValueConst this_val,
 }
 #endif
 
-/* RegExp */
+/*   */ 
 
 static void js_regexp_finalizer(JSRuntime *rt, JSValue val)
 {
@@ -39832,7 +39380,7 @@ static void js_regexp_finalizer(JSRuntime *rt, JSValue val)
     JS_FreeValueRT(rt, JS_MKPTR(JS_TAG_STRING, re->pattern));
 }
 
-/* create a string containing the RegExp bytecode */
+/*   */ 
 static JSValue js_compile_regexp(JSContext *ctx, JSValueConst pattern,
                                  JSValueConst flags)
 {
@@ -39849,7 +39397,7 @@ static JSValue js_compile_regexp(JSContext *ctx, JSValueConst pattern,
         str = JS_ToCStringLen(ctx, &len, flags);
         if (!str)
             return JS_EXCEPTION;
-        /* XXX: re_flags = LRE_FLAG_OCTAL unless strict mode? */
+        /*  XXX：RE_FLAGS=LRE_FLAG_OCTAL，除非严格模式？ */ 
         for (i = 0; i < len; i++) {
             switch(str[i]) {
             case 'g':
@@ -39899,8 +39447,7 @@ static JSValue js_compile_regexp(JSContext *ctx, JSValueConst pattern,
     return ret;
 }
 
-/* create a RegExp object from a string containing the RegExp bytecode
-   and the source pattern */
+/*  从包含RegExp字节码的字符串创建RegExp对象和源模式。 */ 
 static JSValue js_regexp_constructor_internal(JSContext *ctx, JSValueConst ctor,
                                               JSValue pattern, JSValue bc)
 {
@@ -39908,7 +39455,7 @@ static JSValue js_regexp_constructor_internal(JSContext *ctx, JSValueConst ctor,
     JSObject *p;
     JSRegExp *re;
 
-    /* sanity check */
+    /*  健全性检查。 */ 
     if (JS_VALUE_GET_TAG(bc) != JS_TAG_STRING ||
         JS_VALUE_GET_TAG(pattern) != JS_TAG_STRING) {
         JS_ThrowTypeError(ctx, "string expected");
@@ -39943,7 +39490,7 @@ static JSRegExp *js_get_regexp(JSContext *ctx, JSValueConst obj, BOOL throw_erro
     return NULL;
 }
 
-/* return < 0 if exception or TRUE/FALSE */
+/*  如果异常或TRUE/FALSE，则返回&lt;0。 */ 
 static int js_is_regexp(JSContext *ctx, JSValueConst obj)
 {
     JSValue m;
@@ -39972,7 +39519,7 @@ static JSValue js_regexp_constructor(JSContext *ctx, JSValueConst new_target,
     if (pat_is_regexp < 0)
         return JS_EXCEPTION;
     if (JS_IsUndefined(new_target)) {
-        /* called as a function */
+        /*  作为函数调用。 */ 
         new_target = JS_GetActiveFunction(ctx);
         if (pat_is_regexp && JS_IsUndefined(flags1)) {
             JSValue ctor;
@@ -40126,7 +39673,7 @@ static JSValue js_regexp_get_source(JSContext *ctx, JSValueConst this_val)
     }    
     string_buffer_init2(ctx, b, p->len, p->is_wide_char);
 
-    /* Escape '/' and newline sequences as needed */
+    /*  根据需要转义‘/’和换行符序列。 */ 
     bra = 0;
     for (i = 0, n = p->len; i < n;) {
         c2 = -1;
@@ -40264,7 +39811,7 @@ BOOL lre_check_stack_overflow(void *opaque, size_t alloca_size)
 void *lre_realloc(void *opaque, void *ptr, size_t size)
 {
     JSContext *ctx = opaque;
-    /* No JS exception is raised here */
+    /*  此处未引发JS异常。 */ 
     return js_realloc_rt(ctx->rt, ptr, size);
 }
 
@@ -40397,7 +39944,7 @@ fail1:
     return JS_EXCEPTION;
 }
 
-/* delete partions of a string that match a given regex */
+/*  删除与给定正则表达式匹配的字符串部分。 */ 
 static JSValue JS_RegExpDelete(JSContext *ctx, JSValueConst this_val, JSValueConst arg)
 {
     JSRegExp *re = js_get_regexp(ctx, this_val, TRUE);
@@ -40544,7 +40091,7 @@ static JSValue js_regexp_test(JSContext *ctx, JSValueConst this_val,
 static JSValue js_regexp_Symbol_match(JSContext *ctx, JSValueConst this_val,
                                       int argc, JSValueConst *argv)
 {
-    // [Symbol.match](str)
+    //  [符号匹配](Str)。
     JSValueConst rx = this_val;
     JSValue A, S, result, matchStr;
     int global, n, fullUnicode, isEmpty;
@@ -40706,7 +40253,7 @@ static JSValue js_regexp_string_iterator_next(JSContext *ctx,
 static JSValue js_regexp_Symbol_matchAll(JSContext *ctx, JSValueConst this_val,
                                          int argc, JSValueConst *argv)
 {
-    // [Symbol.matchAll](str)
+    //  [Symbol.matchAll](Str)。
     JSValueConst R = this_val;
     JSValue S, C, flags, matcher, iter;
     JSValueConst args[2];
@@ -40837,14 +40384,14 @@ static int js_is_standard_regexp(JSContext *ctx, JSValueConst rx)
     val = JS_GetProperty(ctx, rx, JS_ATOM_constructor);
     if (JS_IsException(val))
         return -1;
-    // rx.constructor === RegExp
+    //  Rx.structor=RegExp。
     res = js_same_value(ctx, val, ctx->regexp_ctor);
     JS_FreeValue(ctx, val);
     if (res) {
         val = JS_GetProperty(ctx, rx, JS_ATOM_exec);
         if (JS_IsException(val))
             return -1;
-        // rx.exec === RE_exec
+        //  Rx.exec=RE_EXEC。
         res = JS_IsCFunction(ctx, val, js_regexp_exec, 0);
         JS_FreeValue(ctx, val);
     }
@@ -40854,7 +40401,7 @@ static int js_is_standard_regexp(JSContext *ctx, JSValueConst rx)
 static JSValue js_regexp_Symbol_replace(JSContext *ctx, JSValueConst this_val,
                                         int argc, JSValueConst *argv)
 {
-    // [Symbol.replace](str, rep)
+    //  [符号替换](字符串，代表)。
     JSValueConst rx = this_val, rep = argv[1];
     JSValueConst args[6];
     JSValue str, rep_val, matched, tab, rep_str, namedCaptures, res;
@@ -40903,7 +40450,7 @@ static JSValue js_regexp_Symbol_replace(JSContext *ctx, JSValueConst this_val,
     }
 
     if (rp && rp->len == 0 && is_global && js_is_standard_regexp(ctx, rx)) {
-        /* use faster version for simple cases */
+        /*  简单情况下使用更快的版本。 */ 
         res = JS_RegExpDelete(ctx, rx, str);
         goto done;
     }
@@ -40923,7 +40470,7 @@ static JSValue js_regexp_Symbol_replace(JSContext *ctx, JSValueConst this_val,
         if (JS_IsException(matched))
             goto exception;
         if (JS_IsEmptyString(matched)) {
-            /* always advance of at least one char */
+            /*  始终至少前进一个字符。 */ 
             int64_t thisIndex, nextIndex;
             if (JS_ToLengthFree(ctx, &thisIndex, JS_GetProperty(ctx, rx, JS_ATOM_lastIndex)) < 0)
                 goto exception;
@@ -40948,8 +40495,7 @@ static JSValue js_regexp_Symbol_replace(JSContext *ctx, JSValueConst this_val,
             position = sp->len;
         else if (position < 0)
             position = 0;
-        /* ignore substition if going backward (can happen
-           with custom regexp object) */
+        /*  如果倒退(可能会发生)，则忽略替换使用自定义regexp对象)。 */ 
         JS_FreeValue(ctx, tab);
         tab = JS_NewArray(ctx);
         if (JS_IsException(tab))
@@ -41082,7 +40628,7 @@ exception:
 static JSValue js_regexp_Symbol_split(JSContext *ctx, JSValueConst this_val,
                                        int argc, JSValueConst *argv)
 {
-    // [Symbol.split](str, limit)
+    //  [Symbol.Split](字符串，限制)。
     JSValueConst rx = this_val;
     JSValueConst args[2];
     JSValue str, ctor, splitter, A, flags, z, sub;
@@ -41206,8 +40752,8 @@ done:
 
 static const JSCFunctionListEntry js_regexp_funcs[] = {
     JS_CGETSET_DEF("[Symbol.species]", js_get_this, NULL ),
-    //JS_CFUNC_DEF("__RegExpExec", 2, js_regexp___RegExpExec ),
-    //JS_CFUNC_DEF("__RegExpDelete", 2, js_regexp___RegExpDelete ),
+    //  Js_CFUNC_DEF(“__RegExpExec”，2，js_regexp_RegExpExec)，
+    //  Js_CFUNC_DEF(“__RegExpDelete”，2，js_regexp_RegExpDelete)，
 };
 
 static const JSCFunctionListEntry js_regexp_proto_funcs[] = {
@@ -41228,8 +40774,8 @@ static const JSCFunctionListEntry js_regexp_proto_funcs[] = {
     JS_CFUNC_DEF("[Symbol.matchAll]", 1, js_regexp_Symbol_matchAll ),
     JS_CFUNC_DEF("[Symbol.search]", 1, js_regexp_Symbol_search ),
     JS_CFUNC_DEF("[Symbol.split]", 2, js_regexp_Symbol_split ),
-    //JS_CGETSET_DEF("__source", js_regexp_get___source, NULL ),
-    //JS_CGETSET_DEF("__flags", js_regexp_get___flags, NULL ),
+    //  JS_CGETSET_DEF(“__SOURCE”，js_regexp_GET_SOURCE，NULL)，
+    //  JS_CGETSET_DEF(“__FLAGS”，js_regexp_GET_FLAGS，NULL)，
 };
 
 static const JSCFunctionListEntry js_regexp_string_iterator_proto_funcs[] = {
@@ -41263,11 +40809,9 @@ void JS_AddIntrinsicRegExp(JSContext *ctx)
                                countof(js_regexp_string_iterator_proto_funcs));
 }
 
-/* JSON */
+/*  杰森。 */ 
 
-/* XXX: this parser is less strict than the JSON standard because we
-   reuse the Javascript tokenizer. It could be improved by adding a
-   specific JSON parse flag. */
+/*  XXX：这个解析器没有JSON标准那么严格，因为我们重用Java脚本记号赋值器。可以通过添加一个特定的JSON解析标志。 */ 
 static JSValue json_parse_value(JSParseState *s)
 {
     JSContext *ctx = s->ctx;
@@ -41403,7 +40947,7 @@ static JSValue json_parse_value(JSParseState *s)
         val = s->token.u.num.val;
         if (is_neg) {
             double d;
-            JS_ToFloat64(ctx, &d, val);  /* no exception possible */
+            JS_ToFloat64(ctx, &d, val);  /*  不可能有例外。 */ 
             val = JS_NewFloat64(ctx, -d);
         }
 #endif
@@ -41588,7 +41132,7 @@ static JSValue js_json_check(JSContext *ctx, JSONStringifyContext *jsc,
 
     if (JS_IsObject(val)
 #ifdef CONFIG_BIGNUM
-    ||  JS_IsBigInt(ctx, val)   /* XXX: probably useless */
+    ||  JS_IsBigInt(ctx, val)   /*  XXX：可能毫无用处。 */ 
 #endif
         ) {
             JSValue f = JS_GetProperty(ctx, val, JS_ATOM_toJSON);
@@ -41727,7 +41271,7 @@ static int js_json_to_str(JSContext *ctx, JSONStringifyContext *jsc,
                 v = JS_GetPropertyInt64(ctx, val, i);
                 if (JS_IsException(v))
                     goto exception;
-                /* XXX: could do this string conversion only when needed */
+                /*  Xxx：仅在需要时才能执行此字符串转换。 */ 
                 prop = JS_ToStringFree(ctx, JS_NewInt64(ctx, i));
                 if (JS_IsException(prop))
                     goto exception;
@@ -41841,7 +41385,7 @@ exception:
 static JSValue js_json_stringify(JSContext *ctx, JSValueConst this_val,
                                  int argc, JSValueConst *argv)
 {
-    // stringify(val, replacer, space)
+    //  字符串化(val、替换、空格)。
     StringBuffer b_s;
     JSONStringifyContext jsc_s, *jsc = &jsc_s;
     JSValueConst replacer = argv[1];
@@ -41869,7 +41413,7 @@ static JSValue js_json_stringify(JSContext *ctx, JSValueConst this_val,
         if (res < 0)
             goto exception;
         if (res) {
-            /* XXX: enumeration is not fully correct */
+            /*  Xxx：枚举不完全正确。 */ 
             jsc->property_list = JS_NewArray(ctx);
             if (JS_IsException(jsc->property_list))
                 goto exception;
@@ -41986,11 +41530,11 @@ static const JSCFunctionListEntry js_json_obj[] = {
 
 void JS_AddIntrinsicJSON(JSContext *ctx)
 {
-    /* add JSON as autoinit object */
+    /*  将JSON添加为Autoinit对象。 */ 
     JS_SetPropertyFunctionList(ctx, ctx->global_obj, js_json_obj, countof(js_json_obj));
 }
 
-/* Reflect */
+/*  反映。 */ 
 
 static JSValue js_reflect_apply(JSContext *ctx, JSValueConst this_val,
                                 int argc, JSValueConst *argv)
@@ -42157,7 +41701,7 @@ static const JSCFunctionListEntry js_reflect_obj[] = {
     JS_OBJECT_DEF("Reflect", js_reflect_funcs, countof(js_reflect_funcs), JS_PROP_WRITABLE | JS_PROP_CONFIGURABLE ),
 };
 
-/* Proxy */
+/*  代理。 */ 
 
 static void js_proxy_finalizer(JSRuntime *rt, JSValue val)
 {
@@ -42192,13 +41736,13 @@ static JSProxyData *get_proxy_method(JSContext *ctx, JSValue *pmethod,
     JSProxyData *s = JS_GetOpaque(obj, JS_CLASS_PROXY);
     JSValue method;
 
-    /* safer to test recursion in all proxy methods */
+    /*  在所有代理方法中测试递归更安全。 */ 
     if (js_check_stack_overflow(ctx, 0)) {
         JS_ThrowStackOverflow(ctx);
         return NULL;
     }
     
-    /* 's' should never be NULL */
+    /*  “%s”不应为Null。 */ 
     if (s->is_revoked) {
         JS_ThrowTypeErrorRevokedProxy(ctx);
         return NULL;
@@ -42219,7 +41763,7 @@ static JSValueConst js_proxy_getPrototypeOf(JSContext *ctx, JSValueConst obj)
     JSValueConst proto1;
     int res;
 
-    /* must check for timeout to avoid infinite loop in instanceof */
+    /*  必须检查是否超时，以避免实例中出现无限循环。 */ 
     if (js_poll_interrupts(ctx))
         return JS_EXCEPTION;
 
@@ -42241,7 +41785,7 @@ static JSValueConst js_proxy_getPrototypeOf(JSContext *ctx, JSValueConst obj)
         return JS_EXCEPTION;
     }
     if (!res) {
-        /* check invariant */
+        /*  检查不变量。 */ 
         proto1 = JS_GetPrototype(ctx, s->target);
         if (JS_IsException(proto1)) {
             JS_FreeValue(ctx, ret);
@@ -42253,7 +41797,7 @@ static JSValueConst js_proxy_getPrototypeOf(JSContext *ctx, JSValueConst obj)
             return JS_ThrowTypeError(ctx, "proxy: inconsistent prototype");
         }
     }
-    /* store the prototype in the proxy so that its refcount is at least 1 */
+    /*  将原型存储在代理中，以便其引用计数至少为1。 */ 
     set_value(ctx, &s->proto, ret);
     return JS_VALUE_CONST_CAST ret;
 }
@@ -42411,7 +41955,7 @@ static JSValue js_proxy_get(JSContext *ctx, JSValueConst obj, JSAtom atom,
     s = get_proxy_method(ctx, &method, obj, JS_ATOM_get);
     if (!s)
         return JS_EXCEPTION;
-    /* Note: recursion is possible thru the prototype of s->target */
+    /*  注：可以通过s-&gt;Target的原型进行递归。 */ 
     if (JS_IsUndefined(method))
         return JS_GetPropertyInternal(ctx, s->target, atom, receiver, FALSE);
     atom_val = JS_AtomToValue(ctx, atom);
@@ -42601,14 +42145,13 @@ static int js_proxy_get_own_property(JSContext *ctx, JSPropertyDescriptor *pdesc
             return -1;
         
         if (target_desc_ret) {
-            /* convert result_desc.flags to defineProperty flags */
+            /*  将RESULT_DESC.FLAGS转换为fineProperty标志。 */ 
             flags1 = result_desc.flags | JS_PROP_HAS_CONFIGURABLE | JS_PROP_HAS_ENUMERABLE;
             if (result_desc.flags & JS_PROP_GETSET)
                 flags1 |= JS_PROP_HAS_GET | JS_PROP_HAS_SET;
             else
                 flags1 |= JS_PROP_HAS_VALUE | JS_PROP_HAS_WRITABLE;
-            /* XXX: not complete check: need to compare value &
-               getter/setter as in defineproperty */
+            /*  XXX：未完成检查：需要比较值和定义属性中的getter/setter。 */ 
             if (!check_define_prop_flags(target_desc.flags, flags1))
                 goto fail1;
         } else {
@@ -42622,7 +42165,7 @@ static int js_proxy_get_own_property(JSContext *ctx, JSPropertyDescriptor *pdesc
                  (JS_PROP_GETSET | JS_PROP_WRITABLE)) == 0 &&
                 target_desc_ret &&
                 (target_desc.flags & JS_PROP_WRITABLE) != 0) {
-                /* proxy-missing-checks */
+                /*  代理-缺少-检查。 */ 
             fail1:
                 js_free_desc(ctx, &result_desc);
             fail:
@@ -42717,7 +42260,7 @@ static int js_proxy_define_own_property(JSContext *ctx, JSValueConst obj,
         } else if (flags & JS_PROP_HAS_VALUE) {
             if ((desc.flags & (JS_PROP_CONFIGURABLE | JS_PROP_WRITABLE)) ==
                 JS_PROP_WRITABLE && !(flags & JS_PROP_WRITABLE)) {
-                /* missing-proxy-check feature */
+                /*  缺少代理检查功能。 */ 
                 goto fail1;
             } else if ((desc.flags & (JS_PROP_CONFIGURABLE | JS_PROP_WRITABLE)) == 0 &&
                 !js_same_value(ctx, val, desc.value)) {
@@ -42727,7 +42270,7 @@ static int js_proxy_define_own_property(JSContext *ctx, JSValueConst obj,
         if (flags & JS_PROP_HAS_WRITABLE) {
             if ((desc.flags & (JS_PROP_GETSET | JS_PROP_CONFIGURABLE |
                                JS_PROP_WRITABLE)) == JS_PROP_WRITABLE) {
-                /* proxy-missing-checks */
+                /*  代理-缺少-检查。 */ 
             fail1:
                 js_free_desc(ctx, &desc);
             fail:
@@ -42778,7 +42321,7 @@ static int js_proxy_delete_property(JSContext *ctx, JSValueConst obj,
             if (is_extensible < 0)
                 goto fail1;
             if (!is_extensible) {
-                /* proxy-missing-checks */
+                /*  代理-缺少-检查。 */ 
             fail:
                 JS_ThrowTypeError(ctx, "proxy: inconsistent deleteProperty");
             fail1:
@@ -42791,7 +42334,7 @@ static int js_proxy_delete_property(JSContext *ctx, JSValueConst obj,
     return res;
 }
 
-/* return the index of the property or -1 if not found */
+/*  返回该属性的索引，如果未找到，则返回-1。 */ 
 static int find_prop_key(const JSPropertyEnum *tab, int n, JSAtom atom)
 {
     int i;
@@ -42851,11 +42394,10 @@ static int js_proxy_get_own_property_names(JSContext *ctx,
         if (atom == JS_ATOM_NULL)
             goto fail;
         tab[i].atom = atom;
-        tab[i].is_enumerable = FALSE; /* XXX: redundant? */
+        tab[i].is_enumerable = FALSE; /*  XXX：冗余？ */ 
     }
 
-    /* check duplicate properties (XXX: inefficient, could store the
-     * properties an a temporary object to use the hash) */
+    /*  检查重复的属性(XXX：低效，可以存储*为临时对象设置属性以使用散列)。 */ 
     for(i = 1; i < len; i++) {
         if (find_prop_key(tab, i, tab[i].atom) >= 0) {
             JS_ThrowTypeError(ctx, "proxy: duplicate property");
@@ -42867,7 +42409,7 @@ static int js_proxy_get_own_property_names(JSContext *ctx,
     if (is_extensible < 0)
         goto fail;
 
-    /* check if there are non configurable properties */
+    /*  检查是否存在不可配置的属性。 */ 
     if (s->is_revoked) {
         JS_ThrowTypeErrorRevokedProxy(ctx);
         goto fail;
@@ -42884,7 +42426,7 @@ static int js_proxy_get_own_property_names(JSContext *ctx,
                                 tab2[i].atom);
         if (res < 0)
             goto fail;
-        if (res) {  /* safety, property should be found */
+        if (res) {  /*  安全，财产应该被找到。 */ 
             js_free_desc(ctx, &desc);
             if (!(desc.flags & JS_PROP_CONFIGURABLE) || !is_extensible) {
                 idx = find_prop_key(tab, len, tab2[i].atom);
@@ -42892,14 +42434,14 @@ static int js_proxy_get_own_property_names(JSContext *ctx,
                     JS_ThrowTypeError(ctx, "proxy: target property must be present in proxy ownKeys");
                     goto fail;
                 }
-                /* mark the property as found */
+                /*  将该属性标记为已找到。 */ 
                 if (!is_extensible)
                     tab[idx].is_enumerable = TRUE;
             }
         }
     }
     if (!is_extensible) {
-        /* check that all property in 'tab' were checked */
+        /*  检查是否选中了‘Tab’中的所有属性。 */ 
         for(i = 0; i < len; i++) {
             if (!tab[i].is_enumerable) {
                 JS_ThrowTypeError(ctx, "proxy: property not present in target were returned by non extensible proxy");
@@ -43054,8 +42596,7 @@ static JSValue js_proxy_revoke(JSContext *ctx, JSValueConst this_val,
 {
     JSProxyData *s = JS_GetOpaque(func_data[0], JS_CLASS_PROXY);
     if (s) {
-        /* We do not free the handler and target in case they are
-           referenced as constants in the C call stack */
+        /*  我们不会释放处理程序和目标，以防它们在C调用堆栈中作为常量引用。 */ 
         s->is_revoked = TRUE;
         JS_FreeValue(ctx, func_data[0]);
         func_data[0] = JS_NULL;
@@ -43083,7 +42624,7 @@ static JSValue js_proxy_revocable(JSContext *ctx, JSValueConst this_val,
     obj = JS_NewObject(ctx);
     if (JS_IsException(obj))
         goto fail;
-    // XXX: exceptions?
+    //  XXX：例外？
     JS_DefinePropertyValue(ctx, obj, JS_ATOM_proxy, proxy_obj, JS_PROP_C_W_E);
     JS_DefinePropertyValue(ctx, obj, JS_ATOM_revoke, revoke_obj, JS_PROP_C_W_E);
     return obj;
@@ -43098,7 +42639,7 @@ static const JSCFunctionListEntry js_proxy_funcs[] = {
 };
 
 static const JSClassShortDef js_proxy_class_def[] = {
-    { JS_ATOM_Object, js_proxy_finalizer, js_proxy_mark }, /* JS_CLASS_PROXY */
+    { JS_ATOM_Object, js_proxy_finalizer, js_proxy_mark }, /*  JS_类_代理。 */ 
 };
 
 void JS_AddIntrinsicProxy(JSContext *ctx)
@@ -43122,7 +42663,7 @@ void JS_AddIntrinsicProxy(JSContext *ctx)
                               obj1, JS_PROP_WRITABLE | JS_PROP_CONFIGURABLE);
 }
 
-/* Symbol */
+/*  符号。 */ 
 
 static JSValue js_symbol_constructor(JSContext *ctx, JSValueConst new_target,
                                      int argc, JSValueConst *argv)
@@ -43165,7 +42706,7 @@ static JSValue js_symbol_toString(JSContext *ctx, JSValueConst this_val,
     val = js_thisSymbolValue(ctx, this_val);
     if (JS_IsException(val))
         return val;
-    /* XXX: use JS_ToStringInternal() with a flags */
+    /*  XXX：使用带有标志的JS_ToStringInternal()。 */ 
     ret = js_string_constructor(ctx, JS_UNDEFINED, 1, (JSValueConst *)&val);
     JS_FreeValue(ctx, val);
     return ret;
@@ -43198,7 +42739,7 @@ static JSValue js_symbol_get_description(JSContext *ctx, JSValueConst this_val)
 static const JSCFunctionListEntry js_symbol_proto_funcs[] = {
     JS_CFUNC_DEF("toString", 0, js_symbol_toString ),
     JS_CFUNC_DEF("valueOf", 0, js_symbol_valueOf ),
-    // XXX: should have writable: false
+    //  Xxx：应具有Writable：False。
     JS_CFUNC_DEF("[Symbol.toPrimitive]", 1, js_symbol_valueOf ),
     JS_PROP_STRING_DEF("[Symbol.toStringTag]", "Symbol", JS_PROP_CONFIGURABLE ),
     JS_CGETSET_DEF("description", js_symbol_get_description, NULL ),
@@ -43233,11 +42774,11 @@ static const JSCFunctionListEntry js_symbol_funcs[] = {
     JS_CFUNC_DEF("keyFor", 1, js_symbol_keyFor ),
 };
 
-/* Set/Map/WeakSet/WeakMap */
+/*  设置/映射/权重设置/权重映射。 */ 
 
 typedef struct JSMapRecord {
-    int ref_count; /* used during enumeration to avoid freeing the record */
-    BOOL empty; /* TRUE if the record is deleted */
+    int ref_count; /*  在枚举期间使用，以避免释放记录。 */ 
+    BOOL empty; /*  如果记录已删除，则为True。 */ 
     struct JSMapState *map;
     struct JSMapRecord *next_weak_ref;
     struct list_head link;
@@ -43247,13 +42788,12 @@ typedef struct JSMapRecord {
 } JSMapRecord;
 
 typedef struct JSMapState {
-    BOOL is_weak; /* TRUE if WeakSet/WeakMap */
-    struct list_head records; /* list of JSMapRecord.link */
+    BOOL is_weak; /*  如果WeakSet/WeakMap为True。 */ 
+    struct list_head records; /*  JSMapRecord.link列表。 */ 
     uint32_t record_count;
     struct list_head *hash_table;
-    uint32_t hash_size; /* must be a power of two */
-    uint32_t record_count_threshold; /* count at which a hash table
-                                        resize is needed */
+    uint32_t hash_size; /*  一定是2的幂。 */ 
+    uint32_t record_count_threshold; /*  哈希表达到的计数需要调整大小。 */ 
 } JSMapState;
 
 #define MAGIC_SET (1 << 0)
@@ -43359,7 +42899,7 @@ static JSValue js_map_constructor(JSContext *ctx, JSValueConst new_target,
     return obj;
  fail:
     if (JS_IsObject(iter)) {
-        /* close the iterator object, preserving pending exception */
+        /*  关闭迭代器对象，保留挂起的异常。 */ 
         JS_IteratorClose(ctx, iter, TRUE);
     }
     JS_FreeValue(ctx, next_method);
@@ -43369,18 +42909,18 @@ static JSValue js_map_constructor(JSContext *ctx, JSValueConst new_target,
     return JS_EXCEPTION;
 }
 
-/* XXX: could normalize strings to speed up comparison */
+/*  XXX：可以标准化字符串以加快比较速度。 */ 
 static JSValueConst map_normalize_key(JSContext *ctx, JSValueConst key)
 {
     uint32_t tag = JS_VALUE_GET_TAG(key);
-    /* convert -0.0 to +0.0 */
+    /*  将-0.0转换为+0.0。 */ 
     if (JS_TAG_IS_FLOAT64(tag) && JS_VALUE_GET_FLOAT64(key) == 0.0) {
         key = JS_NewInt32(ctx, 0);
     }
     return key;
 }
 
-/* XXX: better hash ? */
+/*  XXX：更好的散列？ */ 
 static uint32_t map_hash_key(JSContext *ctx, JSValueConst key)
 {
     uint32_t tag = JS_VALUE_GET_NORM_TAG(key);
@@ -43404,7 +42944,7 @@ static uint32_t map_hash_key(JSContext *ctx, JSValueConst key)
         goto hash_float64;
     case JS_TAG_FLOAT64:
         d = JS_VALUE_GET_FLOAT64(key);
-        /* normalize the NaN */
+        /*  使NAN正常化。 */ 
         if (isnan(d))
             d = JS_FLOAT64_NAN;
     hash_float64:
@@ -43412,7 +42952,7 @@ static uint32_t map_hash_key(JSContext *ctx, JSValueConst key)
         h = (u.u32[0] ^ u.u32[1]) * 3163;
         break;
     default:
-        h = 0; /* XXX: bignum support */
+        h = 0; /*  XXX：标牌支持。 */ 
         break;
     }
     h ^= tag;
@@ -43441,7 +42981,7 @@ static void map_hash_resize(JSContext *ctx, JSMapState *s)
     struct list_head *new_hash_table, *el;
     JSMapRecord *mr;
 
-    /* XXX: no reporting of memory allocation failure */
+    /*  XXX：未报告内存分配失败。 */ 
     if (s->hash_size == 1)
         new_hash_size = 4;
     else
@@ -43481,7 +43021,7 @@ static JSMapRecord *map_add_record(JSContext *ctx, JSMapState *s,
     mr->empty = FALSE;
     if (s->is_weak) {
         JSObject *p = JS_VALUE_GET_OBJ(key);
-        /* Add the weak reference */
+        /*  添加弱引用。 */ 
         mr->next_weak_ref = p->first_weak_ref;
         p->first_weak_ref = mr;
     } else {
@@ -43498,10 +43038,7 @@ static JSMapRecord *map_add_record(JSContext *ctx, JSMapState *s,
     return mr;
 }
 
-/* Remove the weak reference from the object weak
-   reference list. we don't use a doubly linked list to
-   save space, assuming a given object has few weak
-       references to it */
+/*  从对象弱中删除弱引用参考列表。我们不使用双向链表来节省空间，假设给定的对象有很少的弱对它的引用。 */ 
 static void delete_weak_ref(JSRuntime *rt, JSMapRecord *mr)
 {
     JSMapRecord **pmr, *mr1;
@@ -43534,7 +43071,7 @@ static void map_delete_record(JSRuntime *rt, JSMapState *s, JSMapRecord *mr)
         list_del(&mr->link);
         js_free_rt(rt, mr);
     } else {
-        /* keep a zombie record for iterators */
+        /*  为迭代器保留僵尸记录。 */ 
         mr->empty = TRUE;
         mr->key = JS_UNDEFINED;
         mr->value = JS_UNDEFINED;
@@ -43545,7 +43082,7 @@ static void map_delete_record(JSRuntime *rt, JSMapState *s, JSMapRecord *mr)
 static void map_decref_record(JSRuntime *rt, JSMapRecord *mr)
 {
     if (--mr->ref_count == 0) {
-        /* the record can be safely removed */
+        /*  可以安全地删除该记录。 */ 
         assert(mr->empty);
         list_del(&mr->link);
         js_free_rt(rt, mr);
@@ -43557,25 +43094,23 @@ static void reset_weak_ref(JSRuntime *rt, JSObject *p)
     JSMapRecord *mr, *mr_next;
     JSMapState *s;
     
-    /* first pass to remove the records from the WeakMap/WeakSet
-       lists */
+    /*  从WeakMap/WeakSet中删除记录的第一遍列表。 */ 
     for(mr = p->first_weak_ref; mr != NULL; mr = mr->next_weak_ref) {
         s = mr->map;
         assert(s->is_weak);
-        assert(!mr->empty); /* no iterator on WeakMap/WeakSet */
+        assert(!mr->empty); /*  WeakMap/WeakSet上没有迭代器。 */ 
         list_del(&mr->hash_link);
         list_del(&mr->link);
     }
     
-    /* second pass to free the values to avoid modifying the weak
-       reference list while traversing it. */
+    /*  第二次传递以释放这些值，以避免修改弱在遍历它时引用列表。 */ 
     for(mr = p->first_weak_ref; mr != NULL; mr = mr_next) {
         mr_next = mr->next_weak_ref;
         JS_FreeValueRT(rt, mr->value);
         js_free_rt(rt, mr);
     }
 
-    p->first_weak_ref = NULL; /* fail safe */
+    p->first_weak_ref = NULL; /*  故障安全。 */ 
 }
 
 static JSValue js_map_set(JSContext *ctx, JSValueConst this_val,
@@ -43696,14 +43231,13 @@ static JSValue js_map_forEach(JSContext *ctx, JSValueConst this_val,
         this_arg = JS_UNDEFINED;
     if (check_function(ctx, func))
         return JS_EXCEPTION;
-    /* Note: the list can be modified while traversing it, but the
-       current element is locked */
+    /*  注意：可以在遍历列表时修改该列表，但当前元素已锁定。 */ 
     el = s->records.next;
     while (el != &s->records) {
         mr = list_entry(el, JSMapRecord, link);
         if (!mr->empty) {
             mr->ref_count++;
-            /* must duplicate in case the record is deleted */
+            /*  必须重复，以防删除记录。 */ 
             args[1] = JS_DupValue(ctx, mr->key);
             if (magic)
                 args[0] = args[1];
@@ -43736,8 +43270,7 @@ static void js_map_finalizer(JSRuntime *rt, JSValue val)
     p = JS_VALUE_GET_OBJ(val);
     s = p->u.map_state;
     if (s) {
-        /* if the object is deleted we are sure that no iterator is
-           using it */
+        /*  如果对象被删除，我们可以确定没有迭代器使用它。 */ 
         list_for_each_safe(el, el1, &s->records) {
             mr = list_entry(el, JSMapRecord, link);
             if (!mr->empty) {
@@ -43772,7 +43305,7 @@ static void js_map_mark(JSRuntime *rt, JSValueConst val, JS_MarkFunc *mark_func)
     }
 }
 
-/* Map Iterator */
+/*  贴图迭代器。 */ 
 
 typedef struct JSMapIteratorData {
     JSValue obj;
@@ -43788,8 +43321,7 @@ static void js_map_iterator_finalizer(JSRuntime *rt, JSValue val)
     p = JS_VALUE_GET_OBJ(val);
     it = p->u.map_iterator_data;
     if (it) {
-        /* During the GC sweep phase the Map finalizer may be
-           called before the Map iterator finalizer */
+        /*  在GC扫描阶段，贴图终结器可能是在映射迭代器终结器之前调用。 */ 
         if (JS_IsLiveObject(rt, it->obj) && it->cur_record) {
             map_decref_record(rt, it->cur_record);
         }
@@ -43805,7 +43337,7 @@ static void js_map_iterator_mark(JSRuntime *rt, JSValueConst val,
     JSMapIteratorData *it;
     it = p->u.map_iterator_data;
     if (it) {
-        /* the record is already marked by the object */
+        /*  该记录已由该对象标记。 */ 
         JS_MarkValue(rt, it->obj, mark_func);
     }
 }
@@ -43863,27 +43395,27 @@ static JSValue js_map_iterator_next(JSContext *ctx, JSValueConst this_val,
     } else {
         mr = it->cur_record;
         el = mr->link.next;
-        map_decref_record(ctx->rt, mr); /* the record can be freed here */
+        map_decref_record(ctx->rt, mr); /*  记录可以在这里释放。 */ 
     }
     for(;;) {
         if (el == &s->records) {
-            /* no more record  */
+            /*  没有更多的记录。 */ 
             it->cur_record = NULL;
             JS_FreeValue(ctx, it->obj);
             it->obj = JS_UNDEFINED;
         done:
-            /* end of enumeration */
+            /*  枚举结束。 */ 
             *pdone = TRUE;
             return JS_UNDEFINED;
         }
         mr = list_entry(el, JSMapRecord, link);
         if (!mr->empty)
             break;
-        /* get the next record */
+        /*  拿到下一张唱片。 */ 
         el = mr->link.next;
     }
 
-    /* lock the record so that it won't be freed */
+    /*  锁定记录，使其不会被释放。 */ 
     mr->ref_count++;
     it->cur_record = mr;
     *pdone = FALSE;
@@ -44012,7 +43544,7 @@ void JS_AddIntrinsicMapSet(JSContext *ctx)
     }
 }
 
-/* Generator */
+/*  发电机。 */ 
 static const JSCFunctionListEntry js_generator_function_proto_funcs[] = {
     JS_PROP_STRING_DEF("[Symbol.toStringTag]", "GeneratorFunction", JS_PROP_CONFIGURABLE),
 };
@@ -44024,7 +43556,7 @@ static const JSCFunctionListEntry js_generator_proto_funcs[] = {
     JS_PROP_STRING_DEF("[Symbol.toStringTag]", "Generator", JS_PROP_CONFIGURABLE),
 };
 
-/* Promise */
+/*  允诺。 */ 
 
 typedef enum JSPromiseStateEnum {
     JS_PROMISE_PENDING,
@@ -44034,9 +43566,9 @@ typedef enum JSPromiseStateEnum {
 
 typedef struct JSPromiseData {
     JSPromiseStateEnum promise_state;
-    /* 0=fulfill, 1=reject, list of JSPromiseReactionData.link */
+    /*  0=完成，1=拒绝，JSPromiseReactionData.link列表。 */ 
     struct list_head promise_reactions[2];
-    BOOL is_handled; /* Note: only useful to debug */
+    BOOL is_handled; /*  注意：仅对调试有用。 */ 
     JSValue promise_result;
 } JSPromiseData;
 
@@ -44051,7 +43583,7 @@ typedef struct JSPromiseFunctionData {
 } JSPromiseFunctionData;
 
 typedef struct JSPromiseReactionData {
-    struct list_head link; /* not used in promise_reaction_job */
+    struct list_head link; /*  未在Promise_Reaction_JOB中使用。 */ 
     JSValue resolving_funcs[2];
     JSValue handler;
 } JSPromiseReactionData;
@@ -44096,9 +43628,7 @@ static JSValue promise_reaction_job(JSContext *ctx, int argc,
     if (is_reject)
         res = JS_GetException(ctx);
     func = argv[is_reject];
-    /* as an extension, we support undefined as value to avoid
-       creating a dummy promise in the 'await' implementation of async
-       functions */
+    /*  作为扩展，我们支持未定义为值以避免在异步的“等待”实现中创建一个虚假承诺功能。 */ 
     if (!JS_IsUndefined(func)) {
         res2 = JS_Call(ctx, func, JS_UNDEFINED,
                        1, (JSValueConst *)&res);
@@ -44119,13 +43649,13 @@ static void fulfill_or_reject_promise(JSContext *ctx, JSValueConst promise,
     JSValueConst args[5];
 
     if (!s || s->promise_state != JS_PROMISE_PENDING)
-        return; /* should never happen */
+        return; /*  永远不应该发生。 */ 
     set_value(ctx, &s->promise_result, JS_DupValue(ctx, value));
     s->promise_state = JS_PROMISE_FULFILLED + is_reject;
 #ifdef DUMP_PROMISE
     printf("fulfill_or_reject_promise: is_reject=%d\n", is_reject);
 #endif
-    /* Note: could call HostPromiseRejectTracker */
+    /*  注意：可以调用HostPromiseRejectTracker。 */ 
     list_for_each_safe(el, el1, &s->promise_reactions[is_reject]) {
         rd = list_entry(el, JSPromiseReactionData, link);
         args[0] = rd->resolving_funcs[0];
@@ -44199,7 +43729,7 @@ static int js_create_resolving_functions(JSContext *ctx,
     if (!sr)
         return -1;
     sr->ref_count = 1;
-    sr->already_resolved = FALSE; /* must be shared between the two functions */
+    sr->already_resolved = FALSE; /*  必须在两个函数之间共享。 */ 
     ret = 0;
     for(i = 0; i < 2; i++) {
         obj = JS_NewObjectProtoClass(ctx, ctx->function_proto,
@@ -44592,7 +44122,7 @@ static JSValue js_promise_all_resolve_element(JSContext *ctx,
     return JS_UNDEFINED;
 }
 
-/* magic = 0: Promise.all 1: Promise.allSettled */
+/*  Magic=0：Promise.all 1：Promise.allSetted。 */ 
 static JSValue js_promise_all(JSContext *ctx, JSValueConst this_val,
                               int argc, JSValueConst *argv, int magic)
 {
@@ -44630,7 +44160,7 @@ static JSValue js_promise_all(JSContext *ctx, JSValueConst this_val,
         resolve_element_env = JS_NewArray(ctx);
         if (JS_IsException(resolve_element_env))
             goto fail_reject;
-        /* remainingElementsCount field */
+        /*  剩余的ElementsCount字段。 */ 
         if (JS_DefinePropertyValueUint32(ctx, resolve_element_env, 0,
                                          JS_NewInt32(ctx, 1),
                                          JS_PROP_CONFIGURABLE | JS_PROP_ENUMERABLE | JS_PROP_WRITABLE) < 0)
@@ -44643,8 +44173,7 @@ static JSValue js_promise_all(JSContext *ctx, JSValueConst this_val,
         
         index = 0;
         for(;;) {
-            /* XXX: conformance: should close the iterator if error on 'done'
-               access, but not on 'value' access */
+            /*  Xxx：Conformance：如果‘Done’出错，则应关闭迭代器访问权限，但不是在“Value”访问权限上。 */ 
             item = JS_IteratorNext(ctx, iter, next_method, 0, NULL, &done);
             if (JS_IsException(item))
                 goto fail_reject;
@@ -44760,8 +44289,7 @@ static JSValue js_promise_race(JSContext *ctx, JSValueConst this_val,
             goto fail_reject1;
 
         for(;;) {
-            /* XXX: conformance: should close the iterator if error on 'done'
-               access, but not on 'value' access */
+            /*  Xxx：Conformance：如果‘Done’出错，则应关闭迭代器访问权限，但不是在“Value”访问权限上。 */ 
             item = JS_IteratorNext(ctx, iter, next_method, 0, NULL, &done);
             if (JS_IsException(item))
                 goto fail_reject;
@@ -44789,7 +44317,7 @@ static JSValue js_promise_race(JSContext *ctx, JSValueConst this_val,
     JS_FreeValue(ctx, resolving_funcs[1]);
     return result_promise;
  fail:
-    //JS_FreeValue(ctx, next_method); // why not???
+    //  JS_自由值(CTX，NEXT_METHOD)；//何乐而不为？
     JS_FreeValue(ctx, result_promise);
     result_promise = JS_EXCEPTION;
     goto done;
@@ -44978,7 +44506,7 @@ static const JSCFunctionListEntry js_promise_funcs[] = {
     JS_CFUNC_MAGIC_DEF("all", 1, js_promise_all, 0 ),
     JS_CFUNC_MAGIC_DEF("allSettled", 1, js_promise_all, 1 ),
     JS_CFUNC_DEF("race", 1, js_promise_race ),
-    //JS_CFUNC_DEF("__newPromiseCapability", 1, js_promise___newPromiseCapability ),
+    //  Js_CFUNC_DEF(“__newPromiseCapability”，1，js_Promise_newPromiseCapability)，
     JS_CGETSET_DEF("[Symbol.species]", js_get_this, NULL),
 };
 
@@ -44989,7 +44517,7 @@ static const JSCFunctionListEntry js_promise_proto_funcs[] = {
     JS_PROP_STRING_DEF("[Symbol.toStringTag]", "Promise", JS_PROP_CONFIGURABLE ),
 };
 
-/* AsyncFunction */
+/*  异步函数。 */ 
 static const JSCFunctionListEntry js_async_function_proto_funcs[] = {
     JS_PROP_STRING_DEF("[Symbol.toStringTag]", "AsyncFunction", JS_PROP_CONFIGURABLE ),
 };
@@ -45013,13 +44541,13 @@ static JSValue js_async_from_sync_iterator_unwrap_func_create(JSContext *ctx,
                                1, 0, 1, func_data);
 }
 
-/* AsyncIteratorPrototype */
+/*  AsyncIterator原型。 */ 
 
 static const JSCFunctionListEntry js_async_iterator_proto_funcs[] = {
     JS_CFUNC_DEF("[Symbol.asyncIterator]", 0, js_iterator_proto_iterator ),
 };
 
-/* AsyncFromSyncIteratorPrototype */
+/*  异步源同步迭代器原型。 */ 
 
 typedef struct JSAsyncFromSyncIteratorData {
     JSValue sync_iter;
@@ -45184,13 +44712,13 @@ static const JSCFunctionListEntry js_async_from_sync_iterator_proto_funcs[] = {
     JS_CFUNC_MAGIC_DEF("throw", 1, js_async_from_sync_iterator_next, GEN_MAGIC_THROW ),
 };
 
-/* AsyncGeneratorFunction */
+/*  AsyncGenerator函数。 */ 
 
 static const JSCFunctionListEntry js_async_generator_function_proto_funcs[] = {
     JS_PROP_STRING_DEF("[Symbol.toStringTag]", "AsyncGeneratorFunction", JS_PROP_CONFIGURABLE ),
 };
 
-/* AsyncGenerator prototype */
+/*  AsyncGenerator原型。 */ 
 
 static const JSCFunctionListEntry js_async_generator_proto_funcs[] = {
     JS_CFUNC_MAGIC_DEF("next", 1, js_async_generator_next, GEN_MAGIC_NEXT ),
@@ -45200,15 +44728,15 @@ static const JSCFunctionListEntry js_async_generator_proto_funcs[] = {
 };
 
 static JSClassShortDef const js_async_class_def[] = {
-    { JS_ATOM_Promise, js_promise_finalizer, js_promise_mark },                      /* JS_CLASS_PROMISE */
-    { JS_ATOM_PromiseResolveFunction, js_promise_resolve_function_finalizer, js_promise_resolve_function_mark }, /* JS_CLASS_PROMISE_RESOLVE_FUNCTION */
-    { JS_ATOM_PromiseRejectFunction, js_promise_resolve_function_finalizer, js_promise_resolve_function_mark }, /* JS_CLASS_PROMISE_REJECT_FUNCTION */
-    { JS_ATOM_AsyncFunction, js_bytecode_function_finalizer, js_bytecode_function_mark },  /* JS_CLASS_ASYNC_FUNCTION */
-    { JS_ATOM_AsyncFunctionResolve, js_async_function_resolve_finalizer, js_async_function_resolve_mark }, /* JS_CLASS_ASYNC_FUNCTION_RESOLVE */
-    { JS_ATOM_AsyncFunctionReject, js_async_function_resolve_finalizer, js_async_function_resolve_mark }, /* JS_CLASS_ASYNC_FUNCTION_REJECT */
-    { JS_ATOM_empty_string, js_async_from_sync_iterator_finalizer, js_async_from_sync_iterator_mark }, /* JS_CLASS_ASYNC_FROM_SYNC_ITERATOR */
-    { JS_ATOM_AsyncGeneratorFunction, js_bytecode_function_finalizer, js_bytecode_function_mark },  /* JS_CLASS_ASYNC_GENERATOR_FUNCTION */
-    { JS_ATOM_AsyncGenerator, js_async_generator_finalizer, js_async_generator_mark },  /* JS_CLASS_ASYNC_GENERATOR */
+    { JS_ATOM_Promise, js_promise_finalizer, js_promise_mark },                      /*  JS_CLASS_Promise。 */ 
+    { JS_ATOM_PromiseResolveFunction, js_promise_resolve_function_finalizer, js_promise_resolve_function_mark }, /*  JS_CLASS_PROMANCE_RESOLE_Function。 */ 
+    { JS_ATOM_PromiseRejectFunction, js_promise_resolve_function_finalizer, js_promise_resolve_function_mark }, /*  JS_CLASS_PROMANCE_REJECT_Function。 */ 
+    { JS_ATOM_AsyncFunction, js_bytecode_function_finalizer, js_bytecode_function_mark },  /*  JS_CLASS_ASYNC_Function。 */ 
+    { JS_ATOM_AsyncFunctionResolve, js_async_function_resolve_finalizer, js_async_function_resolve_mark }, /*  JS_CLASS_ASYNC_Function_RESOLE。 */ 
+    { JS_ATOM_AsyncFunctionReject, js_async_function_resolve_finalizer, js_async_function_resolve_mark }, /*  JS_CLASS_ASYNC_Function_REJECT。 */ 
+    { JS_ATOM_empty_string, js_async_from_sync_iterator_finalizer, js_async_from_sync_iterator_mark }, /*  JS_CLASS_ASYNC_FROM_SYNC_ITERATOR。 */ 
+    { JS_ATOM_AsyncGeneratorFunction, js_bytecode_function_finalizer, js_bytecode_function_mark },  /*  JS_CLASS_ASYNC_GENERATOR_Function。 */ 
+    { JS_ATOM_AsyncGenerator, js_async_generator_finalizer, js_async_generator_mark },  /*  JS_ */ 
 };
 
 void JS_AddIntrinsicPromise(JSContext *ctx)
@@ -45227,7 +44755,7 @@ void JS_AddIntrinsicPromise(JSContext *ctx)
         rt->class_array[JS_CLASS_ASYNC_GENERATOR_FUNCTION].call = js_async_generator_function_call;
     }
 
-    /* Promise */
+    /*   */ 
     ctx->class_proto[JS_CLASS_PROMISE] = JS_NewObject(ctx);
     JS_SetPropertyFunctionList(ctx, ctx->class_proto[JS_CLASS_PROMISE],
                                js_promise_proto_funcs,
@@ -45241,7 +44769,7 @@ void JS_AddIntrinsicPromise(JSContext *ctx)
     JS_NewGlobalCConstructor2(ctx, obj1, "Promise",
                               ctx->class_proto[JS_CLASS_PROMISE]);
 
-    /* AsyncFunction */
+    /*   */ 
     ctx->class_proto[JS_CLASS_ASYNC_FUNCTION] = JS_NewObjectProto(ctx, ctx->function_proto);
     obj1 = JS_NewCFunction3(ctx, (JSCFunction *)js_function_constructor,
                             "AsyncFunction", 1,
@@ -45255,20 +44783,20 @@ void JS_AddIntrinsicPromise(JSContext *ctx)
                        0, JS_PROP_CONFIGURABLE);
     JS_FreeValue(ctx, obj1);
 
-    /* AsyncIteratorPrototype */
+    /*   */ 
     ctx->async_iterator_proto = JS_NewObject(ctx);
     JS_SetPropertyFunctionList(ctx, ctx->async_iterator_proto,
                                js_async_iterator_proto_funcs,
                                countof(js_async_iterator_proto_funcs));
 
-    /* AsyncFromSyncIteratorPrototype */
+    /*   */ 
     ctx->class_proto[JS_CLASS_ASYNC_FROM_SYNC_ITERATOR] =
         JS_NewObjectProto(ctx, ctx->async_iterator_proto);
     JS_SetPropertyFunctionList(ctx, ctx->class_proto[JS_CLASS_ASYNC_FROM_SYNC_ITERATOR],
                                js_async_from_sync_iterator_proto_funcs,
                                countof(js_async_from_sync_iterator_proto_funcs));
 
-    /* AsyncGeneratorPrototype */
+    /*   */ 
     ctx->class_proto[JS_CLASS_ASYNC_GENERATOR] =
         JS_NewObjectProto(ctx, ctx->async_iterator_proto);
     JS_SetPropertyFunctionList(ctx,
@@ -45276,7 +44804,7 @@ void JS_AddIntrinsicPromise(JSContext *ctx)
                                js_async_generator_proto_funcs,
                                countof(js_async_generator_proto_funcs));
 
-    /* AsyncGeneratorFunction */
+    /*   */ 
     ctx->class_proto[JS_CLASS_ASYNC_GENERATOR_FUNCTION] =
         JS_NewObjectProto(ctx, ctx->function_proto);
     obj1 = JS_NewCFunction3(ctx, (JSCFunction *)js_function_constructor,
@@ -45296,7 +44824,7 @@ void JS_AddIntrinsicPromise(JSContext *ctx)
     JS_FreeValue(ctx, obj1);
 }
 
-/* URI handling */
+/*  URI处理。 */ 
 
 static int string_get_hex(JSString *p, int k, int n) {
     int c = 0, h;
@@ -45361,7 +44889,7 @@ static JSValue js_global_decodeURI(JSContext *ctx, JSValueConst this_val,
                     k -= 2;
                 }
             } else {
-                /* Decode URI-encoded UTF-8 sequence */
+                /*  解码URI编码的UTF-8序列。 */ 
                 if (c >= 0xc0 && c <= 0xdf) {
                     n = 1;
                     c_min = 0x80;
@@ -45484,7 +45012,7 @@ static JSValue js_global_encodeURI(JSContext *ctx, JSValueConst this_val,
             if (c < 0x80) {
                 encodeURI_hex(b, c);
             } else {
-                /* XXX: use C UTF-8 conversion ? */
+                /*  XXX：使用C UTF-8转换？ */ 
                 if (c < 0x800) {
                     encodeURI_hex(b, (c >> 6) | 0xc0);
                 } else {
@@ -45570,9 +45098,9 @@ static JSValue js_global_unescape(JSContext *ctx, JSValueConst this_val,
     return string_buffer_end(b);
 }
 
-/* global object */
+/*  全局对象。 */ 
 
-static /*const*/ JSCFunctionListEntry js_global_funcs[] = {
+static /*  常量。 */  JSCFunctionListEntry js_global_funcs[] = {
     JS_CFUNC_DEF("parseInt", 2, js_parseInt ),
     JS_CFUNC_DEF("parseFloat", 1, js_parseFloat ),
     JS_CFUNC_DEF("isNaN", 1, js_global_isNaN ),
@@ -45592,23 +45120,23 @@ static /*const*/ JSCFunctionListEntry js_global_funcs[] = {
     JS_PROP_DOUBLE_DEF("NaN", NAN, 0 ),
     JS_PROP_UNDEFINED_DEF("undefined", 0 ),
 
-    /* for the 'Date' implementation */
+    /*  对于‘Date’的实施。 */ 
     JS_CFUNC_DEF("__date_clock", 0, js___date_clock ),
-    //JS_CFUNC_DEF("__date_now", 0, js___date_now ),
-    //JS_CFUNC_DEF("__date_getTimezoneOffset", 1, js___date_getTimezoneOffset ),
-    //JS_CFUNC_DEF("__date_create", 3, js___date_create ),
+    //  JS_CFUNC_DEF(“__DATE_NOW”，0，js_DATE_NOW)，
+    //  Js_CFUNC_DEF(“__date_getTimezoneOffset”，1，js_date_getTimezoneOffset)，
+    //  JS_CFUNC_DEF(“__DATE_CREATE”，3，js_DATE_CREATE)，
 };
 
-/* Date */
+/*  日期。 */ 
 
 static int64_t math_mod(int64_t a, int64_t b) {
-    /* return positive modulo */
+    /*  返回正模。 */ 
     int64_t m = a % b;
     return m + (m < 0) * b;
 }
 
 static int64_t floor_div(int64_t a, int64_t b) {
-    /* integer division rounding toward -Infinity */
+    /*  整数除法舍入到-无穷大。 */ 
     int64_t m = a % b;
     return (a - (m + (m < 0) * b)) / b;
 }
@@ -45649,12 +45177,11 @@ static int64_t days_in_year(int64_t y) {
     return 365 + !(y % 4) - !(y % 100) + !(y % 400);
 }
 
-/* return the year, update days */
+/*  返回年份，更新天数。 */ 
 static int64_t year_from_days(int64_t *days) {
     int64_t y, d1, nd, d = *days;
     y = floor_div(d * 10000, 3652425) + 1970;
-    /* the initial approximation is very good, so only a few
-       iterations are necessary */
+    /*  最初的近似值非常好，所以只有几个迭代是必要的。 */ 
     for(;;) {
         d1 = d - days_from_year(y);
         if (d1 < 0) {
@@ -45687,8 +45214,8 @@ static __exception int get_date_fields(JSContext *ctx, JSValueConst obj,
 
     if (isnan(dval)) {
         if (!force)
-            return FALSE; /* NaN */
-        d = 0;        /* initialize all fields to 0 */
+            return FALSE; /*  非数。 */ 
+        d = 0;        /*  将所有字段初始化为0。 */ 
     } else {
         d = dval;
         if (is_local) {
@@ -45697,7 +45224,7 @@ static __exception int get_date_fields(JSContext *ctx, JSValueConst obj,
         }
     }
 
-    /* result is >= 0, we can use % */
+    /*  结果&gt;=0，我们可以使用%。 */ 
     h = math_mod(d, 86400000);
     days = (d - h) / 86400000;
     ms = h % 1000;
@@ -45706,7 +45233,7 @@ static __exception int get_date_fields(JSContext *ctx, JSValueConst obj,
     h = (h - s) / 60;
     m = h % 60;
     h = (h - m) / 60;
-    wd = math_mod(days + 4, 7); /* week day */
+    wd = math_mod(days + 4, 7); /*  星期几。 */ 
     y = year_from_days(&days);
 
     for(i = 0; i < 11; i++) {
@@ -45731,7 +45258,7 @@ static __exception int get_date_fields(JSContext *ctx, JSValueConst obj,
 
 static double time_clip(double t) {
     if (t >= -8.64e15 && t <= 8.64e15)
-        return trunc(t) + 0.0;  /* convert -0 to +0 */
+        return trunc(t) + 0.0;  /*  将-0转换为+0。 */ 
     else
         return NAN;
 }
@@ -45761,7 +45288,7 @@ static double set_date_fields(int64_t fields[], int is_local) {
 static JSValue get_date_field(JSContext *ctx, JSValueConst this_val,
                               int argc, JSValueConst *argv, int magic)
 {
-    // get_date_field(obj, n, is_local)
+    //  Get_date_field(obj，n，is_local)。
     int64_t fields[9];
     int res, n, is_local;
 
@@ -45773,7 +45300,7 @@ static JSValue get_date_field(JSContext *ctx, JSValueConst this_val,
     if (!res)
         return JS_NAN;
 
-    if (magic & 0x100) {    // getYear
+    if (magic & 0x100) {    //  获得年头。
         fields[0] -= 1900;
     }
     return JS_NewInt64(ctx, fields[n]);
@@ -45782,7 +45309,7 @@ static JSValue get_date_field(JSContext *ctx, JSValueConst this_val,
 static JSValue set_date_field(JSContext *ctx, JSValueConst this_val,
                               int argc, JSValueConst *argv, int magic)
 {
-    // _field(obj, first_field, end_field, args, is_local)
+    //  _field(obj，first_field，end_field，args，is_local)。
     int64_t fields[9];
     int res, first_field, end_field, is_local, i, n;
     double d, a;
@@ -45812,18 +45339,11 @@ done:
     return JS_SetThisTimeValue(ctx, this_val, d);
 }
 
-/* fmt:
-   0: toUTCString: "Tue, 02 Jan 2018 23:04:46 GMT"
-   1: toString: "Wed Jan 03 2018 00:05:22 GMT+0100 (CET)"
-   2: toISOString: "2018-01-02T23:02:56.927Z"
-   3: toLocaleString: "1/2/2018, 11:40:40 PM"
-   part: 1=date, 2=time 3=all
-   XXX: should use a variant of strftime().
- */
+/*  FMT：0：toUTCString：“Tue，2018 Jan 02 23：04：46 GMT”1：toString：“Wed Jan 03 2018 00：05：22 GMT+0100(CET)”2：toISO字符串：“2018-01-02T23：02：56.927Z”3：toLocaleString：“2018年1月2日晚上11：40：40”部分：1=日期，2=时间3=全部Xxx：应使用strftime()的变体。 */ 
 static JSValue get_date_string(JSContext *ctx, JSValueConst this_val,
                                int argc, JSValueConst *argv, int magic)
 {
-    // _string(obj, fmt, part)
+    //  _字符串(obj，fmt，Part)。
     char buf[64];
     int64_t fields[9];
     int res, fmt, part, pos;
@@ -45854,7 +45374,7 @@ static JSValue get_date_string(JSContext *ctx, JSValueConst this_val,
 
     pos = 0;
 
-    if (part & 1) { /* date part */
+    if (part & 1) { /*  日期部分。 */ 
         switch(fmt) {
         case 0:
             pos += snprintf(buf + pos, sizeof(buf) - pos,
@@ -45892,7 +45412,7 @@ static JSValue get_date_string(JSContext *ctx, JSValueConst this_val,
             break;
         }
     }
-    if (part & 2) { /* time part */
+    if (part & 2) { /*  时间部分。 */ 
         switch(fmt) {
         case 0:
             pos += snprintf(buf + pos, sizeof(buf) - pos,
@@ -45907,10 +45427,10 @@ static JSValue get_date_string(JSContext *ctx, JSValueConst this_val,
             } else {
                 buf[pos++] = '+';
             }
-            /* tz is >= 0, can use % */
+            /*  TZ&gt;=0，可以使用%。 */ 
             pos += snprintf(buf + pos, sizeof(buf) - pos,
                             "%02d%02d", tz / 60, tz % 60);
-            /* XXX: tack the time zone code? */
+            /*  XXX：修改时区代码？ */ 
             break;
         case 2:
             pos += snprintf(buf + pos, sizeof(buf) - pos,
@@ -45926,10 +45446,10 @@ static JSValue get_date_string(JSContext *ctx, JSValueConst this_val,
     return JS_NewStringLen(ctx, buf, pos);
 }
 
-/* OS dependent: return the UTC time in ms since 1970. */
+/*  依赖于操作系统：返回自1970年以来的UTC时间(毫秒)。 */ 
 static int64_t date_now(void) {
 #ifdef _MSC_VER
-	//from duktape
+	//  从DUKTAPE。
 	SYSTEMTIME st1, st2;
 	ULARGE_INTEGER tmp1, tmp2;
 	
@@ -45940,13 +45460,10 @@ static int64_t date_now(void) {
 	
 	st2.wYear = 1970;
 	st2.wMonth = 1;
-	st2.wDayOfWeek = 4;  /* not sure whether or not needed; Thursday */
+	st2.wDayOfWeek = 4;  /*  不确定是否需要；周四。 */ 
 	st2.wDay = 1;
 	duk__convert_systime_to_ularge((const SYSTEMTIME *) &st2, &tmp2);
-	/* Difference is in 100ns units, convert to milliseconds, keeping
-	 * fractions since Duktape 2.2.0.  This is only theoretical because
-	 * SYSTEMTIME is limited to milliseconds.
-	 */
+	/*  差值以100 ns为单位，转换为毫秒，保持*DukTape 2.2.0以来的分数。这只是理论上的，因为*SYSTEMTIME限制为毫秒。 */ 
 	return (int64_t) (((LONGLONG) tmp1.QuadPart - (LONGLONG) tmp2.QuadPart) / 10000);
 #else
     struct timeval tv;
@@ -45958,13 +45475,13 @@ static int64_t date_now(void) {
 static JSValue js_date_constructor(JSContext *ctx, JSValueConst new_target,
                                    int argc, JSValueConst *argv)
 {
-    // Date(y, mon, d, h, m, s, ms)
+    //  日期(y，mon，d，h，m，s，ms)。
     JSValue rv;
     int i, n;
     double a, val;
 
     if (JS_IsUndefined(new_target)) {
-        /* invoked as function */
+        /*  作为函数调用。 */ 
         argc = 0;
     }
     n = argc;
@@ -46022,7 +45539,7 @@ has_val:
         JS_SetObjectData(ctx, rv, __JS_NewFloat64(ctx, val));
 #endif
     if (!JS_IsException(rv) && JS_IsUndefined(new_target)) {
-        /* invoked as a function, return (new Date()).toString(); */
+        /*  作为函数调用，Return(new date()).toString()； */ 
         JSValue s;
         s = get_date_string(ctx, rv, 0, NULL, 0x13);
         JS_FreeValue(ctx, rv);
@@ -46034,7 +45551,7 @@ has_val:
 static JSValue js_Date_UTC(JSContext *ctx, JSValueConst this_val,
                            int argc, JSValueConst *argv)
 {
-    // UTC(y, mon, d, h, m, s, ms)
+    //  UTC(y，mon，d，h，m，s，ms)。
     int64_t fields[] = { 0, 0, 1, 0, 0, 0, 0 };
     int i, n;
     double a;
@@ -46066,12 +45583,12 @@ static void string_skip_non_spaces(JSString *sp, int *pp) {
         *pp += 1;
 }
 
-/* parse a numeric field */
+/*  解析数值字段。 */ 
 static int string_get_field(JSString *sp, int *pp, int64_t *pval) {
     int64_t v = 0;
     int c, p = *pp;
 
-    /* skip non digits, should only skip spaces? */
+    /*  跳过非数字，应该只跳过空格吗？ */ 
     while (p < sp->len) {
         c = string_get(sp, p);
         if (c >= '0' && c <= '9')
@@ -46092,7 +45609,7 @@ static int string_get_field(JSString *sp, int *pp, int64_t *pval) {
     return 0;
 }
 
-/* parse a fixed width numeric field */
+/*  解析固定宽度的数值字段。 */ 
 static int string_get_digits(JSString *sp, int *pp, int n, int64_t *pval) {
     int64_t v = 0;
     int i, c, p = *pp;
@@ -46111,7 +45628,7 @@ static int string_get_digits(JSString *sp, int *pp, int n, int64_t *pval) {
     return 0;
 }
 
-/* parse a signed numeric field */
+/*  解析带符号的数值字段。 */ 
 static int string_get_signed_field(JSString *sp, int *pp, int64_t *pval) {
     int sgn, res;
 
@@ -46160,7 +45677,7 @@ static int string_get_month(JSString *sp, int *pp, int64_t *pval) {
 static JSValue js_Date_parse(JSContext *ctx, JSValueConst this_val,
                              int argc, JSValueConst *argv)
 {
-    // parse(s)
+    //  解析。
     JSValue s, rv;
     int64_t fields[] = { 0, 1, 1, 0, 0, 0, 0 };
     int64_t tz, hh, mm;
@@ -46177,9 +45694,9 @@ static JSValue js_Date_parse(JSContext *ctx, JSValueConst this_val,
     sp = JS_VALUE_GET_STRING(s);
     p = 0;
     if (p < sp->len && (((c = string_get(sp, p)) >= '0' && c <= '9') || c == '+' || c == '-')) {
-        /* ISO format */
-        /* year field can be negative */
-        /* XXX: could be stricter */
+        /*  ISO格式。 */ 
+        /*  年份字段可以为负数。 */ 
+        /*  XXX：可以更严格。 */ 
         if (string_get_signed_field(sp, &p, &fields[0]))
             goto done;
 
@@ -46188,8 +45705,8 @@ static JSValue js_Date_parse(JSContext *ctx, JSValueConst this_val,
                 break;
         }
         if (i == 6 && p < sp->len && string_get(sp, p) == '.') {
-            /* parse milliseconds as a fractional part, round to nearest */
-            /* XXX: the spec does not indicate which rounding should be used */
+            /*  将毫秒解析为小数部分，四舍五入到最近。 */ 
+            /*  XXX：该规范未指明应使用哪种舍入。 */ 
             int mul = 1000, ms = 0;
             while (++p < sp->len) {
                 int c = string_get(sp, p);
@@ -46203,7 +45720,7 @@ static JSValue js_Date_parse(JSContext *ctx, JSValueConst this_val,
         }
         fields[1] -= 1;
 
-        /* parse the time zone offset if present: [+-]HH:mm */
+        /*  解析时区偏移量(如果存在)：[+-]hh：mm。 */ 
         tz = 0;
         if (p < sp->len && ((sgn = string_get(sp, p)) == '+' || sgn == '-')) {
             if (string_get_field(sp, &p, &hh))
@@ -46215,21 +45732,21 @@ static JSValue js_Date_parse(JSContext *ctx, JSValueConst this_val,
                 tz = -tz;
         }
     } else {
-        /* toString or toUTCString format */
-        /* skip the day of the week */
+        /*  To字符串或toUTCString格式。 */ 
+        /*  跳过一周中的哪一天。 */ 
         string_skip_non_spaces(sp, &p);
         string_skip_spaces(sp, &p);
         if (p >= sp->len)
             goto done;
         c = string_get(sp, p);
         if (c >= '0' && c <= '9') {
-            /* day of month first */
+            /*  每月的第一天。 */ 
             if (string_get_field(sp, &p, &fields[2]))
                 goto done;
             if (string_get_month(sp, &p, &fields[1]))
                 goto done;
         } else {
-            /* month first */
+            /*  第一个月。 */ 
             if (string_get_month(sp, &p, &fields[1]))
                 goto done;
             if (string_get_field(sp, &p, &fields[2]))
@@ -46239,14 +45756,14 @@ static JSValue js_Date_parse(JSContext *ctx, JSValueConst this_val,
         if (string_get_signed_field(sp, &p, &fields[0]))
             goto done;
 
-        /* hour, min, seconds */
+        /*  时、分、秒。 */ 
         for(i = 0; i < 3; i++) {
             if (string_get_field(sp, &p, &fields[3 + i]))
                 goto done;
         }
-        // XXX: parse optional milliseconds?
+        //  XXX：解析可选毫秒？
 
-        /* parse the time zone offset if present: [+-]HHmm */
+        /*  解析时区偏移量(如果存在)：[+-]HHmm。 */ 
         tz = 0;
         for (tz = 0; p < sp->len; p++) {
             sgn = string_get(sp, p);
@@ -46274,14 +45791,14 @@ done:
 static JSValue js_Date_now(JSContext *ctx, JSValueConst this_val,
                            int argc, JSValueConst *argv)
 {
-    // now()
+    //  现在()。
     return JS_NewInt64(ctx, date_now());
 }
 
 static JSValue js_date_Symbol_toPrimitive(JSContext *ctx, JSValueConst this_val,
                                           int argc, JSValueConst *argv)
 {
-    // Symbol_toPrimitive(hint)
+    //  Symbol_toPrimitive(提示)。
     JSValueConst obj = this_val;
     JSAtom hint = JS_ATOM_NULL;
     int hint_num;
@@ -46315,7 +45832,7 @@ static JSValue js_date_Symbol_toPrimitive(JSContext *ctx, JSValueConst this_val,
 static JSValue js_date_getTimezoneOffset(JSContext *ctx, JSValueConst this_val,
                                          int argc, JSValueConst *argv)
 {
-    // getTimezoneOffset()
+    //  GetTimezoneOffset()。
     double v;
 
     if (JS_ThisTimeValue(ctx, &v, this_val))
@@ -46329,7 +45846,7 @@ static JSValue js_date_getTimezoneOffset(JSContext *ctx, JSValueConst this_val,
 static JSValue js_date_getTime(JSContext *ctx, JSValueConst this_val,
                                int argc, JSValueConst *argv)
 {
-    // getTime()
+    //  GetTime()。
     double v;
 
     if (JS_ThisTimeValue(ctx, &v, this_val))
@@ -46340,7 +45857,7 @@ static JSValue js_date_getTime(JSContext *ctx, JSValueConst this_val,
 static JSValue js_date_setTime(JSContext *ctx, JSValueConst this_val,
                                int argc, JSValueConst *argv)
 {
-    // setTime(v)
+    //  SetTime(V)。
     double v;
 
     if (JS_ThisTimeValue(ctx, &v, this_val) || JS_ToFloat64(ctx, &v, argv[0]))
@@ -46351,7 +45868,7 @@ static JSValue js_date_setTime(JSContext *ctx, JSValueConst this_val,
 static JSValue js_date_setYear(JSContext *ctx, JSValueConst this_val,
                                int argc, JSValueConst *argv)
 {
-    // setYear(y)
+    //  设置年(Y)。
     double y;
     JSValueConst args[1];
 
@@ -46370,7 +45887,7 @@ static JSValue js_date_setYear(JSContext *ctx, JSValueConst this_val,
 static JSValue js_date_toJSON(JSContext *ctx, JSValueConst this_val,
                               int argc, JSValueConst *argv)
 {
-    // toJSON(key)
+    //  TO JSON(密钥)。
     JSValue obj, tv, method, rv;
     double d;
 
@@ -46465,7 +45982,7 @@ void JS_AddIntrinsicDate(JSContext *ctx)
 {
     JSValueConst obj;
 
-    /* Date */
+    /*  日期。 */ 
     ctx->class_proto[JS_CLASS_DATE] = JS_NewObject(ctx);
     JS_SetPropertyFunctionList(ctx, ctx->class_proto[JS_CLASS_DATE], js_date_proto_funcs,
                                countof(js_date_proto_funcs));
@@ -46474,7 +45991,7 @@ void JS_AddIntrinsicDate(JSContext *ctx)
     JS_SetPropertyFunctionList(ctx, obj, js_date_funcs, countof(js_date_funcs));
 }
 
-/* eval */
+/*  埃瓦尔。 */ 
 
 void JS_AddIntrinsicEval(JSContext *ctx)
 {
@@ -46577,8 +46094,7 @@ static JSValue js_thisBigIntValue(JSContext *ctx, JSValueConst this_val)
     if (JS_VALUE_GET_TAG(this_val) == JS_TAG_OBJECT) {
         JSObject *p = JS_VALUE_GET_OBJ(this_val);
         if (p->class_id == JS_CLASS_BIG_INT) {
-            /* XXX: may relax the check in case the object comes from
-               bignum mode */
+            /*  XXX：可能会放宽检查，以防物品来自Bignum模式。 */ 
             if (JS_IsBigInt(ctx, p->u.object_data))
                 return JS_DupValue(ctx, p->u.object_data);
         }
@@ -46649,7 +46165,7 @@ static JSValue js_integer_div(JSContext *ctx,
     }
     if (magic & 0x10) {
         JSValue ret;
-        /* XXX: handle exceptions */
+        /*  XXX：处理异常。 */ 
         ret = JS_NewArray(ctx);
         JS_SetPropertyUint32(ctx, ret, 0, JS_NewBigInt(ctx, q));
         JS_SetPropertyUint32(ctx, ret, 1, JS_NewBigInt(ctx, r));
@@ -46681,7 +46197,7 @@ static JSValue js_integer_sqrt(JSContext *ctx,
     }
     if (magic) {
         JSValue ret;
-        /* XXX: handle exceptions */
+        /*  XXX：处理异常。 */ 
         ret = JS_NewArray(ctx);
         JS_SetPropertyUint32(ctx, ret, 0, JS_NewBigInt(ctx, r));
         JS_SetPropertyUint32(ctx, ret, 1, JS_NewBigInt(ctx, rem));
@@ -46704,14 +46220,14 @@ static JSValue js_integer_op1(JSContext *ctx,
     if (!a)
         return JS_EXCEPTION;
     switch(magic) {
-    case 0: /* floorLog2 */
+    case 0: /*  FloorLog2。 */ 
         if (a->sign || a->expn <= 0) {
             res = -1;
         } else {
             res = a->expn - 1;
         }
         break;
-    case 1: /* ctz */
+    case 1: /*  CTZ。 */ 
         if (bf_is_zero(a)) {
             res = -1;
         } else {
@@ -46738,7 +46254,7 @@ static JSValue js_integer_asUintN(JSContext *ctx,
     a = JS_ToBigInt(ctx, &a_s, argv[1]);
     if (!a)
         return JS_EXCEPTION;
-    /* XXX: optimize */
+    /*  XXX：优化。 */ 
     bf_init(ctx->bf_ctx, r);
     bf_init(ctx->bf_ctx, mask);
     bf_set_ui(mask, 1);
@@ -46873,7 +46389,7 @@ static JSValue js_bigfloat_constructor(JSContext *ctx,
             }
             break;
         case JS_TAG_BIG_INT:
-            /* We keep the full precision of the integer */
+            /*  我们保持了整数的全精度。 */ 
             {
                 JSBigFloat *p = JS_VALUE_GET_PTR(val);
                 val = JS_MKPTR(JS_TAG_BIG_FLOAT, p);
@@ -46921,14 +46437,14 @@ static JSValue js_float_get_const(JSContext *ctx,
     bf_t r_s, *r = &r_s;
     bf_init(ctx->bf_ctx, r);
     switch(magic) {
-    case 0: /* PI */
+    case 0: /*  聚酰亚胺。 */ 
         bf_const_pi(r, ctx->fp_env.prec, ctx->fp_env.flags);
         break;
-    case 1: /* LN2 */
+    case 1: /*  液氮。 */ 
         bf_const_log2(r, ctx->fp_env.prec, ctx->fp_env.flags);
         break;
-    case 2: /* MIN_VALUE */
-    case 3: /* MAX_VALUE */
+    case 2: /*  最小值。 */ 
+    case 3: /*  最大值。 */ 
         {
             slimb_t e_range, e;
             e_range = (limb_t)1 << (bf_get_exp_bits(ctx->fp_env.flags) - 1);
@@ -46947,7 +46463,7 @@ static JSValue js_float_get_const(JSContext *ctx,
             }
         }
         break;
-    case 4: /* EPSILON */
+    case 4: /*  爱普西隆。 */ 
         bf_set_ui(r, 1);
         bf_mul_2exp(r, 1 - ctx->fp_env.prec,
                     ctx->fp_env.prec, ctx->fp_env.flags);
@@ -47025,7 +46541,7 @@ static const JSCFunctionListEntry js_bigfloat_funcs[] = {
     JS_CFUNC_MAGIC_DEF("remainder", 2, js_math_fop2, MATH_OP_REM ),
 };
 
-/* FloatEnv */
+/*  浮动环境。 */ 
 
 static JSValue js_float_env_constructor(JSContext *ctx,
                                         JSValueConst new_target,
@@ -47043,7 +46559,7 @@ static JSValue js_float_env_constructor(JSContext *ctx,
             return JS_EXCEPTION;
         if (prec < BF_PREC_MIN || prec > BF_PREC_MAX)
             return JS_ThrowRangeError(ctx, "invalid precision");
-        flags = BF_RNDN; /* RNDN, max exponent size, no subnormal */
+        flags = BF_RNDN; /*  RNDN，最大指数大小，无异常。 */ 
         if (argc > 1 && !JS_IsUndefined(argv[1])) {
             if (JS_ToInt32Sat(ctx, &rndmode, argv[1]))
                 return JS_EXCEPTION;
@@ -47082,7 +46598,7 @@ static JSValue js_float_env_get_expBits(JSContext *ctx, JSValueConst this_val)
     return JS_NewInt32(ctx, bf_get_exp_bits(ctx->fp_env.flags));
 }
 
-/* temporary fix for string conversion overflows */
+/*  字符串转换溢出的临时修复。 */ 
 #define BF_EXP_BITS_MAX1 (BF_EXP_BITS_MAX - 1)
 
 static JSValue js_float_env_setPrec(JSContext *ctx,
@@ -47120,7 +46636,7 @@ static JSValue js_float_env_setPrec(JSContext *ctx,
     ctx->fp_env.flags = flags;
 
     ret = JS_Call(ctx, func, JS_UNDEFINED, 0, NULL);
-    /* always restore the floating point precision */
+    /*  始终恢复浮点精度。 */ 
     ctx->fp_env.prec = saved_prec;
     ctx->fp_env.flags = saved_flags;
     return ret;
@@ -47248,7 +46764,7 @@ static const JSCFunctionListEntry js_float_env_proto_funcs[] = {
     JS_CFUNC_DEF("clearStatus", 0, js_float_env_clearStatus ),
 };
 
-#endif /* CONFIG_BIGNUM */
+#endif /*  配置_BIGNUM。 */ 
 
 static const char * const native_error_name[JS_NATIVE_ERROR_COUNT] = {
     "EvalError", "RangeError", "ReferenceError",
@@ -47256,8 +46772,7 @@ static const char * const native_error_name[JS_NATIVE_ERROR_COUNT] = {
     "InternalError",
 };
 
-/* Minimum amount of objects to be able to compile code and display
-   error messages. No JSAtom should be allocated by this function. */
+/*  能够编译代码和显示的最小对象数量错误消息。此函数不应分配任何JSAtom。 */ 
 static void JS_AddIntrinsicBasicObjects(JSContext *ctx)
 {
     JSValue proto;
@@ -47270,8 +46785,7 @@ static void JS_AddIntrinsicBasicObjects(JSContext *ctx)
     ctx->class_proto[JS_CLASS_BYTECODE_FUNCTION] = JS_DupValue(ctx, ctx->function_proto);
     ctx->class_proto[JS_CLASS_ERROR] = JS_NewObject(ctx);
 #if 0
-    /* these are auto-initialized from js_error_proto_funcs,
-       but delaying might be a problem */
+    /*  这些是从js_error_proto_uncs自动初始化的，但拖延可能是个问题。 */ 
     JS_DefinePropertyValue(ctx, ctx->class_proto[JS_CLASS_ERROR], JS_ATOM_name,
                            JS_AtomToString(ctx, JS_ATOM_Error),
                            JS_PROP_WRITABLE | JS_PROP_CONFIGURABLE);
@@ -47294,7 +46808,7 @@ static void JS_AddIntrinsicBasicObjects(JSContext *ctx)
         ctx->native_error_proto[i] = proto;
     }
 
-    /* the array prototype is an array */
+    /*  数组原型是一个数组。 */ 
     ctx->class_proto[JS_CLASS_ARRAY] =
         JS_NewObjectProtoClass(ctx, ctx->class_proto[JS_CLASS_OBJECT],
                                JS_CLASS_ARRAY);
@@ -47304,12 +46818,8 @@ static void JS_AddIntrinsicBasicObjects(JSContext *ctx)
     add_shape_property(ctx, &ctx->array_shape, NULL,
                        JS_ATOM_length, JS_PROP_WRITABLE | JS_PROP_LENGTH);
 
-    /* XXX: could test it on first context creation to ensure that no
-       new atoms are created in JS_AddIntrinsicBasicObjects(). It is
-       necessary to avoid useless renumbering of atoms after
-       JS_EvalBinary() if it is done just after
-       JS_AddIntrinsicBasicObjects(). */
-    //    assert(ctx->rt->atom_count == JS_ATOM_END);
+    /*  XXX：我可以在第一次创建上下文时对其进行测试，以确保没有新原子在JS_AddIntrinsicBasicObjects()中创建。它是避免对原子进行无用的重新编号所必需的JS_EvalBinary()(如果紧接在Js_AddIntrinsicBasicObjects()。 */ 
+    //  Assert(CTX-&gt;RT-&gt;ATOM_COUNT==JS_ATOM_END)；
 }
 
 void JS_AddIntrinsicBaseObjects(JSContext *ctx)
@@ -47320,7 +46830,7 @@ void JS_AddIntrinsicBaseObjects(JSContext *ctx)
 
     ctx->throw_type_error = JS_NewCFunction(ctx, js_throw_type_error, NULL, 0);
 
-    /* add caller and arguments properties to throw a TypeError */
+    /*  添加调用方和参数属性以引发TypeError。 */ 
     obj1 = JS_NewCFunction(ctx, js_function_proto_caller, "get caller", 0);
     JS_DefineProperty(ctx, ctx->function_proto, JS_ATOM_caller, JS_UNDEFINED,
                       obj1, ctx->throw_type_error,
@@ -47336,14 +46846,14 @@ void JS_AddIntrinsicBaseObjects(JSContext *ctx)
     ctx->global_obj = JS_NewObject(ctx);
     ctx->global_var_obj = JS_NewObjectProto(ctx, JS_NULL);
 
-    /* Object */
+    /*  客体。 */ 
     obj = JS_NewGlobalCConstructor(ctx, "Object", js_object_constructor, 1,
                                    ctx->class_proto[JS_CLASS_OBJECT]);
     JS_SetPropertyFunctionList(ctx, obj, js_object_funcs, countof(js_object_funcs));
     JS_SetPropertyFunctionList(ctx, ctx->class_proto[JS_CLASS_OBJECT],
                                js_object_proto_funcs, countof(js_object_proto_funcs));
 
-    /* Function */
+    /*  功能。 */ 
     JS_SetPropertyFunctionList(ctx, ctx->function_proto, js_function_proto_funcs, countof(js_function_proto_funcs));
     ctx->function_ctor = JS_NewCFunctionMagic(ctx, js_function_constructor,
                                               "Function", 1, JS_CFUNC_constructor_or_func_magic,
@@ -47351,7 +46861,7 @@ void JS_AddIntrinsicBaseObjects(JSContext *ctx)
     JS_NewGlobalCConstructor2(ctx, JS_DupValue(ctx, ctx->function_ctor), "Function",
                               ctx->function_proto);
 
-    /* Error */
+    /*  误差率。 */ 
     obj1 = JS_NewCFunctionMagic(ctx, js_error_constructor,
                                 "Error", 1, JS_CFUNC_constructor_or_func_magic, -1);
     JS_NewGlobalCConstructor2(ctx, obj1,
@@ -47365,13 +46875,13 @@ void JS_AddIntrinsicBaseObjects(JSContext *ctx)
                                   ctx->native_error_proto[i]);
     }
 
-    /* Iterator prototype */
+    /*  迭代器原型。 */ 
     ctx->iterator_proto = JS_NewObject(ctx);
     JS_SetPropertyFunctionList(ctx, ctx->iterator_proto,
                                js_iterator_proto_funcs,
                                countof(js_iterator_proto_funcs));
 
-    /* Array */
+    /*  数组。 */ 
     JS_SetPropertyFunctionList(ctx, ctx->class_proto[JS_CLASS_ARRAY],
                                js_array_proto_funcs,
                                countof(js_array_proto_funcs));
@@ -47381,9 +46891,9 @@ void JS_AddIntrinsicBaseObjects(JSContext *ctx)
     JS_SetPropertyFunctionList(ctx, obj, js_array_funcs,
                                countof(js_array_funcs));
 
-    /* XXX: create auto_initializer */
+    /*  XXX：创建自动初始值设定项。 */ 
     {
-        /* initialize Array.prototype[Symbol.unscopables] */
+        /*  初始化数组.原型[符号.不可作用范围]。 */ 
         char const unscopables[] = "copyWithin" "\0" "entries" "\0" "fill" "\0" "find" "\0"
             "findIndex" "\0" "flat" "\0" "flatMap" "\0" "includes" "\0" "keys" "\0" "values" "\0";
         const char *p = unscopables;
@@ -47396,7 +46906,7 @@ void JS_AddIntrinsicBaseObjects(JSContext *ctx)
                                JS_PROP_CONFIGURABLE);
     }
 
-    /* needed to initialize arguments[Symbol.iterator] */
+    /*  需要初始化参数[Symbol.iterator]。 */ 
     ctx->array_proto_values =
         JS_GetProperty(ctx, ctx->class_proto[JS_CLASS_ARRAY], JS_ATOM_values);
 
@@ -47405,7 +46915,7 @@ void JS_AddIntrinsicBaseObjects(JSContext *ctx)
                                js_array_iterator_proto_funcs,
                                countof(js_array_iterator_proto_funcs));
 
-    /* Number */
+    /*  数。 */ 
     ctx->class_proto[JS_CLASS_NUMBER] = JS_NewObjectProtoClass(ctx, ctx->class_proto[JS_CLASS_OBJECT],
                                                                JS_CLASS_NUMBER);
     JS_SetObjectData(ctx, ctx->class_proto[JS_CLASS_NUMBER], JS_NewInt32(ctx, 0));
@@ -47416,7 +46926,7 @@ void JS_AddIntrinsicBaseObjects(JSContext *ctx)
                                           ctx->class_proto[JS_CLASS_NUMBER]);
     JS_SetPropertyFunctionList(ctx, number_obj, js_number_funcs, countof(js_number_funcs));
 
-    /* Boolean */
+    /*  布尔型。 */ 
     ctx->class_proto[JS_CLASS_BOOLEAN] = JS_NewObjectProtoClass(ctx, ctx->class_proto[JS_CLASS_OBJECT],
                                                                 JS_CLASS_BOOLEAN);
     JS_SetObjectData(ctx, ctx->class_proto[JS_CLASS_BOOLEAN], JS_NewBool(ctx, FALSE));
@@ -47425,7 +46935,7 @@ void JS_AddIntrinsicBaseObjects(JSContext *ctx)
     JS_NewGlobalCConstructor(ctx, "Boolean", js_boolean_constructor, 1,
                              ctx->class_proto[JS_CLASS_BOOLEAN]);
 
-    /* String */
+    /*  细绳。 */ 
     ctx->class_proto[JS_CLASS_STRING] = JS_NewObjectProtoClass(ctx, ctx->class_proto[JS_CLASS_OBJECT],
                                                                JS_CLASS_STRING);
     JS_SetObjectData(ctx, ctx->class_proto[JS_CLASS_STRING], JS_AtomToString(ctx, JS_ATOM_empty_string));
@@ -47441,14 +46951,14 @@ void JS_AddIntrinsicBaseObjects(JSContext *ctx)
                                js_string_iterator_proto_funcs,
                                countof(js_string_iterator_proto_funcs));
 
-    /* Math: create as autoinit object */
+    /*  数学：创建为Autoinit对象。 */ 
     js_random_init(ctx);
     JS_SetPropertyFunctionList(ctx, ctx->global_obj, js_math_obj, countof(js_math_obj));
 
-    /* ES6 Reflect: create as autoinit object */
+    /*  ES6反射：创建为自动初始化对象。 */ 
     JS_SetPropertyFunctionList(ctx, ctx->global_obj, js_reflect_obj, countof(js_reflect_obj));
 
-    /* ES6 Symbol */
+    /*  ES6符号。 */ 
     ctx->class_proto[JS_CLASS_SYMBOL] = JS_NewObject(ctx);
     JS_SetPropertyFunctionList(ctx, ctx->class_proto[JS_CLASS_SYMBOL], js_symbol_proto_funcs,
                                countof(js_symbol_proto_funcs));
@@ -47460,14 +46970,14 @@ void JS_AddIntrinsicBaseObjects(JSContext *ctx)
         char buf[ATOM_GET_STR_BUF_SIZE];
         const char *str, *p;
         str = JS_AtomGetStr(ctx, buf, sizeof(buf), i);
-        /* skip "Symbol." */
+        /*  跳过“符号” */ 
         p = strchr(str, '.');
         if (p)
             str = p + 1;
         JS_DefinePropertyValueStr(ctx, obj, str, JS_AtomToValue(ctx, i), 0);
     }
 
-    /* ES6 Generator */
+    /*  ES6生成器。 */ 
     ctx->class_proto[JS_CLASS_GENERATOR] = JS_NewObjectProto(ctx, ctx->iterator_proto);
     JS_SetPropertyFunctionList(ctx, ctx->class_proto[JS_CLASS_GENERATOR],
                                js_generator_proto_funcs,
@@ -47519,7 +47029,7 @@ void JS_AddIntrinsicBaseObjects(JSContext *ctx)
     JS_SetPropertyFunctionList(ctx, obj1, js_float_env_funcs,
                                countof(js_float_env_funcs));
 #endif
-    /* global properties */
+    /*  全局属性。 */ 
     ctx->eval_obj = JS_NewCFunction(ctx, js_global_eval, "eval", 1);
     JS_DefinePropertyValue(ctx, ctx->global_obj, JS_ATOM_eval,
                            JS_DupValue(ctx, ctx->eval_obj),
@@ -47533,12 +47043,12 @@ void JS_AddIntrinsicBaseObjects(JSContext *ctx)
                            JS_PROP_CONFIGURABLE | JS_PROP_WRITABLE);
 }
 
-/* Typed Arrays */
+/*  类型化数组。 */ 
 
 static uint8_t const typed_array_size_log2[JS_TYPED_ARRAY_COUNT] = {
     0, 0, 0, 1, 1, 2, 2,
 #ifdef CONFIG_BIGNUM
-    3, 3, /* BigInt64Array, BigUint64Array */
+    3, 3, /*  BigInt64阵列、BigUint64阵列。 */ 
 #endif
     2, 3
 };
@@ -47556,7 +47066,7 @@ static JSValue js_array_buffer_constructor3(JSContext *ctx,
     obj = js_create_from_ctor(ctx, new_target, class_id);
     if (JS_IsException(obj))
         return obj;
-    /* XXX: we are currently limited to 2 GB */
+    /*  XXX：我们目前被限制为2 GB。 */ 
     if (len > INT32_MAX) {
         JS_ThrowRangeError(ctx, "invalid array buffer length");
         goto fail;
@@ -47566,7 +47076,7 @@ static JSValue js_array_buffer_constructor3(JSContext *ctx,
         goto fail;
     abuf->byte_length = len;
     if (alloc_flag) {
-        /* the allocation must be done after the object creation */
+        /*  分配必须在对象创建之后完成。 */ 
         abuf->data = js_mallocz(ctx, max_int(len, 1));
         if (!abuf->data)
             goto fail;
@@ -47619,7 +47129,7 @@ JSValue JS_NewArrayBuffer(JSContext *ctx, uint8_t *buf, size_t len,
                                         buf, free_func, opaque, FALSE);
 }
 
-/* create a new ArrayBuffer of length 'len' and copy 'buf' to it */
+/*  创建长度为‘len’的新ArrayBuffer并将‘buf’复制到其中。 */ 
 JSValue JS_NewArrayBufferCopy(JSContext *ctx, const uint8_t *buf, size_t len)
 {
     return js_array_buffer_constructor3(ctx, JS_UNDEFINED, len,
@@ -47650,15 +47160,13 @@ static JSValue js_shared_array_buffer_constructor(JSContext *ctx,
                                         JS_CLASS_SHARED_ARRAY_BUFFER);
 }
 
-/* also used for SharedArrayBuffer */
+/*  也用于SharedArrayBuffer。 */ 
 static void js_array_buffer_finalizer(JSRuntime *rt, JSValue val)
 {
     JSObject *p = JS_VALUE_GET_OBJ(val);
     JSArrayBuffer *abuf = p->u.array_buffer;
     if (abuf) {
-        /* During the GC sweep phase the ArrayBuffer finalizer may be
-           called before the typed array finalizers using it, so
-           abuf->array_list is not necessarily empty. */
+        /*  在GC扫描阶段，ArrayBuffer终结器可能在使用它的类型化数组终结器之前调用，因此ABUF-&gt;ARRAY_LIST不一定为空。 */ 
         if (!JS_IsInGCSweep(rt)) {
             assert(list_empty(&abuf->array_list));
         }
@@ -47726,7 +47234,7 @@ void JS_DetachArrayBuffer(JSContext *ctx, JSValueConst obj)
 
         ta = list_entry(el, JSTypedArray, link);
         p = ta->obj;
-        /* Note: the typed array length and offset fields are not modified */
+        /*  注意：类型化的数组长度和偏移量字段不会修改。 */ 
         if (p->class_id != JS_CLASS_DATAVIEW) {
             p->u.array.count = 0;
             p->u.array.u.ptr = NULL;
@@ -47734,7 +47242,7 @@ void JS_DetachArrayBuffer(JSContext *ctx, JSValueConst obj)
     }
 }
 
-/* get an ArrayBuffer or SharedArrayBuffer */
+/*  获取ArrayBuffer或SharedArrayBuffer。 */ 
 static JSArrayBuffer *js_get_array_buffer(JSContext *ctx, JSValueConst obj)
 {
     JSObject *p;
@@ -47750,8 +47258,7 @@ static JSArrayBuffer *js_get_array_buffer(JSContext *ctx, JSValueConst obj)
     return p->u.array_buffer;
 }
 
-/* return NULL if exception. WARNING: any JS call can detach the
-   buffer and render the returned pointer invalid */
+/*  如果异常，则返回NULL。警告：任何JS调用都可以分离缓冲并使返回的指针无效。 */ 
 uint8_t *JS_GetArrayBuffer(JSContext *ctx, size_t *psize, JSValueConst obj)
 {
     JSArrayBuffer *abuf = js_get_array_buffer(ctx, obj);
@@ -47822,7 +47329,7 @@ static JSValue js_array_buffer_slice(JSContext *ctx,
         JS_ThrowTypeError(ctx, "new ArrayBuffer is too small");
         goto fail;
     }
-    /* must test again because of side effects */
+    /*  由于副作用，必须重新测试。 */ 
     if (abuf->detached) {
         JS_ThrowTypeErrorDetachedArrayBuffer(ctx);
         goto fail;
@@ -47840,7 +47347,7 @@ static const JSCFunctionListEntry js_array_buffer_proto_funcs[] = {
     JS_PROP_STRING_DEF("[Symbol.toStringTag]", "ArrayBuffer", JS_PROP_CONFIGURABLE ),
 };
 
-/* SharedArrayBuffer */
+/*  共享阵列缓冲区。 */ 
 
 static const JSCFunctionListEntry js_shared_array_buffer_funcs[] = {
     JS_CGETSET_DEF("[Symbol.species]", js_get_this, NULL ),
@@ -47874,18 +47381,16 @@ static JSObject *get_typed_array(JSContext *ctx,
     return p;
 }
 
-/* WARNING: 'p' must be a typed array */
+/*  警告：‘P’必须是类型化数组。 */ 
 static BOOL typed_array_is_detached(JSContext *ctx, JSObject *p)
 {
     JSTypedArray *ta = p->u.typed_array;
     JSArrayBuffer *abuf = ta->buffer->u.array_buffer;
-    /* XXX: could simplify test by ensuring that
-       p->u.array.u.ptr is NULL iff it is detached */
+    /*  XXX：可以通过确保P-&gt;U.S.array.U.S.ptr为空仅当其已分离。 */ 
     return abuf->detached;
 }
 
-/* WARNING: 'p' must be a typed array. Works even if the array buffer
-   is detached */
+/*  警告：‘P’必须是类型化数组。即使数组缓冲区是分离的。 */ 
 static uint32_t typed_array_get_length(JSContext *ctx, JSObject *p)
 {
     JSTypedArray *ta = p->u.typed_array;
@@ -48023,18 +47528,17 @@ static JSValue js_typed_array_set_internal(JSContext *ctx,
         if (offset > (int64_t)(p->u.array.count - src_len))
             goto range_error;
 
-        /* copying between typed objects */
+        /*  在类型化对象之间复制。 */ 
         if (src_p->class_id == p->class_id) {
-            /* same type, use memmove */
+            /*  相同类型，使用Memmove。 */ 
             memmove(dest_abuf->data + dest_ta->offset + (offset << shift),
                     src_abuf->data + src_ta->offset, src_len << shift);
             goto done;
         }
         if (dest_abuf->data == src_abuf->data) {
-            /* copying between the same buffer using different types of mappings
-               would require a temporary buffer */
+            /*  使用不同类型的映射在同一缓冲区之间进行复制将需要一个临时缓冲区。 */ 
         }
-        /* otherwise, default behavior is slow but correct */
+        /*  否则，默认行为是缓慢的，但正确的。 */ 
     } else {
         if (js_get_length64(ctx, &src_len, src_obj))
             goto fail;
@@ -48078,7 +47582,7 @@ static JSValue js_create_typed_array_iterator(JSContext *ctx, JSValueConst this_
     return js_create_array_iterator(ctx, this_val, argc, argv, magic);
 }
 
-/* return < 0 if exception */
+/*  如果异常，则返回&lt;0。 */ 
 static int js_typed_array_get_length_internal(JSContext *ctx,
                                               JSValueConst obj)
 {
@@ -48094,7 +47598,7 @@ static int js_typed_array_get_length_internal(JSContext *ctx,
 }
 
 #if 0
-/* validate a typed array and return its length */
+/*  验证类型化数组并返回其长度。 */ 
 static JSValue js_typed_array___getLength(JSContext *ctx,
                                           JSValueConst this_val,
                                           int argc, JSValueConst *argv)
@@ -48128,12 +47632,12 @@ static JSValue js_typed_array_create(JSContext *ctx, JSValueConst ctor,
     ret = JS_CallConstructor(ctx, ctor, argc, argv);
     if (JS_IsException(ret))
         return ret;
-    /* validate the typed array */
+    /*  验证类型化数组。 */ 
     new_len = js_typed_array_get_length_internal(ctx, ret);
     if (new_len < 0)
         goto fail;
     if (argc == 1) {
-        /* ensure that it is large enough */
+        /*  确保它足够大。 */ 
         if (JS_ToLengthFree(ctx, &len, JS_DupValue(ctx, argv[0])))
             goto fail;
         if (new_len < len) {
@@ -48185,7 +47689,7 @@ static JSValue js_typed_array___speciesCreate(JSContext *ctx,
 static JSValue js_typed_array_from(JSContext *ctx, JSValueConst this_val,
                                    int argc, JSValueConst *argv)
 {
-    // from(items, mapfn = void 0, this_arg = void 0)
+    //  From(项目，mapfn=空0，this_arg=空0)。
     JSValueConst items = argv[0], mapfn, this_arg;
     JSValueConst args[2];
     JSValue stack[2];
@@ -48520,8 +48024,8 @@ static JSValue js_typed_array_indexOf(JSContext *ctx, JSValueConst this_val,
     }
 
     is_big = 0;
-    is_int = 0; /* avoid warning */
-    v64 = 0; /* avoid warning */
+    is_int = 0; /*  避免警告。 */ 
+    v64 = 0; /*  避免警告。 */ 
     tag = JS_VALUE_GET_NORM_TAG(argv[0]);
     if (tag == JS_TAG_INT) {
         is_int = 1;
@@ -48535,8 +48039,8 @@ static JSValue js_typed_array_indexOf(JSContext *ctx, JSValueConst this_val,
     } else
 #ifdef CONFIG_BIGNUM
     if (tag == JS_TAG_BIG_INT || tag == JS_TAG_BIG_FLOAT) {
-        /* will a generic loop for bigint and bigfloat */
-        /* XXX: should use the generic loop in math_mode? */
+        /*  是否会为Bigint和BigFloat创建泛型循环。 */ 
+        /*  XXX：是否应该在MATH_MODE中使用泛型循环？ */ 
         is_big = 1;
     } else
 #endif
@@ -48615,7 +48119,7 @@ static JSValue js_typed_array_indexOf(JSContext *ctx, JSValueConst this_val,
             break;
         if (isnan(d)) {
             const float *pv = p->u.array.u.float_ptr;
-            /* special case: indexOf returns -1, includes finds NaN */
+            /*  特例：indexOf返回-1，包括查找NaN。 */ 
             if (special != special_includes)
                 goto done;
             for (; k != stop; k += inc) {
@@ -48639,7 +48143,7 @@ static JSValue js_typed_array_indexOf(JSContext *ctx, JSValueConst this_val,
             break;
         if (isnan(d)) {
             const double *pv = p->u.array.u.double_ptr;
-            /* special case: indexOf returns -1, includes finds NaN */
+            /*  特例：indexOf返回-1，包括查找NaN。 */ 
             if (special != special_includes)
                 goto done;
             for (; k != stop; k += inc) {
@@ -48662,8 +48166,8 @@ static JSValue js_typed_array_indexOf(JSContext *ctx, JSValueConst this_val,
     case JS_CLASS_BIG_INT64_ARRAY:
     case JS_CLASS_BIG_UINT64_ARRAY:
         if (is_big || is_strict_mode(ctx)) {
-            /* generic loop for bignums, argv[0] is a bignum != NaN */
-            /* XXX: optimize with explicit values */
+            /*  泛型循环用于 */ 
+            /*   */ 
             for (; k != stop; k += inc) {
                 JSValue v = JS_GetPropertyUint32(ctx, this_val, k);
                 int ret;
@@ -48706,7 +48210,7 @@ static JSValue js_typed_array_join(JSContext *ctx, JSValueConst this_val,
     if (n < 0)
         goto exception;
 
-    c = ',';    /* default separator */
+    c = ',';    /*   */ 
     if (!toLocaleString && argc > 0 && !JS_IsUndefined(argv[0])) {
         sep = JS_ToString(ctx, argv[0]);
         if (JS_IsException(sep))
@@ -48719,7 +48223,7 @@ static JSValue js_typed_array_join(JSContext *ctx, JSValueConst this_val,
     }
     string_buffer_init(ctx, b, 0);
 
-    /* XXX: optimize with direct access */
+    /*   */ 
     for(i = 0; i < n; i++) {
         if (i > 0) {
             if (c >= 0) {
@@ -48917,7 +48421,7 @@ static JSValue js_typed_array_subarray(JSContext *ctx, JSValueConst this_val,
     return JS_EXCEPTION;
 }
 
-/* TypedArray.prototype.sort */
+/*   */ 
 
 static int js_cmp_doubles(double x, double y)
 {
@@ -49028,7 +48532,7 @@ struct TA_sort_context {
     JSValueConst arr;
     JSValueConst cmp;
     JSValue (*getfun)(JSContext *ctx, const void *a);
-    void *array_ptr; /* cannot change unless the array is detached */
+    void *array_ptr; /*  除非分离阵列，否则无法更改。 */ 
     int elt_size;
 };
 
@@ -49066,7 +48570,7 @@ static int js_TA_cmp_generic(const void *a, const void *b, void *opaque) {
             }
         }
         if (cmp == 0) {
-            /* make sort stable: compare array offsets */
+            /*  使排序稳定：比较数组偏移量。 */ 
             cmp = (a_idx > b_idx) - (a_idx < b_idx);
         }
         if (validate_typed_array(ctx, psc->arr) < 0) {
@@ -49156,7 +48660,7 @@ static JSValue js_typed_array_sort(JSContext *ctx, JSValueConst this_val,
             void *array_tmp;
             size_t i, j;
             
-            /* XXX: a stable sort would use less memory */
+            /*  XXX：稳定排序将使用较少的内存。 */ 
             array_idx = js_malloc(ctx, len * sizeof(array_idx[0]));
             if (!array_idx)
                 return JS_EXCEPTION;
@@ -49218,9 +48722,9 @@ static const JSCFunctionListEntry js_typed_array_base_funcs[] = {
     JS_CFUNC_DEF("from", 1, js_typed_array_from ),
     JS_CFUNC_DEF("of", 0, js_typed_array_of ),
     JS_CGETSET_DEF("[Symbol.species]", js_get_this, NULL ),
-    //JS_CFUNC_DEF("__getLength", 2, js_typed_array___getLength ),
-    //JS_CFUNC_DEF("__create", 2, js_typed_array___create ),
-    //JS_CFUNC_DEF("__speciesCreate", 2, js_typed_array___speciesCreate ),
+    //  Js_CFUNC_DEF(“__getLength”，2，js_type_array_getLength)，
+    //  JS_CFUNC_DEF(“__CREATE”，2，js_TYPED_ARRAY_CREATE)，
+    //  JS_CFUNC_DEF(“__SpeciesCreate”，2，js_TYPED_ARRAY_SpeciesCreate)，
 };
 
 static const JSCFunctionListEntry js_typed_array_base_proto_funcs[] = {
@@ -49254,7 +48758,7 @@ static const JSCFunctionListEntry js_typed_array_base_proto_funcs[] = {
     JS_CFUNC_MAGIC_DEF("indexOf", 1, js_typed_array_indexOf, special_indexOf ),
     JS_CFUNC_MAGIC_DEF("lastIndexOf", 1, js_typed_array_indexOf, special_lastIndexOf ),
     JS_CFUNC_MAGIC_DEF("includes", 1, js_typed_array_indexOf, special_includes ),
-    //JS_ALIAS_BASE_DEF("toString", "toString", 2 /* Array.prototype. */), @@@
+    //  JS_ALIAS_BASE_DEF(“toString”，“toString”，2/*Array.Prototype。 *-/ )，@。
 };
 
 static JSValue js_typed_array_base_constructor(JSContext *ctx,
@@ -49264,7 +48768,7 @@ static JSValue js_typed_array_base_constructor(JSContext *ctx,
     return JS_ThrowTypeError(ctx, "cannot be called");
 }
 
-/* 'obj' must be an allocated typed array object */
+/*  “obj”必须是分配的类型化数组对象。 */ 
 static int typed_array_init(JSContext *ctx, JSValueConst obj,
                             JSValue buffer, uint64_t offset, uint64_t len)
 {
@@ -49418,7 +48922,7 @@ static JSValue js_typed_array_constructor_ta(JSContext *ctx,
         if (JS_IsException(ctor))
             goto fail;
     } else {
-        /* force ArrayBuffer default constructor */
+        /*  强制ArrayBuffer默认构造函数。 */ 
         ctor = JS_UNDEFINED;
     }
     size_log2 = typed_array_size_log2(classid);
@@ -49427,7 +48931,7 @@ static JSValue js_typed_array_constructor_ta(JSContext *ctx,
     JS_FreeValue(ctx, ctor);
     if (JS_IsException(buffer))
         goto fail;
-    /* necessary because it could have been detached */
+    /*  有必要，因为它可能已经被分离了。 */ 
     if (typed_array_is_detached(ctx, p)) {
         JS_FreeValue(ctx, buffer);
         JS_ThrowTypeErrorDetachedArrayBuffer(ctx);
@@ -49437,7 +48941,7 @@ static JSValue js_typed_array_constructor_ta(JSContext *ctx,
     if (typed_array_init(ctx, obj, buffer, 0, len))
         goto fail;
     if (p->class_id == classid) {
-        /* same type: copy the content */
+        /*  相同类型：复制内容。 */ 
         memcpy(abuf->data, src_abuf->data + ta->offset, abuf->byte_length);
     } else {
         for(i = 0; i < len; i++) {
@@ -49528,8 +49032,7 @@ static void js_typed_array_finalizer(JSRuntime *rt, JSValue val)
     JSObject *p = JS_VALUE_GET_OBJ(val);
     JSTypedArray *ta = p->u.typed_array;
     if (ta) {
-        /* during the GC the finalizers are called in an arbitrary
-           order so the ArrayBuffer finalizer may have been called */
+        /*  在GC期间，终结器在任意排序，以便可能已调用ArrayBuffer终结器。 */ 
         if (JS_IsLiveObject(rt, JS_MKPTR(JS_TAG_OBJECT, ta->buffer))) {
             list_del(&ta->link);
         }
@@ -49587,7 +49090,7 @@ static JSValue js_dataview_constructor(JSContext *ctx,
     if (JS_IsException(obj))
         return JS_EXCEPTION;
     if (abuf->detached) {
-        /* could have been detached in js_create_from_ctor() */
+        /*  可能已在js_create_from_ctor()中分离。 */ 
         JS_ThrowTypeErrorDetachedArrayBuffer(ctx);
         goto fail;
     }
@@ -49730,8 +49233,8 @@ static JSValue js_dataview_setValue(JSContext *ctx,
     if (JS_ToIndex(ctx, &pos, argv[0]))
         return JS_EXCEPTION;
     val = argv[1];
-    v = 0; /* avoid warning */
-    v64 = 0; /* avoid warning */
+    v = 0; /*  避免警告。 */ 
+    v64 = 0; /*  避免警告。 */ 
     if (class_id <= JS_CLASS_UINT32_ARRAY) {
         if (JS_ToUint32(ctx, &v, val))
             return JS_EXCEPTION;
@@ -49836,7 +49339,7 @@ static const JSCFunctionListEntry js_dataview_proto_funcs[] = {
     JS_PROP_STRING_DEF("[Symbol.toStringTag]", "DataView", JS_PROP_CONFIGURABLE ),
 };
 
-/* Atomics */
+/*  原子学。 */ 
 #ifdef CONFIG_ATOMICS
 
 typedef enum AtomicsOpEnum {
@@ -50098,7 +49601,7 @@ static JSValue js_atomics_store(JSContext *ctx,
 #endif
     {
         uint32_t v;
-        /* XXX: spec, would be simpler to return the written value */
+        /*  Xxx：Spec，返回写入的值会更简单。 */ 
         ret = JS_ToIntegerFree(ctx, JS_DupValue(ctx, argv[2]));
         if (JS_IsException(ret))
             return ret;
@@ -50187,9 +49690,8 @@ static JSValue js_atomics_wait(JSContext *ctx,
     if (!ctx->rt->can_block)
         return JS_ThrowTypeError(ctx, "cannot block in this thread");
 
-    /* XXX: inefficient if large number of waiters, should hash on
-       'ptr' value */
-    /* XXX: use Linux futexes when available ? */
+    /*  XXX：如果服务员数量很多，效率很低，应该继续“ptr”值。 */ 
+    /*  XXX：当可用时使用Linux Futex？ */ 
     pthread_mutex_lock(&js_atomics_mutex);
     if (size_log2 == 3) {
         res = *(int64_t *)ptr != v;
@@ -50211,7 +49713,7 @@ static JSValue js_atomics_wait(JSContext *ctx,
         pthread_cond_wait(&waiter->cond, &js_atomics_mutex);
         ret = 0;
     } else {
-        /* XXX: use clock monotonic */
+        /*  XXX：使用单调时钟。 */ 
         clock_gettime(CLOCK_REALTIME, &ts);
         ts.tv_sec += timeout / 1000;
         ts.tv_nsec += (timeout % 1000) * 1000000;
@@ -50299,11 +49801,11 @@ static const JSCFunctionListEntry js_atomics_obj[] = {
 
 void JS_AddIntrinsicAtomics(JSContext *ctx)
 {
-    /* add Atomics as autoinit object */
+    /*  将原子添加为自动初始化对象。 */ 
     JS_SetPropertyFunctionList(ctx, ctx->global_obj, js_atomics_obj, countof(js_atomics_obj));
 }
 
-#endif /* CONFIG_ATOMICS */
+#endif /*  配置原子。 */ 
 
 void JS_AddIntrinsicTypedArrays(JSContext *ctx)
 {
@@ -50340,9 +49842,9 @@ void JS_AddIntrinsicTypedArrays(JSContext *ctx)
                                js_typed_array_base_proto_funcs,
                                countof(js_typed_array_base_proto_funcs));
 
-    /* TypedArray.prototype.toString must be the same object as Array.prototype.toString */
+    /*  TyedArray.prototype.toString必须与Array.prototype.toString相同的对象。 */ 
     JSValue obj = JS_GetProperty(ctx, ctx->class_proto[JS_CLASS_ARRAY], JS_ATOM_toString);
-    /* XXX: should use alias method in JSCFunctionListEntry */ //@@@
+    /*  XXX：应在JSCFunctionListEntry中使用别名方法。 */  //  数据视图。
     JS_DefinePropertyValue(ctx, typed_array_base_proto, JS_ATOM_toString, obj,
                            JS_PROP_WRITABLE | JS_PROP_CONFIGURABLE);
 
@@ -50377,7 +49879,7 @@ void JS_AddIntrinsicTypedArrays(JSContext *ctx)
     JS_FreeValue(ctx, typed_array_base_proto);
     JS_FreeValue(ctx, typed_array_base_func);
 
-    /* DataView */
+    /*  原子学 */ 
     ctx->class_proto[JS_CLASS_DATAVIEW] = JS_NewObject(ctx);
     JS_SetPropertyFunctionList(ctx, ctx->class_proto[JS_CLASS_DATAVIEW],
                                js_dataview_proto_funcs,
@@ -50385,7 +49887,7 @@ void JS_AddIntrinsicTypedArrays(JSContext *ctx)
     JS_NewGlobalCConstructorOnly(ctx, "DataView",
                                  js_dataview_constructor, 1,
                                  ctx->class_proto[JS_CLASS_DATAVIEW]);
-    /* Atomics */
+    /* %s */ 
 #ifdef CONFIG_ATOMICS
     JS_AddIntrinsicAtomics(ctx);
 #endif

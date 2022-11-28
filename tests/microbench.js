@@ -1,27 +1,5 @@
-/*
- * Javascript Micro benchmark
- *
- * Copyright (c) 2017-2019 Fabrice Bellard
- * Copyright (c) 2017-2019 Charlie Gordon
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *Java Micro Benchmark**版权所有(C)2017-2019 Fabrice Bellard*版权所有(C)2017-2019查理·戈登**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 
 "use strict";
 
@@ -96,7 +74,7 @@ function log_line() {
 
 var clocks_per_sec = 1000000;
 var max_iterations = 100;
-var clock_threshold = 2000;  /* favoring short measuring spans */
+var clock_threshold = 2000;  /*  支持较短的测量跨度。 */ 
 var min_n_argument = 1;
 var __date_clock;
 
@@ -149,7 +127,7 @@ function bench(f, text)
                     continue;
                 nb_its = f(n);
                 if (nb_its < 0)
-                    return; // test failure
+                    return; //  测试失败。
                 t1 = clock() - t1;
                 if (ti > t1)
                     ti = t1;
@@ -164,14 +142,14 @@ function bench(f, text)
 
             n = n * [ 2, 2.5, 2 ][i % 3];
         }
-        // to use only the best timing from the last loop, uncomment below
-        //ti_n = ti / nb_its;
+        //  要只使用上一次循环中的最佳时间，请取消下面的注释。
+        //  Ti_n=ti/nb_its；
     }
-    /* nano seconds per iteration */
+    /*  每次迭代的纳秒数。 */ 
     log_one(text, n, ti_n * 1e9 / clocks_per_sec);
 }
 
-var global_res; /* to be sure the code is not optimized */
+var global_res; /*  以确保代码未优化。 */ 
 
 function empty_loop(n) {
     var j;
@@ -674,7 +652,7 @@ function math_min(n)
     return n * 1000;
 }
 
-/* incremental string contruction as local var */
+/*  作为局部变量的增量串构造。 */ 
 function string_build1(n)
 {
     var i, j, r;
@@ -687,7 +665,7 @@ function string_build1(n)
     return n * 100;
 }
 
-/* incremental string contruction as arg */
+/*  作为Arg的增量式字符串构造。 */ 
 function string_build2(n, r)
 {
     var i, j;
@@ -700,7 +678,7 @@ function string_build2(n, r)
     return n * 100;
 }
 
-/* incremental string contruction by prepending */
+/*  基于前缀的增量式字符串构造。 */ 
 function string_build3(n, r)
 {
     var i, j;
@@ -713,7 +691,7 @@ function string_build3(n, r)
     return n * 100;
 }
 
-/* incremental string contruction with multiple reference */
+/*  具有多重引用的增量式字符串构造。 */ 
 function string_build4(n)
 {
     var i, j, r, s;
@@ -728,7 +706,7 @@ function string_build4(n)
     return n * 100;
 }
 
-/* sort bench */
+/*  分拣工作台。 */ 
 
 function sort_bench(text) {
     function random(arr, n, def) {
@@ -810,7 +788,7 @@ function sort_bench(text) {
     var save_total_score = total_score;
     var save_total_scale = total_scale;
 
-    // initialize default sorted array (n + 1 elements)
+    //  初始化默认排序数组(n+1个元素)。
     def = new array_type(n + 1);
     if (array_type == Array) {
         for (i = 0; i <= n; i++) {
@@ -928,20 +906,20 @@ function main(argc, argv, g)
         math_min,
         string_build1,
         string_build2,
-        //string_build3,
-        //string_build4,
+        //  字符串_构建3，
+        //  字符串_构建4，
         sort_bench,
     ];
     var tests = [];
     var i, j, n, f, name;
     
     if (typeof BigInt == "function") {
-        /* BigInt test */
+        /*  大整型检验。 */ 
         test_list.push(bigint64_arith);
         test_list.push(bigint256_arith);
     }
     if (typeof BigFloat == "function") {
-        /* BigFloat test */
+        /*  大浮力试验 */ 
         test_list.push(float256_arith);
     }
     

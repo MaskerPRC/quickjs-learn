@@ -1,26 +1,5 @@
-/*
- * QuickJS command line compiler
- * 
- * Copyright (c) 2018-2019 Fabrice Bellard
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *QuickJS命令行编译器**版权所有(C)2018-2019 Fabrice Bellard**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -86,7 +65,7 @@ void namelist_add(namelist_t *lp, const char *name, const char *short_name,
         size_t newsize = lp->size + (lp->size >> 1) + 4;
         namelist_entry_t *a =
             realloc(lp->array, sizeof(lp->array[0]) * newsize);
-        /* XXX: check for realloc failure */
+        /*  XXX：检查是否存在重新锁定故障。 */ 
         lp->array = a;
         lp->size = newsize;
     }
@@ -199,7 +178,7 @@ static void output_object_code(JSContext *ctx,
 
 static int js_module_dummy_init(JSContext *ctx, JSModuleDef *m)
 {
-    /* should never be called when compiling JS code */
+    /*  在编译JS代码时永远不应调用。 */ 
     abort();
 }
 
@@ -209,8 +188,7 @@ static void find_unique_cname(char *cname, size_t cname_size)
     int suffix_num;
     size_t len, max_len;
     assert(cname_size >= 32);
-    /* find a C name not matching an existing module C name by
-       adding a numeric suffix */
+    /*  通过以下方式查找与现有模块C名称不匹配的C名称添加数字后缀。 */ 
     len = strlen(cname);
     max_len = cname_size - 16;
     if (len > max_len)
@@ -231,19 +209,18 @@ JSModuleDef *jsc_module_loader(JSContext *ctx,
     JSModuleDef *m;
     namelist_entry_t *e;
 
-    /* check if it is a declared C or system module */
+    /*  检查它是声明的C模块还是系统模块。 */ 
     e = namelist_find(&cmodule_list, module_name);
     if (e) {
-        /* add in the static init module list */
+        /*  添加到静态初始化模块列表中。 */ 
         namelist_add(&init_module_list, e->name, e->short_name, 0);
-        /* create a dummy module */
+        /*  创建虚拟模块。 */ 
         m = JS_NewCModule(ctx, module_name, js_module_dummy_init);
     } else if (has_suffix(module_name, ".so")) {
         fprintf(stderr, "Warning: binary module '%s' will be dynamically loaded\n", module_name);
-        /* create a dummy module */
+        /*  创建虚拟模块。 */ 
         m = JS_NewCModule(ctx, module_name, js_module_dummy_init);
-        /* the resulting executable will export its symbols for the
-           dynamic library */
+        /*  生成的可执行文件将为动态库。 */ 
         dynamic_export = TRUE;
     } else {
         size_t buf_len;
@@ -258,7 +235,7 @@ JSModuleDef *jsc_module_loader(JSContext *ctx,
             return NULL;
         }
         
-        /* compile the module */
+        /*  编译模块。 */ 
         func_val = JS_Eval(ctx, (char *)buf, buf_len, module_name,
                            JS_EVAL_TYPE_MODULE | JS_EVAL_FLAG_COMPILE_ONLY);
         js_free(ctx, buf);
@@ -270,7 +247,7 @@ JSModuleDef *jsc_module_loader(JSContext *ctx,
         }
         output_object_code(ctx, outfile, func_val, cname, TRUE);
         
-        /* the module is already referenced, so we must free it */
+        /*  该模块已被引用，因此我们必须释放它。 */ 
         m = JS_VALUE_GET_PTR(func_val);
         JS_FreeValue(ctx, func_val);
     }
@@ -399,7 +376,7 @@ static int output_executable(const char *out_filename, const char *cfilename,
     char exe_dir[1024], inc_dir[1024], lib_dir[1024], buf[1024], *p;
     int ret;
     
-    /* get the directory of the executable */
+    /*  获取可执行文件的目录。 */ 
     pstrcpy(exe_dir, sizeof(exe_dir), exename);
     p = strrchr(exe_dir, '/');
     if (p) {
@@ -408,8 +385,7 @@ static int output_executable(const char *out_filename, const char *cfilename,
         pstrcpy(exe_dir, sizeof(exe_dir), ".");
     }
 
-    /* if 'quickjs.h' is present at the same path as the executable, we
-       use it as include and lib directory */
+    /*  如果‘ickjs.h’存在于与可执行文件相同的路径中，我们将其用作Include和lib目录。 */ 
     snprintf(buf, sizeof(buf), "%s/quickjs.h", exe_dir);
     if (access(buf, R_OK) == 0) {
         pstrcpy(inc_dir, sizeof(inc_dir), exe_dir);
@@ -435,8 +411,7 @@ static int output_executable(const char *out_filename, const char *cfilename,
         lto_suffix = ".lto";
     }
 #endif
-    /* XXX: use the executable path to find the includes files and
-       libraries */
+    /*  XXX：使用可执行路径查找包含文件和图书馆。 */ 
     *arg++ = "-D";
     *arg++ = "_GNU_SOURCE";
     *arg++ = "-I";
@@ -501,7 +476,7 @@ int main(int argc, char **argv)
     verbose = 0;
     use_lto = FALSE;
 
-    /* add system modules */
+    /*  添加系统模块。 */ 
     namelist_add(&cmodule_list, "std", "std", 0);
     namelist_add(&cmodule_list, "os", "os", 0);
 
@@ -593,7 +568,7 @@ int main(int argc, char **argv)
 
     if (output_type == OUTPUT_EXECUTABLE) {
 #if defined(_WIN32) || defined(__ANDROID__)
-        /* XXX: find a /tmp directory ? */
+        /*  XXX：找到/tmp目录？ */ 
         snprintf(cfilename, sizeof(cfilename), "out%d.c", getpid());
 #else
         snprintf(cfilename, sizeof(cfilename), "/tmp/out%d.c", getpid());
@@ -614,7 +589,7 @@ int main(int argc, char **argv)
     JS_AddIntrinsicEval(ctx);
     JS_AddIntrinsicRegExpCompiler(ctx);
     
-    /* loader for ES6 modules */
+    /*  ES6模块的加载器。 */ 
     JS_SetModuleLoaderFunc(rt, NULL, jsc_module_loader, NULL);
 
     fprintf(fo, "/* File generated automatically by the QuickJS compiler. */\n"
@@ -641,12 +616,12 @@ int main(int argc, char **argv)
         fputs(main_c_template1, fo);
         fprintf(fo, "  ctx = JS_NewContextRaw(rt);\n");
 
-        /* add the module loader if necessary */
+        /*  如有必要，添加模块加载器。 */ 
         if (feature_bitmap & (1 << FE_MODULE_LOADER)) {
             fprintf(fo, "  JS_SetModuleLoaderFunc(rt, NULL, js_module_loader, NULL);\n");
         }
         
-        /* add the basic objects */
+        /*  添加基本对象。 */ 
         
         fprintf(fo, "  JS_AddIntrinsicBaseObjects(ctx);\n");
         for(i = 0; i < countof(feature_list); i++) {
@@ -661,7 +636,7 @@ int main(int argc, char **argv)
 
         for(i = 0; i < init_module_list.count; i++) {
             namelist_entry_t *e = &init_module_list.array[i];
-            /* initialize the static C modules */
+            /*  初始化静态C模块 */ 
             
             fprintf(fo,
                     "  {\n"

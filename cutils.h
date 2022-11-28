@@ -1,34 +1,12 @@
-/*
- * C utilities
- * 
- * Copyright (c) 2017 Fabrice Bellard
- * Copyright (c) 2018 Charlie Gordon
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *C公用事业**版权所有(C)2017年Fabrice Bellard*版权所有(C)2018年查理·戈登**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 #ifndef CUTILS_H
 #define CUTILS_H
 
 #include <stdlib.h>
 #include <inttypes.h>
 
-/* set if CPU is big endian */
+/*  设置CPU是否为高字节顺序。 */ 
 #undef WORDS_BIGENDIAN
 
 #ifdef _MSC_VER
@@ -121,7 +99,7 @@ static inline int64_t min_int64(int64_t a, int64_t b)
         return b;
 }
 
-/* WARNING: undefined if a = 0 */
+/*  警告：如果a=0，则未定义。 */ 
 static inline int clz32(unsigned int a)
 {
 #ifdef _MSC_VER
@@ -131,7 +109,7 @@ static inline int clz32(unsigned int a)
        return 31 - leading_zero;
     }
     else{
-         // Same remarks as above
+         //  如上所述。
          return 32;
     }
 #else
@@ -139,7 +117,7 @@ static inline int clz32(unsigned int a)
 #endif
 }
 
-/* WARNING: undefined if a = 0 */
+/*  警告：如果a=0，则未定义。 */ 
 static inline int clz64(uint64_t a)
 {
     return __builtin_clzll(a);
@@ -171,13 +149,13 @@ __inline int __builtin_clzll(int v)
 	}
 }
 #endif
-/* WARNING: undefined if a = 0 */
+/*  警告：如果a=0，则未定义。 */ 
 static inline int ctz32(unsigned int a)
 {
     return __builtin_ctz(a);
 }
 
-/* WARNING: undefined if a = 0 */
+/*  警告：如果a=0，则未定义。 */ 
 static inline int ctz64(uint64_t a)
 {
     return __builtin_ctzll(a);
@@ -288,16 +266,16 @@ static inline uint64_t bswap64(uint64_t v)
         ((v & ((uint64_t)0xff << (0 * 8))) << (7 * 8));
 }
 
-/* XXX: should take an extra argument to pass slack information to the caller */
+/*  XXX：应采用额外的参数将松弛信息传递给调用方。 */ 
 typedef void *DynBufReallocFunc(void *opaque, void *ptr, size_t size);
 
 typedef struct DynBuf {
     uint8_t *buf;
     size_t size;
     size_t allocated_size;
-    BOOL error; /* true if a memory allocation error occurred */
+    BOOL error; /*  如果发生内存分配错误，则为True。 */ 
     DynBufReallocFunc *realloc_func;
-    void *opaque; /* for realloc_func */
+    void *opaque; /*  对于realloc_func。 */ 
 } DynBuf;
 
 void dbuf_init(DynBuf *s);
@@ -354,4 +332,4 @@ void rqsort(void *base, size_t nmemb, size_t size,
             int (*cmp)(const void *, const void *, void *),
             void *arg);
 
-#endif  /* CUTILS_H */
+#endif  /*  刀具_H */ 

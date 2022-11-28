@@ -1,26 +1,5 @@
-/*
- * Tiny arbitrary precision floating point library
- * 
- * Copyright (c) 2017-2018 Fabrice Bellard
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *微小任意精度浮点库**版权所有(C)2017-2018 Fabrice Bellard**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 #ifndef LIBBF_H
 #define LIBBF_H
 
@@ -54,12 +33,12 @@ typedef uint64_t dlimb_t;
 
 #endif
 
-/* in bits */
+/*  以位为单位。 */ 
 #define BF_EXP_BITS_MIN 3
 #define BF_EXP_BITS_MAX (LIMB_BITS - 2)
 #define BF_PREC_MIN 2
 #define BF_PREC_MAX (((limb_t)1 << BF_EXP_BITS_MAX) - 2)
-#define BF_PREC_INF (BF_PREC_MAX + 1) /* infinite precision */
+#define BF_PREC_INF (BF_PREC_MAX + 1) /*  无限精度。 */ 
 
 #if LIMB_BITS == 64
 #define BF_CHKSUM_MOD (UINT64_C(975620677) * UINT64_C(9795002197))
@@ -71,10 +50,7 @@ typedef uint64_t dlimb_t;
 #define BF_EXP_INF (EXP_MAX - 1)
 #define BF_EXP_NAN EXP_MAX
 
-/* +/-zero is represented with expn = BF_EXP_ZERO and len = 0,
-   +/-infinity is represented with expn = BF_EXP_INF and len = 0,
-   NaN is represented with expn = BF_EXP_NAN and len = 0 (sign is ignored)
- */
+/*  +/-零用EXPN=BF_EXP_ZERO和LEN=0表示，+/-无穷用EXPn=BF_EXP_INF和LEN=0表示，NaN用EXPN=BF_EXP_NaN和len=0表示(忽略符号)。 */ 
 typedef struct {
     struct bf_context_t *ctx;
     int sign;
@@ -84,25 +60,23 @@ typedef struct {
 } bf_t;
 
 typedef enum {
-    BF_RNDN, /* round to nearest, ties to even */
-    BF_RNDZ, /* round to zero */
-    BF_RNDD, /* round to -inf */
-    BF_RNDU, /* round to +inf */
-    BF_RNDNA, /* round to nearest, ties away from zero */
-    BF_RNDNU, /* round to nearest, ties to +inf */
-    BF_RNDF, /* faithful rounding (nondeterministic, either RNDD or RNDU,
-                inexact flag is always set)  */
+    BF_RNDN, /*  四舍五入到最接近，平局到偶数。 */ 
+    BF_RNDZ, /*  四舍五入为零。 */ 
+    BF_RNDD, /*  四舍五入-信息。 */ 
+    BF_RNDU, /*  四舍五入为+信息。 */ 
+    BF_RNDNA, /*  四舍五入到最近，平局远离零。 */ 
+    BF_RNDNU, /*  四舍五入到最近，与+inf的关系。 */ 
+    BF_RNDF, /*  忠实舍入(非确定性，RNDD或RNDU，始终设置不准确标志)。 */ 
 } bf_rnd_t;
 
-/* allow subnormal numbers (only available if the number of exponent
-   bits is < BF_EXP_BITS_MAX and prec != BF_PREC_INF) */
+/*  允许低于正态数(仅当指数数BITS为&lt;BF_EXP_BITS_MAX和PREC！=BF_PREC_INF)。 */ 
 #define BF_FLAG_SUBNORMAL (1 << 3)
 
 #define BF_RND_MASK 0x7
 #define BF_EXP_BITS_SHIFT 4
 #define BF_EXP_BITS_MASK 0x3f
 
-/* contains the rounding mode and number of exponents bits */
+/*  包含四舍五入模式和指数位数。 */ 
 typedef uint32_t bf_flags_t;
 
 typedef void *bf_realloc_func_t(void *opaque, void *ptr, size_t size);
@@ -130,17 +104,16 @@ static inline bf_flags_t bf_set_exp_bits(int n)
     return (BF_EXP_BITS_MAX - n) << BF_EXP_BITS_SHIFT;
 }
 
-/* returned status */
+/*  返回状态。 */ 
 #define BF_ST_INVALID_OP  (1 << 0)
 #define BF_ST_DIVIDE_ZERO (1 << 1)
 #define BF_ST_OVERFLOW    (1 << 2)
 #define BF_ST_UNDERFLOW   (1 << 3)
 #define BF_ST_INEXACT     (1 << 4)
-/* not used yet, indicate that a memory allocation error occured. NaN
-   is returned */
+/*  尚未使用，则表示发生了内存分配错误。非数是返回的。 */ 
 #define BF_ST_MEM_ERROR   (1 << 5) 
 
-#define BF_RADIX_MAX 36 /* maximum radix for bf_atof() and bf_ftoa() */
+#define BF_RADIX_MAX 36 /*  Bf_atof()和bf_ftoa()的最大基数。 */ 
 
 static inline slimb_t bf_max(slimb_t a, slimb_t b)
 {
@@ -161,7 +134,7 @@ static inline slimb_t bf_min(slimb_t a, slimb_t b)
 void bf_context_init(bf_context_t *s, bf_realloc_func_t *realloc_func,
                      void *realloc_opaque);
 void bf_context_end(bf_context_t *s);
-/* free memory allocated for the bf cache data */
+/*  为BF高速缓存数据分配的空闲内存。 */ 
 void bf_clear_cache(bf_context_t *s);
 
 static inline void *bf_realloc(bf_context_t *s, void *ptr, size_t size)
@@ -174,7 +147,7 @@ void bf_init(bf_context_t *s, bf_t *r);
 static inline void bf_delete(bf_t *r)
 {
     bf_context_t *s = r->ctx;
-    /* we accept to delete a zeroed bf_t structure */
+    /*  我们接受删除归零的bf_t结构。 */ 
     if (s) {
         bf_realloc(s, r->tab, 0);
     }
@@ -245,41 +218,39 @@ void bf_logic_or(bf_t *r, const bf_t *a, const bf_t *b);
 void bf_logic_xor(bf_t *r, const bf_t *a, const bf_t *b);
 void bf_logic_and(bf_t *r, const bf_t *a, const bf_t *b);
 
-/* additional flags for bf_atof */
-/* do not accept hex radix prefix (0x or 0X) if radix = 0 or radix = 16 */
+/*  Bf_atof的其他标志。 */ 
+/*  如果基数=0或基数=16，则不接受十六进制基数前缀(0x或0x。 */ 
 #define BF_ATOF_NO_HEX       (1 << 16)
-/* accept binary (0b or 0B) or octal (0o or 0O) radix prefix if radix = 0 */
+/*  如果基数=0，则接受二进制(0b或0B)或八进制(0o或0o)基数前缀。 */ 
 #define BF_ATOF_BIN_OCT      (1 << 17)
-/* Only accept integers (no decimal point, no exponent, no infinity nor NaN */
+/*  只接受整数(没有小数点，没有指数，没有无穷大，也没有NaN。 */ 
 #define BF_ATOF_INT_ONLY     (1 << 18)
-/* Do not accept radix prefix after sign  */
+/*  不接受符号后的基数前缀。 */ 
 #define BF_ATOF_NO_PREFIX_AFTER_SIGN (1 << 19)
-/* Do not parse NaN and parse case sensitive 'Infinity' */
+/*  不分析NaN和分析区分大小写的“Infinity” */ 
 #define BF_ATOF_JS_QUIRKS    (1 << 20)
-/* Do not round integers to the indicated precision */
+/*  请勿将整数舍入为指定的精度。 */ 
 #define BF_ATOF_INT_PREC_INF (1 << 21)
-/* Support legacy octal syntax for well formed numbers */
+/*  支持格式正确的数字的传统八进制语法。 */ 
 #define BF_ATOF_LEGACY_OCTAL (1 << 22)
-/* accept _ between digits as a digit separator */
+/*  ACCEPT_BETWING数字作为数字分隔符。 */ 
 #define BF_ATOF_UNDERSCORE_SEP (1 << 23)
-/* if a 'n' suffix is present, force integer parsing (XXX: remove) */
+/*  如果存在‘n’后缀，则强制进行整数分析(XXX：REMOVE)。 */ 
 #define BF_ATOF_INT_N_SUFFIX   (1 << 24)
-/* if set return NaN if empty number string (instead of 0) */
+/*  如果设置为空，则返回NaN(而不是0)。 */ 
 #define BF_ATOF_NAN_IF_EMPTY   (1 << 25)
-/* only accept decimal floating point if radix = 0 */
+/*  如果基数=0，则只接受十进制浮点。 */ 
 #define BF_ATOF_ONLY_DEC_FLOAT (1 << 26)
 
-/* additional return flags */
-/* indicate that the parsed number is an integer (only set when the
-   flags BF_ATOF_INT_PREC_INF or BF_ATOF_INT_N_SUFFIX are used) */
+/*  其他返回标志。 */ 
+/*  指示解析的数字是一个整数(仅当使用标志BF_ATOF_INT_PREC_INF或BF_ATOF_INT_N_SUBFIX)。 */ 
 #define BF_ATOF_ST_INTEGER   (1 << 5)
-/* integer parsed as legacy octal */
+/*  解析为传统八进制的整数。 */ 
 #define BF_ATOF_ST_LEGACY_OCTAL (1 << 6)
 
 int bf_atof(bf_t *a, const char *str, const char **pnext, int radix,
             limb_t prec, bf_flags_t flags);
-/* this version accepts prec = BF_PREC_INF and returns the radix
-   exponent */
+/*  此版本接受PREC=BF_PREC_INF并返回基数指数。 */ 
 int bf_atof2(bf_t *r, slimb_t *pexponent,
              const char *str, const char **pnext, int radix,
              limb_t prec, bf_flags_t flags);
@@ -287,42 +258,30 @@ int bf_mul_pow_radix(bf_t *r, const bf_t *T, limb_t radix,
                      slimb_t expn, limb_t prec, bf_flags_t flags);
 
 #define BF_FTOA_FORMAT_MASK (3 << 16)
-/* fixed format: prec significant digits rounded with (flags &
-   BF_RND_MASK). Exponential notation is used if too many zeros are
-   needed. */
+/*  固定格式：PREC有效数字四舍五入(标志和BF_RND_MASK)。如果有太多的零，则使用指数记数法需要的。 */ 
 #define BF_FTOA_FORMAT_FIXED (0 << 16)
-/* fractional format: prec digits after the decimal point rounded with
-   (flags & BF_RND_MASK) */
+/*  分数格式：小数点后的PREC数字，四舍五入(标志&BF_RND_MASK)。 */ 
 #define BF_FTOA_FORMAT_FRAC  (1 << 16)
-/* free format: use as many digits as necessary so that bf_atof()
-   return the same number when using precision 'prec', rounding to
-   nearest and the subnormal+exponent configuration of 'flags'. The
-   result is meaningful only if 'a' is already rounded to the wanted
-   precision.
-   
-   Infinite precision (BF_PREC_INF) is supported when the radix is a
-   power of two. */
+/*  自由格式：根据需要使用任意多个数字，以便bf_atof()使用精度‘prec’时返回相同的数字，四舍五入为最接近的和次正常+指数配置的‘标志’。这个只有当‘a’已四舍五入为所需内容时，结果才有意义精确度。基数为二的幂。 */ 
 #define BF_FTOA_FORMAT_FREE  (2 << 16)
-/* same as BF_FTOA_FORMAT_FREE but uses the minimum number of digits
-   (takes more computation time). */
+/*  与BF_FTOA_FORMAT_FREE相同，但使用最小位数(需要更多的计算时间)。 */ 
 #define BF_FTOA_FORMAT_FREE_MIN (3 << 16)
 
-/* force exponential notation for fixed or free format */
+/*  对固定格式或自由格式强制使用指数表示法。 */ 
 #define BF_FTOA_FORCE_EXP    (1 << 20)
-/* add 0x prefix for base 16, 0o prefix for base 8 or 0b prefix for
-   base 2 if non zero value */
+/*  为基数16添加0x前缀，为基数8添加0o前缀或为非零值时以2为基数。 */ 
 #define BF_FTOA_ADD_PREFIX   (1 << 21)
 #define BF_FTOA_JS_QUIRKS    (1 << 22)
 
 size_t bf_ftoa(char **pbuf, const bf_t *a, int radix, limb_t prec,
                bf_flags_t flags);
 
-/* modulo 2^n instead of saturation. NaN and infinity return 0 */
+/*  取模2^n而不是饱和。NaN和Infinity返回0。 */ 
 #define BF_GET_INT_MOD (1 << 0) 
 int bf_get_int32(int *pres, const bf_t *a, int flags);
 int bf_get_int64(int64_t *pres, const bf_t *a, int flags);
 
-/* the following functions are exported for testing only. */
+/*  导出以下函数仅用于测试。 */ 
 void bf_print_str(const char *str, const bf_t *a);
 void bf_resize(bf_t *r, limb_t len);
 int bf_get_fft_size(int *pdpl, int *pnb_mods, limb_t len);
@@ -333,7 +292,7 @@ int bf_can_round(const bf_t *a, slimb_t prec, bf_rnd_t rnd_mode, slimb_t k);
 slimb_t bf_mul_log2_radix(slimb_t a1, unsigned int radix, int is_inv,
                           int is_ceil1);
 
-/* transcendental functions */
+/*  超越函数。 */ 
 int bf_const_log2(bf_t *T, limb_t prec, bf_flags_t flags);
 int bf_const_pi(bf_t *T, limb_t prec, bf_flags_t flags);
 int bf_exp(bf_t *r, const bf_t *a, limb_t prec, bf_flags_t flags);
@@ -349,4 +308,4 @@ int bf_atan2(bf_t *r, const bf_t *y, const bf_t *x,
 int bf_asin(bf_t *r, const bf_t *a, limb_t prec, bf_flags_t flags);
 int bf_acos(bf_t *r, const bf_t *a, limb_t prec, bf_flags_t flags);
 
-#endif /* LIBBF_H */
+#endif /*  LIBBF_H */ 

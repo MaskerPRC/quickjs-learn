@@ -1,27 +1,5 @@
-/*
- * C utilities
- * 
- * Copyright (c) 2017 Fabrice Bellard
- * Copyright (c) 2018 Charlie Gordon
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *C公用事业**版权所有(C)2017年Fabrice Bellard*版权所有(C)2018年查理·戈登**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -46,7 +24,7 @@ void pstrcpy(char *buf, int buf_size, const char *str)
     *q = '\0';
 }
 
-/* strcat and truncate. */
+/*  Strcat和截断。 */ 
 char *pstrcat(char *buf, int buf_size, const char *s)
 {
     int len;
@@ -79,7 +57,7 @@ int has_suffix(const char *str, const char *suffix)
     return (len >= slen && !memcmp(str + len - slen, suffix, slen));
 }
 
-/* Dynamic buffer package */
+/*  动态缓冲区包。 */ 
 
 static void *dbuf_default_realloc(void *opaque, void *ptr, size_t size)
 {
@@ -100,7 +78,7 @@ void dbuf_init(DynBuf *s)
     dbuf_init2(s, NULL, NULL);
 }
 
-/* return < 0 if error */
+/*  如果出错，则返回&lt;0。 */ 
 int dbuf_realloc(DynBuf *s, size_t new_size)
 {
     size_t size;
@@ -181,7 +159,7 @@ int FMT_HACK dbuf_printf(DynBuf *s,const char *fmt, ...)
     len = vsnprintf(buf, sizeof(buf), fmt, ap);
     va_end(ap);
     if (len < sizeof(buf)) {
-        /* fast case */
+        /*  FAST案例。 */ 
         return dbuf_put(s, (uint8_t *)buf, len);
     } else {
         if (dbuf_realloc(s, s->size + len + 1))
@@ -198,16 +176,14 @@ int FMT_HACK dbuf_printf(DynBuf *s,const char *fmt, ...)
 
 void dbuf_free(DynBuf *s)
 {
-    /* we test s->buf as a fail safe to avoid crashing if dbuf_free()
-       is called twice */
+    /*  我们测试s-&gt;buf作为故障保险，以避免在以下情况下崩溃：dbuf_free()被调用两次。 */ 
     if (s->buf) {
         s->realloc_func(s->opaque, s->buf, 0);
     }
     memset(s, 0, sizeof(*s));
 }
 
-/* Note: at most 31 bits are encoded. At most UTF8_CHAR_LEN_MAX bytes
-   are output. */
+/*  注：最多编码31位。最多UTF8_CHAR_LEN_MAX字节数都是输出。 */ 
 int unicode_to_utf8(uint8_t *buf, unsigned int c)
 {
     uint8_t *q = buf;
@@ -251,8 +227,7 @@ static const unsigned char utf8_first_code_mask[5] = {
     0x1f, 0xf, 0x7, 0x3, 0x1,
 };
 
-/* return -1 if error. *pp is not updated in this case. max_len must
-   be >= 1. The maximum length for a UTF8 byte sequence is 6 bytes. */
+/*  如果出错，则返回-1。*在这种情况下，PP不会更新。Max_len必须BE&gt;=1。UTF8字节序列的最大长度为6字节。 */ 
 int unicode_from_utf8(const uint8_t *p, int max_len, const uint8_t **pp)
 {
     int l, c, b, i;
@@ -282,7 +257,7 @@ int unicode_from_utf8(const uint8_t *p, int max_len, const uint8_t **pp)
     default:
         return -1;
     }
-    /* check that we have enough characters */
+    /*  检查我们是否有足够的字符。 */ 
     if (l > (max_len - 1))
         return -1;
     c &= utf8_first_code_mask[l - 1];
@@ -310,7 +285,7 @@ static int rqsort_cmp2(const void *p1, const void *p2)
     return rqsort_cmp(p1, p2, rqsort_arg);
 }
 
-/* not reentrant, but not needed with emscripten */
+/*  不可重入，但Emcripten不需要。 */ 
 void rqsort(void *base, size_t nmemb, size_t size,
             int (*cmp)(const void *, const void *, void *),
             void *arg)
@@ -503,7 +478,7 @@ static inline void *med3(void *a, void *b, void *c, cmp_f cmp, void *opaque)
         (cmp(b, c, opaque) > 0 ? b : (cmp(a, c, opaque) < 0 ? a : c ));
 }
 
-/* pointer based version with local stack and insertion sort threshhold */
+/*  具有本地堆栈和插入排序阈值的基于指针的版本。 */ 
 void rqsort(void *base, size_t nmemb, size_t size, cmp_f cmp, void *opaque)
 {
     struct { uint8_t *base; size_t count; int depth; } stack[50], *sp = stack;
@@ -529,16 +504,16 @@ void rqsort(void *base, size_t nmemb, size_t size, cmp_f cmp, void *opaque)
 
         while (nmemb > 6) {
             if (++depth > 50) {
-                /* depth check to ensure worst case logarithmic time */
+                /*  深度检查，确保最坏情况下的对数时间。 */ 
                 heapsortx(ptr, nmemb, size, cmp, opaque);
                 nmemb = 0;
                 break;
             }
-            /* select median of 3 from 1/4, 1/2, 3/4 positions */
-            /* should use median of 5 or 9? */
+            /*  从1/4、1/2、3/4位置选择3的中位数。 */ 
+            /*  应该使用中位数5还是9？ */ 
             m4 = (nmemb >> 2) * size;
             m = med3(ptr + m4, ptr + 2 * m4, ptr + 3 * m4, cmp, opaque);
-            swap(ptr, m, size);  /* move the pivot to the start or the array */
+            swap(ptr, m, size);  /*  将轴心移动到开始位置或数组。 */ 
             i = lt = 1;
             pi = plt = ptr + size;
             gt = nmemb;
@@ -566,25 +541,16 @@ void rqsort(void *base, size_t nmemb, size_t size, cmp_f cmp, void *opaque)
                 i++;
                 pi += size;
             }
-            /* array has 4 parts:
-             * from 0 to lt excluded: elements identical to pivot
-             * from lt to pi excluded: elements smaller than pivot
-             * from pi to gt excluded: elements greater than pivot
-             * from gt to n excluded: elements identical to pivot
-             */
-            /* move elements identical to pivot in the middle of the array: */
-            /* swap values in ranges [0..lt[ and [i-lt..i[
-               swapping the smallest span between lt and i-lt is sufficient
-             */
+            /*  数组由4部分组成：*从0到lt排除：与轴心相同的元素*从lt到pi不包括：小于枢轴的元素*不包括从圆周率到圆周率：大于轴心的元素*从gt到n排除：与轴心相同的元素。 */ 
+            /*  在数组中间移动与枢轴相同的元素： */ 
+            /*  交换范围[0..lt[和[i-lt..i]]中的值在lt和i-lt之间交换最小跨度就足够了。 */ 
             span = plt - ptr;
             span2 = pi - plt;
             lt = i - lt;
             if (span > span2)
                 span = span2;
             swap_block(ptr, pi - span, span);
-            /* swap values in ranges [gt..top[ and [i..top-(top-gt)[
-               swapping the smallest span between top-gt and gt-i is sufficient
-             */
+            /*  交换范围[GT..TOP[和[i..TOP-(TOP-GT)]中的值在TOP-GT和GT-I之间交换最小跨度就足够了。 */ 
             span = top - pgt;
             span2 = pgt - pi;
             pgt = top - span2;
@@ -593,13 +559,8 @@ void rqsort(void *base, size_t nmemb, size_t size, cmp_f cmp, void *opaque)
                 span = span2;
             swap_block(pi, top - span, span);
 
-            /* now array has 3 parts:
-             * from 0 to lt excluded: elements smaller than pivot
-             * from lt to gt excluded: elements identical to pivot
-             * from gt to n excluded: elements greater than pivot
-             */
-            /* stack the larger segment and keep processing the smaller one
-               to minimize stack use for pathological distributions */
+            /*  现在，数组有3个部分：*从0到lt排除：小于轴的元素*从lt到gt排除：与轴心相同的元素*从gt到n排除：大于轴心的元素。 */ 
+            /*  堆叠较大的数据段，继续处理较小的数据段最大限度地减少对病态分布的堆栈使用。 */ 
             if (lt > nmemb - gt) {
                 sp->base = ptr;
                 sp->count = lt;
@@ -615,7 +576,7 @@ void rqsort(void *base, size_t nmemb, size_t size, cmp_f cmp, void *opaque)
                 nmemb = lt;
             }
         }
-        /* Use insertion sort for small fragments */
+        /*  对小片段使用插入排序 */ 
         for (pi = ptr + size, top = ptr + nmemb * size; pi < top; pi += size) {
             for (pj = pi; pj > ptr && cmp(pj - size, pj, opaque) > 0; pj -= size)
                 swap(pj, pj - size, size);

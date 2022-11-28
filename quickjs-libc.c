@@ -1,27 +1,5 @@
-/*
- * QuickJS C library
- * 
- * Copyright (c) 2017-2019 Fabrice Bellard
- * Copyright (c) 2017-2019 Charlie Gordon
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *QuickJS C库**版权所有(C)2017-2019 Fabrice Bellard*版权所有(C)2017-2019查理·戈登**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -73,11 +51,7 @@ static void js_std_dbuf_init(JSContext *ctx, DynBuf *s)
     dbuf_init2(s, JS_GetRuntime(ctx), (DynBufReallocFunc *)js_realloc_rt);
 }
 
-/* TODO:
-   - add worker
-   - add minimal VT100 emulation for win32
-   - add socket calls
-*/
+/*  待办事项：-添加员工-为Win32添加最小VT100仿真-添加套接字调用。 */ 
 
 typedef struct {
     struct list_head link;
@@ -98,7 +72,7 @@ typedef struct {
     JSValue func;
 } JSOSTimer;
 
-/* initialize the lists so js_std_free_handlers() can always be called */
+/*  初始化列表，以便始终可以调用js_std_free_handters。 */ 
 static struct list_head os_rw_handlers = LIST_HEAD_INIT(os_rw_handlers);
 static struct list_head os_signal_handlers = LIST_HEAD_INIT(os_signal_handlers);
 static struct list_head os_timers = LIST_HEAD_INIT(os_timers);
@@ -125,7 +99,7 @@ static JSValue js_printf_internal(JSContext *ctx,
     const char *string_arg;
     enum { PART_FLAGS, PART_WIDTH, PART_DOT, PART_PREC, PART_MODIFIER } part;
     int modsize;
-    /* Use indirect call to dbuf_printf to prevent gcc warning */
+    /*  使用对dbuf_printf的间接调用防止GCC警告。 */ 
     int (*dbuf_printf_fun)(DynBuf *s, const char *fmt, ...) = (void*)dbuf_printf;
 
     js_std_dbuf_init(ctx, &dbuf);
@@ -145,7 +119,7 @@ static JSValue js_printf_internal(JSContext *ctx,
             if (fmt >= fmt_end)
                 break;
             q = fmtbuf;
-            *q++ = *fmt++;  /* copy '%' */
+            *q++ = *fmt++;  /*  复制‘%’ */ 
             part = PART_FLAGS;
             modsize = 0;
             for (;;) {
@@ -222,10 +196,10 @@ static JSValue js_printf_internal(JSContext *ctx,
                         if (JS_ToInt32(ctx, &int32_arg, argv[i++]))
                             goto fail;
                     }
-                    /* handle utf-8 encoding explicitly */
+                    /*  显式处理utf-8编码。 */ 
                     if ((unsigned)int32_arg > 0x10FFFF)
                         int32_arg = 0xFFFD;
-                    /* ignore conversion flags, width and precision */
+                    /*  忽略转换标志、宽度和精度。 */ 
                     len = unicode_to_utf8(cbuf, int32_arg);
                     dbuf_put(&dbuf, cbuf, len);
                     break;
@@ -282,7 +256,7 @@ static JSValue js_printf_internal(JSContext *ctx,
                     break;
 
                 default:
-                    /* XXX: should support an extension mechanism */
+                    /*  XXX：应支持扩展机制。 */ 
                 invalid:
                     JS_ThrowTypeError(ctx, "invalid conversion specifier in format string");
                     goto fail;
@@ -328,7 +302,7 @@ uint8_t *js_load_file(JSContext *ctx, size_t *pbuf_len, const char *filename)
     lret = ftell(f);
     if (lret < 0)
         goto fail;
-    /* XXX: on Linux, ftell() return LONG_MAX for directories */
+    /*  Xxx：在Linux上，ftell()为目录返回LONG_MAX。 */ 
     if (lret == LONG_MAX) {
         errno = EISDIR;
         goto fail;
@@ -358,7 +332,7 @@ uint8_t *js_load_file(JSContext *ctx, size_t *pbuf_len, const char *filename)
     return buf;
 }
 
-/* load and evaluate a file */
+/*  加载和评估文件。 */ 
 static JSValue js_loadScript(JSContext *ctx, JSValueConst this_val,
                              int argc, JSValueConst *argv)
 {
@@ -404,8 +378,7 @@ static JSModuleDef *js_module_loader_so(JSContext *ctx,
     char *filename;
     
     if (!strchr(module_name, '/')) {
-        /* must add a '/' so that the DLL is not searched in the
-           system library paths */
+        /*  必须添加‘/’，这样才不会在系统库路径。 */ 
         filename = js_malloc(ctx, strlen(module_name) + 2 + 1);
         if (!filename)
             return NULL;
@@ -415,7 +388,7 @@ static JSModuleDef *js_module_loader_so(JSContext *ctx,
         filename = (char *)module_name;
     }
     
-    /* C module */
+    /*  C模块。 */ 
     hd = dlopen(filename, RTLD_NOW | RTLD_LOCAL);
     if (filename != module_name)
         js_free(ctx, filename);
@@ -443,7 +416,7 @@ static JSModuleDef *js_module_loader_so(JSContext *ctx,
     }
     return m;
 }
-#endif /* !_WIN32 */
+#endif /*  ！_Win32。 */ 
 
 int js_module_set_import_meta(JSContext *ctx, JSValueConst func_val,
                               JS_BOOL use_realpath, JS_BOOL is_main)
@@ -465,9 +438,7 @@ int js_module_set_import_meta(JSContext *ctx, JSValueConst func_val,
     if (!strchr(module_name, ':')) {
         strcpy(buf, "file://");
 #if !defined(_WIN32)
-        /* realpath() cannot be used with modules compiled with qjsc
-           because the corresponding module source code is not
-           necessarily present */
+        /*  RealPath()不能与使用qjsc编译的模块一起使用因为对应的模块源代码不是必然会出现。 */ 
         if (use_realpath) {
             char *res = realpath(module_name, buf + strlen(buf));
             if (!res) {
@@ -517,15 +488,15 @@ JSModuleDef *js_module_loader(JSContext *ctx,
             return NULL;
         }
         
-        /* compile the module */
+        /*  编译模块。 */ 
         func_val = JS_Eval(ctx, (char *)buf, buf_len, module_name,
                            JS_EVAL_TYPE_MODULE | JS_EVAL_FLAG_COMPILE_ONLY);
         js_free(ctx, buf);
         if (JS_IsException(func_val))
             return NULL;
-        /* XXX: could propagate the exception */
+        /*  Xxx：可以传播异常。 */ 
         js_module_set_import_meta(ctx, func_val, TRUE, FALSE);
-        /* the module is already referenced, so we must free it */
+        /*  该模块已被引用，因此我们必须释放它。 */ 
         m = JS_VALUE_GET_PTR(func_val);
         JS_FreeValue(ctx, func_val);
     }
@@ -579,17 +550,16 @@ static JSValue js_evalScript(JSContext *ctx, JSValueConst this_val,
     if (!str)
         return JS_EXCEPTION;
     if (++eval_script_recurse == 1) {
-        /* install the interrupt handler */
+        /*  安装中断处理程序。 */ 
         JS_SetInterruptHandler(JS_GetRuntime(ctx), interrupt_handler, NULL);
     }
     ret = JS_Eval(ctx, str, len, "<evalScript>", JS_EVAL_TYPE_GLOBAL);
     JS_FreeCString(ctx, str);
     if (--eval_script_recurse == 0) {
-        /* remove the interrupt handler */
+        /*  删除中断处理程序。 */ 
         JS_SetInterruptHandler(JS_GetRuntime(ctx), NULL, NULL);
         os_pending_signals &= ~((uint64_t)1 << SIGINT);
-        /* convert the uncatchable "interrupted" error into a normal error
-           so that it can be caught by the REPL */
+        /*  将无法捕获的“中断”错误转换为正常错误这样它就可以被REPL捕获。 */ 
         if (JS_IsException(ret))
             JS_ResetUncatchableError(ctx);
     }
@@ -621,7 +591,7 @@ static void js_std_file_finalizer(JSRuntime *rt, JSValue val)
 static JSValue js_new_std_error(JSContext *ctx, int err)
 {
     JSValue obj;
-    /* XXX: could add a specific Error prototype */
+    /*  XXX：可以添加特定的错误原型。 */ 
     obj = JS_NewError(ctx);
     JS_DefinePropertyValueStr(ctx, obj, "message",
                               JS_NewString(ctx, strerror(err)),
@@ -832,7 +802,7 @@ static JSValue js_std_file_close(JSContext *ctx, JSValueConst this_val,
         return JS_EXCEPTION;
     if (!s->f)
         return js_std_throw_errno(ctx, EBADF);
-    /* XXX: could return exit code */
+    /*  XXX：可以返回退出代码。 */ 
 	if (s->is_popen)
 		pclose(s->f);
     else
@@ -941,7 +911,7 @@ static JSValue js_std_file_read_write(JSContext *ctx, JSValueConst this_val,
     return JS_NewInt64(ctx, ret);
 }
 
-/* XXX: could use less memory and go faster */
+/*  XXX：可以使用更少的内存，运行速度更快。 */ 
 static JSValue js_std_file_getline(JSContext *ctx, JSValueConst this_val,
                                    int argc, JSValueConst *argv)
 {
@@ -958,7 +928,7 @@ static JSValue js_std_file_getline(JSContext *ctx, JSValueConst this_val,
         c = fgetc(f);
         if (c == EOF) {
             if (dbuf.size == 0) {
-                /* EOF */
+                /*  EOF。 */ 
                 dbuf_free(&dbuf);
                 return JS_NULL;
             } else {
@@ -977,7 +947,7 @@ static JSValue js_std_file_getline(JSContext *ctx, JSValueConst this_val,
     return obj;
 }
 
-/* XXX: could use less memory and go faster */
+/*  XXX：可以使用更少的内存，运行速度更快。 */ 
 static JSValue js_std_file_readAsString(JSContext *ctx, JSValueConst this_val,
                                         int argc, JSValueConst *argv)
 {
@@ -1042,7 +1012,7 @@ static JSValue js_std_file_putByte(JSContext *ctx, JSValueConst this_val,
     return JS_NewInt32(ctx, c);
 }
 
-/* urlGet */
+/*  UrlGet。 */ 
 
 #define URL_GET_PROGRAM "curl -s -i"
 #define URL_GET_BUF_SIZE 4096
@@ -1147,7 +1117,7 @@ static JSValue js_std_urlGet(JSContext *ctx, JSValueConst this_val,
         dbuf_free(&cmd_buf);
         return JS_EXCEPTION;
     }
-    //    printf("%s\n", (char *)cmd_buf.buf);
+    //  Printf(“%s\n”，(char*)cmd_buf.buf)；
     f = popen((char *)cmd_buf.buf, "r");
     dbuf_free(&cmd_buf);
     if (!f) {
@@ -1161,7 +1131,7 @@ static JSValue js_std_urlGet(JSContext *ctx, JSValueConst this_val,
     if (!buf)
         goto fail;
 
-    /* get the HTTP status */
+    /*  获取HTTP状态。 */ 
     if (http_get_header_line(f, buf, URL_GET_BUF_SIZE, NULL) < 0)
         goto bad_header;
     status = http_get_status(buf);
@@ -1170,7 +1140,7 @@ static JSValue js_std_urlGet(JSContext *ctx, JSValueConst this_val,
         goto fail;
     }
     
-    /* wait until there is an empty line */
+    /*  等到有空行的时候。 */ 
     for(;;) {
         if (http_get_header_line(f, buf, URL_GET_BUF_SIZE, header_buf) < 0) {
         bad_header:
@@ -1182,9 +1152,9 @@ static JSValue js_std_urlGet(JSContext *ctx, JSValueConst this_val,
     }
     if (dbuf_error(header_buf))
         goto fail;
-    header_buf->size -= 2; /* remove the trailing CRLF */
+    header_buf->size -= 2; /*  删除尾随的CRLF。 */ 
 
-    /* download the data */
+    /*  下载数据。 */ 
     for(;;) {
         len = fread(buf, 1, URL_GET_BUF_SIZE, f);
         if (len == 0)
@@ -1253,7 +1223,7 @@ static const JSCFunctionListEntry js_std_funcs[] = {
     JS_CFUNC_DEF("getenv", 1, js_std_getenv ),
     JS_CFUNC_DEF("urlGet", 1, js_std_urlGet ),
 
-    /* FILE I/O */
+    /*  文件I/O。 */ 
     JS_CFUNC_DEF("open", 2, js_std_open ),
     JS_CFUNC_DEF("popen", 2, js_std_popen ),
     JS_CFUNC_DEF("fdopen", 2, js_std_fdopen ),
@@ -1265,12 +1235,12 @@ static const JSCFunctionListEntry js_std_funcs[] = {
     JS_PROP_INT32_DEF("SEEK_CUR", SEEK_CUR, JS_PROP_CONFIGURABLE ),
     JS_PROP_INT32_DEF("SEEK_END", SEEK_END, JS_PROP_CONFIGURABLE ),
 
-    /* setenv, ... */
+    /*  塞滕夫，..。 */ 
 };
 
 static const JSCFunctionListEntry js_std_error_funcs[] = {
     JS_CFUNC_DEF("strerror", 1, js_std_error_strerror ),
-    /* various errno values */
+    /*  各种差错值。 */ 
 #define DEF(x) JS_PROP_INT32_DEF(#x, x, JS_PROP_CONFIGURABLE )
     DEF(EINVAL),
     DEF(EIO),
@@ -1301,17 +1271,17 @@ static const JSCFunctionListEntry js_std_file_proto_funcs[] = {
     JS_CFUNC_DEF("readAsString", 0, js_std_file_readAsString ),
     JS_CFUNC_DEF("getByte", 0, js_std_file_getByte ),
     JS_CFUNC_DEF("putByte", 1, js_std_file_putByte ),
-    /* setvbuf, ferror, clearerr, ...  */
+    /*  Setvbuf，Ferror，Clearerr，...。 */ 
 };
 
 static int js_std_init(JSContext *ctx, JSModuleDef *m)
 {
     JSValue proto, obj;
     
-    /* FILE class */
-    /* the class ID is created once */
+    /*  文件类。 */ 
+    /*  类ID创建一次。 */ 
     JS_NewClassID(&js_std_file_class_id);
-    /* the class is created once per runtime */
+    /*  该类在每个运行时创建一次。 */ 
     JS_NewClass(JS_GetRuntime(ctx), js_std_file_class_id, &js_std_file_class);
     proto = JS_NewObject(ctx);
     JS_SetPropertyFunctionList(ctx, proto, js_std_file_proto_funcs,
@@ -1347,8 +1317,8 @@ JSModuleDef *js_init_module_std(JSContext *ctx, const char *module_name)
     return m;
 }
 
-/**********************************************************/
-/* 'os' object */
+/*  ********************************************************。 */ 
+/*  “OS”对象。 */ 
 
 static JSValue js_os_return(JSContext *ctx, ssize_t ret)
 {
@@ -1378,7 +1348,7 @@ static JSValue js_os_open(JSContext *ctx, JSValueConst this_val,
         mode = 0666;
     }
 #if defined(_WIN32)
-    /* force binary mode by default */
+    /*  默认情况下强制二进制模式。 */ 
     if (!(flags & O_TEXT))
         flags |= O_BINARY;
 #endif
@@ -1515,7 +1485,7 @@ static void term_exit(void)
     tcsetattr(0, TCSANOW, &oldtty);
 }
 
-/* XXX: should add a way to go back to normal mode */
+/*  XXX：应该添加一种返回正常模式的方法。 */ 
 static JSValue js_os_ttySetRaw(JSContext *ctx, JSValueConst this_val,
                                int argc, JSValueConst *argv)
 {
@@ -1544,7 +1514,7 @@ static JSValue js_os_ttySetRaw(JSContext *ctx, JSValueConst this_val,
     return JS_UNDEFINED;
 }
 
-#endif /* !_WIN32 */
+#endif /*  ！_Win32。 */ 
 
 static JSValue js_os_remove(JSContext *ctx, JSValueConst this_val,
                              int argc, JSValueConst *argv)
@@ -1619,7 +1589,7 @@ static JSValue js_os_setReadHandler(JSContext *ctx, JSValueConst this_val,
             rh->rw_func[magic] = JS_NULL;
             if (JS_IsNull(rh->rw_func[0]) &&
                 JS_IsNull(rh->rw_func[1])) {
-                /* remove the entry */
+                /*  删除该条目。 */ 
                 free_rw_handler(JS_GetRuntime(ctx), rh);
             }
         }
@@ -1683,7 +1653,7 @@ static JSValue js_os_signal(JSContext *ctx, JSValueConst this_val,
     if (sig_num >= 64)
         return JS_ThrowRangeError(ctx, "invalid signal number");
     func = argv[1];
-    /* func = null: SIG_DFL, func = undefined, SIG_IGN */
+    /*  FUNC=NULL：SIG_DFL，FUNC=未定义，SIG_IGN。 */ 
     if (JS_IsNull(func) || JS_IsUndefined(func)) {
         sh = find_sh(sig_num);
         if (sh) {
@@ -1720,11 +1690,11 @@ static int64_t get_time_ms(void)
     return (uint64_t)ts.tv_sec * 1000 + (ts.tv_nsec / 1000000);
 }
 #else
-/* more portable, but does not work if the date is updated */
+/*  更便携，但如果更新日期则不起作用。 */ 
 static int64_t get_time_ms(void)
 {
 #ifdef _MSC_VER
-	//from duktape
+	//  从DUKTAPE。
 	SYSTEMTIME st1, st2;
 	ULARGE_INTEGER tmp1, tmp2;
 
@@ -1735,13 +1705,10 @@ static int64_t get_time_ms(void)
 
 	st2.wYear = 1970;
 	st2.wMonth = 1;
-	st2.wDayOfWeek = 4;  /* not sure whether or not needed; Thursday */
+	st2.wDayOfWeek = 4;  /*  不确定是否需要；周四。 */ 
 	st2.wDay = 1;
 	duk__convert_systime_to_ularge((const SYSTEMTIME *)&st2, &tmp2);
-	/* Difference is in 100ns units, convert to milliseconds, keeping
-	* fractions since Duktape 2.2.0.  This is only theoretical because
-	* SYSTEMTIME is limited to milliseconds.
-	*/
+	/*  差值以100 ns为单位，转换为毫秒，保持*DukTape 2.2.0以来的分数。这只是理论上的，因为*SYSTEMTIME限制为毫秒。 */ 
 	return (int64_t)(((LONGLONG)tmp1.QuadPart - (LONGLONG)tmp2.QuadPart) / 10000);
 #else
     struct timeval tv;
@@ -1834,8 +1801,7 @@ static JSClassDef js_os_timer_class = {
 static void call_handler(JSContext *ctx, JSValueConst func)
 {
     JSValue ret, func1;
-    /* 'func' might be destroyed when calling itself (if it frees the
-       handler), so must take extra care */
+    /*  “func”在调用自身时可能会被销毁(如果它释放了处理程序)，因此必须格外小心。 */ 
     func1 = JS_DupValue(ctx, func);
     ret = JS_Call(ctx, func1, JS_UNDEFINED, 0, NULL);
     JS_FreeValue(ctx, func1);
@@ -1853,12 +1819,12 @@ static int js_os_poll(JSContext *ctx)
     JSOSRWHandler *rh;
     struct list_head *el;
     
-    /* XXX: handle signals if useful */
+    /*  XXX：如果有用，则处理信号。 */ 
 
     if (list_empty(&os_rw_handlers) && list_empty(&os_timers))
-        return -1; /* no more events */
+        return -1; /*  没有更多的活动。 */ 
     
-    /* XXX: only timers and basic console input are supported */
+    /*  XXX：仅支持计时器和基本控制台输入。 */ 
     if (!list_empty(&os_timers)) {
         cur_time = get_time_ms();
         min_delay = 10000;
@@ -1867,7 +1833,7 @@ static int js_os_poll(JSContext *ctx)
             delay = th->timeout - cur_time;
             if (delay <= 0) {
                 JSValue func;
-                /* the timer expired */
+                /*  计时器已过期。 */ 
                 func = th->func;
                 th->func = JS_UNDEFINED;
                 unlink_timer(JS_GetRuntime(ctx), th);
@@ -1907,7 +1873,7 @@ static int js_os_poll(JSContext *ctx)
                 rh = list_entry(el, JSOSRWHandler, link);
                 if (rh->fd == console_fd && !JS_IsNull(rh->rw_func[0])) {
                     call_handler(ctx, rh->rw_func[0]);
-                    /* must stop because the list may have been modified */
+                    /*  必须停止，因为列表可能已被修改。 */ 
                     break;
                 }
             }
@@ -1943,7 +1909,7 @@ static int js_os_poll(JSContext *ctx)
     }
     
     if (list_empty(&os_rw_handlers) && list_empty(&os_timers))
-        return -1; /* no more events */
+        return -1; /*  没有更多的活动。 */ 
     
     if (!list_empty(&os_timers)) {
         cur_time = get_time_ms();
@@ -1953,7 +1919,7 @@ static int js_os_poll(JSContext *ctx)
             delay = th->timeout - cur_time;
             if (delay <= 0) {
                 JSValue func;
-                /* the timer expired */
+                /*  计时器已过期。 */ 
                 func = th->func;
                 th->func = JS_UNDEFINED;
                 unlink_timer(JS_GetRuntime(ctx), th);
@@ -1992,20 +1958,20 @@ static int js_os_poll(JSContext *ctx)
             if (!JS_IsNull(rh->rw_func[0]) &&
                 FD_ISSET(rh->fd, &rfds)) {
                 call_handler(ctx, rh->rw_func[0]);
-                /* must stop because the list may have been modified */
+                /*  必须停止，因为列表可能已被修改。 */ 
                 break;
             }
             if (!JS_IsNull(rh->rw_func[1])) {
                 FD_SET(rh->fd, &wfds);
                 call_handler(ctx, rh->rw_func[1]);
-                /* must stop because the list may have been modified */
+                /*  必须停止，因为列表可能已被修改。 */ 
                 break;
             }
         }
     }
     return 0;
 }
-#endif /* !_WIN32 */
+#endif /*  ！_Win32。 */ 
 
 static JSValue make_obj_error(JSContext *ctx,
                               JSValue obj,
@@ -2031,7 +1997,7 @@ static JSValue make_string_error(JSContext *ctx,
     return make_obj_error(ctx, JS_NewString(ctx, buf), err);
 }
 
-/* return [cwd, errorcode] */
+/*  返回[CWD，错误代码]。 */ 
 static JSValue js_os_getcwd(JSContext *ctx, JSValueConst this_val,
                             int argc, JSValueConst *argv)
 {
@@ -2049,7 +2015,7 @@ static JSValue js_os_getcwd(JSContext *ctx, JSValueConst this_val,
 
 #if !defined(_WIN32)
 
-/* return [path, errorcode] */
+/*  返回[路径，错误代码]。 */ 
 static JSValue js_os_realpath(JSContext *ctx, JSValueConst this_val,
                               int argc, JSValueConst *argv)
 {
@@ -2096,7 +2062,7 @@ static int64_t timespec_to_ms(const struct timespec *tv)
     return (int64_t)tv->tv_sec * 1000 + (tv->tv_nsec / 1000000);
 }
 
-/* return [obj, errcode] */
+/*  返回[obj，错误代码]。 */ 
 static JSValue js_os_stat(JSContext *ctx, JSValueConst this_val,
                           int argc, JSValueConst *argv, int is_lstat)
 {
@@ -2193,7 +2159,7 @@ static JSValue js_os_symlink(JSContext *ctx, JSValueConst this_val,
     return js_os_return(ctx, err);
 }
 
-/* return [path, errorcode] */
+/*  返回[路径，错误代码]。 */ 
 static JSValue js_os_readlink(JSContext *ctx, JSValueConst this_val,
                               int argc, JSValueConst *argv)
 {
@@ -2217,7 +2183,7 @@ static JSValue js_os_readlink(JSContext *ctx, JSValueConst this_val,
     return make_string_error(ctx, buf, err);
 }
 
-/* return [array, errorcode] */
+/*  返回[数组，错误代码]。 */ 
 static JSValue js_os_readdir(JSContext *ctx, JSValueConst this_val,
                              int argc, JSValueConst *argv)
 {
@@ -2288,7 +2254,7 @@ static JSValue js_os_utimes(JSContext *ctx, JSValueConst this_val,
     return js_os_return(ctx, ret);
 }
 
-/* exec(args[, options]) -> exitcode */
+/*  Exec(args[，Options])-&gt;退出代码。 */ 
 static JSValue js_os_exec(JSContext *ctx, JSValueConst this_val,
                           int argc, JSValueConst *argv)
 {
@@ -2308,7 +2274,7 @@ static JSValue js_os_exec(JSContext *ctx, JSValueConst this_val,
     JS_FreeValue(ctx, val);
     if (ret)
         return JS_EXCEPTION;
-    /* arbitrary limit to avoid overflow */
+    /*  任意限制以避免溢出。 */ 
     if (exec_argc < 1 || exec_argc > 65535) {
         return JS_ThrowTypeError(ctx, "invalid number of arguments");
     }
@@ -2330,7 +2296,7 @@ static JSValue js_os_exec(JSContext *ctx, JSValueConst this_val,
     for(i = 0; i < 3; i++)
         std_fds[i] = i;
     
-    /* get the options, if any */
+    /*  获取选项(如果有)。 */ 
     if (argc >= 2) {
         options = argv[1];
 
@@ -2359,7 +2325,7 @@ static JSValue js_os_exec(JSContext *ctx, JSValueConst this_val,
                 goto exception;
         }
 
-        /* stdin/stdout/stderr handles */
+        /*  标准输入/标准输出/标准错误句柄。 */ 
         for(i = 0; i < 3; i++) {
             val = JS_GetPropertyStr(ctx, options, std_name[i]);
             if (JS_IsException(val))
@@ -2381,10 +2347,10 @@ static JSValue js_os_exec(JSContext *ctx, JSValueConst this_val,
         goto exception;
     }
     if (pid == 0) {
-        /* child */
+        /*  儿童。 */ 
         int fd_max = sysconf(_SC_OPEN_MAX);
 
-        /* remap the stdin/stdout/stderr handles if necessary */
+        /*  如有必要，重新映射stdin/stdout/stderr句柄。 */ 
         for(i = 0; i < 3; i++) {
             if (std_fds[i] != i) {
                 if (dup2(std_fds[i], i) < 0)
@@ -2406,7 +2372,7 @@ static JSValue js_os_exec(JSContext *ctx, JSValueConst this_val,
             ret = execv(file, (char **)exec_argv);
         _exit(127);
     }
-    /* parent */
+    /*  亲本。 */ 
     if (block_flag) {
         for(;;) {
             ret = waitpid(pid, &status, 0);
@@ -2436,7 +2402,7 @@ static JSValue js_os_exec(JSContext *ctx, JSValueConst this_val,
     goto done;
 }
 
-/* waitpid(pid, block) -> [pid, status] */
+/*  WAITPID(PID，阻塞)-&gt;[PID，状态]。 */ 
 static JSValue js_os_waitpid(JSContext *ctx, JSValueConst this_val,
                              int argc, JSValueConst *argv)
 {
@@ -2464,7 +2430,7 @@ static JSValue js_os_waitpid(JSContext *ctx, JSValueConst this_val,
     return obj;
 }    
 
-/* pipe() -> [read_fd, write_fd] or null if error */
+/*  管道()-&gt;[READ_FD，WRITE_FD]或如果出错则为NULL。 */ 
 static JSValue js_os_pipe(JSContext *ctx, JSValueConst this_val,
                           int argc, JSValueConst *argv)
 {
@@ -2484,7 +2450,7 @@ static JSValue js_os_pipe(JSContext *ctx, JSValueConst this_val,
     return obj;
 }
 
-/* kill(pid, sig) */
+/*  KILL(PID，SIGG)。 */ 
 static JSValue js_os_kill(JSContext *ctx, JSValueConst this_val,
                           int argc, JSValueConst *argv)
 {
@@ -2498,7 +2464,7 @@ static JSValue js_os_kill(JSContext *ctx, JSValueConst this_val,
     return js_os_return(ctx, ret);
 }
 
-/* sleep(delay_ms) */
+/*  睡眠(Delay_Ms)。 */ 
 static JSValue js_os_sleep(JSContext *ctx, JSValueConst this_val,
                           int argc, JSValueConst *argv)
 {
@@ -2514,7 +2480,7 @@ static JSValue js_os_sleep(JSContext *ctx, JSValueConst this_val,
     return js_os_return(ctx, ret);
 }
 
-/* dup(fd) */
+/*  DUP(FD)。 */ 
 static JSValue js_os_dup(JSContext *ctx, JSValueConst this_val,
                          int argc, JSValueConst *argv)
 {
@@ -2526,7 +2492,7 @@ static JSValue js_os_dup(JSContext *ctx, JSValueConst this_val,
     return js_os_return(ctx, ret);
 }
 
-/* dup2(fd) */
+/*  Dup2(Fd)。 */ 
 static JSValue js_os_dup2(JSContext *ctx, JSValueConst this_val,
                          int argc, JSValueConst *argv)
 {
@@ -2540,7 +2506,7 @@ static JSValue js_os_dup2(JSContext *ctx, JSValueConst this_val,
     return js_os_return(ctx, ret);
 }
 
-#endif /* !_WIN32 */
+#endif /*  ！_Win32。 */ 
 
 #if defined(_WIN32)
 #define OS_PLATFORM "win32"
@@ -2607,7 +2573,7 @@ static const JSCFunctionListEntry js_os_funcs[] = {
     JS_CFUNC_DEF("mkdir", 1, js_os_mkdir ),
     JS_CFUNC_MAGIC_DEF("stat", 1, js_os_stat, 0 ),
     JS_CFUNC_MAGIC_DEF("lstat", 1, js_os_stat, 1 ),
-    /* st_mode constants */
+    /*  ST_MODE常量。 */ 
     OS_FLAG(S_IFMT),
     OS_FLAG(S_IFIFO),
     OS_FLAG(S_IFCHR),
@@ -2637,7 +2603,7 @@ static int js_os_init(JSContext *ctx, JSModuleDef *m)
 {
     os_poll_func = js_os_poll;
     
-    /* OSTimer class */
+    /*  OSTimer类。 */ 
     JS_NewClassID(&js_os_timer_class_id);
     JS_NewClass(JS_GetRuntime(ctx), js_os_timer_class_id, &js_os_timer_class);
     
@@ -2655,7 +2621,7 @@ JSModuleDef *js_init_module_os(JSContext *ctx, const char *module_name)
     return m;
 }
 
-/**********************************************************/
+/*  ********************************************************。 */ 
 
 static JSValue js_print(JSContext *ctx, JSValueConst this_val,
                               int argc, JSValueConst *argv)
@@ -2681,7 +2647,7 @@ void js_std_add_helpers(JSContext *ctx, int argc, char **argv)
     JSValue global_obj, console, args;
     int i;
 
-    /* XXX: should these global definitions be enumerable? */
+    /*  XXX：这些全局定义应该是可枚举的吗？ */ 
     global_obj = JS_GetGlobalObject(ctx);
 
     console = JS_NewObject(ctx);
@@ -2689,7 +2655,7 @@ void js_std_add_helpers(JSContext *ctx, int argc, char **argv)
                       JS_NewCFunction(ctx, js_print, "log", 1));
     JS_SetPropertyStr(ctx, global_obj, "console", console);
 
-    /* same methods as the mozilla JS shell */
+    /*  与Mozilla JS外壳相同的方法。 */ 
     args = JS_NewArray(ctx);
     for(i = 0; i < argc; i++) {
         JS_SetPropertyUint32(ctx, args, i, JS_NewString(ctx, argv[i]));
@@ -2703,7 +2669,7 @@ void js_std_add_helpers(JSContext *ctx, int argc, char **argv)
     
     JS_FreeValue(ctx, global_obj);
 
-    /* XXX: not multi-context */
+    /*  XXX：非多情景。 */ 
     init_list_head(&os_rw_handlers);
     init_list_head(&os_signal_handlers);
     init_list_head(&os_timers);
@@ -2755,14 +2721,14 @@ void js_std_dump_error(JSContext *ctx)
     JS_FreeValue(ctx, exception_val);
 }
 
-/* main loop which calls the user JS callbacks */
+/*  调用用户JS回调的主循环。 */ 
 void js_std_loop(JSContext *ctx)
 {
     JSContext *ctx1;
     int err;
 
     for(;;) {
-        /* execute the pending jobs */
+        /*  执行挂起的作业 */ 
         for(;;) {
             err = JS_ExecutePendingJob(JS_GetRuntime(ctx), &ctx1);
             if (err <= 0) {

@@ -1,3 +1,4 @@
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
 "use math";
 "use strict";
 
@@ -18,10 +19,10 @@ function assert(actual, expected, message) {
                 (message ? " (" + message + ")" : ""));
 }
 
-// load more elaborate version of assert if available
+//  加载更精细的Assert版本(如果可用)。
 try { __loadScript("test_assert.js"); } catch(e) {}
 
-/*----------------*/
+/*  。 */ 
 
 function pow(a, n)
 {
@@ -102,13 +103,13 @@ function test_float()
     assert(a == b);
 }
 
-/* jscalc tests */
+/*  Jscalc测试。 */ 
 
 function test_modulo()
 {
     var i, p, a, b;
 
-    /* Euclidian modulo operator */
+    /*  欧几里得模算符。 */ 
     assert((-3) % 2 == 1);
     assert(3 % (-2) == 1);
 
@@ -134,7 +135,7 @@ function test_mod()
     assert((a + b) == Mod(2, 101));
     assert(a ^ 100 == Mod(1, 101));
 
-    p = 2 ^ 607 - 1; /* mersenne prime */
+    p = 2 ^ 607 - 1; /*  梅森素数。 */ 
     a = Mod(3, p) ^ (p - 1);
     assert(a == Mod(1, p));
 }
@@ -172,7 +173,7 @@ function test_poly_mod()
 {
     var a, p;
 
-    /* modulo using polynomials */
+    /*  用多项式取模 */ 
     p = X^2 + X + 1;
     a = PolyMod(3+X, p) ^ 10;
     assert(a == PolyMod(-3725*X-18357, p));

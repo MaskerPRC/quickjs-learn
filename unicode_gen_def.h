@@ -1,3 +1,4 @@
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
 #ifdef UNICODE_GENERAL_CATEGORY
 DEF(Cn, "Unassigned") /* must be zero */
 DEF(Lu, "Uppercase_Letter")
@@ -29,7 +30,7 @@ DEF(Cc, "Control,cntrl")
 DEF(Cf, "Format")
 DEF(Cs, "Surrogate")
 DEF(Co, "Private_Use")
-/* synthetic properties */
+/*  综合性能。 */ 
 DEF(LC, "Cased_Letter")
 DEF(L, "Letter")
 DEF(M, "Mark,Combining_Mark")
@@ -41,7 +42,7 @@ DEF(C, "Other")
 #endif
 
 #ifdef UNICODE_SCRIPT
-/* scripts aliases names in PropertyValueAliases.txt */
+/*  脚本为PropertyValueAliases.txt中的名称设置别名。 */ 
 DEF(Unknown, "Zzzz")
 DEF(Adlam, "Adlm")
 DEF(Ahom, "Ahom")
@@ -198,7 +199,7 @@ DEF(Zanabazar_Square, "Zanb")
 #endif
 
 #ifdef UNICODE_PROP_LIST
-/* Prop list not exported to regexp */
+/*  道具列表未导出到regexp。 */ 
 DEF(Hyphen, "")
 DEF(Other_Math, "")
 DEF(Other_Alphabetic, "")
@@ -209,7 +210,7 @@ DEF(Other_Default_Ignorable_Code_Point, "")
 DEF(Other_ID_Start, "")
 DEF(Other_ID_Continue, "")
 DEF(Prepended_Concatenation_Mark, "")
-/* additional computed properties for smaller tables */
+/*  较小表的其他计算属性。 */ 
 DEF(ID_Continue1, "")
 DEF(XID_Start1, "")
 DEF(XID_Continue1, "")
@@ -217,7 +218,7 @@ DEF(Changes_When_Titlecased1, "")
 DEF(Changes_When_Casefolded1, "")
 DEF(Changes_When_NFKC_Casefolded1, "")
 
-/* Prop list exported to JS */
+/*  道具表导出至JS。 */ 
 DEF(ASCII_Hex_Digit, "AHex")
 DEF(Bidi_Control, "Bidi_C")
 DEF(Dash, "")
@@ -253,7 +254,7 @@ DEF(Default_Ignorable_Code_Point, "DI")
 DEF(ID_Start, "IDS")
 DEF(Case_Ignorable, "CI")
 
-/* other binary properties */
+/*  其他二进制属性。 */ 
 DEF(ASCII,"")
 DEF(Alphabetic, "Alpha")
 DEF(Any, "")
@@ -274,7 +275,7 @@ DEF(Uppercase, "Upper")
 DEF(XID_Continue, "XIDC")
 DEF(XID_Start, "XIDS")
 
-/* internal tables with index */
+/*  带索引的内部表 */ 
 DEF(Cased1, "")
 
 #endif

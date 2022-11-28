@@ -1,4 +1,5 @@
-/* File generated automatically by the QuickJS compiler. */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  由QuickJS编译器自动生成的文件。 */ 
 
 #include <inttypes.h>
 

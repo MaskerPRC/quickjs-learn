@@ -1,34 +1,13 @@
-/*
- * Unicode utilities
- * 
- * Copyright (c) 2017-2018 Fabrice Bellard
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *Unicode实用程序**版权所有(C)2017-2018 Fabrice Bellard**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 #ifndef LIBUNICODE_H
 #define LIBUNICODE_H
 
 #include <inttypes.h>
 
-#define LRE_BOOL  int       /* for documentation purposes */
+#define LRE_BOOL  int       /*  用于文档编制。 */ 
 
-/* define it to include all the unicode tables (40KB larger) */
+/*  将其定义为包括所有Unicode表(大于40KB)。 */ 
 #define CONFIG_ALL_UNICODE
 
 #define LRE_CC_RES_LEN_MAX 3
@@ -44,12 +23,12 @@ int lre_case_conv(uint32_t *res, uint32_t c, int conv_type);
 LRE_BOOL lre_is_cased(uint32_t c);
 LRE_BOOL lre_is_case_ignorable(uint32_t c);
 
-/* char ranges */
+/*  焦炭范围。 */ 
 
 typedef struct {
-    int len; /* in points, always even */
+    int len; /*  在点数上，总是均匀的。 */ 
     int size;
-    uint32_t *points; /* points sorted by increasing value */
+    uint32_t *points; /*  按递增价值排序的点。 */ 
     void *mem_opaque;
     void *(*realloc_func)(void *opaque, void *ptr, size_t size);
 } CharRange;
@@ -110,15 +89,15 @@ int unicode_normalize(uint32_t **pdst, const uint32_t *src, int src_len,
                       UnicodeNormalizationEnum n_type,
                       void *opaque, void *(*realloc_func)(void *opaque, void *ptr, size_t size));
 
-/* Unicode character range functions */
+/*  Unicode字符范围函数。 */ 
 
 int unicode_script(CharRange *cr,
                    const char *script_name, LRE_BOOL is_ext);
 int unicode_general_category(CharRange *cr, const char *gc_name);
 int unicode_prop(CharRange *cr, const char *prop_name);
 
-#endif /* CONFIG_ALL_UNICODE */
+#endif /*  CONFIG_ALL_Unicode。 */ 
 
 #undef LRE_BOOL
 
-#endif /* LIBUNICODE_H */
+#endif /*  LIBUNICODE_H */ 

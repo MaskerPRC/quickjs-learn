@@ -1,3 +1,4 @@
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
 import * as bjson from "../bjson.so";
 
 function assert(b, str)
@@ -105,7 +106,7 @@ function bjson_test_all()
         }, 113, 15);
     }
 
-    /* tested with a circular reference */
+    /*  使用循环引用进行测试 */ 
     obj = {};
     obj.x = obj;
     try {

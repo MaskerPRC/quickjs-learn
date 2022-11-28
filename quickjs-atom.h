@@ -1,31 +1,9 @@
-/*
- * QuickJS atom definitions
- * 
- * Copyright (c) 2017-2018 Fabrice Bellard
- * Copyright (c) 2017-2018 Charlie Gordon
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *QuickJS原子定义**版权所有(C)2017-2018 Fabrice Bellard*版权所有(C)2017-2018查理·戈登**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 
 #ifdef DEF
 
-/* Note: first atoms are considered as keywords in the parser */
+/*  注意：首先，原子在解析器中被视为关键字。 */ 
 DEF(null, "null") /* must be first */
 DEF(false, "false")
 DEF(true, "true")
@@ -55,7 +33,7 @@ DEF(finally, "finally")
 DEF(function, "function")
 DEF(debugger, "debugger")
 DEF(with, "with")
-/* FutureReservedWord */
+/*  未来保留字。 */ 
 DEF(class, "class")
 DEF(const, "const")
 DEF(enum, "enum")
@@ -63,7 +41,7 @@ DEF(export, "export")
 DEF(extends, "extends")
 DEF(import, "import")
 DEF(super, "super")
-/* FutureReservedWords when parsing strict mode code */
+/*  分析严格模式代码时的FutureReserve字。 */ 
 DEF(implements, "implements")
 DEF(interface, "interface")
 DEF(let, "let")
@@ -75,9 +53,9 @@ DEF(static, "static")
 DEF(yield, "yield")
 DEF(await, "await")
 
-/* empty string */
+/*  空串。 */ 
 DEF(empty_string, "")
-/* identifiers */
+/*  识别符。 */ 
 DEF(length, "length")
 DEF(fileName, "fileName")
 DEF(lineNumber, "lineNumber")
@@ -177,7 +155,7 @@ DEF(timed_out, "timed-out")
 DEF(ok, "ok")
 #endif
 DEF(toJSON, "toJSON")
-/* class names */
+/*  类名。 */ 
 DEF(Object, "Object")
 DEF(Array, "Array")
 DEF(Error, "Error")
@@ -195,7 +173,7 @@ DEF(ForInIterator, "ForInIterator")
 DEF(RegExp, "RegExp")
 DEF(ArrayBuffer, "ArrayBuffer")
 DEF(SharedArrayBuffer, "SharedArrayBuffer")
-/* must keep same order as class IDs for typed arrays */
+/*  必须与类型化数组的类ID保持相同的顺序。 */ 
 DEF(Uint8ClampedArray, "Uint8ClampedArray") 
 DEF(Int8Array, "Int8Array")
 DEF(Uint8Array, "Uint8Array")
@@ -241,9 +219,9 @@ DEF(SyntaxError, "SyntaxError")
 DEF(TypeError, "TypeError")
 DEF(URIError, "URIError")
 DEF(InternalError, "InternalError")
-/* private symbols */
+/*  私有符号。 */ 
 DEF(Private_brand, "<brand>")
-/* symbols */
+/*  符号。 */ 
 DEF(Symbol_toPrimitive, "Symbol.toPrimitive")
 DEF(Symbol_iterator, "Symbol.iterator")
 DEF(Symbol_match, "Symbol.match")
@@ -281,4 +259,4 @@ DEF(Symbol_operatorDec, "Symbol.operatorDec")
 DEF(Symbol_operatorMathMod, "Symbol.operatorMathMod")
 #endif
 
-#endif /* DEF */
+#endif /*  DEF */ 

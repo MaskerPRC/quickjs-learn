@@ -1,5 +1,6 @@
-/* Compressed unicode tables */
-/* Automatically generated file - do not edit */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  压缩的Unicode表。 */ 
+/*  自动生成的文件-请勿编辑。 */ 
 
 #include <stdint.h>
 
@@ -4310,4 +4311,4 @@ static const uint16_t unicode_prop_len_table[] = {
     countof(unicode_prop_Case_Ignorable_table),
 };
 
-#endif /* CONFIG_ALL_UNICODE */
+#endif /*  CONFIG_ALL_Unicode */ 

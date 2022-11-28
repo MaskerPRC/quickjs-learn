@@ -1,27 +1,5 @@
-/*
- * Generation of Unicode tables
- * 
- * Copyright (c) 2017-2018 Fabrice Bellard
- * Copyright (c) 2017-2018 Charlie Gordon
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
+/*  *生成Unicode表**版权所有(C)2017-2018 Fabrice Bellard*版权所有(C)2017-2018查理·戈登**现向任何获取复制品的人免费授予许可*本软件及相关文档文件(本软件)，以处理*在软件中不受限制，包括但不限于*使用、复制、修改、合并、发布、分发、再许可和/或销售*软件的副本，并允许软件的接受者*为此而配备的，须符合以下条件：**上述版权声明和本许可声明应包括在*本软件的所有副本或主要部分。**软件按原样提供，不提供任何形式的担保，明示或*默示，包括但不限于适销性保证，*适用于某一特定目的和不侵权。在任何情况下都不应*作者或版权所有者对任何索赔、损害或其他*法律责任，无论是在合同诉讼、侵权诉讼或其他诉讼中，*出于或与软件有关，或与软件的使用或其他交易有关*软件。 */ 
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -33,29 +11,17 @@
 
 #include "cutils.h"
 
-/* define it to be able to test unicode.c */
-//#define USE_TEST
-/* profile tests */
-//#define PROFILE
+/*  将其定义为能够测试unicode.c。 */ 
+//  #定义USE_TEST。
+/*  配置文件测试。 */ 
+//  #定义配置文件。
 
-//#define DUMP_CASE_CONV_TABLE
-//#define DUMP_TABLE_SIZE
-//#define DUMP_CC_TABLE
-//#define DUMP_DECOMP_TABLE
+//  #定义转储案例CONV_TABLE。
+//  #定义转储表格大小。
+//  #定义转储_CC_表。
+//  #定义DUMP_DEMPLE_TABLE。
 
-/* Ideas:
-   - Generalize run length encoding + index for all tables
-   - remove redundant tables for ID_start, ID_continue, Case_Ignorable, Cased
-
-   Case conversion:
-   - use a single entry for consecutive U/LF runs
-   - allow EXT runs of length > 1
-
-   Decomposition:
-   - Greek lower case (+1f10/1f10) ?
-   - allow holes in B runs
-   - suppress more upper / lower case redundancy
-*/
+/*  想法：-对所有表通用游程长度编码+索引-删除ID_START、ID_CONTINUE、CASE_IGNORABLE、CASE的冗余表大小写转换：-对连续的U/LF运行使用单个条目-允许长度大于1的扩展游程分解：-希腊文小写(+1f10/1f10)？-允许在B管路上打洞-抑制更多大写/小写冗余。 */ 
 
 #ifdef USE_TEST
 #include "libunicode.c"
@@ -220,7 +186,7 @@ static const char *unicode_prop_short_name[] = {
 #undef UNICODE_SPROP_LIST
 
 typedef struct {
-    /* case conv */
+    /*  案例转换。 */ 
     uint8_t u_len;
     uint8_t l_len;
     int u_data[CC_LEN_MAX];
@@ -235,7 +201,7 @@ typedef struct {
     uint8_t script_ext_len;
     uint8_t *script_ext;
     uint32_t prop_bitmap_tab[3];
-    /* decomposition */
+    /*  分解。 */ 
     int decomp_len;
     int *decomp_data;
 } CCInfo;
@@ -355,7 +321,7 @@ void parse_unicode_data(const char *filename)
             if (cc != 0) {
                 assert(code <= CHARCODE_MAX);
                 ci->combining_class = cc;
-                //                printf("%05x: %d\n", code, ci->combining_class);
+                //  Printf(“%05x：%d\n”，code，ci-&gt;组合类)；
             }
         }
 
@@ -390,7 +356,7 @@ void parse_unicode_data(const char *filename)
                 printf("\n");
                 count++;
                 d_count += ci->decomp_len;
-                //                printf("%d %d\n", count, d_count);
+                //  Printf(“%d%d\n”，count，d_count)；
             }
 #endif
         }
@@ -400,11 +366,11 @@ void parse_unicode_data(const char *filename)
             set_prop(code, PROP_Bidi_Mirrored, 1);
         }
         
-        /* handle ranges */
+        /*  手柄范围。 */ 
         get_field_buf(buf1, sizeof(buf1), line, 1);
         if (strstr(buf1, " Last>")) {
             int i;
-            //            printf("range: 0x%x-%0x\n", last_code, code);
+            //  Printf(“范围：0x%x-%0x\n”，last_code，code)；
             assert(ci->decomp_len == 0);
             assert(ci->script_ext_len == 0);
             for(i = last_code + 1; i < code; i++) {
@@ -449,7 +415,7 @@ void parse_special_casing(CCInfo *tab, const char *filename)
 
         p = get_field(line, 4);
         if (p) {
-            /* locale dependent casing */
+            /*  区域设置相关的大小写。 */ 
             while (isspace(*p))
                 p++;
             if (*p != '#' && *p != '\0')
@@ -526,7 +492,7 @@ void parse_case_folding(CCInfo *tab, const char *filename)
         p = get_field(line, 1);
         if (!p)
             continue;
-        /* locale dependent casing */
+        /*  区域设置相关的大小写。 */ 
         while (isspace(*p))
             p++;
         if (*p != 'C' && *p != 'S')
@@ -932,10 +898,10 @@ typedef struct {
     int data;
     int ext_len;
     int ext_data[3];
-    int data_index; /* 'data' coming from the table */
+    int data_index; /*  来自该表的‘数据’ */ 
 } TableEntry;
 
-/* code (17), len (7), type (4) */
+/*  代码(17)、镜头(7)、类型(4)。 */ 
 
 void find_run_type(TableEntry *te, CCInfo *tab, int code)
 {
@@ -1080,7 +1046,7 @@ void find_run_type(TableEntry *te, CCInfo *tab, int code)
             abort();
         }
     } else {
-        /* look for a run of identical conversions */
+        /*  寻找一系列相同的转换。 */ 
         len = 0;
         for(;;) {
             if (code >= CHARCODE_MAX || len >= 126)
@@ -1203,7 +1169,7 @@ void build_conv_table(CCInfo *tab)
     }
     conv_table_len = te - conv_table;
 
-    /* find the data index */
+    /*  查找数据索引。 */ 
     for(i = 0; i < conv_table_len; i++) {
         int data_index;
         te = &conv_table[i];
@@ -1240,7 +1206,7 @@ void build_conv_table(CCInfo *tab)
         }
     }
 
-    /* find the data index for ext_data */
+    /*  查找ext_data的数据索引。 */ 
     for(i = 0; i < conv_table_len; i++) {
         te = &conv_table[i];
         if (te->type == RUN_TYPE_U_EXT3) {
@@ -1363,11 +1329,11 @@ void compute_internal_props(void)
                  get_prop(i, PROP_Changes_When_Titlecased) ^ (ci->u_len != 0));
         set_prop(i, PROP_Changes_When_Casefolded1,
                  get_prop(i, PROP_Changes_When_Casefolded) ^ (ci->f_code != 0));
-        /* XXX: reduce table size (438 bytes) */
+        /*  Xxx：减小表大小(438字节)。 */ 
         set_prop(i, PROP_Changes_When_NFKC_Casefolded1,
                  get_prop(i, PROP_Changes_When_NFKC_Casefolded) ^ (ci->f_code != 0));
 #if 0
-        /* TEST */
+        /*  测试。 */ 
 #define M(x) (1U << GCAT_ ## x)
         {
             int b;
@@ -1415,8 +1381,8 @@ void build_prop_table(FILE *f, int prop_index, BOOL add_index)
         }
         n = j - i;
         if (j == (CHARCODE_MAX + 1) && v == 0)
-            break; /* no need to encode last zero run */
-        //printf("%05x: %d %d\n", i, n, v);
+            break; /*  无需对最后一个零游程进行编码。 */ 
+        //  Printf(“%05x：%d%d\n”，i，n，v)；
         dbuf_put_u32(dbuf1, n - 1);
         i += n;
     }
@@ -1426,7 +1392,7 @@ void build_prop_table(FILE *f, int prop_index, BOOL add_index)
     buf = (uint32_t *)dbuf1->buf;
     buf_len = dbuf1->size / sizeof(buf[0]);
     
-    /* the first value is assumed to be 0 */
+    /*  假设第一个值为0。 */ 
     assert(get_prop(0, prop_index) == 0);
     
     block_end_pos = PROP_BLOCK_LEN;
@@ -1436,9 +1402,7 @@ void build_prop_table(FILE *f, int prop_index, BOOL add_index)
     while (i < buf_len) {
         if (add_index && dbuf->size >= block_end_pos && bit == 0) {
             offset = (dbuf->size - block_end_pos);
-            /* XXX: offset could be larger in case of runs of small
-               lengths. Could add code to change the encoding to
-               prevent it at the expense of one byte loss */
+            /*  XXX：如果游程较小，偏移量可能会更大长度。可以添加代码以将编码更改为以一个字节的损失为代价来防止它。 */ 
             assert(offset <= 7);
             v = code | (offset << 21);
             dbuf_putc(dbuf2, v);
@@ -1472,7 +1436,7 @@ void build_prop_table(FILE *f, int prop_index, BOOL add_index)
     }
 
     if (add_index) {
-        /* last index entry */
+        /*  最后一个索引项。 */ 
         v = code;
         dbuf_putc(dbuf2, v);
         dbuf_putc(dbuf2, v >> 8);
@@ -1518,7 +1482,7 @@ void dump_name_table(FILE *f, const char *cname, const char **tab_name, int len,
             maxw = w;
     }
 
-    /* generate a sequence of strings terminated by an empty string */
+    /*  生成以空字符串结尾的字符串序列。 */ 
     fprintf(f, "static const char %s[] =\n", cname);
     for(i = 0; i < len; i++) {
         fprintf(f, "    \"");
@@ -1558,7 +1522,7 @@ void build_general_category_table(FILE *f)
         while (j <= CHARCODE_MAX && unicode_db[j].general_category == v)
             j++;
         n = j - i;
-        /* compress Lu/Ll runs */
+        /*  压缩lu/ll运行。 */ 
         if (v == GCAT_Lu) {
             n1 = 1;
             while ((i + n1) <= CHARCODE_MAX && unicode_db[i + n1].general_category == (v + (n1 & 1))) {
@@ -1569,7 +1533,7 @@ void build_general_category_table(FILE *f)
                 n = n1;
             }
         }
-        //        printf("%05x %05x %d\n", i, n, v);
+        //  Printf(“%05x%05x%d\n”，i，n，v)；
         cw_count++;
         n--;
         cw_start = dbuf->size;
@@ -1639,7 +1603,7 @@ void build_script_table(FILE *f)
         n = j - i;
         if (v == 0 && j == (CHARCODE_MAX + 1))
             break;
-        //        printf("%05x %05x %d\n", i, n, v);
+        //  Printf(“%05x%05x%d\n”，i，n，v)；
         cw_count++;
         n--;
         cw_start = dbuf->size;
@@ -1730,7 +1694,7 @@ void build_script_ext_table(FILE *f)
     dbuf_free(dbuf);
 }
 
-/* the following properties are synthetized so no table is necessary */
+/*  以下属性是综合的，因此不需要表。 */ 
 #define PROP_TABLE_COUNT PROP_ASCII
 
 void build_prop_list_table(FILE *f)
@@ -1741,7 +1705,7 @@ void build_prop_list_table(FILE *f)
         if (i == PROP_ID_Start ||
             i == PROP_Case_Ignorable ||
             i == PROP_ID_Continue1) {
-            /* already generated */
+            /*  已生成。 */ 
         } else {
             build_prop_table(f, i, FALSE);
         }
@@ -1908,7 +1872,7 @@ void build_cc_table(FILE *f)
     for(i = 0; i <= CHARCODE_MAX;) {
         cc = unicode_db[i].combining_class;
         assert(cc <= 255);
-        /* check increasing values */
+        /*  检查递增的值。 */ 
         n = 1;
         while ((i + n) <= CHARCODE_MAX &&
                unicode_db[i + n].combining_class == (cc + n))
@@ -1922,7 +1886,7 @@ void build_cc_table(FILE *f)
                    unicode_db[i + n].combining_class == cc)
                 n++;
         }
-        /* no need to encode the last run */
+        /*  不需要对最后一次运行进行编码。 */ 
         if (cc == 0 && (i + n - 1) == CHARCODE_MAX)
             break;
 #ifdef DUMP_CC_TABLE
@@ -1936,7 +1900,7 @@ void build_cc_table(FILE *f)
         }
         n1 = n - 1;
 
-        /* add an entry to the index if necessary */
+        /*  如有必要，向索引中添加条目。 */ 
         if (dbuf->size >= block_end_pos) {
             v = i | ((dbuf->size - block_end_pos) << 21);
             dbuf_putc(dbuf1, v);
@@ -1965,7 +1929,7 @@ void build_cc_table(FILE *f)
         i += n;
     }
 
-    /* last index entry */
+    /*  最后一个索引项。 */ 
     v = i;
     dbuf_putc(dbuf1, v);
     dbuf_putc(dbuf1, v >> 8);
@@ -1986,32 +1950,32 @@ void build_cc_table(FILE *f)
     dbuf_free(dbuf1);
 }
 
-/* maximum length of decomposition: 18 chars (1), then 8 */
+/*  最大分解长度：18个字符(1)，然后是8个字符。 */ 
 #ifndef USE_TEST
 typedef enum {
-    DECOMP_TYPE_C1, /* 16 bit char */
-    DECOMP_TYPE_L1, /* 16 bit char table */
+    DECOMP_TYPE_C1, /*  16位字符。 */ 
+    DECOMP_TYPE_L1, /*  16位字符表。 */ 
     DECOMP_TYPE_L2,
     DECOMP_TYPE_L3,
     DECOMP_TYPE_L4,
-    DECOMP_TYPE_L5, /* XXX: not used */
-    DECOMP_TYPE_L6, /* XXX: could remove */
-    DECOMP_TYPE_L7, /* XXX: could remove */
-    DECOMP_TYPE_LL1, /* 18 bit char table */
+    DECOMP_TYPE_L5, /*  XXX：未使用。 */ 
+    DECOMP_TYPE_L6, /*  XXX：可以删除。 */ 
+    DECOMP_TYPE_L7, /*  XXX：可以删除。 */ 
+    DECOMP_TYPE_LL1, /*  18位字符表。 */ 
     DECOMP_TYPE_LL2,
-    DECOMP_TYPE_S1, /* 8 bit char table */
+    DECOMP_TYPE_S1, /*  8位字符表。 */ 
     DECOMP_TYPE_S2,
     DECOMP_TYPE_S3,
     DECOMP_TYPE_S4,
     DECOMP_TYPE_S5,
-    DECOMP_TYPE_I1, /* increment 16 bit char value */
+    DECOMP_TYPE_I1, /*  递增16位字符值。 */ 
     DECOMP_TYPE_I2_0,
     DECOMP_TYPE_I2_1,
     DECOMP_TYPE_I3_1,
     DECOMP_TYPE_I3_2,
     DECOMP_TYPE_I4_1,
     DECOMP_TYPE_I4_2,
-    DECOMP_TYPE_B1, /* 16 bit base + 8 bit offset */
+    DECOMP_TYPE_B1, /*  16位基准+8位偏移量。 */ 
     DECOMP_TYPE_B2,
     DECOMP_TYPE_B3,
     DECOMP_TYPE_B4,
@@ -2072,16 +2036,7 @@ const int decomp_incr_tab[4][4] = {
     { DECOMP_TYPE_I4_1, 1, 2, -1 },
 };
 
-/*
-  entry size:
-  type   bits
-  code   18 
-  len    7
-  compat 1
-  type   5
-  index  16
-  total  47
-*/
+/*  条目大小：类型位代码18镜头7比较1类型5索引16总计47。 */ 
 
 typedef struct {
     int code;
@@ -2090,7 +2045,7 @@ typedef struct {
     uint8_t c_len;
     uint16_t c_min;
     uint16_t data_index;
-    int cost; /* size in bytes from this entry to the end */
+    int cost; /*  从该条目到结尾的大小(以字节为单位。 */ 
 } DecompEntry;
 
 int get_decomp_run_size(const DecompEntry *de)
@@ -2098,11 +2053,11 @@ int get_decomp_run_size(const DecompEntry *de)
     int s;
     s = 6;
     if (de->type <= DECOMP_TYPE_C1) {
-        /* nothing more */
+        /*  仅此而已。 */ 
     } else if (de->type <= DECOMP_TYPE_L7) {
         s += de->len * de->c_len * 2;
     } else if (de->type <= DECOMP_TYPE_LL2) {
-        /* 18 bits per char */
+        /*  每字符18位。 */ 
         s += (de->len * de->c_len * 18 + 7) / 8;
     } else if (de->type <= DECOMP_TYPE_S5) {
         s += de->len * de->c_len;
@@ -2126,7 +2081,7 @@ int get_decomp_run_size(const DecompEntry *de)
 
 static const uint16_t unicode_short_table[2] = { 0x2044, 0x2215 };
 
-/* return -1 if not found */
+/*  如果未找到，则返回-1。 */ 
 int get_short_code(int c)
 {
     int i;
@@ -2170,7 +2125,7 @@ static BOOL is_16bit(const int *tab, int len)
 
 static uint32_t to_lower_simple(uint32_t c)
 {
-    /* Latin1 and Cyrillic */
+    /*  拉丁文1和西里尔文。 */ 
     if (c < 0x100 || (c >= 0x410 && c <= 0x42f))
         c += 0x20;
     else
@@ -2178,7 +2133,7 @@ static uint32_t to_lower_simple(uint32_t c)
     return c;
 }
 
-/* select best encoding with dynamic programming */
+/*  用动态规划选择最佳编码。 */ 
 void find_decomp_run(DecompEntry *tab_de, int i)
 {
     DecompEntry de_s, *de = &de_s;
@@ -2192,8 +2147,7 @@ void find_decomp_run(DecompEntry *tab_de, int i)
         return;
     }
 
-    /* the offset for the compose table has only 6 bits, so we must
-       limit if it can be used by the compose table */
+    /*  合成表的偏移量只有6位，所以我们必须如果合成表可以使用它，则限制。 */ 
     if (!ci->is_compat && !ci->is_excluded && l == 2)
         len_max = 64; 
     else
@@ -2217,7 +2171,7 @@ void find_decomp_run(DecompEntry *tab_de, int i)
             if (!((i + n) <= CHARCODE_MAX && n < len_max))
                 break;
             ci1 = &unicode_db[i + n];
-            /* Note: we accept a hole */
+            /*  注：我们接受一个洞。 */ 
             if (!(ci1->decomp_len == 0 ||
                   (ci1->decomp_len == l &&
                    ci1->is_compat == ci->is_compat)))
@@ -2247,7 +2201,7 @@ void find_decomp_run(DecompEntry *tab_de, int i)
             if (!((i + n) <= CHARCODE_MAX && n < len_max))
                 break;
             ci1 = &unicode_db[i + n];
-            /* Note: we accept a hole */
+            /*  注：我们接受一个洞。 */ 
             if (!(ci1->decomp_len == 0 ||
                   (ci1->decomp_len == l &&
                    ci1->is_compat == ci->is_compat &&
@@ -2266,7 +2220,7 @@ void find_decomp_run(DecompEntry *tab_de, int i)
             for(j = 0; j < l; j++) {
                 c = ci1->decomp_data[j];
                 if (c == 0x20) {
-                    /* we accept space for Arabic */
+                    /*  我们接受阿拉伯语的空格。 */ 
                 } else if (c_min == -1) {
                     c_min = c_max = c;
                 } else {
@@ -2298,7 +2252,7 @@ void find_decomp_run(DecompEntry *tab_de, int i)
         }
     }
 
-    /* find an ascii run */
+    /*  找到一个ASCII跑道。 */ 
     if (l <= 5 && is_short_tab(ci->decomp_data, l)) {
         n = 1;
         for(;;) {
@@ -2314,7 +2268,7 @@ void find_decomp_run(DecompEntry *tab_de, int i)
             if (!((i + n) <= CHARCODE_MAX && n < len_max))
                 break;
             ci1 = &unicode_db[i + n];
-            /* Note: we accept a hole */
+            /*  注：我们接受一个洞。 */ 
             if (!(ci1->decomp_len == 0 ||
                   (ci1->decomp_len == l &&
                    ci1->is_compat == ci->is_compat &&
@@ -2324,7 +2278,7 @@ void find_decomp_run(DecompEntry *tab_de, int i)
         }
     }
 
-    /* check if a single char is increasing */
+    /*  检查单个字符是否在增加。 */ 
     if (l <= 4) {
         int idx1, idx;
         
@@ -2616,7 +2570,7 @@ void build_decompose_table(FILE *f)
         find_decomp_run(tab_de, i);
     }
 
-    /* build the data buffer */
+    /*  构建数据缓冲区。 */ 
     data_buf = malloc(100000);
     data_len = 0;
     array_len = 0;
@@ -2630,7 +2584,7 @@ void build_decompose_table(FILE *f)
     }
 
 #ifdef DUMP_DECOMP_TABLE
-    /* dump */
+    /*  倾卸。 */ 
     {
         int size, size1;
         
@@ -2827,7 +2781,7 @@ void check_decompose_table(void)
 void check_compose_table(void)
 {
     int i, p;
-    /* XXX: we don't test all the cases */
+    /*  XXX：我们不会测试所有的案例。 */ 
 
     for(i = 0; i <= CHARCODE_MAX; i++) {
         CCInfo *ci = &unicode_db[i];
@@ -2884,7 +2838,7 @@ void check_cc_table(void)
     
         ti = get_time_ns();
         count = 0;
-        /* only do it on meaningful chars */
+        /*  仅对有意义的字符执行此操作。 */ 
         for(c = 0x20; c <= 0xffff; c++) {
             cc_ref = unicode_db[c].combining_class;
             cc = unicode_get_cc(c);
@@ -2926,7 +2880,7 @@ void normalization_test(const char *filename)
         nfkc_str = get_field_str(&nfkc_len, p, 3);
         nfkd_str = get_field_str(&nfkd_len, p, 4);
 
-        //        dump_str("in", in_str, in_len);
+        //  Dump_str(“in”，in_str，in_len)；
 
         buf_len = unicode_normalize((uint32_t **)&buf, (uint32_t *)in_str, in_len, UNICODE_NFD, NULL, NULL);
         check_str("nfd", pos, in_str, in_len, buf, buf_len, nfd_str, nfd_len);
@@ -3006,11 +2960,11 @@ int main(int argc, char **argv)
              unicode_db_path);
     parse_prop_list(filename);
 
-    //    dump_data(unicode_db);
+    //  转储数据(Unicode_Db)；
 
     build_conv_table(unicode_db);
     
-    //    dump_table();
+    //  转储表格()；
 
     if (!outfilename) {
 #ifdef USE_TEST

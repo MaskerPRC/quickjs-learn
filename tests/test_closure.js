@@ -1,3 +1,4 @@
+// THIS_SOURCES_HAS_BEEN_TRANSLATED 
 function assert(actual, expected, message) {
     if (arguments.length == 1)
         expected = true;
@@ -15,10 +16,10 @@ function assert(actual, expected, message) {
                 (message ? " (" + message + ")" : ""));
 }
 
-// load more elaborate version of assert if available
+//  加载更精细的Assert版本(如果可用)。
 try { __loadScript("test_assert.js"); } catch(e) {}
 
-/*----------------*/
+/*   */ 
 
 var log_str = "";
 
